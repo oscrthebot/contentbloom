@@ -1,7 +1,8 @@
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowRight, Check, Star, ChevronRight, TrendingUp, Zap, Globe } from "lucide-react";
+import { ArrowRight, Check, ChevronRight, TrendingUp, Zap, Globe } from "lucide-react";
 import { FeaturesSection } from "./features-section";
+import { TestimonialsCarousel } from "./testimonials-carousel";
 
 // ─── NAV ──────────────────────────────────────────────────────────────────────
 
@@ -10,8 +11,8 @@ function Nav() {
     <nav className="nav">
       <div className="nav-inner">
         <Link href="/" style={{ display: "flex", alignItems: "center", gap: 10, textDecoration: "none" }}>
-          <Image src="/rocket.svg" alt="ContentBloom" width={28} height={28} style={{ imageRendering: "pixelated" }} />
-          <span style={{ fontWeight: 700, fontSize: 15, color: "var(--t1)", letterSpacing: "-0.01em" }}>ContentBloom</span>
+          <Image src="/rocket.svg" alt="BloomContent" width={28} height={28} style={{ imageRendering: "pixelated" }} />
+          <span style={{ fontWeight: 700, fontSize: 15, color: "var(--t1)", letterSpacing: "-0.01em" }}>BloomContent</span>
         </Link>
 
         <div style={{ display: "flex", alignItems: "center", gap: 32, fontSize: 13, color: "var(--t2)" }} className="hide-mobile">
@@ -81,7 +82,7 @@ function Hero() {
         </div>
 
         <p style={{ fontSize: 12, color: "var(--t3)" }}>
-          Trusted by 500+ e-commerce stores · No credit card required
+          No credit card required · Cancel anytime
         </p>
       </div>
 
@@ -208,9 +209,9 @@ function HowItWorks() {
 
 function Stats() {
   const stats = [
-    { v:"340%",  l:"Average traffic\nincrease in 90 days" },
-    { v:"€0.08", l:"Cost per article vs\n€300+ with agencies" },
-    { v:"500+",  l:"Shopify stores already\ngrowing with us" },
+    { v:"340%",   l:"Average organic traffic\nincrease in 90 days" },
+    { v:"€1.63",  l:"Per article on Starter plan —\nvs €50+ with agencies" },
+    { v:"30/mo",  l:"SEO articles published\nautomatically every month" },
     { v:"4–8 wks",l:"Average time to\nfirst Google ranking" },
   ];
   return (
@@ -233,12 +234,12 @@ function Stats() {
 
 function Pricing() {
   const plans = [
-    { name:"Starter", price:"€49", freq:"1 article / day", desc:"Perfect for new stores starting content marketing",
-      features:["30 SEO articles per month","Shopify auto-publish","Keyword research included","Meta descriptions & tags","1 revision per article","Email support"], featured:false },
-    { name:"Growth",  price:"€99", freq:"3 articles / day", desc:"For established stores ready to dominate search",
-      features:["90 SEO articles per month","Shopify auto-publish","Advanced keyword clustering","Internal linking strategy","Unlimited revisions","Priority support","Monthly performance report"], featured:true },
-    { name:"Scale",  price:"€149", freq:"5 articles / day", desc:"Maximum velocity for high-growth brands",
-      features:["150 SEO articles per month","Shopify auto-publish","Competitor gap analysis","Topic cluster strategy","Unlimited revisions","Dedicated account manager","Weekly performance calls"], featured:false },
+    { name:"Starter", price:"€49", perArticle:"€1.63/article", freq:"1 article / day", desc:"Perfect for new stores starting content marketing",
+      features:["30 SEO articles per month","Keyword research included","Meta descriptions & tags","1 revision per article","Email support"], featured:false },
+    { name:"Growth",  price:"€99", perArticle:"€1.10/article", freq:"3 articles / day", desc:"For established stores ready to dominate search",
+      features:["90 SEO articles per month","Advanced keyword clustering","Internal linking strategy","Unlimited revisions","Priority support","Monthly performance report"], featured:true },
+    { name:"Scale",  price:"€149", perArticle:"€0.99/article", freq:"5 articles / day", desc:"Maximum velocity for high-growth brands",
+      features:["150 SEO articles per month","Competitor gap analysis","Topic cluster strategy","Unlimited revisions","Dedicated account manager","Weekly performance calls"], featured:false },
   ];
   return (
     <section id="pricing" className="section-default section-divider">
@@ -264,7 +265,8 @@ function Pricing() {
                 <span style={{ fontSize: 44, fontWeight: 700, color: "var(--t1)", letterSpacing: "-0.02em" }}>{p.price}</span>
                 <span style={{ fontSize: 14, color: "var(--t3)" }}>/mo</span>
               </div>
-              <p style={{ fontSize: 12, fontWeight: 600, color: "var(--accent)", marginBottom: 12 }}>{p.freq}</p>
+              <p style={{ fontSize: 12, fontWeight: 600, color: "var(--accent)", marginBottom: 2 }}>{p.freq}</p>
+              <p style={{ fontSize: 11, color: "var(--t3)", marginBottom: 12 }}>{p.perArticle}</p>
               <p style={{ fontSize: 13, color: "var(--t2)", lineHeight: 1.6, marginBottom: 28 }}>{p.desc}</p>
               <ul style={{ listStyle: "none", display: "flex", flexDirection: "column", gap: 12, marginBottom: 32, flex: 1 }}>
                 {p.features.map((f, j) => (
@@ -289,48 +291,6 @@ function Pricing() {
   );
 }
 
-// ─── TESTIMONIALS ──────────────────────────────────────────────────────────────
-
-function Testimonials() {
-  const items = [
-    { q: "We went from zero blog posts to ranking page 1 for 12 keywords in 3 months. ContentBloom is the best €99 we spend every month.", n: "Maria T.", r: "Founder, FitnessPro Store", photo: "https://i.pravatar.cc/96?img=44" },
-    { q: "I was skeptical about AI content but the articles are genuinely good. Our organic traffic is up 280% and we haven't touched the blog ourselves.", n: "James K.", r: "Owner, The Outdoor Co.", photo: "https://i.pravatar.cc/96?img=67" },
-    { q: "ContentBloom writes better product-focused SEO content than the agency we were paying €2,000/month for. It's honestly embarrassing how good it is.", n: "Sophie L.", r: "Director, Luxe Beauty", photo: "https://i.pravatar.cc/96?img=5" },
-  ];
-  return (
-    <section className="section-warm section-divider">
-      <div className="container">
-        <div style={{ textAlign: "center", marginBottom: "3.5rem" }}>
-          <p className="label" style={{ marginBottom: 12 }}>Testimonials</p>
-          <h2 style={{ fontSize: "clamp(30px,4vw,48px)", fontWeight: 700, letterSpacing: "-0.025em", lineHeight: 1.1, color: "var(--t1)" }}>
-            Stores growing with<br />ContentBloom
-          </h2>
-        </div>
-        <div className="grid-3">
-          {items.map((x, i) => (
-            <div key={i} className="card" style={{ padding: "36px 32px", display: "flex", flexDirection: "column", boxShadow: "var(--shadow-sm)" }}>
-              <div style={{ display: "flex", gap: 2, marginBottom: 24 }}>
-                {[...Array(5)].map((_,j) => <Star key={j} size={13} style={{ fill:"var(--accent)", color:"var(--accent)" }} />)}
-              </div>
-              <p style={{ fontSize: 14, lineHeight: 1.75, color: "var(--t1)", flex: 1, marginBottom: 28 }}>&ldquo;{x.q}&rdquo;</p>
-              <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-                <Image
-                  src={x.photo} alt={x.n} width={40} height={40}
-                  style={{ borderRadius: "50%", objectFit: "cover", flexShrink: 0 }}
-                />
-                <div>
-                  <p style={{ fontSize: 14, fontWeight: 600, color: "var(--t1)" }}>{x.n}</p>
-                  <p style={{ fontSize: 12, color: "var(--t3)" }}>{x.r}</p>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
 // ─── CTA ───────────────────────────────────────────────────────────────────────
 
 function CTA() {
@@ -345,7 +305,7 @@ function CTA() {
               Ready to grow your store&apos;s<br />organic traffic?
             </h2>
             <p style={{ fontSize: 17, color: "var(--t2)", maxWidth: 420, margin: "0 auto 40px" }}>
-              Join 500+ Shopify stores getting daily SEO content. Start with 2 free articles.
+              Daily SEO content for your Shopify store, fully automated. Start with 2 free articles.
             </p>
             <Link href="/signup" className="btn btn-dark" style={{ fontSize: 15, padding: "14px 30px", display: "inline-flex" }}>
               Get 2 Free Articles <ArrowRight size={16} />
@@ -364,15 +324,15 @@ function Footer() {
     <footer style={{ background: "var(--bg)", borderTop: "1px solid var(--border)", padding: "40px 0" }}>
       <div className="container" style={{ display: "flex", flexWrap: "wrap", alignItems: "center", justifyContent: "space-between", gap: 20 }}>
         <Link href="/" style={{ display: "flex", alignItems: "center", gap: 8, textDecoration: "none" }}>
-          <Image src="/rocket.svg" alt="ContentBloom" width={22} height={22} style={{ imageRendering: "pixelated" }} />
-          <span style={{ fontWeight: 700, fontSize: 14, color: "var(--t1)" }}>ContentBloom</span>
+          <Image src="/rocket.svg" alt="BloomContent" width={22} height={22} style={{ imageRendering: "pixelated" }} />
+          <span style={{ fontWeight: 700, fontSize: 14, color: "var(--t1)" }}>BloomContent</span>
         </Link>
         <div style={{ display: "flex", gap: 28 }}>
-          {["Privacy","Terms","Contact"].map(l => (
-            <Link key={l} href={l==="Contact"?"mailto:hello@bloomcontent.site":"#"} style={{ fontSize: 13, color: "var(--t3)", textDecoration: "none" }}>{l}</Link>
+          {[["Privacy","/privacy"],["Terms","/terms"],["Contact","/contact"]].map(([l,href]) => (
+            <Link key={l} href={href} style={{ fontSize: 13, color: "var(--t3)", textDecoration: "none" }}>{l}</Link>
           ))}
         </div>
-        <p style={{ fontSize: 12, color: "var(--t3)" }}>© 2026 ContentBloom. All rights reserved.</p>
+        <p style={{ fontSize: 12, color: "var(--t3)" }}>© 2026 BloomContent. All rights reserved.</p>
       </div>
     </footer>
   );
@@ -390,7 +350,7 @@ export default function HomePage() {
       <HowItWorks />
       <Stats />
       <Pricing />
-      <Testimonials />
+      <TestimonialsCarousel />
       <CTA />
       <Footer />
     </main>

@@ -76,6 +76,21 @@ export function FeaturesSection() {
           </div>
         </div>
 
+        {/* Shopify Coming Soon card */}
+        <div className="card" style={{ padding: "28px 32px", marginBottom: "2rem", display: "flex", alignItems: "center", gap: 20, background: "rgba(149,191,71,.06)", border: "1px solid rgba(149,191,71,.25)" }}>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="https://cdn.simpleicons.org/shopify/95bf47" alt="Shopify" width={40} height={40} style={{ flexShrink: 0 }} />
+          <div style={{ flex: 1 }}>
+            <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 6 }}>
+              <h4 style={{ fontSize: 16, fontWeight: 700, color: "var(--t1)" }}>Publish automatically to Shopify</h4>
+              <span style={{ fontSize: 10, fontWeight: 700, letterSpacing: ".06em", textTransform: "uppercase", background: "#95bf47", color: "#fff", padding: "2px 8px", borderRadius: 100 }}>Coming Soon</span>
+            </div>
+            <p style={{ fontSize: 13, color: "var(--t2)", lineHeight: 1.6 }}>
+              One-click connection. Every article goes live on your Shopify blog with proper tags, meta descriptions, and internal links — no manual publishing, ever.
+            </p>
+          </div>
+        </div>
+
         {/* 4 benefit cards */}
         <div className="grid-4">
           {BENEFITS.map((b, i) => (
