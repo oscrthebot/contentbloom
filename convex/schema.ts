@@ -88,6 +88,29 @@ export default defineSchema({
     .index("by_lead", ["leadId"])
     .index("by_type", ["type"]),
 
+  // Outreach preview articles — for cold email landing pages
+  previewArticles: defineTable({
+    slug: v.string(),
+    title: v.string(),
+    targetSite: v.string(),
+    businessName: v.string(),
+    preview: v.string(),   // first ~120 words shown freely
+    content: v.string(),   // full article, revealed after email unlock
+    keyword: v.string(),
+    seoScore: v.number(),
+    wordCount: v.number(),
+    createdAt: v.number(),
+  }).index("by_slug", ["slug"]),
+
+  // Emails of people who unlocked an article
+  articleUnlocks: defineTable({
+    slug: v.string(),
+    email: v.string(),
+    unlockedAt: v.number(),
+  })
+    .index("by_slug", ["slug"])
+    .index("by_email", ["email"]),
+
   // Daily reports
   reports: defineTable({
     date: v.string(),
