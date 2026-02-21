@@ -1,5 +1,6 @@
 "use client";
 
+import React from "react";
 import { useQuery, useMutation } from "convex/react";
 import { api } from "../../../convex/_generated/api";
 import { useParams } from "next/navigation";
@@ -8,6 +9,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, Lock, Unlock, Check, ChevronRight } from "lucide-react";
 import { TrafficChart } from "./TrafficChart";
+import { BannerCard, Banner } from "./BannerCard";
 
 function Skeleton() {
   return (
@@ -54,8 +56,25 @@ function renderLine(line: string, key: number) {
   );
 }
 
-function renderContent(text: string) {
-  return text.split("\n").map((line, i) => renderLine(line, i));
+function renderContent(text: string, banners?: Banner[]) {
+  const lines = text.split("\n");
+  const result: React.ReactNode[] = [];
+  lines.forEach((line, i) => {
+    result.push(renderLine(line, i));
+    // Inject banner after matching heading
+    if (banners && (line.startsWith("## ") || line.startsWith("### "))) {
+      const headingText = line.replace(/^#+\s+/, "").trim();
+      const match = banners.find(b => b.insertAfterHeading.toLowerCase() === headingText.toLowerCase());
+      if (match) result.push(<BannerCard key={`banner-${i}`} banner={match} />);
+    }
+    // Inject END banners at the last line
+    if (banners && i === lines.length - 1) {
+      banners.filter(b => b.insertAfterHeading === "END").forEach((b, j) =>
+        result.push(<BannerCard key={`banner-end-${j}`} banner={b} />)
+      );
+    }
+  });
+  return result;
 }
 
 export default function ArticlePreviewPage() {
@@ -209,8 +228,8 @@ export default function ArticlePreviewPage() {
               <span style={{ fontSize: 13, fontWeight: 600, color: "var(--accent)" }}>Article unlocked — enjoy the full read</span>
             </div>
 
-            {/* Full article content */}
-            {renderContent(fullContent)}
+            {/* Full article content with inline banners */}
+            {renderContent(fullContent, article.banners as Banner[] | undefined)}
 
             {/* CTA after reading */}
             <div className="card" style={{ padding: "40px 36px", textAlign: "center", marginTop: 56, background: "var(--bg-section)" }}>

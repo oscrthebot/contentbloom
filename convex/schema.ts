@@ -100,8 +100,19 @@ export default defineSchema({
     keyword: v.string(),
     seoScore: v.number(),
     wordCount: v.number(),
-    keywordMonthlyVolume: v.optional(v.number()),    // primary keyword monthly searches
-    keywordRelatedVolume: v.optional(v.number()),    // cluster of related keywords
+    keywordMonthlyVolume: v.optional(v.number()),
+    keywordRelatedVolume: v.optional(v.number()),
+    banners: v.optional(v.array(v.object({
+      type: v.union(v.literal("product"), v.literal("newsletter"), v.literal("cta"), v.literal("pricing")),
+      insertAfterHeading: v.string(),  // exact H2/H3 text to insert after, or "END"
+      title: v.string(),
+      description: v.string(),
+      ctaText: v.string(),
+      ctaUrl: v.string(),
+      imageUrl: v.optional(v.string()),
+      price: v.optional(v.string()),
+      badge: v.optional(v.string()),
+    }))),
     createdAt: v.number(),
   }).index("by_slug", ["slug"]),
 

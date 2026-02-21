@@ -24,6 +24,7 @@ export const getBySlug = query({
       wordCount: article.wordCount,
       keywordMonthlyVolume: article.keywordMonthlyVolume,
       keywordRelatedVolume: article.keywordRelatedVolume,
+      banners: article.banners,
     };
   },
 });
@@ -72,6 +73,17 @@ export const seed = mutation({
     wordCount: v.number(),
     keywordMonthlyVolume: v.optional(v.number()),
     keywordRelatedVolume: v.optional(v.number()),
+    banners: v.optional(v.array(v.object({
+      type: v.union(v.literal("product"), v.literal("newsletter"), v.literal("cta"), v.literal("pricing")),
+      insertAfterHeading: v.string(),
+      title: v.string(),
+      description: v.string(),
+      ctaText: v.string(),
+      ctaUrl: v.string(),
+      imageUrl: v.optional(v.string()),
+      price: v.optional(v.string()),
+      badge: v.optional(v.string()),
+    }))),
   },
   handler: async (ctx, args) => {
     const existing = await ctx.db
