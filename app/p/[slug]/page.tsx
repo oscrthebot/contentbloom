@@ -6,7 +6,7 @@ import { useParams } from "next/navigation";
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, Lock, Unlock, Check, ChevronRight } from "lucide-react";
+import { ArrowRight, Lock, Unlock, Check, ChevronRight, Download } from "lucide-react";
 
 function Skeleton() {
   return (
@@ -27,6 +27,36 @@ function NotFound() {
   );
 }
 
+// Render a single line of markdown-lite
+function renderLine(line: string, key: number) {
+  if (line.startsWith("## "))
+    return <h2 key={key} style={{ fontSize: 20, fontWeight: 800, color: "var(--t1)", margin: "32px 0 12px", letterSpacing: "-0.02em" }}>{line.slice(3)}</h2>;
+  if (line.startsWith("### "))
+    return <h3 key={key} style={{ fontSize: 16, fontWeight: 700, color: "var(--t1)", margin: "24px 0 8px" }}>{line.slice(4)}</h3>;
+  if (line.startsWith("• ") || line.startsWith("- "))
+    return (
+      <div key={key} style={{ display: "flex", gap: 10, marginBottom: 8 }}>
+        <Check size={14} style={{ color: "var(--accent)", marginTop: 3, flexShrink: 0 }} />
+        <span style={{ fontSize: 15, color: "var(--t2)", lineHeight: 1.7 }}>{line.slice(2)}</span>
+      </div>
+    );
+  if (line.trim() === "") return <div key={key} style={{ height: 12 }} />;
+  const parts = line.split(/(\*\*[^*]+\*\*)/g);
+  return (
+    <p key={key} style={{ fontSize: 15, color: "var(--t2)", lineHeight: 1.8, marginBottom: 4 }}>
+      {parts.map((p, j) =>
+        p.startsWith("**") && p.endsWith("**")
+          ? <strong key={j} style={{ color: "var(--t1)", fontWeight: 700 }}>{p.slice(2, -2)}</strong>
+          : p
+      )}
+    </p>
+  );
+}
+
+function renderContent(text: string) {
+  return text.split("\n").map((line, i) => renderLine(line, i));
+}
+
 export default function ArticlePreviewPage() {
   const { slug } = useParams<{ slug: string }>();
   const article = useQuery(api.preview.getBySlug, { slug });
@@ -43,8 +73,7 @@ export default function ArticlePreviewPage() {
   async function handleUnlock(e: React.FormEvent) {
     e.preventDefault();
     if (!email || !email.includes("@")) { setError("Please enter a valid email."); return; }
-    setLoading(true);
-    setError("");
+    setLoading(true); setError("");
     try {
       const result = await unlockMutation({ slug, email });
       setFullContent(result.content);
@@ -55,31 +84,10 @@ export default function ArticlePreviewPage() {
     }
   }
 
-  // Render markdown-lite: bold, headers
-  function renderContent(text: string) {
-    return text.split("\n").map((line, i) => {
-      if (line.startsWith("## ")) return <h2 key={i} style={{ fontSize: 20, fontWeight: 800, color: "var(--t1)", margin: "32px 0 12px", letterSpacing: "-0.02em" }}>{line.slice(3)}</h2>;
-      if (line.startsWith("### ")) return <h3 key={i} style={{ fontSize: 16, fontWeight: 700, color: "var(--t1)", margin: "24px 0 8px" }}>{line.slice(4)}</h3>;
-      if (line.startsWith("• ") || line.startsWith("- ")) return (
-        <div key={i} style={{ display: "flex", gap: 10, marginBottom: 8 }}>
-          <Check size={14} style={{ color: "var(--accent)", marginTop: 3, flexShrink: 0 }} />
-          <span style={{ fontSize: 15, color: "var(--t2)", lineHeight: 1.7 }}>{line.slice(2)}</span>
-        </div>
-      );
-      if (line.trim() === "") return <div key={i} style={{ height: 12 }} />;
-      // Bold: **text**
-      const parts = line.split(/(\*\*[^*]+\*\*)/g);
-      return (
-        <p key={i} style={{ fontSize: 15, color: "var(--t2)", lineHeight: 1.8, marginBottom: 4 }}>
-          {parts.map((p, j) =>
-            p.startsWith("**") && p.endsWith("**")
-              ? <strong key={j} style={{ color: "var(--t1)", fontWeight: 700 }}>{p.slice(2, -2)}</strong>
-              : p
-          )}
-        </p>
-      );
-    });
-  }
+  // Split preview lines to apply blur to last meaningful paragraph
+  const previewLines = article.preview.split("\n");
+  let lastMeaningfulIdx = previewLines.length - 1;
+  while (lastMeaningfulIdx > 0 && previewLines[lastMeaningfulIdx].trim() === "") lastMeaningfulIdx--;
 
   return (
     <>
@@ -87,10 +95,13 @@ export default function ArticlePreviewPage() {
         @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.5} }
         @keyframes fade-up { from{opacity:0;transform:translateY(16px)} to{opacity:1;transform:translateY(0)} }
         .fade-in { animation: fade-up .45s ease both; }
+        .unlock-btn { width: 100%; padding: 14px 24px; border-radius: 100px; background: var(--t1); color: #fff; font-size: 15px; font-weight: 700; cursor: pointer; border: none; display: flex; align-items: center; justify-content: center; gap: 8px; transition: opacity .15s, transform .1s; }
+        .unlock-btn:hover { opacity: .88; transform: translateY(-1px); }
+        .unlock-btn:disabled { opacity: .6; cursor: not-allowed; }
       `}</style>
 
       {/* Nav */}
-      <nav style={{ position: "fixed", top: 0, left: 0, right: 0, height: 60, background: "rgba(249,248,248,.9)", backdropFilter: "blur(12px)", borderBottom: "1px solid var(--border)", zIndex: 100, display: "flex", alignItems: "center", padding: "0 24px", justifyContent: "space-between" }}>
+      <nav style={{ position: "fixed", top: 0, left: 0, right: 0, height: 60, background: "rgba(249,248,248,.92)", backdropFilter: "blur(12px)", borderBottom: "1px solid var(--border)", zIndex: 100, display: "flex", alignItems: "center", padding: "0 24px", justifyContent: "space-between" }}>
         <Link href="/" style={{ display: "flex", alignItems: "center", gap: 8, textDecoration: "none" }}>
           <Image src="/rocket.svg" alt="ContentBloom" width={24} height={24} style={{ imageRendering: "pixelated" }} />
           <span style={{ fontWeight: 700, fontSize: 14, color: "var(--t1)" }}>ContentBloom</span>
@@ -100,7 +111,24 @@ export default function ArticlePreviewPage() {
         </Link>
       </nav>
 
-      <main style={{ maxWidth: 720, margin: "0 auto", padding: "96px 24px 80px" }}>
+      <main style={{ maxWidth: 720, margin: "0 auto", padding: "88px 24px 80px" }}>
+
+        {/* Business logo card — personalises the page */}
+        <div className="fade-in" style={{ display: "flex", alignItems: "center", gap: 14, marginBottom: 32, padding: "14px 20px", background: "#fff", border: "1px solid var(--border)", borderRadius: 14, width: "fit-content", boxShadow: "var(--shadow-sm)" }}>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={`https://logo.clearbit.com/${article.targetSite}`}
+            alt={article.businessName}
+            width={36}
+            height={36}
+            style={{ borderRadius: 8, objectFit: "contain" }}
+            onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = "none"; }}
+          />
+          <div>
+            <p style={{ fontSize: 11, color: "var(--t3)", fontWeight: 500, marginBottom: 1 }}>A free SEO article written for</p>
+            <p style={{ fontSize: 14, fontWeight: 700, color: "var(--t1)" }}>{article.businessName} <span style={{ color: "var(--t3)", fontWeight: 400 }}>· {article.targetSite}</span></p>
+          </div>
+        </div>
 
         {/* Meta badges */}
         <div className="fade-in" style={{ display: "flex", gap: 8, flexWrap: "wrap", marginBottom: 20 }}>
@@ -111,53 +139,69 @@ export default function ArticlePreviewPage() {
             {article.wordCount.toLocaleString()} words
           </span>
           <span style={{ fontSize: 11, color: "var(--t3)", padding: "3px 10px", border: "1px solid var(--border)", borderRadius: 100 }}>
-            Written for {article.businessName}
+            Target: &ldquo;{article.keyword}&rdquo;
           </span>
         </div>
 
         {/* Title */}
-        <h1 className="fade-in" style={{ fontSize: "clamp(26px,4vw,42px)", fontWeight: 800, letterSpacing: "-0.03em", lineHeight: 1.15, color: "var(--t1)", marginBottom: 24 }}>
+        <h1 className="fade-in" style={{ fontSize: "clamp(26px,4vw,42px)", fontWeight: 800, letterSpacing: "-0.03em", lineHeight: 1.15, color: "var(--t1)", marginBottom: 28 }}>
           {article.title}
         </h1>
-
-        {/* Preview text */}
-        <div className="fade-in" style={{ marginBottom: 0 }}>
-          {renderContent(article.preview)}
-        </div>
 
         {/* Gate or full content */}
         {!fullContent ? (
           <>
-            {/* Fade overlay */}
-            <div style={{ position: "relative", height: 80, marginBottom: 0, background: "linear-gradient(to bottom, transparent, var(--bg))", pointerEvents: "none" }} />
+            {/* Preview — all lines except last rendered normally */}
+            <div className="fade-in">
+              {previewLines.map((line, i) => {
+                if (i === lastMeaningfulIdx) return null; // rendered below with blur
+                return renderLine(line, i);
+              })}
+            </div>
+
+            {/* Last paragraph — blurred/faded, tantalising */}
+            <div style={{
+              position: "relative",
+              userSelect: "none",
+              pointerEvents: "none",
+              WebkitMaskImage: "linear-gradient(to bottom, black 0%, transparent 75%)",
+              maskImage: "linear-gradient(to bottom, black 0%, transparent 75%)",
+            }}>
+              <div style={{ filter: "blur(3px)", opacity: 0.6 }}>
+                {renderLine(previewLines[lastMeaningfulIdx], lastMeaningfulIdx)}
+              </div>
+            </div>
 
             {/* Email gate card */}
-            <div className="fade-in card" style={{ padding: "36px 32px", textAlign: "center", marginBottom: 48 }}>
+            <div className="fade-in card" style={{ padding: "36px 32px", textAlign: "center", marginTop: 8, marginBottom: 48 }}>
               <div style={{ width: 48, height: 48, borderRadius: 12, background: "var(--accent-lt)", display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 16px" }}>
                 <Lock size={20} style={{ color: "var(--accent)" }} />
               </div>
               <h3 style={{ fontSize: 20, fontWeight: 800, color: "var(--t1)", marginBottom: 8, letterSpacing: "-0.02em" }}>
                 Read the full article — free
               </h3>
-              <p style={{ fontSize: 14, color: "var(--t2)", marginBottom: 24, maxWidth: 380, margin: "0 auto 24px" }}>
-                Enter your email and the full article is yours — no account, no credit card.
+              <p style={{ fontSize: 14, color: "var(--t2)", maxWidth: 380, margin: "0 auto 24px" }}>
+                Enter your email and the full article is yours — no account, no credit card, no strings.
               </p>
-              <form onSubmit={handleUnlock} style={{ display: "flex", gap: 8, maxWidth: 420, margin: "0 auto", flexWrap: "wrap" }}>
+              <form onSubmit={handleUnlock} style={{ display: "flex", flexDirection: "column", gap: 10, maxWidth: 380, margin: "0 auto" }}>
                 <input
                   type="email"
-                  placeholder="you@yourstore.com"
+                  placeholder="you@yourcompany.com"
                   value={email}
                   onChange={e => setEmail(e.target.value)}
-                  style={{ flex: 1, minWidth: 200, padding: "11px 16px", borderRadius: 10, border: "1px solid var(--border-md)", fontSize: 14, background: "var(--bg)", color: "var(--t1)", outline: "none" }}
+                  style={{ padding: "13px 18px", borderRadius: 10, border: "1px solid var(--border-md)", fontSize: 14, background: "var(--bg)", color: "var(--t1)", outline: "none", textAlign: "center" }}
                   required
                 />
-                <button type="submit" disabled={loading} className="btn btn-dark" style={{ fontSize: 14, padding: "11px 22px" }}>
-                  {loading ? "Unlocking…" : <>Unlock <Unlock size={14} /></>}
+                <button type="submit" disabled={loading} className="unlock-btn">
+                  {loading
+                    ? "Unlocking…"
+                    : <><Download size={16} /> Read &amp; download the full article — free</>
+                  }
                 </button>
               </form>
               {error && <p style={{ fontSize: 13, color: "#dc2626", marginTop: 12 }}>{error}</p>}
-              <p style={{ fontSize: 12, color: "var(--t3)", marginTop: 16 }}>
-                We&apos;ll only use your email to send you relevant articles. No spam.
+              <p style={{ fontSize: 12, color: "var(--t3)", marginTop: 14 }}>
+                No spam. We&apos;ll only use your email to send you relevant articles.
               </p>
             </div>
           </>
@@ -178,8 +222,8 @@ export default function ArticlePreviewPage() {
               <h3 style={{ fontSize: 24, fontWeight: 800, color: "var(--t1)", letterSpacing: "-0.02em", marginBottom: 12 }}>
                 Get one article like this<br />every day, automatically
               </h3>
-              <p style={{ fontSize: 15, color: "var(--t2)", marginBottom: 28, maxWidth: 380, margin: "0 auto 28px" }}>
-                ContentBloom writes and publishes daily SEO articles to {article.targetSite}. Automated, optimized, done for you.
+              <p style={{ fontSize: 15, color: "var(--t2)", maxWidth: 380, margin: "0 auto 28px" }}>
+                ContentBloom writes and publishes daily SEO articles for {article.businessName}. Automated, keyword-researched, done for you.
               </p>
               <Link href="/#pricing" className="btn btn-dark" style={{ fontSize: 15, padding: "13px 28px" }}>
                 See Plans — from €49/mo <ChevronRight size={15} />
