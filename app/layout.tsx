@@ -2,29 +2,17 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 
-const inter = Inter({
-  subsets: ["latin"],
-  variable: "--font-inter",
-});
+const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 
 export const metadata: Metadata = {
   title: "ContentBloom — AI Blog Content for Shopify Stores",
-  description: "We find Shopify stores with no blog, write daily SEO articles, and drive organic traffic that converts. Starting at €49/month.",
-  openGraph: {
-    title: "ContentBloom — AI Blog Content for Shopify Stores",
-    description: "Daily SEO blog posts for your Shopify store, done for you by AI. Starting at €49/month.",
-    type: "website",
-  },
+  description: "Daily SEO blog posts for your Shopify store, done for you by AI. Starting at €49/month.",
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className="dark">
-      <body className={`${inter.variable} font-sans bg-[#080808] text-white`}>
+    <html lang="en">
+      <body className={inter.variable} style={{ fontFamily: "Inter, -apple-system, sans-serif", background: "#f9f8f8" }}>
         {children}
       </body>
     </html>
