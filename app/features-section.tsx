@@ -2,95 +2,92 @@
 import { useState } from "react";
 import { Check } from "lucide-react";
 
-const tabs = [
-  { id: "content", label: "AI Content" },
-  { id: "shopify", label: "Shopify" },
+const TABS = [
+  { id: "content",  label: "AI Content" },
+  { id: "shopify",  label: "Shopify" },
   { id: "outreach", label: "Outreach" },
 ];
 
 function ArticleCard() {
   return (
-    <div className="card p-6">
-      <div className="text-[11px] font-semibold uppercase tracking-widest mb-3" style={{color:"var(--accent)"}}>✦ Today&apos;s article</div>
-      <div className="text-sm font-semibold mb-1 leading-snug" style={{color:"var(--text-1)"}}>
+    <div className="card" style={{ padding: "28px" }}>
+      <p className="label" style={{ marginBottom: 12 }}>✦ Today&apos;s article</p>
+      <p style={{ fontWeight: 600, fontSize: 15, color: "var(--t1)", marginBottom: 4, lineHeight: 1.4 }}>
         How to Choose Running Shoes for Marathon Training
-      </div>
-      <div className="text-xs mb-4" style={{color:"var(--text-3)"}}>Published to your Shopify blog · 3 min ago</div>
-      <div className="space-y-2.5 mb-5">
+      </p>
+      <p style={{ fontSize: 12, color: "var(--t3)", marginBottom: 20 }}>Published to your Shopify blog · 3 min ago</p>
+      <div style={{ display: "flex", flexDirection: "column", gap: 10, marginBottom: 20 }}>
         {["Introduction & hook", "Section 1: Foot type analysis", "Section 2: Cushioning guide", "Section 3: Top 5 picks", "Buying guide & CTA"].map((s, i) => (
-          <div key={i} className="flex items-center gap-2 text-xs" style={{color:"var(--text-2)"}}>
-            <Check size={10} style={{color:"var(--accent)", flexShrink:0}} />
-            {s}
+          <div key={i} style={{ display: "flex", alignItems: "center", gap: 8 }}>
+            <Check size={11} style={{ color: "var(--accent)", flexShrink: 0 }} />
+            <span style={{ fontSize: 13, color: "var(--t2)" }}>{s}</span>
           </div>
         ))}
       </div>
-      <div className="flex items-center justify-between pt-4" style={{borderTop:"1px solid var(--border)"}}>
-        <span className="text-xs" style={{color:"var(--text-3)"}}>1,340 words</span>
-        <span className="text-xs font-semibold" style={{color:"var(--accent)"}}>SEO Score: 97</span>
-        <span className="text-xs" style={{color:"var(--text-3)"}}>Keyword density: 1.8%</span>
+      <div style={{ paddingTop: 16, borderTop: "1px solid var(--border)", display: "flex", justifyContent: "space-between" }}>
+        <span style={{ fontSize: 12, color: "var(--t3)" }}>1,340 words</span>
+        <span style={{ fontSize: 12, fontWeight: 600, color: "var(--accent)" }}>SEO Score: 97</span>
+        <span style={{ fontSize: 12, color: "var(--t3)" }}>Keyword density: 1.8%</span>
       </div>
     </div>
   );
 }
 
 function ShopifyCard() {
-  const posts = [
-    { title: "Best yoga mats 2026", date: "Today" },
-    { title: "Home gym setup guide", date: "Yesterday" },
-    { title: "Protein powder comparison", date: "2 days ago" },
-    { title: "Recovery tools review", date: "3 days ago" },
-  ];
   return (
-    <div className="card p-6">
-      <div className="text-xs font-medium mb-4" style={{color:"var(--text-3)"}}>Shopify Admin → Blog posts</div>
-      <div className="space-y-2">
-        {posts.map((p, i) => (
-          <div key={i} className="flex items-center justify-between rounded-xl px-4 py-3" style={{background:"var(--bg)", border:"1px solid var(--border)"}}>
+    <div className="card" style={{ padding: "28px" }}>
+      <p style={{ fontSize: 12, color: "var(--t3)", marginBottom: 16, fontWeight: 500 }}>Shopify Admin → Blog posts</p>
+      <div style={{ display: "flex", flexDirection: "column", gap: 8, marginBottom: 16 }}>
+        {[
+          { title: "Best yoga mats 2026", date: "Today" },
+          { title: "Home gym setup guide", date: "Yesterday" },
+          { title: "Protein powder comparison", date: "2 days ago" },
+          { title: "Recovery tools review", date: "3 days ago" },
+        ].map((p, i) => (
+          <div key={i} className="card-inner" style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "10px 14px" }}>
             <div>
-              <div className="text-sm font-medium" style={{color:"var(--text-1)"}}>{p.title}</div>
-              <div className="text-xs mt-0.5" style={{color:"var(--text-3)"}}>{p.date}</div>
+              <p style={{ fontSize: 13, fontWeight: 500, color: "var(--t1)" }}>{p.title}</p>
+              <p style={{ fontSize: 11, color: "var(--t3)", marginTop: 2 }}>{p.date}</p>
             </div>
-            <span className="text-xs font-semibold px-2.5 py-1 rounded-full" style={{color:"var(--accent)", background:"var(--accent-lt)"}}>
-              Published
-            </span>
+            <span style={{ fontSize: 11, fontWeight: 600, color: "var(--accent)", background: "var(--accent-lt)", padding: "3px 10px", borderRadius: 100 }}>Published</span>
           </div>
         ))}
       </div>
-      <div className="text-xs text-center mt-4" style={{color:"var(--text-3)"}}>+ 83 more articles this quarter</div>
+      <p style={{ fontSize: 12, color: "var(--t3)", textAlign: "center" }}>+ 83 more articles this quarter</p>
     </div>
   );
 }
 
 function OutreachCard() {
   return (
-    <div className="card p-6">
-      <div className="text-xs font-medium mb-4" style={{color:"var(--text-3)"}}>Outreach email — sent by ContentBloom</div>
-      <div className="rounded-xl p-4 text-xs space-y-3" style={{background:"var(--bg)", border:"1px solid var(--border)"}}>
-        <div className="flex gap-3">
-          <span style={{color:"var(--text-3)", width:40}}>To:</span>
-          <span style={{color:"var(--text-1)"}}>hello@yourbrand.com</span>
+    <div className="card" style={{ padding: "28px" }}>
+      <p style={{ fontSize: 12, color: "var(--t3)", marginBottom: 16, fontWeight: 500 }}>Outreach email — sent by ContentBloom</p>
+      <div className="card-inner" style={{ padding: "18px" }}>
+        <div style={{ display: "flex", gap: 12, marginBottom: 10, fontSize: 13 }}>
+          <span style={{ color: "var(--t3)", minWidth: 50 }}>To:</span>
+          <span style={{ color: "var(--t1)" }}>hello@yourbrand.com</span>
         </div>
-        <div className="flex gap-3">
-          <span style={{color:"var(--text-3)", width:40, flexShrink:0}}>Subject:</span>
-          <span className="font-semibold" style={{color:"var(--text-1)"}}>Your store + 2 free articles (no catch)</span>
+        <div style={{ display: "flex", gap: 12, marginBottom: 14, fontSize: 13 }}>
+          <span style={{ color: "var(--t3)", minWidth: 50, flexShrink: 0 }}>Subject:</span>
+          <span style={{ color: "var(--t1)", fontWeight: 600 }}>Your store + 2 free articles (no catch)</span>
         </div>
-        <div style={{borderTop:"1px solid var(--border)"}} className="pt-3">
-          <p className="leading-relaxed" style={{color:"var(--text-2)"}}>
+        <div style={{ borderTop: "1px solid var(--border)", paddingTop: 14, marginBottom: 14 }}>
+          <p style={{ fontSize: 13, color: "var(--t2)", lineHeight: 1.7 }}>
             Hi Sarah,<br /><br />
             I noticed your Shopify store has no blog. That&apos;s leaving serious organic traffic on the table.<br /><br />
             We wrote 2 free SEO articles for your niche — no strings attached 👇
           </p>
         </div>
-        <div className="flex gap-2 pt-1">
-          <span className="px-2 py-0.5 rounded-full font-medium" style={{color:"var(--accent)", background:"var(--accent-lt)"}}>Sent ✓</span>
-          <span style={{color:"var(--text-3)"}}>Opened · 3 hours ago</span>
+        <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+          <span style={{ fontSize: 11, fontWeight: 600, color: "var(--accent)", background: "var(--accent-lt)", padding: "3px 10px", borderRadius: 100 }}>Sent ✓</span>
+          <span style={{ fontSize: 11, color: "var(--t3)" }}>Opened · 3 hours ago</span>
         </div>
       </div>
     </div>
   );
 }
 
-const content: Record<string, {label:string; title:string; desc:string; bullets:string[]; card:React.ReactNode}> = {
+const DATA: Record<string, { label: string; title: string; desc: string; bullets: string[]; card: React.ReactNode }> = {
   content: {
     label: "Content automation",
     title: "AI articles on autopilot",
@@ -108,7 +105,7 @@ const content: Record<string, {label:string; title:string; desc:string; bullets:
   outreach: {
     label: "Done-for-you outreach",
     title: "We do the outreach too",
-    desc: "Not a customer yet? We find your store, write 2 free sample articles, and send them to you. No strings attached — just proof that it works.",
+    desc: "Not a customer yet? We find your store, write 2 free sample articles, and send them to you. No strings attached — just proof it works.",
     bullets: ["We identify stores with little or no blog content", "2 custom articles written for your specific niche", "Sent directly to your email — yours to keep forever", "Subscribe only if you love the results"],
     card: <OutreachCard />,
   },
@@ -116,42 +113,43 @@ const content: Record<string, {label:string; title:string; desc:string; bullets:
 
 export function FeaturesSection() {
   const [active, setActive] = useState("content");
-  const t = content[active];
+  const t = DATA[active];
   return (
-    <section id="features" className="py-28 px-6" style={{background:"var(--bg-warm)"}}>
-      <div className="max-w-6xl mx-auto">
-        <div className="text-center mb-14">
-          <p className="sec-label mb-3">Features</p>
-          <h2 className="text-4xl md:text-5xl font-bold tracking-tight" style={{color:"var(--text-1)", lineHeight:1.1}}>
+    <section id="features" className="section-warm section-divider">
+      <div className="container">
+        {/* Header */}
+        <div style={{ textAlign: "center", marginBottom: "3.5rem" }}>
+          <p className="label" style={{ marginBottom: 12 }}>Features</p>
+          <h2 style={{ fontSize: "clamp(32px,4vw,48px)", fontWeight: 700, letterSpacing: "-0.025em", lineHeight: 1.1, color: "var(--t1)" }}>
             Everything you need to<br />grow organic traffic
           </h2>
         </div>
 
         {/* Tabs */}
-        <div className="flex items-center justify-center gap-1.5 mb-12 p-1 rounded-xl w-fit mx-auto" style={{background:"var(--bg)", border:"1px solid var(--border)"}}>
-          {tabs.map(tab => (
-            <button key={tab.id} className={`tab ${active===tab.id?"on":""}`} onClick={()=>setActive(tab.id)}>
+        <div className="tabs-wrap">
+          {TABS.map(tab => (
+            <button key={tab.id} className={`tab ${active === tab.id ? "on" : ""}`} onClick={() => setActive(tab.id)}>
               {tab.label}
             </button>
           ))}
         </div>
 
-        {/* Content */}
-        <div className="grid md:grid-cols-2 gap-16 items-center">
+        {/* Content grid */}
+        <div className="grid-2">
           <div>
-            <p className="sec-label mb-3">{t.label}</p>
-            <h3 className="text-3xl md:text-4xl font-bold tracking-tight mb-4" style={{color:"var(--text-1)", lineHeight:1.15}}>{t.title}</h3>
-            <p className="text-base leading-relaxed mb-8" style={{color:"var(--text-2)"}}>{t.desc}</p>
-            <ul className="space-y-3.5">
-              {t.bullets.map((b,i) => (
-                <li key={i} className="flex items-start gap-3 text-sm" style={{color:"var(--text-1)"}}>
-                  <Check size={15} style={{color:"var(--accent)", marginTop:2, flexShrink:0}} />
+            <p className="label" style={{ marginBottom: 12 }}>{t.label}</p>
+            <h3 style={{ fontSize: "clamp(26px,3vw,38px)", fontWeight: 700, letterSpacing: "-0.02em", lineHeight: 1.15, color: "var(--t1)", marginBottom: 16 }}>{t.title}</h3>
+            <p style={{ fontSize: 16, lineHeight: 1.7, color: "var(--t2)", marginBottom: 32 }}>{t.desc}</p>
+            <ul style={{ listStyle: "none", display: "flex", flexDirection: "column", gap: 14 }}>
+              {t.bullets.map((b, i) => (
+                <li key={i} style={{ display: "flex", alignItems: "flex-start", gap: 12, fontSize: 14, color: "var(--t1)" }}>
+                  <Check size={15} style={{ color: "var(--accent)", marginTop: 2, flexShrink: 0 }} />
                   {b}
                 </li>
               ))}
             </ul>
           </div>
-          <div className="float">{t.card}</div>
+          <div className="afloat">{t.card}</div>
         </div>
       </div>
     </section>

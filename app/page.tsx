@@ -6,28 +6,24 @@ import { FeaturesSection } from "./features-section";
 
 function Nav() {
   return (
-    <nav className="nav-wrap">
-      <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
-        <Link href="/" className="flex items-center gap-2.5">
-          <div className="w-7 h-7 rounded-lg flex items-center justify-center" style={{background:"var(--text-1)"}}>
-            <Sparkles size={13} className="text-white" />
+    <nav className="nav">
+      <div className="nav-inner">
+        <Link href="/" style={{ display: "flex", alignItems: "center", gap: 10, textDecoration: "none" }}>
+          <div style={{ width: 28, height: 28, borderRadius: 8, background: "var(--t1)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+            <Sparkles size={13} color="#fff" />
           </div>
-          <span className="font-bold text-[15px] tracking-tight" style={{color:"var(--text-1)"}}>ContentBloom</span>
+          <span style={{ fontWeight: 700, fontSize: 15, color: "var(--t1)", letterSpacing: "-0.01em" }}>ContentBloom</span>
         </Link>
 
-        <div className="hidden md:flex items-center gap-8 text-[13px]" style={{color:"var(--text-2)"}}>
-          <Link href="#features" className="hover:opacity-70 transition-opacity">Features</Link>
-          <Link href="#how-it-works" className="hover:opacity-70 transition-opacity">How it works</Link>
-          <Link href="#pricing" className="hover:opacity-70 transition-opacity">Pricing</Link>
+        <div style={{ display: "flex", alignItems: "center", gap: 32, fontSize: 13, color: "var(--t2)" }} className="hide-mobile">
+          <Link href="#features"    style={{ color: "var(--t2)", textDecoration: "none" }}>Features</Link>
+          <Link href="#how-it-works" style={{ color: "var(--t2)", textDecoration: "none" }}>How it works</Link>
+          <Link href="#pricing"     style={{ color: "var(--t2)", textDecoration: "none" }}>Pricing</Link>
         </div>
 
-        <div className="flex items-center gap-3">
-          <Link href="/login" className="hidden md:block text-[13px] hover:opacity-70 transition-opacity" style={{color:"var(--text-2)"}}>
-            Log in
-          </Link>
-          <Link href="/signup" className="btn-primary text-[13px]">
-            Get 2 Free Articles
-          </Link>
+        <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+          <Link href="/login" className="hide-mobile" style={{ fontSize: 13, color: "var(--t2)", textDecoration: "none" }}>Log in</Link>
+          <Link href="/signup" className="btn btn-dark" style={{ fontSize: 13, padding: "9px 18px" }}>Get 2 Free Articles</Link>
         </div>
       </div>
     </nav>
@@ -38,85 +34,79 @@ function Nav() {
 
 function Hero() {
   return (
-    <section className="pt-36 pb-16 px-6 text-center" style={{background:"var(--bg)"}}>
-      <div className="max-w-4xl mx-auto">
-
-        <div className="au0">
-          <span className="pill mb-6">
-            <Sparkles size={10} style={{color:"var(--accent)"}} />
+    <section style={{ background: "var(--bg)", paddingTop: "9rem", paddingBottom: "4rem" }}>
+      <div className="container" style={{ textAlign: "center" }}>
+        <div className="a0" style={{ marginBottom: 24 }}>
+          <span className="pill">
+            <Sparkles size={10} style={{ color: "var(--accent)" }} />
             AI-Powered Content for E-commerce
           </span>
         </div>
 
-        <h1 className="au1 font-bold tracking-tight mb-6" style={{
-          fontSize: "clamp(44px, 7vw, 80px)",
-          lineHeight: 1.02,
-          letterSpacing: "-0.03em",
-          color: "var(--text-1)",
+        <h1 className="a1" style={{
+          fontSize: "clamp(42px, 6.5vw, 80px)",
+          fontWeight: 800, letterSpacing: "-0.035em", lineHeight: 1.02,
+          color: "var(--t1)", marginBottom: 24,
         }}>
           Your Shopify store<br />
           deserves a blog that<br />
-          <span style={{color:"var(--accent)"}}>actually ranks</span>
+          <span style={{ color: "var(--accent)" }}>actually ranks</span>
         </h1>
 
-        <p className="au2 text-lg leading-relaxed max-w-xl mx-auto mb-10" style={{color:"var(--text-2)"}}>
+        <p className="a2" style={{ fontSize: 18, color: "var(--t2)", lineHeight: 1.7, maxWidth: 520, margin: "0 auto 40px" }}>
           We write daily SEO blog posts for your Shopify store — fully automated,
           Google-optimized, and published for you. While you focus on the business,
           we grow your organic traffic.
         </p>
 
-        <div className="au3 flex flex-col sm:flex-row items-center justify-center gap-3 mb-5">
-          <Link href="/signup" className="btn-primary text-[14px] w-full sm:w-auto justify-center">
-            Get 2 Free Articles <ArrowRight size={15} />
+        <div className="a3" style={{ display: "flex", flexWrap: "wrap", alignItems: "center", justifyContent: "center", gap: 12, marginBottom: 20 }}>
+          <Link href="/signup" className="btn btn-dark" style={{ fontSize: 15, padding: "13px 26px" }}>
+            Get 2 Free Articles <ArrowRight size={16} />
           </Link>
-          <Link href="#how-it-works" className="btn-outline text-[14px] w-full sm:w-auto justify-center">
-            See How It Works <ChevronRight size={14} style={{color:"var(--text-3)"}} />
+          <Link href="#how-it-works" className="btn btn-light" style={{ fontSize: 15, padding: "13px 26px" }}>
+            See How It Works <ChevronRight size={15} style={{ color: "var(--t3)" }} />
           </Link>
         </div>
 
-        <p className="text-[12px]" style={{color:"var(--text-3)"}}>
+        <p style={{ fontSize: 12, color: "var(--t3)" }}>
           Trusted by 500+ e-commerce stores · No credit card required
         </p>
       </div>
 
-      {/* Hero card mockup */}
-      <div className="max-w-3xl mx-auto mt-14 au3">
-        <div className="card float" style={{padding:28, boxShadow:"0 8px 40px rgba(0,0,0,.10)"}}>
-          {/* Browser bar */}
-          <div className="flex items-center gap-2 mb-5">
-            <div className="flex gap-1.5">
-              {["#fca5a5","#fcd34d","#86efac"].map((c,i)=>(
-                <div key={i} className="w-3 h-3 rounded-full" style={{background:c}}/>
-              ))}
+      {/* Mockup */}
+      <div className="container a3" style={{ marginTop: "3.5rem" }}>
+        <div className="card afloat" style={{ padding: 28, boxShadow: "0 12px 48px rgba(0,0,0,.10)" }}>
+          {/* Browser chrome */}
+          <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 20 }}>
+            <div style={{ display: "flex", gap: 6 }}>
+              {["#fca5a5","#fcd34d","#86efac"].map((c,i)=><div key={i} style={{ width:12, height:12, borderRadius:"50%", background:c }}/>)}
             </div>
-            <div className="flex-1 rounded-md h-6 flex items-center px-3 mx-3" style={{background:"var(--bg)", border:"1px solid var(--border)"}}>
-              <span className="text-[11px]" style={{color:"var(--text-3)"}}>contentbloom.vercel.app/dashboard</span>
+            <div className="card-inner" style={{ flex: 1, height: 26, marginLeft: 8, display: "flex", alignItems: "center", padding: "0 12px" }}>
+              <span style={{ fontSize: 11, color: "var(--t3)" }}>contentbloom.vercel.app/dashboard</span>
             </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-left">
-            <div className="md:col-span-2 rounded-xl p-5" style={{background:"var(--bg)", border:"1px solid var(--border)"}}>
-              <div className="text-[11px] font-bold uppercase tracking-widest mb-2" style={{color:"var(--accent)"}}>
-                Published today
-              </div>
-              <div className="text-sm font-semibold leading-snug mb-2" style={{color:"var(--text-1)"}}>
+          <div style={{ display: "grid", gridTemplateColumns: "2fr 1fr", gap: 16 }}>
+            <div className="card-inner" style={{ padding: 20 }}>
+              <p className="label" style={{ marginBottom: 8 }}>Published today</p>
+              <p style={{ fontWeight: 600, fontSize: 14, color: "var(--t1)", lineHeight: 1.4, marginBottom: 8 }}>
                 10 Best Yoga Mats for Home Practice in 2026 (Tested & Ranked)
-              </div>
-              <div className="text-xs leading-relaxed mb-4" style={{color:"var(--text-2)"}}>
-                Looking for the perfect yoga mat? We tested 47 options so you don&apos;t have to. Here&apos;s what actually works...
-              </div>
-              <div className="flex items-center gap-3 flex-wrap">
-                <span className="text-[11px] font-semibold px-2.5 py-0.5 rounded-full" style={{color:"var(--accent)", background:"var(--accent-lt)"}}>SEO Score: 94</span>
-                <span className="text-[11px]" style={{color:"var(--text-3)"}}>1,240 words</span>
-                <span className="text-[11px]" style={{color:"var(--text-3)"}}>↗ Ranking: #3</span>
+              </p>
+              <p style={{ fontSize: 12, color: "var(--t2)", lineHeight: 1.6, marginBottom: 16 }}>
+                Looking for the perfect yoga mat? We tested 47 options so you don&apos;t have to...
+              </p>
+              <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
+                <span style={{ fontSize: 11, fontWeight: 600, color: "var(--accent)", background: "var(--accent-lt)", padding: "3px 10px", borderRadius: 100 }}>SEO Score: 94</span>
+                <span style={{ fontSize: 11, color: "var(--t3)" }}>1,240 words</span>
+                <span style={{ fontSize: 11, color: "var(--t3)" }}>↗ Ranking: #3</span>
               </div>
             </div>
-            <div className="flex flex-row md:flex-col gap-3">
-              {[{l:"Organic traffic", v:"+340%", s:"vs last month"},{l:"Articles live", v:"87", s:"this quarter"}].map((x,i)=>(
-                <div key={i} className="flex-1 rounded-xl p-4" style={{background:"var(--bg)", border:"1px solid var(--border)"}}>
-                  <div className="text-[11px] mb-1" style={{color:"var(--text-3)"}}>{x.l}</div>
-                  <div className="text-xl font-bold" style={{color: i===0 ? "var(--accent)" : "var(--text-1)"}}>{x.v}</div>
-                  <div className="text-[11px]" style={{color:"var(--text-3)"}}>{x.s}</div>
+            <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+              {[{ l:"Organic traffic", v:"+340%", green:true }, { l:"Articles live", v:"87", green:false }].map((x,i)=>(
+                <div key={i} className="card-inner" style={{ padding: 16, flex: 1 }}>
+                  <p style={{ fontSize: 11, color: "var(--t3)", marginBottom: 4 }}>{x.l}</p>
+                  <p style={{ fontSize: 24, fontWeight: 700, color: x.green ? "var(--accent)" : "var(--t1)" }}>{x.v}</p>
+                  <p style={{ fontSize: 11, color: "var(--t3)" }}>{i===0?"vs last month":"this quarter"}</p>
                 </div>
               ))}
             </div>
@@ -133,15 +123,13 @@ function LogoBar() {
   const items = ["Shopify","WooCommerce","BigCommerce","Wix","Squarespace","Shopify Plus","Etsy","PrestaShop",
                  "Shopify","WooCommerce","BigCommerce","Wix","Squarespace","Shopify Plus","Etsy","PrestaShop"];
   return (
-    <section className="py-6 overflow-hidden divider">
-      <p className="text-center text-[11px] tracking-[.12em] uppercase mb-5" style={{color:"var(--text-3)"}}>
+    <section style={{ background: "var(--bg)", borderTop: "1px solid var(--border)", borderBottom: "1px solid var(--border)", padding: "28px 0", overflow: "hidden" }}>
+      <p style={{ textAlign: "center", fontSize: 11, letterSpacing: ".12em", textTransform: "uppercase", color: "var(--t3)", marginBottom: 20 }}>
         Works with every major e-commerce platform
       </p>
-      <div className="flex scroll-l w-max gap-14">
-        {items.map((p,i)=>(
-          <span key={i} className="text-sm font-semibold whitespace-nowrap" style={{color:"var(--text-3)"}}>
-            {p}
-          </span>
+      <div className="ascroll" style={{ display: "flex", gap: 56, width: "max-content" }}>
+        {items.map((p,i) => (
+          <span key={i} style={{ fontSize: 13, fontWeight: 600, color: "var(--t3)", whiteSpace: "nowrap" }}>{p}</span>
         ))}
       </div>
     </section>
@@ -152,30 +140,30 @@ function LogoBar() {
 
 function HowItWorks() {
   const steps = [
-    {icon:<Globe size={18}/>, n:"01", title:"Connect your store", desc:"Link your Shopify store in 30 seconds. We scan your products and niche to build a content strategy tailored to your audience."},
-    {icon:<Zap size={18}/>, n:"02", title:"AI writes daily", desc:"Every day our AI researches trending keywords, writes a long-form SEO article, and publishes it automatically."},
-    {icon:<TrendingUp size={18}/>, n:"03", title:"Organic traffic grows", desc:"Articles start ranking in 4–8 weeks. Content accumulates into compounding traffic that brings customers for years."},
+    { icon:<Globe size={18}/>, n:"01", title:"Connect your store", desc:"Link your Shopify store in 30 seconds. We scan your products and niche to build a tailored content strategy." },
+    { icon:<Zap size={18}/>, n:"02", title:"AI writes daily", desc:"Every day our AI researches trending keywords, writes a long-form SEO article, and publishes it automatically." },
+    { icon:<TrendingUp size={18}/>, n:"03", title:"Organic traffic grows", desc:"Articles start ranking in 4–8 weeks. Content accumulates into compounding traffic that brings customers for years." },
   ];
   return (
-    <section id="how-it-works" className="py-28 px-6 divider" style={{background:"var(--bg)"}}>
-      <div className="max-w-6xl mx-auto">
-        <div className="text-center mb-14">
-          <p className="sec-label mb-3">How it works</p>
-          <h2 className="text-4xl md:text-5xl font-bold tracking-tight" style={{color:"var(--text-1)", lineHeight:1.1}}>
+    <section id="how-it-works" className="section-default section-divider">
+      <div className="container">
+        <div style={{ textAlign: "center", marginBottom: "3.5rem" }}>
+          <p className="label" style={{ marginBottom: 12 }}>How it works</p>
+          <h2 style={{ fontSize: "clamp(30px,4vw,48px)", fontWeight: 700, letterSpacing: "-0.025em", lineHeight: 1.1, color: "var(--t1)" }}>
             Set it up once,<br />watch traffic grow
           </h2>
         </div>
-        <div className="grid md:grid-cols-3 gap-5">
-          {steps.map((s,i)=>(
-            <div key={i} className="card-sm card-lift p-8">
-              <div className="flex items-center justify-between mb-8">
-                <div className="w-10 h-10 rounded-xl flex items-center justify-center" style={{background:"var(--accent-lt)", color:"var(--accent)"}}>
+        <div className="grid-3">
+          {steps.map((s, i) => (
+            <div key={i} className="card" style={{ padding: "36px 32px" }}>
+              <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 32 }}>
+                <div style={{ width: 40, height: 40, borderRadius: 10, background: "var(--accent-lt)", color: "var(--accent)", display: "flex", alignItems: "center", justifyContent: "center" }}>
                   {s.icon}
                 </div>
-                <span className="text-4xl font-bold tabular-nums" style={{color:"var(--border-md)"}}>{s.n}</span>
+                <span style={{ fontSize: 40, fontWeight: 700, color: "var(--border-md)" }}>{s.n}</span>
               </div>
-              <h3 className="text-lg font-bold mb-3" style={{color:"var(--text-1)"}}>{s.title}</h3>
-              <p className="text-sm leading-relaxed" style={{color:"var(--text-2)"}}>{s.desc}</p>
+              <h3 style={{ fontSize: 17, fontWeight: 700, color: "var(--t1)", marginBottom: 12 }}>{s.title}</h3>
+              <p style={{ fontSize: 14, lineHeight: 1.7, color: "var(--t2)" }}>{s.desc}</p>
             </div>
           ))}
         </div>
@@ -187,21 +175,23 @@ function HowItWorks() {
 // ─── STATS ─────────────────────────────────────────────────────────────────────
 
 function Stats() {
-  const s=[
-    {v:"340%", l:"Average traffic\nincrease in 90 days"},
-    {v:"€0.08", l:"Cost per article vs\n€300+ with agencies"},
-    {v:"500+", l:"Shopify stores already\ngrowing with us"},
-    {v:"4–8 wks", l:"Average time to\nfirst Google ranking"},
+  const stats = [
+    { v:"340%",  l:"Average traffic\nincrease in 90 days" },
+    { v:"€0.08", l:"Cost per article vs\n€300+ with agencies" },
+    { v:"500+",  l:"Shopify stores already\ngrowing with us" },
+    { v:"4–8 wks",l:"Average time to\nfirst Google ranking" },
   ];
   return (
-    <section className="py-20 px-6 divider" style={{background:"var(--bg-warm)"}}>
-      <div className="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-10">
-        {s.map((x,i)=>(
-          <div key={i} className="text-center">
-            <div className="text-3xl md:text-4xl font-bold mb-2" style={{color:"var(--text-1)"}}>{x.v}</div>
-            <div className="text-[13px] leading-relaxed whitespace-pre-line" style={{color:"var(--text-2)"}}>{x.l}</div>
-          </div>
-        ))}
+    <section className="section-warm section-divider">
+      <div className="container">
+        <div className="grid-4">
+          {stats.map((x, i) => (
+            <div key={i} style={{ textAlign: "center" }}>
+              <p style={{ fontSize: "clamp(28px,3vw,42px)", fontWeight: 700, color: "var(--t1)", marginBottom: 8 }}>{x.v}</p>
+              <p style={{ fontSize: 13, lineHeight: 1.6, color: "var(--t2)", whiteSpace: "pre-line" }}>{x.l}</p>
+            </div>
+          ))}
+        </div>
       </div>
     </section>
   );
@@ -211,54 +201,55 @@ function Stats() {
 
 function Pricing() {
   const plans = [
-    {name:"Starter", price:"€49", freq:"1 article / day", desc:"Perfect for new stores starting content marketing",
-      features:["30 SEO articles per month","Shopify auto-publish","Keyword research included","Meta descriptions & tags","1 revision per article","Email support"], pop:false},
-    {name:"Growth",  price:"€99", freq:"3 articles / day", desc:"For established stores ready to dominate search",
-      features:["90 SEO articles per month","Shopify auto-publish","Advanced keyword clustering","Internal linking strategy","Unlimited revisions","Priority support","Monthly performance report"], pop:true},
-    {name:"Scale",   price:"€149", freq:"5 articles / day", desc:"Maximum velocity for high-growth brands",
-      features:["150 SEO articles per month","Shopify auto-publish","Competitor gap analysis","Topic cluster strategy","Unlimited revisions","Dedicated account manager","Weekly performance calls"], pop:false},
+    { name:"Starter", price:"€49", freq:"1 article / day", desc:"Perfect for new stores starting content marketing",
+      features:["30 SEO articles per month","Shopify auto-publish","Keyword research included","Meta descriptions & tags","1 revision per article","Email support"], featured:false },
+    { name:"Growth",  price:"€99", freq:"3 articles / day", desc:"For established stores ready to dominate search",
+      features:["90 SEO articles per month","Shopify auto-publish","Advanced keyword clustering","Internal linking strategy","Unlimited revisions","Priority support","Monthly performance report"], featured:true },
+    { name:"Scale",  price:"€149", freq:"5 articles / day", desc:"Maximum velocity for high-growth brands",
+      features:["150 SEO articles per month","Shopify auto-publish","Competitor gap analysis","Topic cluster strategy","Unlimited revisions","Dedicated account manager","Weekly performance calls"], featured:false },
   ];
   return (
-    <section id="pricing" className="py-28 px-6 divider" style={{background:"var(--bg)"}}>
-      <div className="max-w-6xl mx-auto">
-        <div className="text-center mb-14">
-          <p className="sec-label mb-3">Pricing</p>
-          <h2 className="text-4xl md:text-5xl font-bold tracking-tight mb-4" style={{color:"var(--text-1)", lineHeight:1.1}}>
+    <section id="pricing" className="section-default section-divider">
+      <div className="container">
+        <div style={{ textAlign: "center", marginBottom: "3.5rem" }}>
+          <p className="label" style={{ marginBottom: 12 }}>Pricing</p>
+          <h2 style={{ fontSize: "clamp(30px,4vw,48px)", fontWeight: 700, letterSpacing: "-0.025em", lineHeight: 1.1, color: "var(--t1)", marginBottom: 16 }}>
             Simple plans<br />for serious growth
           </h2>
-          <p className="text-lg" style={{color:"var(--text-2)"}}>Cancel anytime. Start with 2 free articles.</p>
+          <p style={{ fontSize: 17, color: "var(--t2)" }}>Cancel anytime. Start with 2 free articles.</p>
         </div>
-        <div className="grid md:grid-cols-3 gap-5">
-          {plans.map((p,i)=>(
-            <div key={i} className={`card card-lift flex flex-col p-8 ${p.pop?"plan-pop":""}`} style={{boxShadow: p.pop ? "0 8px 30px rgba(0,0,0,.12)" : undefined}}>
-              {p.pop && (
-                <div className="text-[11px] font-bold uppercase tracking-wide px-3 py-1 rounded-full inline-block w-fit mb-5"
-                  style={{color:"var(--accent)", background:"var(--accent-lt)"}}>
+
+        <div className="grid-3">
+          {plans.map((p, i) => (
+            <div key={i} className={`card${p.featured ? " plan-featured" : ""}`} style={{ padding: "36px 32px", display: "flex", flexDirection: "column" }}>
+              {p.featured && (
+                <span style={{ fontSize: 11, fontWeight: 700, textTransform: "uppercase", letterSpacing: ".06em", color: "var(--accent)", background: "var(--accent-lt)", padding: "4px 12px", borderRadius: 100, display: "inline-block", width: "fit-content", marginBottom: 20 }}>
                   Most popular
-                </div>
+                </span>
               )}
-              <div className="text-sm font-medium mb-1" style={{color:"var(--text-2)"}}>{p.name}</div>
-              <div className="flex items-baseline gap-1 mb-1">
-                <span className="text-4xl font-bold" style={{color:"var(--text-1)"}}>{p.price}</span>
-                <span className="text-sm" style={{color:"var(--text-3)"}}>/mo</span>
+              <p style={{ fontSize: 13, fontWeight: 500, color: "var(--t2)", marginBottom: 4 }}>{p.name}</p>
+              <div style={{ display: "flex", alignItems: "baseline", gap: 4, marginBottom: 4 }}>
+                <span style={{ fontSize: 44, fontWeight: 700, color: "var(--t1)", letterSpacing: "-0.02em" }}>{p.price}</span>
+                <span style={{ fontSize: 14, color: "var(--t3)" }}>/mo</span>
               </div>
-              <div className="text-[12px] font-semibold mb-3" style={{color:"var(--accent)"}}>{p.freq}</div>
-              <p className="text-[13px] leading-relaxed mb-7" style={{color:"var(--text-2)"}}>{p.desc}</p>
-              <ul className="space-y-3 mb-8 flex-1">
-                {p.features.map((f,j)=>(
-                  <li key={j} className="flex items-start gap-2.5 text-[13px]" style={{color:"var(--text-1)"}}>
-                    <Check size={13} style={{color:"var(--accent)", marginTop:2, flexShrink:0}} />
+              <p style={{ fontSize: 12, fontWeight: 600, color: "var(--accent)", marginBottom: 12 }}>{p.freq}</p>
+              <p style={{ fontSize: 13, color: "var(--t2)", lineHeight: 1.6, marginBottom: 28 }}>{p.desc}</p>
+              <ul style={{ listStyle: "none", display: "flex", flexDirection: "column", gap: 12, marginBottom: 32, flex: 1 }}>
+                {p.features.map((f, j) => (
+                  <li key={j} style={{ display: "flex", alignItems: "flex-start", gap: 10, fontSize: 13, color: "var(--t1)" }}>
+                    <Check size={13} style={{ color: "var(--accent)", marginTop: 2, flexShrink: 0 }} />
                     {f}
                   </li>
                 ))}
               </ul>
-              <Link href="/signup" className={p.pop ? "btn-primary justify-center" : "btn-outline justify-center"}>
+              <Link href="/signup" className={`btn ${p.featured ? "btn-dark" : "btn-light"}`} style={{ width: "100%" }}>
                 Start Free Trial
               </Link>
             </div>
           ))}
         </div>
-        <p className="text-center text-[12px] mt-7" style={{color:"var(--text-3)"}}>
+
+        <p style={{ textAlign: "center", fontSize: 12, color: "var(--t3)", marginTop: 28 }}>
           All plans start with 2 free articles. No credit card required.
         </p>
       </div>
@@ -269,33 +260,34 @@ function Pricing() {
 // ─── TESTIMONIALS ──────────────────────────────────────────────────────────────
 
 function Testimonials() {
-  const t=[
-    {q:"We went from zero blog posts to ranking page 1 for 12 keywords in 3 months. ContentBloom is the best €99 we spend every month.", n:"Maria T.", r:"Founder, FitnessPro Store", i:"M"},
-    {q:"I was skeptical about AI content but the articles are genuinely good. Our organic traffic is up 280% and we haven't touched the blog ourselves.", n:"James K.", r:"Owner, The Outdoor Co.", i:"J"},
-    {q:"The free articles they sent blew me away. Signed up immediately. It's like having a full-time SEO writer for less than €2 a day.", n:"Sophie L.", r:"Director, Luxe Beauty", i:"S"},
+  const items = [
+    { q: "We went from zero blog posts to ranking page 1 for 12 keywords in 3 months. ContentBloom is the best €99 we spend every month.", n: "Maria T.", r: "Founder, FitnessPro Store", init: "M" },
+    { q: "I was skeptical about AI content but the articles are genuinely good. Our organic traffic is up 280% and we haven't touched the blog ourselves.", n: "James K.", r: "Owner, The Outdoor Co.", init: "J" },
+    { q: "The free articles they sent blew me away. Signed up immediately. It's like having a full-time SEO writer for less than €2 a day.", n: "Sophie L.", r: "Director, Luxe Beauty", init: "S" },
   ];
   return (
-    <section className="py-28 px-6 divider" style={{background:"var(--bg-warm)"}}>
-      <div className="max-w-6xl mx-auto">
-        <div className="text-center mb-14">
-          <p className="sec-label mb-3">Testimonials</p>
-          <h2 className="text-4xl md:text-5xl font-bold tracking-tight" style={{color:"var(--text-1)", lineHeight:1.1}}>
+    <section className="section-warm section-divider">
+      <div className="container">
+        <div style={{ textAlign: "center", marginBottom: "3.5rem" }}>
+          <p className="label" style={{ marginBottom: 12 }}>Testimonials</p>
+          <h2 style={{ fontSize: "clamp(30px,4vw,48px)", fontWeight: 700, letterSpacing: "-0.025em", lineHeight: 1.1, color: "var(--t1)" }}>
             Stores growing with<br />ContentBloom
           </h2>
         </div>
-        <div className="grid md:grid-cols-3 gap-5">
-          {t.map((x,i)=>(
-            <div key={i} className="card card-lift flex flex-col p-8" style={{boxShadow:"0 2px 12px rgba(0,0,0,.06)"}}>
-              <div className="flex gap-0.5 mb-6">
-                {[...Array(5)].map((_,j)=><Star key={j} size={13} style={{fill:"var(--accent)", color:"var(--accent)"}}/>)}
+        <div className="grid-3">
+          {items.map((x, i) => (
+            <div key={i} className="card" style={{ padding: "36px 32px", display: "flex", flexDirection: "column", boxShadow: "var(--shadow-sm)" }}>
+              <div style={{ display: "flex", gap: 2, marginBottom: 24 }}>
+                {[...Array(5)].map((_,j) => <Star key={j} size={13} style={{ fill:"var(--accent)", color:"var(--accent)" }} />)}
               </div>
-              <p className="text-[14px] leading-relaxed flex-1 mb-8" style={{color:"var(--text-1)"}}>&ldquo;{x.q}&rdquo;</p>
-              <div className="flex items-center gap-3">
-                <div className="w-9 h-9 rounded-full flex items-center justify-center text-sm font-bold shrink-0"
-                  style={{background:"var(--accent-lt)", color:"var(--accent)"}}>{x.i}</div>
+              <p style={{ fontSize: 14, lineHeight: 1.75, color: "var(--t1)", flex: 1, marginBottom: 28 }}>&ldquo;{x.q}&rdquo;</p>
+              <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+                <div style={{ width: 36, height: 36, borderRadius: "50%", background: "var(--accent-lt)", color: "var(--accent)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 14, fontWeight: 700, flexShrink: 0 }}>
+                  {x.init}
+                </div>
                 <div>
-                  <div className="text-sm font-semibold" style={{color:"var(--text-1)"}}>{x.n}</div>
-                  <div className="text-[12px]" style={{color:"var(--text-3)"}}>{x.r}</div>
+                  <p style={{ fontSize: 14, fontWeight: 600, color: "var(--t1)" }}>{x.n}</p>
+                  <p style={{ fontSize: 12, color: "var(--t3)" }}>{x.r}</p>
                 </div>
               </div>
             </div>
@@ -310,19 +302,19 @@ function Testimonials() {
 
 function CTA() {
   return (
-    <section className="px-6 py-28 divider" style={{background:"var(--bg)"}}>
-      <div className="max-w-6xl mx-auto">
-        <div className="card text-center p-16 relative overflow-hidden" style={{boxShadow:"0 8px 40px rgba(0,0,0,.08)"}}>
-          <div className="absolute inset-0 pointer-events-none" style={{background:"radial-gradient(ellipse at 50% -20%, rgba(22,163,74,.06) 0%, transparent 60%)"}} />
-          <div className="relative">
-            <p className="sec-label mb-4 mx-auto w-fit">Get started today</p>
-            <h2 className="text-3xl md:text-5xl font-bold tracking-tight mb-4" style={{color:"var(--text-1)", lineHeight:1.1}}>
-              Ready to grow your store&apos;s<br className="hidden md:block" /> organic traffic?
+    <section className="section-default section-divider">
+      <div className="container">
+        <div className="card" style={{ padding: "80px 48px", textAlign: "center", boxShadow: "var(--shadow-md)", position: "relative", overflow: "hidden" }}>
+          <div style={{ position: "absolute", inset: 0, background: "radial-gradient(ellipse at 50% -10%, rgba(22,163,74,.06) 0%, transparent 60%)", pointerEvents: "none" }} />
+          <div style={{ position: "relative" }}>
+            <p className="label" style={{ marginBottom: 16 }}>Get started today</p>
+            <h2 style={{ fontSize: "clamp(28px,4vw,48px)", fontWeight: 700, letterSpacing: "-0.025em", lineHeight: 1.1, color: "var(--t1)", marginBottom: 16 }}>
+              Ready to grow your store&apos;s<br />organic traffic?
             </h2>
-            <p className="text-lg max-w-md mx-auto mb-10" style={{color:"var(--text-2)"}}>
+            <p style={{ fontSize: 17, color: "var(--t2)", maxWidth: 420, margin: "0 auto 40px" }}>
               Join 500+ Shopify stores getting daily SEO content. Start with 2 free articles.
             </p>
-            <Link href="/signup" className="btn-primary text-[15px] px-7 py-3.5 mx-auto">
+            <Link href="/signup" className="btn btn-dark" style={{ fontSize: 15, padding: "14px 30px", display: "inline-flex" }}>
               Get 2 Free Articles <ArrowRight size={16} />
             </Link>
           </div>
@@ -336,20 +328,20 @@ function CTA() {
 
 function Footer() {
   return (
-    <footer className="py-10 px-6 divider" style={{background:"var(--bg)"}}>
-      <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-5">
-        <Link href="/" className="flex items-center gap-2">
-          <div className="w-6 h-6 rounded-md flex items-center justify-center" style={{background:"var(--text-1)"}}>
-            <Sparkles size={11} className="text-white" />
+    <footer style={{ background: "var(--bg)", borderTop: "1px solid var(--border)", padding: "40px 0" }}>
+      <div className="container" style={{ display: "flex", flexWrap: "wrap", alignItems: "center", justifyContent: "space-between", gap: 20 }}>
+        <Link href="/" style={{ display: "flex", alignItems: "center", gap: 8, textDecoration: "none" }}>
+          <div style={{ width: 24, height: 24, borderRadius: 7, background: "var(--t1)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+            <Sparkles size={11} color="#fff" />
           </div>
-          <span className="font-bold text-sm" style={{color:"var(--text-1)"}}>ContentBloom</span>
+          <span style={{ fontWeight: 700, fontSize: 14, color: "var(--t1)" }}>ContentBloom</span>
         </Link>
-        <div className="flex items-center gap-7 text-[13px]" style={{color:"var(--text-3)"}}>
-          <Link href="#" className="hover:opacity-70 transition-opacity">Privacy</Link>
-          <Link href="#" className="hover:opacity-70 transition-opacity">Terms</Link>
-          <Link href="mailto:hello@bloomcontent.site" className="hover:opacity-70 transition-opacity">Contact</Link>
+        <div style={{ display: "flex", gap: 28 }}>
+          {["Privacy","Terms","Contact"].map(l => (
+            <Link key={l} href={l==="Contact"?"mailto:hello@bloomcontent.site":"#"} style={{ fontSize: 13, color: "var(--t3)", textDecoration: "none" }}>{l}</Link>
+          ))}
         </div>
-        <p className="text-[12px]" style={{color:"var(--text-3)"}}>© 2026 ContentBloom. All rights reserved.</p>
+        <p style={{ fontSize: 12, color: "var(--t3)" }}>© 2026 ContentBloom. All rights reserved.</p>
       </div>
     </footer>
   );
@@ -359,7 +351,7 @@ function Footer() {
 
 export default function HomePage() {
   return (
-    <main style={{background:"var(--bg)"}}>
+    <main style={{ background: "var(--bg)" }}>
       <Nav />
       <Hero />
       <LogoBar />
