@@ -132,16 +132,36 @@ function Hero() {
 // ─── LOGO BAR ──────────────────────────────────────────────────────────────────
 
 function LogoBar() {
-  const items = ["Shopify","WooCommerce","BigCommerce","Wix","Squarespace","Shopify Plus","Etsy","PrestaShop",
-                 "Shopify","WooCommerce","BigCommerce","Wix","Squarespace","Shopify Plus","Etsy","PrestaShop"];
+  const platforms = [
+    { name: "Shopify",       icon: "shopify" },
+    { name: "WooCommerce",   icon: "woocommerce" },
+    { name: "BigCommerce",   icon: "bigcommerce" },
+    { name: "Wix",           icon: "wix" },
+    { name: "Squarespace",   icon: "squarespace" },
+    { name: "Shopify Plus",  icon: "shopify" },
+    { name: "Etsy",          icon: "etsy" },
+    { name: "PrestaShop",    icon: "prestashop" },
+  ];
+  // Duplicate for seamless scroll
+  const items = [...platforms, ...platforms];
   return (
     <section style={{ background: "var(--bg)", borderTop: "1px solid var(--border)", borderBottom: "1px solid var(--border)", padding: "28px 0", overflow: "hidden" }}>
       <p style={{ textAlign: "center", fontSize: 11, letterSpacing: ".12em", textTransform: "uppercase", color: "var(--t3)", marginBottom: 20 }}>
         Works with every major e-commerce platform
       </p>
-      <div className="ascroll" style={{ display: "flex", gap: 56, width: "max-content" }}>
-        {items.map((p,i) => (
-          <span key={i} style={{ fontSize: 13, fontWeight: 600, color: "var(--t3)", whiteSpace: "nowrap" }}>{p}</span>
+      <div className="ascroll" style={{ display: "flex", alignItems: "center", gap: 48, width: "max-content" }}>
+        {items.map((p, i) => (
+          <div key={i} style={{ display: "flex", alignItems: "center", gap: 8, whiteSpace: "nowrap" }}>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={`https://cdn.simpleicons.org/${p.icon}/b0adac`}
+              alt={p.name}
+              width={18}
+              height={18}
+              style={{ opacity: 0.7 }}
+            />
+            <span style={{ fontSize: 13, fontWeight: 600, color: "var(--t3)" }}>{p.name}</span>
+          </div>
         ))}
       </div>
     </section>
