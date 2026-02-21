@@ -94,7 +94,7 @@ function Hero() {
               {["#fca5a5","#fcd34d","#86efac"].map((c,i)=><div key={i} style={{ width:12, height:12, borderRadius:"50%", background:c }}/>)}
             </div>
             <div className="card-inner" style={{ flex: 1, height: 26, marginLeft: 8, display: "flex", alignItems: "center", padding: "0 12px" }}>
-              <span style={{ fontSize: 11, color: "var(--t3)" }}>contentbloom.vercel.app/dashboard</span>
+              <span style={{ fontSize: 11, color: "var(--t3)" }}>app.bloomcontent.site/dashboard</span>
             </div>
           </div>
 
