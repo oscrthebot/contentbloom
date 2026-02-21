@@ -22,6 +22,8 @@ export const getBySlug = query({
       keyword: article.keyword,
       seoScore: article.seoScore,
       wordCount: article.wordCount,
+      keywordMonthlyVolume: article.keywordMonthlyVolume,
+      keywordRelatedVolume: article.keywordRelatedVolume,
     };
   },
 });
@@ -68,6 +70,8 @@ export const seed = mutation({
     keyword: v.string(),
     seoScore: v.number(),
     wordCount: v.number(),
+    keywordMonthlyVolume: v.optional(v.number()),
+    keywordRelatedVolume: v.optional(v.number()),
   },
   handler: async (ctx, args) => {
     const existing = await ctx.db

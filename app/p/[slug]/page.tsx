@@ -7,6 +7,7 @@ import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, Lock, Unlock, Check, ChevronRight } from "lucide-react";
+import { TrafficChart } from "./TrafficChart";
 
 function Skeleton() {
   return (
@@ -160,8 +161,18 @@ export default function ArticlePreviewPage() {
               {previewLines.map((line, i) => renderLine(line, i))}
             </div>
 
+            {/* Traffic opportunity chart — visible before unlocking */}
+            {article.keywordMonthlyVolume && (
+              <TrafficChart metrics={{
+                monthlyVolume: article.keywordMonthlyVolume,
+                relatedVolume: article.keywordRelatedVolume ?? 0,
+                keyword: article.keyword,
+                businessName: article.businessName,
+              }} />
+            )}
+
             {/* Email gate card */}
-            <div className="fade-in card" style={{ padding: "36px 32px", textAlign: "center", marginTop: 8, marginBottom: 48 }}>
+            <div className="fade-in card" style={{ padding: "36px 32px", textAlign: "center", marginTop: 20, marginBottom: 48 }}>
               <div style={{ width: 48, height: 48, borderRadius: 12, background: "var(--accent-lt)", display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 16px" }}>
                 <Lock size={20} style={{ color: "var(--accent)" }} />
               </div>

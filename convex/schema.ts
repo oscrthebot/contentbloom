@@ -100,6 +100,8 @@ export default defineSchema({
     keyword: v.string(),
     seoScore: v.number(),
     wordCount: v.number(),
+    keywordMonthlyVolume: v.optional(v.number()),    // primary keyword monthly searches
+    keywordRelatedVolume: v.optional(v.number()),    // cluster of related keywords
     createdAt: v.number(),
   }).index("by_slug", ["slug"]),
 
