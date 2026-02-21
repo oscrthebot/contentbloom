@@ -33,8 +33,21 @@ function Nav() {
 
 function Hero() {
   return (
-    <section style={{ background: "var(--bg)", paddingTop: "9rem", paddingBottom: "4rem" }}>
-      <div className="container" style={{ textAlign: "center" }}>
+    <section style={{
+      position: "relative",
+      paddingTop: "9rem", paddingBottom: "4rem",
+      backgroundImage: `url("https://framerusercontent.com/images/gxb6A1j9Y0wXrhIBrMQD21JI.png")`,
+      backgroundSize: "cover",
+      backgroundPosition: "center top",
+      backgroundRepeat: "no-repeat",
+    }}>
+      {/* Fade to page background at the bottom */}
+      <div style={{
+        position: "absolute", inset: 0,
+        background: "linear-gradient(to bottom, rgba(249,248,248,0.15) 0%, rgba(249,248,248,0.5) 60%, #f9f8f8 100%)",
+        pointerEvents: "none",
+      }} />
+      <div className="container" style={{ textAlign: "center", position: "relative" }}>
         <div className="a0" style={{ marginBottom: 24 }}>
           <span className="pill">
             <Image src="/rocket.svg" alt="" width={14} height={14} style={{ imageRendering: "pixelated" }} />
@@ -73,7 +86,7 @@ function Hero() {
       </div>
 
       {/* Mockup */}
-      <div className="container a3" style={{ marginTop: "3.5rem" }}>
+      <div className="container a3" style={{ marginTop: "3.5rem", position: "relative" }}>
         <div className="card afloat" style={{ padding: 28, boxShadow: "0 12px 48px rgba(0,0,0,.10)" }}>
           {/* Browser chrome */}
           <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 20 }}>
