@@ -7,6 +7,11 @@ const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 export const metadata: Metadata = {
   title: "ContentBloom — AI Blog Content for Shopify Stores",
   description: "Daily SEO blog posts for your Shopify store, done for you by AI. Starting at €49/month.",
+  icons: {
+    icon: "/rocket.svg",
+    shortcut: "/rocket.svg",
+    apple: "/rocket.svg",
+  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

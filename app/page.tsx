@@ -1,5 +1,6 @@
 import Link from "next/link";
-import { ArrowRight, Check, Star, Sparkles, ChevronRight, TrendingUp, Zap, Globe } from "lucide-react";
+import Image from "next/image";
+import { ArrowRight, Check, Star, ChevronRight, TrendingUp, Zap, Globe } from "lucide-react";
 import { FeaturesSection } from "./features-section";
 
 // ─── NAV ──────────────────────────────────────────────────────────────────────
@@ -9,9 +10,7 @@ function Nav() {
     <nav className="nav">
       <div className="nav-inner">
         <Link href="/" style={{ display: "flex", alignItems: "center", gap: 10, textDecoration: "none" }}>
-          <div style={{ width: 28, height: 28, borderRadius: 8, background: "var(--t1)", display: "flex", alignItems: "center", justifyContent: "center" }}>
-            <Sparkles size={13} color="#fff" />
-          </div>
+          <Image src="/rocket.svg" alt="ContentBloom" width={28} height={28} style={{ imageRendering: "pixelated" }} />
           <span style={{ fontWeight: 700, fontSize: 15, color: "var(--t1)", letterSpacing: "-0.01em" }}>ContentBloom</span>
         </Link>
 
@@ -38,7 +37,7 @@ function Hero() {
       <div className="container" style={{ textAlign: "center" }}>
         <div className="a0" style={{ marginBottom: 24 }}>
           <span className="pill">
-            <Sparkles size={10} style={{ color: "var(--accent)" }} />
+            <Image src="/rocket.svg" alt="" width={14} height={14} style={{ imageRendering: "pixelated" }} />
             AI-Powered Content for E-commerce
           </span>
         </div>
@@ -261,9 +260,9 @@ function Pricing() {
 
 function Testimonials() {
   const items = [
-    { q: "We went from zero blog posts to ranking page 1 for 12 keywords in 3 months. ContentBloom is the best €99 we spend every month.", n: "Maria T.", r: "Founder, FitnessPro Store", init: "M" },
-    { q: "I was skeptical about AI content but the articles are genuinely good. Our organic traffic is up 280% and we haven't touched the blog ourselves.", n: "James K.", r: "Owner, The Outdoor Co.", init: "J" },
-    { q: "The free articles they sent blew me away. Signed up immediately. It's like having a full-time SEO writer for less than €2 a day.", n: "Sophie L.", r: "Director, Luxe Beauty", init: "S" },
+    { q: "We went from zero blog posts to ranking page 1 for 12 keywords in 3 months. ContentBloom is the best €99 we spend every month.", n: "Maria T.", r: "Founder, FitnessPro Store", photo: "https://i.pravatar.cc/96?img=44" },
+    { q: "I was skeptical about AI content but the articles are genuinely good. Our organic traffic is up 280% and we haven't touched the blog ourselves.", n: "James K.", r: "Owner, The Outdoor Co.", photo: "https://i.pravatar.cc/96?img=67" },
+    { q: "ContentBloom writes better product-focused SEO content than the agency we were paying €2,000/month for. It's honestly embarrassing how good it is.", n: "Sophie L.", r: "Director, Luxe Beauty", photo: "https://i.pravatar.cc/96?img=5" },
   ];
   return (
     <section className="section-warm section-divider">
@@ -282,9 +281,10 @@ function Testimonials() {
               </div>
               <p style={{ fontSize: 14, lineHeight: 1.75, color: "var(--t1)", flex: 1, marginBottom: 28 }}>&ldquo;{x.q}&rdquo;</p>
               <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-                <div style={{ width: 36, height: 36, borderRadius: "50%", background: "var(--accent-lt)", color: "var(--accent)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 14, fontWeight: 700, flexShrink: 0 }}>
-                  {x.init}
-                </div>
+                <Image
+                  src={x.photo} alt={x.n} width={40} height={40}
+                  style={{ borderRadius: "50%", objectFit: "cover", flexShrink: 0 }}
+                />
                 <div>
                   <p style={{ fontSize: 14, fontWeight: 600, color: "var(--t1)" }}>{x.n}</p>
                   <p style={{ fontSize: 12, color: "var(--t3)" }}>{x.r}</p>
@@ -331,9 +331,7 @@ function Footer() {
     <footer style={{ background: "var(--bg)", borderTop: "1px solid var(--border)", padding: "40px 0" }}>
       <div className="container" style={{ display: "flex", flexWrap: "wrap", alignItems: "center", justifyContent: "space-between", gap: 20 }}>
         <Link href="/" style={{ display: "flex", alignItems: "center", gap: 8, textDecoration: "none" }}>
-          <div style={{ width: 24, height: 24, borderRadius: 7, background: "var(--t1)", display: "flex", alignItems: "center", justifyContent: "center" }}>
-            <Sparkles size={11} color="#fff" />
-          </div>
+          <Image src="/rocket.svg" alt="ContentBloom" width={22} height={22} style={{ imageRendering: "pixelated" }} />
           <span style={{ fontWeight: 700, fontSize: 14, color: "var(--t1)" }}>ContentBloom</span>
         </Link>
         <div style={{ display: "flex", gap: 28 }}>
