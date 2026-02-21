@@ -1,0 +1,34 @@
+# Example Shopify Store URLs for Testing
+# Format: One URL per line
+# Remove # to uncomment and test
+
+# Pet Products
+# https://thefarmersdog.com
+# https://ollie.com
+# https://wildone.com
+
+# Fashion/Apparel
+# https://allbirds.com
+# https://gymshark.com
+# https://mvmt.com
+
+# Home/Lifestyle
+# https://burrow.com
+# https://public.com
+# https://casper.com
+
+# Beauty/Skincare
+# https://glossier.com
+# https://theordinary.com
+# https://drunk-elephant.com
+
+# Food & Beverage
+# https://graze.com
+# https://huel.com
+# https://magicspoon.com
+
+# Instructions:
+# 1. Uncomment URLs you want to scrape (remove # at start of line)
+# 2. Run: python shopify_scraper.py --file example_urls.txt
+# 3. Results will be saved to shopify_leads.json
+# 4. Review results and filter for high-priority leads

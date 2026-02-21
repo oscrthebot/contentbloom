@@ -1,0 +1,1043 @@
+/root/.openclaw/workspace/contentbloom/scraper/complete_lead_finder.py:386: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  'analyzed_at': datetime.utcnow().isoformat()
+============================================================
+🚀 ContentBloom Lead Generator
+============================================================
+Target: 100 qualified Shopify store leads
+Quality threshold: Score >= 40/100
+
+
+============================================================
+📂 NICHE: ORGANIC SKINCARE BEAUTY
+============================================================
+Checking 10 stores...
+
+────────────────────────────────────────────────────────────
+🔍 Analyzing: youthtothepeople.com
+   Niche: organic skincare beauty
+   Checking if Shopify...
+   ❌ Not a Shopify store
+
+────────────────────────────────────────────────────────────
+🔍 Analyzing: drunkelelephant.com
+   Niche: organic skincare beauty
+   Checking if Shopify...
+  ⚠️  Error checking https://drunkelelephant.com: HTTPSConnectionPool(host='drunkelelephant.com', po
+   ❌ Not a Shopify store
+
+────────────────────────────────────────────────────────────
+🔍 Analyzing: herbivore.com
+   Niche: organic skincare beauty
+   Checking if Shopify...
+   ✅ Confirmed Shopify store
+    🛍️  Found 47 products
+    ✉️  Found email: info@herbivorebotanicals.com
+
+   📊 SCORE: 95/100
+   Region: USA
+   ✅ QUALIFIED LEAD!
+
+   🎯 Total qualified leads so far: 1/100
+
+────────────────────────────────────────────────────────────
+🔍 Analyzing: glowrecipe.com
+   Niche: organic skincare beauty
+   Checking if Shopify...
+   ✅ Confirmed Shopify store
+    🛍️  Found 116 products
+    ✉️  Found email: order@glowrecipe.com
+
+   📊 SCORE: 100/100
+   Region: EU
+   ✅ QUALIFIED LEAD!
+
+   🎯 Total qualified leads so far: 2/100
+
+────────────────────────────────────────────────────────────
+🔍 Analyzing: tatcha.com
+   Niche: organic skincare beauty
+   Checking if Shopify...
+   ❌ Not a Shopify store
+
+────────────────────────────────────────────────────────────
+🔍 Analyzing: biossance.com
+   Niche: organic skincare beauty
+   Checking if Shopify...
+   ❌ Not a Shopify store
+
+────────────────────────────────────────────────────────────
+🔍 Analyzing: renskincare.com
+   Niche: organic skincare beauty
+   Checking if Shopify...
+  ⚠️  Error checking https://renskincare.com: HTTPSConnectionPool(host='renskincare.com', port=4
+   ❌ Not a Shopify store
+
+────────────────────────────────────────────────────────────
+🔍 Analyzing: innbeauty.com
+   Niche: organic skincare beauty
+   Checking if Shopify...
+   ❌ Not a Shopify store
+
+────────────────────────────────────────────────────────────
+🔍 Analyzing: farmacybeauty.com
+   Niche: organic skincare beauty
+   Checking if Shopify...
+   ✅ Confirmed Shopify store
+    🛍️  Found 250 products
+    ✉️  Found email: influencer@farmacybeauty.comPR
+
+   📊 SCORE: 100/100
+   Region: USA
+   ✅ QUALIFIED LEAD!
+
+   🎯 Total qualified leads so far: 3/100
+
+────────────────────────────────────────────────────────────
+🔍 Analyzing: peachandlily.com
+   Niche: organic skincare beauty
+   Checking if Shopify...
+   ✅ Confirmed Shopify store
+    🛍️  Found 142 products
+    ✉️  Found email: hello@peachandlily.com
+
+   📊 SCORE: 100/100
+   Region: USA
+   ✅ QUALIFIED LEAD!
+
+   🎯 Total qualified leads so far: 4/100
+
+============================================================
+📂 NICHE: PET SUPPLIES
+============================================================
+Checking 10 stores...
+
+────────────────────────────────────────────────────────────
+🔍 Analyzing: thefarmersdog.com
+   Niche: pet supplies
+   Checking if Shopify...
+   ❌ Not a Shopify store
+
+────────────────────────────────────────────────────────────
+🔍 Analyzing: chewy.com
+   Niche: pet supplies
+   Checking if Shopify...
+   ❌ Not a Shopify store
+
+────────────────────────────────────────────────────────────
+🔍 Analyzing: barkshop.com
+   Niche: pet supplies
+   Checking if Shopify...
+   ✅ Confirmed Shopify store
+
+   📊 SCORE: 50/100
+   Region: USA
+   ✅ QUALIFIED LEAD!
+
+   🎯 Total qualified leads so far: 5/100
+
+────────────────────────────────────────────────────────────
+🔍 Analyzing: wildone.com
+   Niche: pet supplies
+   Checking if Shopify...
+   ✅ Confirmed Shopify store
+    🛍️  Found 55 products
+    ✉️  Found email: help@wildone.com
+
+   📊 SCORE: 100/100
+   Region: USA
+   ✅ QUALIFIED LEAD!
+
+   🎯 Total qualified leads so far: 6/100
+
+────────────────────────────────────────────────────────────
+🔍 Analyzing: finnthepup.com
+   Niche: pet supplies
+   Checking if Shopify...
+  ⚠️  Error checking https://finnthepup.com: HTTPSConnectionPool(host='finnthepup.com', port=44
+   ❌ Not a Shopify store
+
+────────────────────────────────────────────────────────────
+🔍 Analyzing: openfarmpet.com
+   Niche: pet supplies
+   Checking if Shopify...
+   ✅ Confirmed Shopify store
+    🛍️  Found 231 products
+
+   📊 SCORE: 75/100
+   Region: USA
+   ✅ QUALIFIED LEAD!
+
+   🎯 Total qualified leads so far: 7/100
+
+────────────────────────────────────────────────────────────
+🔍 Analyzing: prettylitter.com
+   Niche: pet supplies
+   Checking if Shopify...
+   ✅ Confirmed Shopify store
+    ✉️  Found email: meow@prettylitter.com
+
+   📊 SCORE: 75/100
+   Region: USA
+   ✅ QUALIFIED LEAD!
+
+   🎯 Total qualified leads so far: 8/100
+
+────────────────────────────────────────────────────────────
+🔍 Analyzing: smackpet.com
+   Niche: pet supplies
+   Checking if Shopify...
+   ❌ Not a Shopify store
+
+────────────────────────────────────────────────────────────
+🔍 Analyzing: pawstruck.com
+   Niche: pet supplies
+   Checking if Shopify...
+   ✅ Confirmed Shopify store
+    🛍️  Found 55 products
+    ✉️  Found email: selfies@pawstruck.com
+
+   📊 SCORE: 100/100
+   Region: USA
+   ✅ QUALIFIED LEAD!
+
+   🎯 Total qualified leads so far: 9/100
+
+────────────────────────────────────────────────────────────
+🔍 Analyzing: zipporahliving.com
+   Niche: pet supplies
+   Checking if Shopify...
+  ⚠️  Error checking https://zipporahliving.com: HTTPSConnectionPool(host='zipporahliving.com', por
+   ❌ Not a Shopify store
+
+============================================================
+📂 NICHE: HOME DECOR
+============================================================
+Checking 10 stores...
+
+────────────────────────────────────────────────────────────
+🔍 Analyzing: burrow.com
+   Niche: home decor
+   Checking if Shopify...
+   ✅ Confirmed Shopify store
+    ✉️  Found email: support@burrow.comHours
+
+   📊 SCORE: 75/100
+   Region: USA
+   ✅ QUALIFIED LEAD!
+
+   🎯 Total qualified leads so far: 10/100
+
+────────────────────────────────────────────────────────────
+🔍 Analyzing: article.com
+   Niche: home decor
+   Checking if Shopify...
+   ❌ Not a Shopify store
+
+────────────────────────────────────────────────────────────
+🔍 Analyzing: allmodern.com
+   Niche: home decor
+   Checking if Shopify...
+   ❌ Not a Shopify store
+
+────────────────────────────────────────────────────────────
+🔍 Analyzing: society6.com
+   Niche: home decor
+   Checking if Shopify...
+   ✅ Confirmed Shopify store
+    🛍️  Found 250 products
+
+   📊 SCORE: 75/100
+   Region: USA
+   ✅ QUALIFIED LEAD!
+
+   🎯 Total qualified leads so far: 11/100
+
+────────────────────────────────────────────────────────────
+🔍 Analyzing: havenly.com
+   Niche: home decor
+   Checking if Shopify...
+   ❌ Not a Shopify store
+
+────────────────────────────────────────────────────────────
+🔍 Analyzing: brooklinen.com
+   Niche: home decor
+   Checking if Shopify...
+   ✅ Confirmed Shopify store
+    🛍️  Found 250 products
+    ✉️  Found email: hello@brooklinen.com
+
+   📊 SCORE: 100/100
+   Region: USA
+   ✅ QUALIFIED LEAD!
+
+   🎯 Total qualified leads so far: 12/100
+
+────────────────────────────────────────────────────────────
+🔍 Analyzing: parachutehome.com
+   Niche: home decor
+   Checking if Shopify...
+   ✅ Confirmed Shopify store
+    🛍️  Found 250 products
+    ✉️  Found email: concierge@parachutehome.com
+
+   📊 SCORE: 100/100
+   Region: USA
+   ✅ QUALIFIED LEAD!
+
+   🎯 Total qualified leads so far: 13/100
+
+────────────────────────────────────────────────────────────
+🔍 Analyzing: citizenry.com
+   Niche: home decor
+   Checking if Shopify...
+   ✅ Confirmed Shopify store
+    🛍️  Found 250 products
+    ✉️  Found email: assistant@the-citizenry.com
+
+   📊 SCORE: 100/100
+   Region: USA
+   ✅ QUALIFIED LEAD!
+
+   🎯 Total qualified leads so far: 14/100
+
+────────────────────────────────────────────────────────────
+🔍 Analyzing: westelm.com
+   Niche: home decor
+   Checking if Shopify...
+  ⚠️  Error checking https://westelm.com: HTTPSConnectionPool(host='www.westelm.com', port=4
+   ❌ Not a Shopify store
+
+────────────────────────────────────────────────────────────
+🔍 Analyzing: crateandbarrel.com
+   Niche: home decor
+   Checking if Shopify...
+   ❌ Not a Shopify store
+
+============================================================
+📂 NICHE: FITNESS GYM EQUIPMENT
+============================================================
+Checking 10 stores...
+
+────────────────────────────────────────────────────────────
+🔍 Analyzing: roguefitness.com
+   Niche: fitness gym equipment
+   Checking if Shopify...
+   ❌ Not a Shopify store
+
+────────────────────────────────────────────────────────────
+🔍 Analyzing: repfitness.com
+   Niche: fitness gym equipment
+   Checking if Shopify...
+   ✅ Confirmed Shopify store
+    🛍️  Found 250 products
+    ✉️  Found email: info@repfitness.comDo
+
+   📊 SCORE: 100/100
+   Region: USA
+   ✅ QUALIFIED LEAD!
+
+   🎯 Total qualified leads so far: 15/100
+
+────────────────────────────────────────────────────────────
+🔍 Analyzing: titan.fitness
+   Niche: fitness gym equipment
+   Checking if Shopify...
+   ✅ Confirmed Shopify store
+    🛍️  Found 250 products
+
+   📊 SCORE: 75/100
+   Region: USA
+   ✅ QUALIFIED LEAD!
+
+   🎯 Total qualified leads so far: 16/100
+
+────────────────────────────────────────────────────────────
+🔍 Analyzing: bellsofsteel.com
+   Niche: fitness gym equipment
+   Checking if Shopify...
+   ✅ Confirmed Shopify store
+    🛍️  Found 250 products
+    ✉️  Found email: support@bellsofsteel.comFor
+
+   📊 SCORE: 100/100
+   Region: EU
+   ✅ QUALIFIED LEAD!
+
+   🎯 Total qualified leads so far: 17/100
+
+────────────────────────────────────────────────────────────
+🔍 Analyzing: fringe.sport
+   Niche: fitness gym equipment
+   Checking if Shopify...
+  ⚠️  Error checking https://fringe.sport: HTTPSConnectionPool(host='fringe.sport', port=443)
+   ❌ Not a Shopify store
+
+────────────────────────────────────────────────────────────
+🔍 Analyzing: vulcanstrength.com
+   Niche: fitness gym equipment
+   Checking if Shopify...
+   ❌ Not a Shopify store
+
+────────────────────────────────────────────────────────────
+🔍 Analyzing: americanbarbell.com
+   Niche: fitness gym equipment
+   Checking if Shopify...
+   ✅ Confirmed Shopify store
+    🛍️  Found 161 products
+    ✉️  Found email: Supportsupport@americanbarbell.com
+
+   📊 SCORE: 100/100
+   Region: USA
+   ✅ QUALIFIED LEAD!
+
+   🎯 Total qualified leads so far: 18/100
+
+────────────────────────────────────────────────────────────
+🔍 Analyzing: againfaster.com
+   Niche: fitness gym equipment
+   Checking if Shopify...
+   ✅ Confirmed Shopify store
+    🛍️  Found 250 products
+    ✉️  Found email: service@againfaster.com
+
+   📊 SCORE: 100/100
+   Region: USA
+   ✅ QUALIFIED LEAD!
+
+   🎯 Total qualified leads so far: 19/100
+
+────────────────────────────────────────────────────────────
+🔍 Analyzing: prxperformance.com
+   Niche: fitness gym equipment
+   Checking if Shopify...
+   ✅ Confirmed Shopify store
+    🛍️  Found 250 products
+    ✉️  Found email: sales@prxperformance.com
+
+   📊 SCORE: 100/100
+   Region: USA
+   ✅ QUALIFIED LEAD!
+
+   🎯 Total qualified leads so far: 20/100
+
+────────────────────────────────────────────────────────────
+🔍 Analyzing: getmirror.com
+   Niche: fitness gym equipment
+   Checking if Shopify...
+  ⚠️  Error checking https://getmirror.com: HTTPSConnectionPool(host='getmirror.com', port=443
+   ❌ Not a Shopify store
+
+============================================================
+📂 NICHE: SUSTAINABLE FASHION
+============================================================
+Checking 10 stores...
+
+────────────────────────────────────────────────────────────
+🔍 Analyzing: reformation.com
+   Niche: sustainable fashion
+   Checking if Shopify...
+   ❌ Not a Shopify store
+
+────────────────────────────────────────────────────────────
+🔍 Analyzing: everlane.com
+   Niche: sustainable fashion
+   Checking if Shopify...
+   ✅ Confirmed Shopify store
+    🛍️  Found 250 products
+
+   📊 SCORE: 75/100
+   Region: USA
+   ✅ QUALIFIED LEAD!
+
+   🎯 Total qualified leads so far: 21/100
+
+────────────────────────────────────────────────────────────
+🔍 Analyzing: patagonia.com
+   Niche: sustainable fashion
+   Checking if Shopify...
+   ❌ Not a Shopify store
+
+────────────────────────────────────────────────────────────
+🔍 Analyzing: outerknown.com
+   Niche: sustainable fashion
+   Checking if Shopify...
+   ✅ Confirmed Shopify store
+    🛍️  Found 250 products
+    ✉️  Found email: customercare@outerknown.com
+
+   📊 SCORE: 100/100
+   Region: USA
+   ✅ QUALIFIED LEAD!
+
+   🎯 Total qualified leads so far: 22/100
+
+────────────────────────────────────────────────────────────
+🔍 Analyzing: tentree.com
+   Niche: sustainable fashion
+   Checking if Shopify...
+   ✅ Confirmed Shopify store
+    🛍️  Found 250 products
+    ✉️  Found email: support@tentree.com
+
+   📊 SCORE: 100/100
+   Region: USA
+   ✅ QUALIFIED LEAD!
+
+   🎯 Total qualified leads so far: 23/100
+
+────────────────────────────────────────────────────────────
+🔍 Analyzing: pactapparel.com
+   Niche: sustainable fashion
+   Checking if Shopify...
+   ✅ Confirmed Shopify store
+
+   📊 SCORE: 50/100
+   Region: USA
+   ✅ QUALIFIED LEAD!
+
+   🎯 Total qualified leads so far: 24/100
+
+────────────────────────────────────────────────────────────
+🔍 Analyzing: nisolo.com
+   Niche: sustainable fashion
+   Checking if Shopify...
+   ✅ Confirmed Shopify store
+    🛍️  Found 187 products
+
+   📊 SCORE: 75/100
+   Region: USA
+   ✅ QUALIFIED LEAD!
+
+   🎯 Total qualified leads so far: 25/100
+
+────────────────────────────────────────────────────────────
+🔍 Analyzing: wearwell.com
+   Niche: sustainable fashion
+   Checking if Shopify...
+   ❌ Not a Shopify store
+
+────────────────────────────────────────────────────────────
+🔍 Analyzing: elizabethsuzann.com
+   Niche: sustainable fashion
+   Checking if Shopify...
+   ✅ Confirmed Shopify store
+    🛍️  Found 103 products
+    ✉️  Found email: support@elizabethsuzann.com
+
+   📊 SCORE: 100/100
+   Region: USA
+   ✅ QUALIFIED LEAD!
+
+   🎯 Total qualified leads so far: 26/100
+
+────────────────────────────────────────────────────────────
+🔍 Analyzing: tradlands.com
+   Niche: sustainable fashion
+   Checking if Shopify...
+   ✅ Confirmed Shopify store
+    🛍️  Found 28 products
+
+   📊 SCORE: 70/100
+   Region: USA
+   ✅ QUALIFIED LEAD!
+
+   🎯 Total qualified leads so far: 27/100
+
+============================================================
+📂 NICHE: COFFEE TEA
+============================================================
+Checking 10 stores...
+
+────────────────────────────────────────────────────────────
+🔍 Analyzing: bluebottlecoffee.com
+   Niche: coffee tea
+   Checking if Shopify...
+   ❌ Not a Shopify store
+
+────────────────────────────────────────────────────────────
+🔍 Analyzing: stumptown.com
+   Niche: coffee tea
+   Checking if Shopify...
+  ⚠️  Error checking https://stumptown.com: HTTPSConnectionPool(host='stumptown.com', port=443
+   ❌ Not a Shopify store
+
+────────────────────────────────────────────────────────────
+🔍 Analyzing: intelligentsia.com
+   Niche: coffee tea
+   Checking if Shopify...
+   ✅ Confirmed Shopify store
+    🛍️  Found 250 products
+    ✉️  Found email: press@intelligentsiacoffee.com
+
+   📊 SCORE: 100/100
+   Region: USA
+   ✅ QUALIFIED LEAD!
+
+   🎯 Total qualified leads so far: 28/100
+
+────────────────────────────────────────────────────────────
+🔍 Analyzing: artofteasus.com
+   Niche: coffee tea
+   Checking if Shopify...
+  ⚠️  Error checking https://artofteasus.com: HTTPSConnectionPool(host='artofteasus.com', port=4
+   ❌ Not a Shopify store
+
+────────────────────────────────────────────────────────────
+🔍 Analyzing: rishi-tea.com
+   Niche: coffee tea
+   Checking if Shopify...
+   ✅ Confirmed Shopify store
+    🛍️  Found 250 products
+    ✉️  Found email: order@rishi-tea.com
+
+   📊 SCORE: 100/100
+   Region: USA
+   ✅ QUALIFIED LEAD!
+
+   🎯 Total qualified leads so far: 29/100
+
+────────────────────────────────────────────────────────────
+🔍 Analyzing: counter.culture
+   Niche: coffee tea
+   Checking if Shopify...
+  ⚠️  Error checking https://counter.culture: HTTPSConnectionPool(host='counter.culture', port=4
+   ❌ Not a Shopify store
+
+────────────────────────────────────────────────────────────
+🔍 Analyzing: driftaway.coffee
+   Niche: coffee tea
+   Checking if Shopify...
+   ❌ Not a Shopify store
+
+────────────────────────────────────────────────────────────
+🔍 Analyzing: tradecoffeeco.com
+   Niche: coffee tea
+   Checking if Shopify...
+   ✅ Confirmed Shopify store
+    🛍️  Found 250 products
+
+   📊 SCORE: 75/100
+   Region: USA
+   ✅ QUALIFIED LEAD!
+
+   🎯 Total qualified leads so far: 30/100
+
+────────────────────────────────────────────────────────────
+🔍 Analyzing: angelic.coffee
+   Niche: coffee tea
+   Checking if Shopify...
+  ⚠️  Error checking https://angelic.coffee: HTTPSConnectionPool(host='angelic.coffee', port=44
+   ❌ Not a Shopify store
+
+────────────────────────────────────────────────────────────
+🔍 Analyzing: birdrockcoffee.com
+   Niche: coffee tea
+   Checking if Shopify...
+   ❌ Not a Shopify store
+
+============================================================
+📂 NICHE: JEWELRY ACCESSORIES
+============================================================
+Checking 10 stores...
+
+────────────────────────────────────────────────────────────
+🔍 Analyzing: mejuri.com
+   Niche: jewelry accessories
+   Checking if Shopify...
+   ✅ Confirmed Shopify store
+
+   📊 SCORE: 50/100
+   Region: USA
+   ✅ QUALIFIED LEAD!
+
+   🎯 Total qualified leads so far: 31/100
+
+────────────────────────────────────────────────────────────
+🔍 Analyzing: auratenewyork.com
+   Niche: jewelry accessories
+   Checking if Shopify...
+   ✅ Confirmed Shopify store
+    🛍️  Found 250 products
+    ✉️  Found email: care@auratenewyork.com
+
+   📊 SCORE: 100/100
+   Region: USA
+   ✅ QUALIFIED LEAD!
+
+   🎯 Total qualified leads so far: 32/100
+
+────────────────────────────────────────────────────────────
+🔍 Analyzing: catbirdnyc.com
+   Niche: jewelry accessories
+   Checking if Shopify...
+   ❌ Not a Shopify store
+
+────────────────────────────────────────────────────────────
+🔍 Analyzing: gorjana.com
+   Niche: jewelry accessories
+   Checking if Shopify...
+   ✅ Confirmed Shopify store
+    🛍️  Found 250 products
+
+   📊 SCORE: 75/100
+   Region: USA
+   ✅ QUALIFIED LEAD!
+
+   🎯 Total qualified leads so far: 33/100
+
+────────────────────────────────────────────────────────────
+🔍 Analyzing: jenniferfisher.com
+   Niche: jewelry accessories
+   Checking if Shopify...
+   ✅ Confirmed Shopify store
+    ✉️  Found email: EmailSupport@Jenniferfisher.comTelephone
+
+   📊 SCORE: 75/100
+   Region: USA
+   ✅ QUALIFIED LEAD!
+
+   🎯 Total qualified leads so far: 34/100
+
+────────────────────────────────────────────────────────────
+🔍 Analyzing: brookandyork.com
+   Niche: jewelry accessories
+   Checking if Shopify...
+   ❌ Not a Shopify store
+
+────────────────────────────────────────────────────────────
+🔍 Analyzing: laladesigns.com
+   Niche: jewelry accessories
+   Checking if Shopify...
+  ⚠️  Error checking https://laladesigns.com: HTTPSConnectionPool(host='laladesigns.com', port=4
+   ❌ Not a Shopify store
+
+────────────────────────────────────────────────────────────
+🔍 Analyzing: kinstoneco.com
+   Niche: jewelry accessories
+   Checking if Shopify...
+  ⚠️  Error checking https://kinstoneco.com: HTTPSConnectionPool(host='kinstoneco.com', port=44
+   ❌ Not a Shopify store
+
+────────────────────────────────────────────────────────────
+🔍 Analyzing: oliveyew.com
+   Niche: jewelry accessories
+   Checking if Shopify...
+   ❌ Not a Shopify store
+
+────────────────────────────────────────────────────────────
+🔍 Analyzing: parkavenuejewelers.com
+   Niche: jewelry accessories
+   Checking if Shopify...
+   ❌ Not a Shopify store
+
+============================================================
+📂 NICHE: BABY PRODUCTS
+============================================================
+Checking 10 stores...
+
+────────────────────────────────────────────────────────────
+🔍 Analyzing: happiestbaby.com
+   Niche: baby products
+   Checking if Shopify...
+   ✅ Confirmed Shopify store
+
+   📊 SCORE: 50/100
+   Region: USA
+   ✅ QUALIFIED LEAD!
+
+   🎯 Total qualified leads so far: 35/100
+
+────────────────────────────────────────────────────────────
+🔍 Analyzing: babylist.com
+   Niche: baby products
+   Checking if Shopify...
+   ✅ Confirmed Shopify store
+
+   📊 SCORE: 50/100
+   Region: USA
+   ✅ QUALIFIED LEAD!
+
+   🎯 Total qualified leads so far: 36/100
+
+────────────────────────────────────────────────────────────
+🔍 Analyzing: solly.baby
+   Niche: baby products
+   Checking if Shopify...
+  ⚠️  Error checking https://solly.baby: HTTPSConnectionPool(host='solly.baby', port=443): 
+   ❌ Not a Shopify store
+
+────────────────────────────────────────────────────────────
+🔍 Analyzing: kyte.baby
+   Niche: baby products
+   Checking if Shopify...
+   ❌ Not a Shopify store
+
+────────────────────────────────────────────────────────────
+🔍 Analyzing: spearmintlove.com
+   Niche: baby products
+   Checking if Shopify...
+   ✅ Confirmed Shopify store
+    🛍️  Found 250 products
+    ✉️  Found email: customerservice@spearmintLOVE.com
+
+   📊 SCORE: 100/100
+   Region: USA
+   ✅ QUALIFIED LEAD!
+
+   🎯 Total qualified leads so far: 37/100
+
+────────────────────────────────────────────────────────────
+🔍 Analyzing: pehr.com
+   Niche: baby products
+   Checking if Shopify...
+   ✅ Confirmed Shopify store
+    🛍️  Found 250 products
+    ✉️  Found email: customercare@pehrdesigns.comFax
+
+   📊 SCORE: 100/100
+   Region: USA
+   ✅ QUALIFIED LEAD!
+
+   🎯 Total qualified leads so far: 38/100
+
+────────────────────────────────────────────────────────────
+🔍 Analyzing: birdieshoots.com
+   Niche: baby products
+   Checking if Shopify...
+  ⚠️  Error checking https://birdieshoots.com: HTTPSConnectionPool(host='birdieshoots.com', port=
+   ❌ Not a Shopify store
+
+────────────────────────────────────────────────────────────
+🔍 Analyzing: burtsbees.baby
+   Niche: baby products
+   Checking if Shopify...
+  ⚠️  Error checking https://burtsbees.baby: HTTPSConnectionPool(host='burtsbees.baby', port=44
+   ❌ Not a Shopify store
+
+────────────────────────────────────────────────────────────
+🔍 Analyzing: newbiejams.com
+   Niche: baby products
+   Checking if Shopify...
+  ⚠️  Error checking https://newbiejams.com: HTTPSConnectionPool(host='newbiejams.com', port=44
+   ❌ Not a Shopify store
+
+────────────────────────────────────────────────────────────
+🔍 Analyzing: pattercakerie.com
+   Niche: baby products
+   Checking if Shopify...
+  ⚠️  Error checking https://pattercakerie.com: HTTPSConnectionPool(host='pattercakerie.com', port
+   ❌ Not a Shopify store
+
+============================================================
+📂 NICHE: KITCHEN GADGETS
+============================================================
+Checking 10 stores...
+
+────────────────────────────────────────────────────────────
+🔍 Analyzing: madeincookware.com
+   Niche: kitchen gadgets
+   Checking if Shopify...
+   ✅ Confirmed Shopify store
+    ✉️  Found email: hello@madeincookware.comChat
+
+   📊 SCORE: 75/100
+   Region: USA
+   ✅ QUALIFIED LEAD!
+
+   🎯 Total qualified leads so far: 39/100
+
+────────────────────────────────────────────────────────────
+🔍 Analyzing: caraway.com
+   Niche: kitchen gadgets
+   Checking if Shopify...
+  ⚠️  Error checking https://caraway.com: HTTPSConnectionPool(host='caraway.com', port=443):
+   ❌ Not a Shopify store
+
+────────────────────────────────────────────────────────────
+🔍 Analyzing: greenpan.us
+   Niche: kitchen gadgets
+   Checking if Shopify...
+   ✅ Confirmed Shopify store
+    🛍️  Found 250 products
+    ✉️  Found email: customercare.us@greenpan.com
+
+   📊 SCORE: 100/100
+   Region: USA
+   ✅ QUALIFIED LEAD!
+
+   🎯 Total qualified leads so far: 40/100
+
+────────────────────────────────────────────────────────────
+🔍 Analyzing: hexclad.com
+   Niche: kitchen gadgets
+   Checking if Shopify...
+   ✅ Confirmed Shopify store
+    🛍️  Found 150 products
+
+   📊 SCORE: 75/100
+   Region: EU
+   ✅ QUALIFIED LEAD!
+
+   🎯 Total qualified leads so far: 41/100
+
+────────────────────────────────────────────────────────────
+🔍 Analyzing: fellowproducts.com
+   Niche: kitchen gadgets
+   Checking if Shopify...
+   ✅ Confirmed Shopify store
+    🛍️  Found 250 products
+    ✉️  Found email: hello@fellowproducts.com
+
+   📊 SCORE: 100/100
+   Region: USA
+   ✅ QUALIFIED LEAD!
+
+   🎯 Total qualified leads so far: 42/100
+
+────────────────────────────────────────────────────────────
+🔍 Analyzing: greatjonesgoods.com
+   Niche: kitchen gadgets
+   Checking if Shopify...
+   ✅ Confirmed Shopify store
+    🛍️  Found 70 products
+
+   📊 SCORE: 75/100
+   Region: USA
+   ✅ QUALIFIED LEAD!
+
+   🎯 Total qualified leads so far: 43/100
+
+────────────────────────────────────────────────────────────
+🔍 Analyzing: ouroborosdesigns.com
+   Niche: kitchen gadgets
+   Checking if Shopify...
+   ❌ Not a Shopify store
+
+────────────────────────────────────────────────────────────
+🔍 Analyzing: messermeister.com
+   Niche: kitchen gadgets
+   Checking if Shopify...
+   ✅ Confirmed Shopify store
+    🛍️  Found 250 products
+    ✉️  Found email: orders@messermeister.com
+
+   📊 SCORE: 100/100
+   Region: USA
+   ✅ QUALIFIED LEAD!
+
+   🎯 Total qualified leads so far: 44/100
+
+────────────────────────────────────────────────────────────
+🔍 Analyzing: fusioncookware.com
+   Niche: kitchen gadgets
+   Checking if Shopify...
+  ⚠️  Error checking https://fusioncookware.com: HTTPSConnectionPool(host='fusioncookware.com', por
+   ❌ Not a Shopify store
+
+────────────────────────────────────────────────────────────
+🔍 Analyzing: xtremausa.com
+   Niche: kitchen gadgets
+   Checking if Shopify...
+  ⚠️  Error checking https://xtremausa.com: HTTPSConnectionPool(host='xtremausa.com', port=443
+   ❌ Not a Shopify store
+
+============================================================
+📂 NICHE: OUTDOOR CAMPING GEAR
+============================================================
+Checking 10 stores...
+
+────────────────────────────────────────────────────────────
+🔍 Analyzing: rei.com
+   Niche: outdoor camping gear
+   Checking if Shopify...
+  ⚠️  Error checking https://rei.com: HTTPSConnectionPool(host='rei.com', port=443): Rea
+   ❌ Not a Shopify store
+
+────────────────────────────────────────────────────────────
+🔍 Analyzing: backcountry.com
+   Niche: outdoor camping gear
+   Checking if Shopify...
+   ❌ Not a Shopify store
+
+────────────────────────────────────────────────────────────
+🔍 Analyzing: moosejaw.com
+   Niche: outdoor camping gear
+   Checking if Shopify...
+  ⚠️  Error checking https://moosejaw.com: HTTPSConnectionPool(host='moosejaw.com', port=443)
+   ❌ Not a Shopify store
+
+────────────────────────────────────────────────────────────
+🔍 Analyzing: campsaver.com
+   Niche: outdoor camping gear
+   Checking if Shopify...
+   ❌ Not a Shopify store
+
+────────────────────────────────────────────────────────────
+🔍 Analyzing: steepandcheap.com
+   Niche: outdoor camping gear
+   Checking if Shopify...
+   ❌ Not a Shopify store
+
+────────────────────────────────────────────────────────────
+🔍 Analyzing: sierra.com
+   Niche: outdoor camping gear
+   Checking if Shopify...
+   ❌ Not a Shopify store
+
+────────────────────────────────────────────────────────────
+🔍 Analyzing: hyperlite.com
+   Niche: outdoor camping gear
+   Checking if Shopify...
+   ✅ Confirmed Shopify store
+    🛍️  Found 250 products
+
+   📊 SCORE: 75/100
+   Region: USA
+   ✅ QUALIFIED LEAD!
+
+   🎯 Total qualified leads so far: 45/100
+
+────────────────────────────────────────────────────────────
+🔍 Analyzing: enlightenedequipment.com
+   Niche: outdoor camping gear
+   Checking if Shopify...
+   ❌ Not a Shopify store
+/root/.openclaw/workspace/contentbloom/scraper/complete_lead_finder.py:458: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  'generated_at': datetime.utcnow().isoformat(),
+
+────────────────────────────────────────────────────────────
+🔍 Analyzing: zpacksgear.com
+   Niche: outdoor camping gear
+   Checking if Shopify...
+  ⚠️  Error checking https://zpacksgear.com: HTTPSConnectionPool(host='zpacksgear.com', port=44
+   ❌ Not a Shopify store
+
+────────────────────────────────────────────────────────────
+🔍 Analyzing: gossamer-gear.com
+   Niche: outdoor camping gear
+   Checking if Shopify...
+  ⚠️  Error checking https://gossamer-gear.com: HTTPSConnectionPool(host='gossamer-gear.com', port
+   ❌ Not a Shopify store
+
+💾 Saved to /root/.openclaw/workspace/contentbloom/data/leads-backup.json
+
+============================================================
+📊 FINAL SUMMARY
+============================================================
+Total qualified leads: 45
+Average score: 85.9/100
+Leads with email: 29
+Leads with 0 blog posts: 45
+Leads with 0-5 blog posts: 45
+
+🏆 TOP 10 LEADS:
+1. glowrecipe.com - Score: 100 - organic skincare beauty
+2. farmacybeauty.com - Score: 100 - organic skincare beauty
+3. peachandlily.com - Score: 100 - organic skincare beauty
+4. wildone.com - Score: 100 - pet supplies
+5. pawstruck.com - Score: 100 - pet supplies
+6. brooklinen.com - Score: 100 - home decor
+7. parachutehome.com - Score: 100 - home decor
+8. citizenry.com - Score: 100 - home decor
+9. repfitness.com - Score: 100 - fitness gym equipment
+10. bellsofsteel.com - Score: 100 - fitness gym equipment

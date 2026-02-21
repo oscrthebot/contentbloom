@@ -1,256 +1,649 @@
 import Link from "next/link";
-import { ArrowRight, Zap, TrendingUp, Mail, Calendar } from "lucide-react";
+import {
+  ArrowRight,
+  Check,
+  Zap,
+  TrendingUp,
+  Mail,
+  FileText,
+  Star,
+  ChevronRight,
+  Sparkles,
+  BarChart3,
+  Globe,
+  Clock,
+} from "lucide-react";
+
+// ─── NAV ────────────────────────────────────────────────────────────────────
+
+function Nav() {
+  return (
+    <nav className="fixed top-0 left-0 right-0 z-50 border-b border-[#1a1a1a] bg-[#080808]/90 backdrop-blur-xl">
+      <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+        <div className="flex items-center gap-2">
+          <div className="w-7 h-7 rounded-lg bg-[#16C784] flex items-center justify-center">
+            <Sparkles size={14} className="text-black" />
+          </div>
+          <span className="font-bold text-white tracking-tight">ContentBloom</span>
+        </div>
+        <div className="hidden md:flex items-center gap-8 text-sm text-[#888]">
+          <Link href="#features" className="hover:text-white transition-colors">Features</Link>
+          <Link href="#how-it-works" className="hover:text-white transition-colors">How it works</Link>
+          <Link href="#pricing" className="hover:text-white transition-colors">Pricing</Link>
+        </div>
+        <div className="flex items-center gap-3">
+          <Link href="/login" className="text-sm text-[#888] hover:text-white transition-colors hidden md:block">
+            Log in
+          </Link>
+          <Link href="/signup" className="btn-green px-4 py-2 text-sm">
+            Get 2 Free Articles
+          </Link>
+        </div>
+      </div>
+    </nav>
+  );
+}
+
+// ─── HERO ────────────────────────────────────────────────────────────────────
+
+function Hero() {
+  return (
+    <section className="hero-bg pt-36 pb-24 px-6 text-center">
+      <div className="max-w-4xl mx-auto">
+        <div className="animate-fade-up">
+          <span className="pill-badge mb-6 inline-flex">
+            <Sparkles size={12} />
+            AI-Powered Content for E-commerce
+          </span>
+        </div>
+
+        <h1 className="animate-fade-up-delay-1 text-5xl md:text-7xl font-bold tracking-tight leading-[1.05] mb-6">
+          Your Shopify store{" "}
+          <br className="hidden md:block" />
+          deserves a blog that{" "}
+          <br className="hidden md:block" />
+          <span className="gradient-text">actually ranks</span>
+        </h1>
+
+        <p className="animate-fade-up-delay-2 text-lg text-[#888] max-w-xl mx-auto mb-10 leading-relaxed">
+          We write daily SEO blog posts for your Shopify store — fully automated,
+          Google-optimized, and published for you. While you focus on the business,
+          we grow your organic traffic.
+        </p>
+
+        <div className="animate-fade-up-delay-3 flex flex-col sm:flex-row items-center justify-center gap-4">
+          <Link
+            href="/signup"
+            className="btn-green px-7 py-3.5 text-base flex items-center gap-2 w-full sm:w-auto justify-center"
+          >
+            Get 2 Free Articles
+            <ArrowRight size={18} />
+          </Link>
+          <Link
+            href="#how-it-works"
+            className="btn-ghost px-7 py-3.5 text-base flex items-center gap-2 w-full sm:w-auto justify-center"
+          >
+            See How It Works
+            <ChevronRight size={16} className="text-[#888]" />
+          </Link>
+        </div>
+
+        <p className="text-xs text-[#555] mt-5">
+          No credit card required · 2 articles, zero strings attached
+        </p>
+      </div>
+
+      {/* Hero visual */}
+      <div className="max-w-3xl mx-auto mt-16 animate-fade-up-delay-3">
+        <div className="mockup-card animate-float">
+          <div className="flex items-center gap-2 mb-4">
+            <div className="w-3 h-3 rounded-full bg-[#333]" />
+            <div className="w-3 h-3 rounded-full bg-[#333]" />
+            <div className="w-3 h-3 rounded-full bg-[#333]" />
+            <div className="flex-1 bg-[#1a1a1a] rounded h-5 mx-4" />
+          </div>
+          <div className="grid grid-cols-3 gap-4 text-left">
+            <div className="col-span-2 space-y-3">
+              <div className="text-xs text-[#16C784] font-medium">PUBLISHED TODAY</div>
+              <div className="text-sm font-semibold">10 Best Yoga Mats for Home Practice in 2026 (Tested & Ranked)</div>
+              <div className="text-xs text-[#555] leading-relaxed">
+                Looking for the perfect yoga mat? We tested 47 options so you don&apos;t have to. Here&apos;s what actually works for your practice...
+              </div>
+              <div className="flex items-center gap-3">
+                <span className="text-xs bg-[#16C784]/10 text-[#16C784] px-2 py-0.5 rounded-full">SEO Score: 94</span>
+                <span className="text-xs text-[#555]">1,240 words</span>
+                <span className="text-xs text-[#555]">↗ Ranking: #3</span>
+              </div>
+            </div>
+            <div className="space-y-2">
+              <div className="bg-[#1a1a1a] rounded-lg p-3">
+                <div className="text-xs text-[#555] mb-1">Organic traffic</div>
+                <div className="text-lg font-bold text-[#16C784]">+340%</div>
+                <div className="text-xs text-[#555]">vs last month</div>
+              </div>
+              <div className="bg-[#1a1a1a] rounded-lg p-3">
+                <div className="text-xs text-[#555] mb-1">Articles live</div>
+                <div className="text-lg font-bold">87</div>
+                <div className="text-xs text-[#555]">this quarter</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// ─── SOCIAL PROOF BAR ─────────────────────────────────────────────────────
+
+function SocialProof() {
+  const platforms = [
+    "Shopify", "WooCommerce", "BigCommerce", "Wix", "Squarespace",
+    "Shopify Plus", "Etsy", "PrestaShop", "Shopify", "WooCommerce",
+    "BigCommerce", "Wix", "Squarespace", "Shopify Plus", "Etsy", "PrestaShop",
+  ];
+
+  return (
+    <section className="border-y border-[#1a1a1a] py-8 overflow-hidden">
+      <p className="text-center text-xs text-[#444] mb-6 tracking-wider uppercase">
+        Works with every major e-commerce platform
+      </p>
+      <div className="relative">
+        <div className="flex animate-scroll-left gap-12 w-max">
+          {platforms.map((p, i) => (
+            <div key={i} className="text-[#444] font-semibold text-sm whitespace-nowrap hover:text-[#666] transition-colors">
+              {p}
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// ─── FEATURES ────────────────────────────────────────────────────────────────
+
+function FeatureRow({
+  label,
+  title,
+  description,
+  bullets,
+  visual,
+  reverse = false,
+}: {
+  label: string;
+  title: string;
+  description: string;
+  bullets: string[];
+  visual: React.ReactNode;
+  reverse?: boolean;
+}) {
+  return (
+    <div
+      className={`flex flex-col ${reverse ? "md:flex-row-reverse" : "md:flex-row"} items-center gap-12 md:gap-20`}
+    >
+      <div className="flex-1">
+        <div className="text-xs font-semibold text-[#16C784] uppercase tracking-widest mb-4">{label}</div>
+        <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-4">{title}</h2>
+        <p className="text-[#888] leading-relaxed mb-8">{description}</p>
+        <ul className="space-y-3">
+          {bullets.map((b, i) => (
+            <li key={i} className="flex items-start gap-3 text-sm text-[#aaa]">
+              <Check size={16} className="text-[#16C784] mt-0.5 shrink-0" />
+              {b}
+            </li>
+          ))}
+        </ul>
+      </div>
+      <div className="flex-1 w-full">{visual}</div>
+    </div>
+  );
+}
+
+function ArticleMockup() {
+  return (
+    <div className="mockup-card card-hover">
+      <div className="text-xs text-[#16C784] font-medium mb-3">✦ Today&apos;s article</div>
+      <div className="text-sm font-semibold mb-2">How to Choose the Right Running Shoes for Marathon Training</div>
+      <div className="text-xs text-[#555] mb-4">Published to your Shopify blog · 3 min ago</div>
+      <div className="space-y-2">
+        {["Introduction & hook", "Section 1: Foot type analysis", "Section 2: Cushioning guide", "Section 3: Top 5 picks", "Buying guide & CTA"].map((s, i) => (
+          <div key={i} className="flex items-center gap-2 text-xs text-[#666]">
+            <Check size={10} className="text-[#16C784]" />
+            {s}
+          </div>
+        ))}
+      </div>
+      <div className="mt-4 pt-4 border-t border-[#222] flex items-center justify-between text-xs text-[#555]">
+        <span>1,340 words</span>
+        <span className="text-[#16C784]">SEO Score: 97</span>
+        <span>Keyword density: 1.8%</span>
+      </div>
+    </div>
+  );
+}
+
+function ShopifyMockup() {
+  return (
+    <div className="mockup-card card-hover">
+      <div className="text-xs text-[#555] mb-3">Shopify Admin → Blog posts</div>
+      <div className="space-y-2">
+        {[
+          { title: "Best yoga mats 2026", date: "Today", status: "Published" },
+          { title: "Home gym setup guide", date: "Yesterday", status: "Published" },
+          { title: "Protein powder comparison", date: "2 days ago", status: "Published" },
+          { title: "Recovery tools review", date: "3 days ago", status: "Published" },
+        ].map((post, i) => (
+          <div key={i} className="flex items-center justify-between p-2.5 bg-[#1a1a1a] rounded-lg">
+            <div>
+              <div className="text-xs font-medium">{post.title}</div>
+              <div className="text-xs text-[#555] mt-0.5">{post.date}</div>
+            </div>
+            <span className="text-xs text-[#16C784] bg-[#16C784]/10 px-2 py-0.5 rounded-full">{post.status}</span>
+          </div>
+        ))}
+      </div>
+      <div className="mt-3 text-xs text-[#555] text-center">+ 83 more articles published this quarter</div>
+    </div>
+  );
+}
+
+function EmailMockup() {
+  return (
+    <div className="mockup-card card-hover">
+      <div className="text-xs text-[#555] mb-3">Outreach email — sent by ContentBloom</div>
+      <div className="bg-[#1a1a1a] rounded-lg p-4 text-xs space-y-3">
+        <div className="flex items-center gap-2">
+          <span className="text-[#555]">To:</span>
+          <span>hello@yourbrand.com</span>
+        </div>
+        <div className="flex items-center gap-2">
+          <span className="text-[#555]">Subject:</span>
+          <span className="font-medium">Your store + 2 free articles (no catch)</span>
+        </div>
+        <hr className="border-[#222]" />
+        <p className="text-[#888] leading-relaxed">
+          Hi Sarah,<br /><br />
+          I noticed your Shopify store has a great product selection but no blog. That&apos;s leaving serious organic traffic on the table.<br /><br />
+          We&apos;d love to write 2 free SEO articles for your store — no strings attached...
+        </p>
+        <div className="flex gap-2 mt-2">
+          <span className="bg-[#16C784]/10 text-[#16C784] px-2 py-0.5 rounded-full text-xs">Sent ✓</span>
+          <span className="text-[#555]">Opened 3 hours ago</span>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function Features() {
+  return (
+    <section id="features" className="max-w-6xl mx-auto px-6 py-24 space-y-24">
+      <FeatureRow
+        label="Content automation"
+        title="AI articles on autopilot"
+        description="Every morning, a new SEO-optimized article lands on your Shopify blog. Written by AI trained on high-ranking e-commerce content — no fluff, no filler."
+        bullets={[
+          "Keyword research done automatically with DataForSEO",
+          "Articles optimized for Google's E-E-A-T guidelines",
+          "Published directly to your Shopify blog via API",
+          "Revisions included — send it back if you want changes",
+        ]}
+        visual={<ArticleMockup />}
+      />
+      <FeatureRow
+        label="Shopify integration"
+        title="Built for Shopify stores"
+        description="Connect once, publish forever. ContentBloom integrates directly with your Shopify blog so every article goes live without you lifting a finger."
+        bullets={[
+          "One-click Shopify store connection",
+          "Auto-publishes with tags, categories & meta descriptions",
+          "Works with every Shopify theme and plan",
+          "Dashboard to review all published content",
+        ]}
+        visual={<ShopifyMockup />}
+        reverse
+      />
+      <FeatureRow
+        label="Done-for-you outreach"
+        title="We do the outreach too"
+        description="Not a ContentBloom customer yet? We find your store, write 2 free sample articles, and send them to you. No strings attached — just proof it works."
+        bullets={[
+          "We identify stores with little or no blog content",
+          "2 custom articles written for your specific niche",
+          "Sent directly to your email — yours to keep",
+          "Subscribe only if you love the results",
+        ]}
+        visual={<EmailMockup />}
+      />
+    </section>
+  );
+}
+
+// ─── HOW IT WORKS ─────────────────────────────────────────────────────────
+
+function HowItWorks() {
+  const steps = [
+    {
+      icon: <Globe size={20} />,
+      step: "01",
+      title: "Connect your store",
+      desc: "Link your Shopify store in 30 seconds. We scan your products and niche to create a content strategy tailored to your audience.",
+    },
+    {
+      icon: <Zap size={20} />,
+      step: "02",
+      title: "AI writes daily",
+      desc: "Every day, our AI researches trending keywords, writes a long-form SEO article, and publishes it to your blog — automatically.",
+    },
+    {
+      icon: <TrendingUp size={20} />,
+      step: "03",
+      title: "Organic traffic grows",
+      desc: "Articles start ranking in 4–8 weeks. As content accumulates, you build compounding traffic that brings customers for years.",
+    },
+  ];
+
+  return (
+    <section id="how-it-works" className="border-t border-[#1a1a1a] py-24 px-6">
+      <div className="max-w-6xl mx-auto">
+        <div className="text-center mb-16">
+          <div className="text-xs font-semibold text-[#16C784] uppercase tracking-widest mb-4">How it works</div>
+          <h2 className="text-3xl md:text-5xl font-bold tracking-tight">
+            Set it up once,<br />watch traffic grow
+          </h2>
+        </div>
+        <div className="grid md:grid-cols-3 gap-8">
+          {steps.map((s, i) => (
+            <div key={i} className="bg-[#111] border border-[#222] rounded-2xl p-8 card-hover">
+              <div className="flex items-center justify-between mb-6">
+                <div className="w-10 h-10 rounded-xl bg-[#16C784]/10 text-[#16C784] flex items-center justify-center">
+                  {s.icon}
+                </div>
+                <span className="text-3xl font-bold text-[#222]">{s.step}</span>
+              </div>
+              <h3 className="text-lg font-bold mb-3">{s.title}</h3>
+              <p className="text-sm text-[#888] leading-relaxed">{s.desc}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// ─── STATS ───────────────────────────────────────────────────────────────────
+
+function Stats() {
+  const stats = [
+    { value: "340%", label: "Average traffic increase in 90 days" },
+    { value: "€0.08", label: "Cost per article vs €300+ with agencies" },
+    { value: "500+", label: "Shopify stores already growing with us" },
+    { value: "4–8 wks", label: "Average time to first Google ranking" },
+  ];
+
+  return (
+    <section className="border-t border-[#1a1a1a] py-20 px-6">
+      <div className="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8">
+        {stats.map((s, i) => (
+          <div key={i} className="text-center">
+            <div className="text-3xl md:text-4xl font-bold text-[#16C784] mb-2">{s.value}</div>
+            <div className="text-xs text-[#555] leading-relaxed">{s.label}</div>
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+// ─── PRICING ─────────────────────────────────────────────────────────────────
+
+function Pricing() {
+  const plans = [
+    {
+      name: "Starter",
+      price: "€49",
+      period: "/month",
+      desc: "Perfect for new stores starting content marketing",
+      articles: "1 article per day",
+      features: [
+        "30 SEO articles per month",
+        "Shopify auto-publish",
+        "Keyword research included",
+        "Meta descriptions & tags",
+        "1 revision per article",
+        "Email support",
+      ],
+      cta: "Start Free Trial",
+      popular: false,
+    },
+    {
+      name: "Growth",
+      price: "€99",
+      period: "/month",
+      desc: "For established stores ready to dominate search",
+      articles: "3 articles per day",
+      features: [
+        "90 SEO articles per month",
+        "Shopify auto-publish",
+        "Advanced keyword clustering",
+        "Internal linking strategy",
+        "Unlimited revisions",
+        "Priority support",
+        "Monthly performance report",
+      ],
+      cta: "Start Free Trial",
+      popular: true,
+    },
+    {
+      name: "Scale",
+      price: "€149",
+      period: "/month",
+      desc: "Maximum content velocity for high-growth brands",
+      articles: "5 articles per day",
+      features: [
+        "150 SEO articles per month",
+        "Shopify auto-publish",
+        "Competitor gap analysis",
+        "Topic cluster strategy",
+        "Unlimited revisions",
+        "Dedicated account manager",
+        "Weekly performance calls",
+        "Custom content calendar",
+      ],
+      cta: "Start Free Trial",
+      popular: false,
+    },
+  ];
+
+  return (
+    <section id="pricing" className="border-t border-[#1a1a1a] py-24 px-6">
+      <div className="max-w-6xl mx-auto">
+        <div className="text-center mb-16">
+          <div className="text-xs font-semibold text-[#16C784] uppercase tracking-widest mb-4">Pricing</div>
+          <h2 className="text-3xl md:text-5xl font-bold tracking-tight mb-4">
+            Simple, transparent pricing
+          </h2>
+          <p className="text-[#888] text-lg">Cancel anytime. Start with 2 free articles.</p>
+        </div>
+        <div className="grid md:grid-cols-3 gap-6">
+          {plans.map((plan, i) => (
+            <div
+              key={i}
+              className={`bg-[#111] border rounded-2xl p-8 flex flex-col card-hover ${
+                plan.popular ? "pricing-popular border-[#16C784]" : "border-[#222]"
+              }`}
+            >
+              {plan.popular && (
+                <div className="text-xs font-semibold text-[#16C784] bg-[#16C784]/10 px-3 py-1 rounded-full inline-block mb-4 w-fit">
+                  Most popular
+                </div>
+              )}
+              <div className="text-sm font-semibold text-[#888] mb-1">{plan.name}</div>
+              <div className="flex items-baseline gap-1 mb-2">
+                <span className="text-4xl font-bold">{plan.price}</span>
+                <span className="text-[#555]">{plan.period}</span>
+              </div>
+              <div className="text-xs text-[#16C784] font-medium mb-3">{plan.articles}</div>
+              <p className="text-sm text-[#666] mb-8 leading-relaxed">{plan.desc}</p>
+              <ul className="space-y-3 mb-8 flex-1">
+                {plan.features.map((f, fi) => (
+                  <li key={fi} className="flex items-start gap-2.5 text-sm text-[#aaa]">
+                    <Check size={14} className="text-[#16C784] mt-0.5 shrink-0" />
+                    {f}
+                  </li>
+                ))}
+              </ul>
+              <Link
+                href="/signup"
+                className={`py-3 rounded-lg text-sm font-semibold text-center transition-all ${
+                  plan.popular
+                    ? "btn-green"
+                    : "btn-ghost"
+                }`}
+              >
+                {plan.cta}
+              </Link>
+            </div>
+          ))}
+        </div>
+        <p className="text-center text-xs text-[#444] mt-8">
+          All plans include 2 free articles to start. No credit card required.
+        </p>
+      </div>
+    </section>
+  );
+}
+
+// ─── TESTIMONIALS ────────────────────────────────────────────────────────────
+
+function Testimonials() {
+  const testimonials = [
+    {
+      quote: "We went from zero blog posts to ranking on page 1 for 12 keywords in just 3 months. ContentBloom is the best €99 we spend every month.",
+      name: "Maria T.",
+      role: "Founder, FitnessPro Store",
+      initial: "M",
+    },
+    {
+      quote: "I was skeptical about AI content but the articles are genuinely good. Our organic traffic is up 280% and we haven't touched the blog ourselves.",
+      name: "James K.",
+      role: "Owner, The Outdoor Co.",
+      initial: "J",
+    },
+    {
+      quote: "The free articles they sent blew me away. Signed up immediately. It's like having a full-time SEO writer for less than €2 a day.",
+      name: "Sophie L.",
+      role: "E-commerce Director, Luxe Beauty",
+      initial: "S",
+    },
+  ];
+
+  return (
+    <section className="border-t border-[#1a1a1a] py-24 px-6">
+      <div className="max-w-6xl mx-auto">
+        <div className="text-center mb-16">
+          <div className="text-xs font-semibold text-[#16C784] uppercase tracking-widest mb-4">Testimonials</div>
+          <h2 className="text-3xl md:text-5xl font-bold tracking-tight">
+            Stores growing with ContentBloom
+          </h2>
+        </div>
+        <div className="grid md:grid-cols-3 gap-6">
+          {testimonials.map((t, i) => (
+            <div key={i} className="bg-[#111] border border-[#222] rounded-2xl p-8 card-hover flex flex-col">
+              <div className="flex gap-1 mb-6">
+                {[...Array(5)].map((_, si) => (
+                  <Star key={si} size={14} className="text-[#16C784] fill-[#16C784]" />
+                ))}
+              </div>
+              <p className="text-sm text-[#aaa] leading-relaxed flex-1 mb-8">&ldquo;{t.quote}&rdquo;</p>
+              <div className="flex items-center gap-3">
+                <div className="w-9 h-9 rounded-full bg-[#16C784]/20 text-[#16C784] flex items-center justify-center text-sm font-bold">
+                  {t.initial}
+                </div>
+                <div>
+                  <div className="text-sm font-semibold">{t.name}</div>
+                  <div className="text-xs text-[#555]">{t.role}</div>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// ─── CTA BANNER ──────────────────────────────────────────────────────────────
+
+function CTABanner() {
+  return (
+    <section className="px-6 pb-24">
+      <div className="max-w-6xl mx-auto">
+        <div className="bg-[#111] border border-[#222] rounded-3xl p-12 text-center relative overflow-hidden">
+          <div className="absolute inset-0 pointer-events-none">
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] bg-[#16C784]/5 rounded-full blur-3xl" />
+          </div>
+          <div className="relative">
+            <div className="text-xs font-semibold text-[#16C784] uppercase tracking-widest mb-4">Get started today</div>
+            <h2 className="text-3xl md:text-5xl font-bold tracking-tight mb-4">
+              Ready to grow your store&apos;s<br className="hidden md:block" /> organic traffic?
+            </h2>
+            <p className="text-[#888] mb-10 text-lg max-w-lg mx-auto">
+              Join 500+ Shopify stores getting daily SEO content. Start with 2 free articles — no credit card needed.
+            </p>
+            <Link
+              href="/signup"
+              className="btn-green px-8 py-4 text-base flex items-center gap-2 w-fit mx-auto"
+            >
+              Get 2 Free Articles
+              <ArrowRight size={18} />
+            </Link>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// ─── FOOTER ──────────────────────────────────────────────────────────────────
+
+function Footer() {
+  return (
+    <footer className="border-t border-[#1a1a1a] py-10 px-6">
+      <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
+        <div className="flex items-center gap-2">
+          <div className="w-6 h-6 rounded-md bg-[#16C784] flex items-center justify-center">
+            <Sparkles size={12} className="text-black" />
+          </div>
+          <span className="font-bold text-sm">ContentBloom</span>
+        </div>
+        <div className="flex items-center gap-8 text-xs text-[#555]">
+          <Link href="#" className="hover:text-white transition-colors">Privacy</Link>
+          <Link href="#" className="hover:text-white transition-colors">Terms</Link>
+          <Link href="mailto:hello@bloomcontent.site" className="hover:text-white transition-colors">Contact</Link>
+        </div>
+        <p className="text-xs text-[#444]">© 2026 ContentBloom. All rights reserved.</p>
+      </div>
+    </footer>
+  );
+}
+
+// ─── PAGE ────────────────────────────────────────────────────────────────────
 
 export default function HomePage() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-100 dark:from-gray-900 dark:via-gray-950 dark:to-black">
-      {/* Navigation */}
-      <nav className="border-b border-gray-200 dark:border-gray-800 bg-white/50 dark:bg-black/50 backdrop-blur-md">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
-            <div className="flex items-center gap-2">
-              <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg" />
-              <span className="text-xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                ContentBloom
-              </span>
-            </div>
-            <div className="flex items-center gap-4">
-              <Link href="/login" className="text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition">
-                Log in
-              </Link>
-              <Link href="/signup" className="px-4 py-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg text-sm font-medium hover:shadow-lg transition">
-                Get Started
-              </Link>
-            </div>
-          </div>
-        </div>
-      </nav>
-
-      {/* Hero Section */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-16">
-        <div className="text-center">
-          <h1 className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-gray-900 via-blue-800 to-purple-900 dark:from-white dark:via-blue-200 dark:to-purple-200 bg-clip-text text-transparent">
-            AI-Powered Content <br />for E-commerce
-          </h1>
-          <p className="text-xl text-gray-600 dark:text-gray-400 mb-8 max-w-2xl mx-auto">
-            Automatically generate SEO-optimized blog posts, social media content, and email campaigns for your online store. Convert traffic into revenue while you sleep.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link href="/signup" className="px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg font-medium hover:shadow-xl transition inline-flex items-center justify-center gap-2">
-              Start Free Trial
-              <ArrowRight size={20} />
-            </Link>
-            <Link href="#demo" className="px-8 py-4 border border-gray-300 dark:border-gray-700 rounded-lg font-medium hover:bg-gray-50 dark:hover:bg-gray-900 transition">
-              See Demo
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* Features Section */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-        <h2 className="text-3xl font-bold text-center mb-12">Everything You Need to Scale Content</h2>
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-          <FeatureCard
-            icon={<Zap className="w-6 h-6" />}
-            title="AI Content Generation"
-            description="Generate high-quality blog posts optimized for SEO and conversions in minutes."
-          />
-          <FeatureCard
-            icon={<TrendingUp className="w-6 h-6" />}
-            title="Keyword Research"
-            description="Automatically discover trending keywords in your niche using DataForSEO."
-          />
-          <FeatureCard
-            icon={<Calendar className="w-6 h-6" />}
-            title="Auto-Publishing"
-            description="Schedule and publish content directly to your Shopify or WooCommerce blog."
-          />
-          <FeatureCard
-            icon={<Mail className="w-6 h-6" />}
-            title="Email Outreach"
-            description="Run automated email campaigns to engage customers and drive sales."
-          />
-        </div>
-      </section>
-
-      {/* How It Works */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 bg-gray-50 dark:bg-gray-900/50 rounded-3xl">
-        <h2 className="text-3xl font-bold text-center mb-12">How It Works</h2>
-        <div className="grid md:grid-cols-3 gap-8">
-          <StepCard
-            number="1"
-            title="Connect Your Store"
-            description="Link your Shopify or WooCommerce store in seconds."
-          />
-          <StepCard
-            number="2"
-            title="AI Generates Content"
-            description="Our AI analyzes your products and creates SEO-optimized content."
-          />
-          <StepCard
-            number="3"
-            title="Auto-Publish & Grow"
-            description="Content publishes automatically. Watch your traffic and sales grow."
-          />
-        </div>
-      </section>
-
-      {/* Pricing */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-        <h2 className="text-3xl font-bold text-center mb-4">Simple, Transparent Pricing</h2>
-        <p className="text-center text-gray-600 dark:text-gray-400 mb-12">Choose the plan that fits your business</p>
-        <div className="grid md:grid-cols-3 gap-8">
-          <PricingCard
-            name="Starter"
-            price="$150"
-            features={[
-              "10 blog posts/month",
-              "Basic keyword research",
-              "1 store connection",
-              "Email support"
-            ]}
-          />
-          <PricingCard
-            name="Growth"
-            price="$250"
-            features={[
-              "25 blog posts/month",
-              "Advanced keyword research",
-              "3 store connections",
-              "Social media content",
-              "Priority support"
-            ]}
-            highlighted
-          />
-          <PricingCard
-            name="Scale"
-            price="$400"
-            features={[
-              "Unlimited blog posts",
-              "Full keyword suite",
-              "Unlimited stores",
-              "Video content",
-              "Email campaigns",
-              "Dedicated account manager"
-            ]}
-          />
-        </div>
-      </section>
-
-      {/* CTA */}
-      <section className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-20 text-center">
-        <h2 className="text-4xl font-bold mb-4">Ready to Scale Your Content?</h2>
-        <p className="text-xl text-gray-600 dark:text-gray-400 mb-8">
-          Join hundreds of e-commerce stores automating their content strategy
-        </p>
-        <Link href="/signup" className="px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg font-medium hover:shadow-xl transition inline-flex items-center gap-2">
-          Start Your Free Trial
-          <ArrowRight size={20} />
-        </Link>
-      </section>
-
-      {/* Footer */}
-      <footer className="border-t border-gray-200 dark:border-gray-800 mt-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-          <div className="grid md:grid-cols-4 gap-8">
-            <div>
-              <div className="flex items-center gap-2 mb-4">
-                <div className="w-6 h-6 bg-gradient-to-br from-blue-500 to-purple-600 rounded" />
-                <span className="font-bold">ContentBloom</span>
-              </div>
-              <p className="text-sm text-gray-600 dark:text-gray-400">
-                AI-powered content automation for e-commerce
-              </p>
-            </div>
-            <div>
-              <h3 className="font-semibold mb-4">Product</h3>
-              <ul className="space-y-2 text-sm text-gray-600 dark:text-gray-400">
-                <li><Link href="#features">Features</Link></li>
-                <li><Link href="#pricing">Pricing</Link></li>
-                <li><Link href="#demo">Demo</Link></li>
-              </ul>
-            </div>
-            <div>
-              <h3 className="font-semibold mb-4">Company</h3>
-              <ul className="space-y-2 text-sm text-gray-600 dark:text-gray-400">
-                <li><Link href="/about">About</Link></li>
-                <li><Link href="/blog">Blog</Link></li>
-                <li><Link href="/contact">Contact</Link></li>
-              </ul>
-            </div>
-            <div>
-              <h3 className="font-semibold mb-4">Legal</h3>
-              <ul className="space-y-2 text-sm text-gray-600 dark:text-gray-400">
-                <li><Link href="/privacy">Privacy</Link></li>
-                <li><Link href="/terms">Terms</Link></li>
-              </ul>
-            </div>
-          </div>
-          <div className="border-t border-gray-200 dark:border-gray-800 mt-8 pt-8 text-center text-sm text-gray-600 dark:text-gray-400">
-            © 2026 ContentBloom. All rights reserved.
-          </div>
-        </div>
-      </footer>
-    </div>
-  );
-}
-
-function FeatureCard({ icon, title, description }: { icon: React.ReactNode; title: string; description: string }) {
-  return (
-    <div className="p-6 border border-gray-200 dark:border-gray-800 rounded-xl hover:shadow-lg transition bg-white dark:bg-gray-950">
-      <div className="w-12 h-12 bg-gradient-to-br from-blue-500/10 to-purple-600/10 rounded-lg flex items-center justify-center mb-4 text-blue-600">
-        {icon}
-      </div>
-      <h3 className="text-lg font-semibold mb-2">{title}</h3>
-      <p className="text-sm text-gray-600 dark:text-gray-400">{description}</p>
-    </div>
-  );
-}
-
-function StepCard({ number, title, description }: { number: string; title: string; description: string }) {
-  return (
-    <div className="text-center">
-      <div className="w-12 h-12 bg-gradient-to-br from-blue-600 to-purple-600 rounded-full flex items-center justify-center text-white font-bold text-xl mx-auto mb-4">
-        {number}
-      </div>
-      <h3 className="text-xl font-semibold mb-2">{title}</h3>
-      <p className="text-gray-600 dark:text-gray-400">{description}</p>
-    </div>
-  );
-}
-
-function PricingCard({ name, price, features, highlighted }: { name: string; price: string; features: string[]; highlighted?: boolean }) {
-  return (
-    <div className={`p-8 rounded-2xl border ${highlighted ? 'border-blue-600 shadow-xl scale-105' : 'border-gray-200 dark:border-gray-800'} bg-white dark:bg-gray-950`}>
-      {highlighted && (
-        <div className="text-xs font-semibold text-blue-600 mb-2">MOST POPULAR</div>
-      )}
-      <h3 className="text-2xl font-bold mb-2">{name}</h3>
-      <div className="mb-6">
-        <span className="text-4xl font-bold">{price}</span>
-        <span className="text-gray-600 dark:text-gray-400">/month</span>
-      </div>
-      <ul className="space-y-3 mb-8">
-        {features.map((feature, i) => (
-          <li key={i} className="flex items-start gap-2 text-sm">
-            <svg className="w-5 h-5 text-green-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-            </svg>
-            {feature}
-          </li>
-        ))}
-      </ul>
-      <Link 
-        href="/signup" 
-        className={`block w-full py-3 rounded-lg text-center font-medium transition ${
-          highlighted 
-            ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white hover:shadow-lg' 
-            : 'border border-gray-300 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-900'
-        }`}
-      >
-        Get Started
-      </Link>
-    </div>
+    <main className="min-h-screen bg-[#080808]">
+      <Nav />
+      <Hero />
+      <SocialProof />
+      <Features />
+      <HowItWorks />
+      <Stats />
+      <Pricing />
+      <Testimonials />
+      <CTABanner />
+      <Footer />
+    </main>
   );
 }

@@ -1,175 +1,116 @@
-# ContentBloom
+# ContentBloom 🌸
 
-> AI-Powered Content Automation Platform for E-commerce
+AI-powered SEO content automation for e-commerce stores.
 
-ContentBloom automatically generates SEO-optimized blog posts, social media content, and email campaigns for e-commerce stores. Connect your Shopify or WooCommerce store, let AI create engaging content, and watch your traffic grow.
+## MVP Overview
 
-![ContentBloom Dashboard](https://via.placeholder.com/1200x600/667eea/ffffff?text=ContentBloom+Dashboard)
+**What we do:** Generate daily SEO articles for Shopify stores.
 
-## 🚀 Features
+**How we sell:**
+1. Find stores without blogs (scraper)
+2. Send 2 free articles + strategy (demo)
+3. Cold email 10/day (outreach)
+4. Deliver daily PDFs (fulfillment)
+5. Handle revisions (support)
 
-- **🤖 AI Content Generation** - Create high-quality blog posts optimized for SEO and conversions
-- **🔍 Keyword Research** - Automatically discover trending keywords using DataForSEO
-- **📅 Content Calendar** - Schedule and manage all your content in one place
-- **🛍️ Shopify Integration** - Publish directly to your Shopify blog
-- **📊 Analytics** - Track performance, views, conversions, and revenue
-- **✉️ Email Campaigns** - Automated outreach and customer engagement
-- **🌙 Dark Mode** - Beautiful UI with full dark mode support
+**Pricing:**
+- Starter: €49/month (1 article/day)
+- Growth: €99/month (3 articles/day)
+- Scale: €149/month (5 articles/day)
 
-## 🎯 Perfect For
+## How OSCR Runs This
 
-- E-commerce store owners who want to increase organic traffic
-- Marketing teams looking to automate content creation
-- Agencies managing multiple client stores
-- Anyone selling online who needs consistent, quality content
+### Daily Routine (Cron: 9:00 Madrid)
 
-## 💰 Pricing
+1. **Check leads.json** for status updates
+2. **Send cold emails** to 10 new leads
+3. **Send follow-ups** to leads who didn't respond
+4. **Generate articles** for active clients
+5. **Email daily report** to Rafa
 
-| Plan | Price | Features |
-|------|-------|----------|
-| **Starter** | $150/mo | 10 posts/month, 1 store, keyword research, email support |
-| **Growth** | $250/mo | 25 posts/month, 3 stores, social content, priority support |
-| **Scale** | $400/mo | Unlimited posts, unlimited stores, video content, dedicated manager |
-
-## 🛠️ Tech Stack
-
-- **Frontend:** Next.js 15, TypeScript, TailwindCSS
-- **Backend:** Convex (database + serverless functions)
-- **AI:** OpenAI GPT-4 for content generation
-- **SEO:** DataForSEO API for keyword research
-- **E-commerce:** Shopify Admin API, WooCommerce REST API
-- **Payments:** Stripe
-- **Deployment:** Vercel
-
-## 📦 Quick Start
-
-### Prerequisites
-
-- Node.js 18+
-- Convex account ([free signup](https://convex.dev))
-- DataForSEO API key
-- Shopify Partner account (for testing)
-
-### Installation
+### Lead Management
 
 ```bash
-# Clone repository
-git clone https://github.com/oscrthebot/contentbloom.git
-cd contentbloom
+# Add a lead manually
+npm run add-lead -- --domain store.com --email hi@store.com --niche "organic skincare"
 
-# Install dependencies
-npm install
+# List all leads
+npm run list-leads
 
-# Set up environment variables
-cp .env.example .env.local
-# Edit .env.local with your API keys
-
-# Initialize Convex
-npx convex dev
-
-# Run development server
-npm run dev
+# List by status
+npm run list-leads -- --status new
 ```
 
-Open [http://localhost:3000](http://localhost:3000) to see the app.
+### Lead Statuses
 
-## 📖 Documentation
+| Status | Description | Action |
+|--------|-------------|--------|
+| `new` | Just added | Send cold email |
+| `contacted` | Email sent | Wait 3 days |
+| `follow_up_1` | First follow-up sent | Wait 3 days |
+| `follow_up_2` | Second follow-up sent | Wait 4 days |
+| `follow_up_3` | Final follow-up | Close lead |
+| `replied` | Got response | Handle manually |
+| `demo_sent` | Demo articles delivered | Wait for feedback |
+| `converted` | Became paying client | Move to clients.json |
+| `rejected` | Said no | Archive |
 
-- **[Setup Guide](./SETUP.md)** - Detailed installation and configuration
-- **[GTM Pipeline](./docs/GTM-PIPELINE.md)** - Go-to-market strategy and lead generation
-- **[User Pipeline](./docs/USER-PIPELINE.md)** - Complete user journey and onboarding
-- **[Shopify Integration](./docs/SHOPIFY-INTEGRATION.md)** - OAuth flow and API implementation
+### Email Templates
 
-## 🏗️ Project Structure
+All in `/templates/emails.ts`:
+- `coldOutreach()` - First contact
+- `demoDelivery()` - Sending free articles
+- `followUp(1|2|3)` - Follow-up sequence
+- `revisionResponse()` - After feedback
+- `conversionResponse()` - Welcome email
+
+## Data Files
 
 ```
-contentbloom/
-├── app/                    # Next.js app directory
-│   ├── page.tsx           # Landing page
-│   ├── dashboard/         # Dashboard pages
-│   └── api/               # API routes
-├── components/            # React components
-├── convex/                # Convex backend (database + functions)
-│   └── schema.ts         # Database schema
-├── docs/                  # Documentation
-├── public/                # Static assets
-└── SETUP.md              # Setup guide
+/data/
+  leads.json         # All leads with status
+  clients.json       # Paying clients
+  outreach-log.jsonl # Email history
+  reports/           # Daily reports
 ```
 
-## 🎨 Screenshots
+## Article Generation
 
-### Landing Page
-![Landing Page](https://via.placeholder.com/800x450/667eea/ffffff?text=Landing+Page)
+OSCR generates articles using Claude:
+1. Read client's store (products, niche)
+2. Generate keyword-rich content
+3. Format as PDF with SEO checklist
+4. Email to client
 
-### Dashboard
-![Dashboard](https://via.placeholder.com/800x450/667eea/ffffff?text=Dashboard)
+Article types:
+- Buying guides
+- How-to tutorials
+- Product comparisons
+- Listicles
+- Brand stories
 
-### Content Calendar
-![Content Calendar](https://via.placeholder.com/800x450/667eea/ffffff?text=Content+Calendar)
+## Revision Flow
 
-## 🚦 Roadmap
+1. Client replies with feedback
+2. OSCR updates article
+3. Resend within 24h
+4. Unlimited revisions (within reason)
 
-### ✅ Phase 1: MVP (Completed)
-- [x] Landing page
-- [x] Dashboard UI
-- [x] Convex database setup
-- [x] DataForSEO integration
-- [x] Documentation
+## Metrics to Track
 
-### 🔄 Phase 2: Core Features (In Progress)
-- [ ] Shopify OAuth flow
-- [ ] AI content generation
-- [ ] Publishing workflow
-- [ ] Stripe integration
+- **Leads added/day:** Target 20+
+- **Emails sent/day:** 10 cold + follow-ups
+- **Response rate:** Target 10%+
+- **Demo-to-paid:** Target 20%+
+- **MRR growth:** €500/month target
 
-### 📋 Phase 3: Growth Features
-- [ ] Lead scraper
-- [ ] Email outreach
-- [ ] WooCommerce support
-- [ ] Social media content
+## Getting Started
 
-### 🎯 Phase 4: Scale
-- [ ] Video content generation
-- [ ] Multi-language support
-- [ ] Team collaboration
-- [ ] Advanced analytics
-
-## 🤝 Contributing
-
-Contributions are welcome! Please follow these steps:
-
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
-
-## 📝 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## 👥 Team
-
-Built with ❤️ by the ContentBloom team
-
-- **Lead Developer:** [@oscrthebot](https://github.com/oscrthebot)
-- **Contact:** rafa@happyoperators.com
-
-## 🙏 Acknowledgments
-
-- [Next.js](https://nextjs.org/) - React framework
-- [Convex](https://convex.dev/) - Backend platform
-- [TailwindCSS](https://tailwindcss.com/) - Styling
-- [Shopify](https://shopify.dev/) - E-commerce API
-- [DataForSEO](https://dataforseo.com/) - SEO data
-- [OpenAI](https://openai.com/) - AI content generation
-
-## 📧 Contact
-
-- **Website:** [contentbloom.com](https://contentbloom.com) *(coming soon)*
-- **Email:** support@contentbloom.com
-- **Twitter:** [@contentbloom](https://twitter.com/contentbloom)
+1. Add leads manually or via scraper
+2. Run daily automation
+3. Handle replies personally (for now)
+4. Track in Rafa's daily report
 
 ---
 
-**Star ⭐ this repo if you find it helpful!**
+*OSCR autonomously manages everything except payment processing.*
