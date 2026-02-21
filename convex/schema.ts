@@ -94,6 +94,7 @@ export default defineSchema({
     title: v.string(),
     targetSite: v.string(),
     businessName: v.string(),
+    logoUrl: v.optional(v.string()),   // scraped from target site
     preview: v.string(),   // first ~120 words shown freely
     content: v.string(),   // full article, revealed after email unlock
     keyword: v.string(),

@@ -6,7 +6,7 @@ import { useParams } from "next/navigation";
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, Lock, Unlock, Check, ChevronRight, Download } from "lucide-react";
+import { ArrowRight, Lock, Unlock, Check, ChevronRight } from "lucide-react";
 
 function Skeleton() {
   return (
@@ -84,10 +84,7 @@ export default function ArticlePreviewPage() {
     }
   }
 
-  // Split preview lines to apply blur to last meaningful paragraph
   const previewLines = article.preview.split("\n");
-  let lastMeaningfulIdx = previewLines.length - 1;
-  while (lastMeaningfulIdx > 0 && previewLines[lastMeaningfulIdx].trim() === "") lastMeaningfulIdx--;
 
   return (
     <>
@@ -115,15 +112,17 @@ export default function ArticlePreviewPage() {
 
         {/* Business logo card — personalises the page */}
         <div className="fade-in" style={{ display: "flex", alignItems: "center", gap: 14, marginBottom: 32, padding: "14px 20px", background: "#fff", border: "1px solid var(--border)", borderRadius: 14, width: "fit-content", boxShadow: "var(--shadow-sm)" }}>
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src={`https://logo.clearbit.com/${article.targetSite}`}
-            alt={article.businessName}
-            width={36}
-            height={36}
-            style={{ borderRadius: 8, objectFit: "contain" }}
-            onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = "none"; }}
-          />
+          {article.logoUrl && (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img
+              src={article.logoUrl}
+              alt={article.businessName}
+              width={36}
+              height={36}
+              style={{ borderRadius: 8, objectFit: "contain" }}
+              onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = "none"; }}
+            />
+          )}
           <div>
             <p style={{ fontSize: 11, color: "var(--t3)", fontWeight: 500, marginBottom: 1 }}>A free SEO article written for</p>
             <p style={{ fontSize: 14, fontWeight: 700, color: "var(--t1)" }}>{article.businessName} <span style={{ color: "var(--t3)", fontWeight: 400 }}>· {article.targetSite}</span></p>
@@ -151,25 +150,14 @@ export default function ArticlePreviewPage() {
         {/* Gate or full content */}
         {!fullContent ? (
           <>
-            {/* Preview — all lines except last rendered normally */}
-            <div className="fade-in">
-              {previewLines.map((line, i) => {
-                if (i === lastMeaningfulIdx) return null; // rendered below with blur
-                return renderLine(line, i);
-              })}
-            </div>
-
-            {/* Last paragraph — blurred/faded, tantalising */}
-            <div style={{
+            {/* Preview — progressive fade: solid top → increasingly transparent bottom */}
+            <div className="fade-in" style={{
               position: "relative",
+              WebkitMaskImage: "linear-gradient(to bottom, black 30%, rgba(0,0,0,0.7) 55%, rgba(0,0,0,0.3) 75%, transparent 100%)",
+              maskImage: "linear-gradient(to bottom, black 30%, rgba(0,0,0,0.7) 55%, rgba(0,0,0,0.3) 75%, transparent 100%)",
               userSelect: "none",
-              pointerEvents: "none",
-              WebkitMaskImage: "linear-gradient(to bottom, black 0%, transparent 75%)",
-              maskImage: "linear-gradient(to bottom, black 0%, transparent 75%)",
             }}>
-              <div style={{ filter: "blur(3px)", opacity: 0.6 }}>
-                {renderLine(previewLines[lastMeaningfulIdx], lastMeaningfulIdx)}
-              </div>
+              {previewLines.map((line, i) => renderLine(line, i))}
             </div>
 
             {/* Email gate card */}
@@ -181,7 +169,7 @@ export default function ArticlePreviewPage() {
                 Read the full article — free
               </h3>
               <p style={{ fontSize: 14, color: "var(--t2)", maxWidth: 380, margin: "0 auto 24px" }}>
-                Enter your email and the full article is yours — no account, no credit card, no strings.
+                Enter your email to read and download the full article — yours to keep, no account needed.
               </p>
               <form onSubmit={handleUnlock} style={{ display: "flex", flexDirection: "column", gap: 10, maxWidth: 380, margin: "0 auto" }}>
                 <input
@@ -193,10 +181,7 @@ export default function ArticlePreviewPage() {
                   required
                 />
                 <button type="submit" disabled={loading} className="unlock-btn">
-                  {loading
-                    ? "Unlocking…"
-                    : <><Download size={16} /> Read &amp; download the full article — free</>
-                  }
+                  {loading ? "Unlocking…" : "Get your free article"}
                 </button>
               </form>
               {error && <p style={{ fontSize: 13, color: "#dc2626", marginTop: 12 }}>{error}</p>}
