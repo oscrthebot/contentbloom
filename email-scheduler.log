@@ -1,0 +1,40 @@
+2026-02-21 19:30:04,836 INFO === Email Scheduler [DRY-RUN] | 2026-02-21 ===
+2026-02-21 19:30:05,167 INFO Account: matt.roberts@bloomcontent.site | day limit: 5
+2026-02-21 19:30:05,168 INFO [DRY-RUN] WOULD SEND: matt.roberts@bloomcontent.site → orders@messermeister.com | quick thing for Kitchen Knife | Professional Chef Knife Set | Messermeister
+2026-02-21 19:30:05,168 INFO [DRY-RUN] mutation leads:updateStatus args={'id': 'jd7589rmdrpxxtck8tfzrrxjkd81eqap', 'status': 'contacted'}
+2026-02-21 19:30:05,168 INFO [DRY-RUN] WOULD SEND: matt.roberts@bloomcontent.site → hello@fellowproducts.com | quick thing for Fellow - Brew Ridiculously Good Coffee
+2026-02-21 19:30:05,168 INFO [DRY-RUN] mutation leads:updateStatus args={'id': 'jd755jzb7x5kg22fhcx7w768ds81fzh8', 'status': 'contacted'}
+2026-02-21 19:30:05,168 INFO [DRY-RUN] WOULD SEND: matt.roberts@bloomcontent.site → customercare.us@greenpan.com | quick thing for Ceramic Nonstick Cookware for Sustainable Cooking - GreenPan©
+2026-02-21 19:30:05,168 INFO [DRY-RUN] mutation leads:updateStatus args={'id': 'jd716z61k5abg3r8sbgb7965m181fem2', 'status': 'contacted'}
+2026-02-21 19:30:05,168 INFO [DRY-RUN] WOULD SEND: matt.roberts@bloomcontent.site → customercare@pehrdesigns.comFax | quick thing for Pehr | Organic Kids & Baby Clothes | Nursery & Decor | US
+2026-02-21 19:30:05,168 INFO [DRY-RUN] mutation leads:updateStatus args={'id': 'jd79wmekwghww6efh1p9bk175581ev3w', 'status': 'contacted'}
+2026-02-21 19:30:05,168 INFO [DRY-RUN] WOULD SEND: matt.roberts@bloomcontent.site → customerservice@spearmintLOVE.com | quick thing for SpearmintLOVE
+2026-02-21 19:30:05,168 INFO [DRY-RUN] mutation leads:updateStatus args={'id': 'jd7cf9zdemgsqx7dwkfshz5knn81ev7n', 'status': 'contacted'}
+2026-02-21 19:30:05,168 INFO Account: rafa@bloomcontent.site | day limit: 5
+2026-02-21 19:30:05,168 INFO [DRY-RUN] WOULD SEND: rafa@bloomcontent.site → care@auratenewyork.com | quick thing for Aurate New York | Sustainable Fine Jewelry
+2026-02-21 19:30:05,169 INFO [DRY-RUN] mutation leads:updateStatus args={'id': 'jd7bacsynb51gss1m10cc566jx81f6f2', 'status': 'contacted'}
+2026-02-21 19:30:05,169 INFO [DRY-RUN] WOULD SEND: rafa@bloomcontent.site → order@rishi-tea.com | quick thing for Rishi Tea & Botanicals
+2026-02-21 19:30:05,169 INFO [DRY-RUN] mutation leads:updateStatus args={'id': 'jd7fy1m24k59vd5w4zyaw7r4kx81eq88', 'status': 'contacted'}
+2026-02-21 19:30:05,169 INFO [DRY-RUN] WOULD SEND: rafa@bloomcontent.site → press@intelligentsiacoffee.com | quick thing for Fresh Roasted Coffee | Intelligentsia | Illuminating Coffee
+2026-02-21 19:30:05,169 INFO [DRY-RUN] mutation leads:updateStatus args={'id': 'jd7cnhs9bawtfqr2m0vfvmv94s81fmmj', 'status': 'contacted'}
+2026-02-21 19:30:05,169 INFO [DRY-RUN] WOULD SEND: rafa@bloomcontent.site → support@elizabethsuzann.com | quick thing for Elizabeth Suzann
+2026-02-21 19:30:05,169 INFO [DRY-RUN] mutation leads:updateStatus args={'id': 'jd7f9m3ay65v3m9gaw370hswn181f73t', 'status': 'contacted'}
+2026-02-21 19:30:05,169 INFO [DRY-RUN] WOULD SEND: rafa@bloomcontent.site → support@tentree.com | quick thing for Tentree | Sustainable Clothing—Every Item Plants 10 Trees
+2026-02-21 19:30:05,169 INFO [DRY-RUN] mutation leads:updateStatus args={'id': 'jd74y4rgzcyj187f8r5m838f5s81f076', 'status': 'contacted'}
+2026-02-21 19:30:05,169 INFO === Done ===
+2026-02-22 08:00:01,815 INFO === Email Scheduler | 2026-02-22 ===
+2026-02-22 08:00:01,815 INFO === Email Scheduler | 2026-02-22 ===
+2026-02-22 08:00:02,117 INFO Account: matt.roberts@bloomcontent.site | day limit: 5
+2026-02-22 08:00:02,117 INFO Account: matt.roberts@bloomcontent.site | day limit: 5
+2026-02-22 08:00:03,455 INFO SENT: matt.roberts@bloomcontent.site → hello@matrixhomefitness.com | quick thing for Matrix Fitness Usa
+2026-02-22 08:00:03,455 INFO SENT: matt.roberts@bloomcontent.site → hello@matrixhomefitness.com | quick thing for Matrix Fitness Usa
+2026-02-22 08:00:03,629 INFO Sleeping 21 minutes before next email...
+2026-02-22 08:00:03,629 INFO Sleeping 21 minutes before next email...
+2026-02-22 08:21:04,529 INFO SENT: matt.roberts@bloomcontent.site → service@powertec.com | quick thing for Powertec Epuipment
+2026-02-22 08:21:04,529 INFO SENT: matt.roberts@bloomcontent.site → service@powertec.com | quick thing for Powertec Epuipment
+2026-02-22 08:21:04,808 INFO Sleeping 24 minutes before next email...
+2026-02-22 08:21:04,808 INFO Sleeping 24 minutes before next email...
+2026-02-22 08:45:05,803 INFO SENT: matt.roberts@bloomcontent.site → hwoodward@ggfitness.com | quick thing for Ggfitnessequip
+2026-02-22 08:45:05,803 INFO SENT: matt.roberts@bloomcontent.site → hwoodward@ggfitness.com | quick thing for Ggfitnessequip
+2026-02-22 08:45:06,093 INFO Sleeping 17 minutes before next email...
+2026-02-22 08:45:06,093 INFO Sleeping 17 minutes before next email...

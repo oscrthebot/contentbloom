@@ -11,6 +11,7 @@
 import type * as clients from "../clients.js";
 import type * as leads from "../leads.js";
 import type * as preview from "../preview.js";
+import type * as stats from "../stats.js";
 
 import type {
   ApiFromModules,
@@ -22,6 +23,7 @@ declare const fullApi: ApiFromModules<{
   clients: typeof clients;
   leads: typeof leads;
   preview: typeof preview;
+  stats: typeof stats;
 }>;
 
 /**

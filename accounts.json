@@ -1,0 +1,18 @@
+{
+  "accounts": [
+    {
+      "email": "matt.roberts@bloomcontent.site",
+      "password": "wtv4wyz_rjw0AJA6nky",
+      "name": "Matt Roberts",
+      "start_date": "2026-02-21",
+      "active": true
+    },
+    {
+      "email": "rafa@bloomcontent.site",
+      "password": "wtv4wyz_rjw0AJA6nky",
+      "name": "Rafa",
+      "start_date": "2026-02-21",
+      "active": true
+    }
+  ]
+}
