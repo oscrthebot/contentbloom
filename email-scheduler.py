@@ -204,12 +204,25 @@ def main():
             continue
 
         for i, lead in enumerate(leads):
+            subject, _ = build_email(lead, account["name"])
             ok = send_email(account, lead)
             if ok:
                 used_lead_ids.add(lead["_id"])
+                now_iso = datetime.utcnow().strftime("%Y-%m-%dT%H:%M:%SZ")
+                # Update lead status + lastContact
                 convex_mutation(convex_url, convex_key, "leads:updateStatus", {
                     "id": lead["_id"],
                     "status": "contacted",
+                    "lastContact": now_iso,
+                })
+                # Log to outreachLog so the dashboard shows real data
+                convex_mutation(convex_url, convex_key, "outreachLog:add", {
+                    "leadId": lead["_id"],
+                    "type": "cold",
+                    "email": lead["email"],
+                    "subject": subject,
+                    "status": "sent",
+                    "sentAt": now_iso,
                 })
             # Sleep between emails (skip on last one and in dry-run)
             if not DRY_RUN and i < len(leads) - 1:
