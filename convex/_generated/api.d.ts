@@ -10,6 +10,7 @@
 
 import type * as clients from "../clients.js";
 import type * as leads from "../leads.js";
+import type * as outreachLog from "../outreachLog.js";
 import type * as preview from "../preview.js";
 import type * as stats from "../stats.js";
 
@@ -22,6 +23,7 @@ import type {
 declare const fullApi: ApiFromModules<{
   clients: typeof clients;
   leads: typeof leads;
+  outreachLog: typeof outreachLog;
   preview: typeof preview;
   stats: typeof stats;
 }>;

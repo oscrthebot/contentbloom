@@ -109,3 +109,213 @@ export const listUnlocks = query({
       .collect();
   },
 });
+
+// Analytics: aggregate unlock statistics
+export const getUnlockStats = query({
+  args: {
+    startDate: v.optional(v.number()),
+    endDate: v.optional(v.number()),
+  },
+  handler: async (ctx, { startDate, endDate }) => {
+    let allUnlocks = await ctx.db.query("articleUnlocks").collect();
+
+    if (startDate !== undefined) {
+      allUnlocks = allUnlocks.filter((u) => u.unlockedAt >= startDate!);
+    }
+    if (endDate !== undefined) {
+      allUnlocks = allUnlocks.filter((u) => u.unlockedAt <= endDate!);
+    }
+
+    const totalUnlocks = allUnlocks.length;
+    const uniqueEmails = new Set(allUnlocks.map((u) => u.email)).size;
+
+    // unlocksByDay — last 30 days buckets
+    const byDay: Record<string, number> = {};
+    for (const unlock of allUnlocks) {
+      const date = new Date(unlock.unlockedAt).toISOString().split("T")[0];
+      byDay[date] = (byDay[date] || 0) + 1;
+    }
+    const unlocksByDay = Object.entries(byDay)
+      .sort((a, b) => a[0].localeCompare(b[0]))
+      .map(([date, count]) => ({ date, count }));
+
+    // topArticles — by unlock count
+    const bySlug: Record<string, number> = {};
+    for (const unlock of allUnlocks) {
+      bySlug[unlock.slug] = (bySlug[unlock.slug] || 0) + 1;
+    }
+    const slugsSorted = Object.entries(bySlug)
+      .sort((a, b) => b[1] - a[1])
+      .slice(0, 10);
+
+    const topArticles = await Promise.all(
+      slugsSorted.map(async ([slug, unlockCount]) => {
+        const article = await ctx.db
+          .query("previewArticles")
+          .withIndex("by_slug", (q) => q.eq("slug", slug))
+          .first();
+        return {
+          slug,
+          title: article?.title ?? slug,
+          unlockCount,
+        };
+      })
+    );
+
+    // unlocksByDomain — email domain breakdown
+    const byDomain: Record<string, number> = {};
+    for (const unlock of allUnlocks) {
+      const domain = unlock.email.split("@")[1] ?? "unknown";
+      byDomain[domain] = (byDomain[domain] || 0) + 1;
+    }
+    const unlocksByDomain = Object.entries(byDomain)
+      .sort((a, b) => b[1] - a[1])
+      .slice(0, 10)
+      .map(([domain, count]) => ({ domain, count }));
+
+    // totalArticlesWithUnlocks
+    const totalArticlesWithUnlocks = Object.keys(bySlug).length;
+
+    return {
+      totalUnlocks,
+      uniqueEmails,
+      unlocksByDay,
+      topArticles,
+      unlocksByDomain,
+      totalArticlesWithUnlocks,
+    };
+  },
+});
+
+// Analytics: all unlocks for a specific article
+export const getUnlocksByArticle = query({
+  args: { slug: v.string() },
+  handler: async (ctx, { slug }) => {
+    return await ctx.db
+      .query("articleUnlocks")
+      .withIndex("by_slug", (q) => q.eq("slug", slug))
+      .order("desc")
+      .collect();
+  },
+});
+
+// Analytics: paginated recent unlocks with search
+export const listAllUnlocks = query({
+  args: {
+    page: v.optional(v.number()),
+    pageSize: v.optional(v.number()),
+    search: v.optional(v.string()),
+  },
+  handler: async (ctx, { page = 0, pageSize = 25, search }) => {
+    let all = await ctx.db
+      .query("articleUnlocks")
+      .order("desc")
+      .collect();
+
+    if (search && search.trim()) {
+      const q = search.toLowerCase().trim();
+      all = all.filter(
+        (u) =>
+          u.email.toLowerCase().includes(q) ||
+          u.slug.toLowerCase().includes(q)
+      );
+    }
+
+    const total = all.length;
+    const items = all.slice(page * pageSize, (page + 1) * pageSize);
+
+    // Enrich with article titles
+    const enriched = await Promise.all(
+      items.map(async (unlock) => {
+        const article = await ctx.db
+          .query("previewArticles")
+          .withIndex("by_slug", (q) => q.eq("slug", unlock.slug))
+          .first();
+        return {
+          ...unlock,
+          title: article?.title ?? unlock.slug,
+        };
+      })
+    );
+
+    return { items: enriched, total, page, pageSize };
+  },
+});
+
+// Analytics: quick stats for the current week (for dashboard home widget)
+export const getWeeklyStats = query({
+  args: {},
+  handler: async (ctx) => {
+    const now = Date.now();
+    const weekAgo = now - 7 * 24 * 60 * 60 * 1000;
+
+    const allUnlocks = await ctx.db.query("articleUnlocks").collect();
+    const weekUnlocks = allUnlocks.filter((u) => u.unlockedAt >= weekAgo);
+
+    const totalThisWeek = weekUnlocks.length;
+    const uniqueEmailsThisWeek = new Set(weekUnlocks.map((u) => u.email)).size;
+
+    // Most unlocked article this week
+    const bySlug: Record<string, number> = {};
+    for (const unlock of weekUnlocks) {
+      bySlug[unlock.slug] = (bySlug[unlock.slug] || 0) + 1;
+    }
+    const topEntry = Object.entries(bySlug).sort((a, b) => b[1] - a[1])[0];
+    let topArticleThisWeek: { slug: string; title: string; count: number } | null = null;
+    if (topEntry) {
+      const article = await ctx.db
+        .query("previewArticles")
+        .withIndex("by_slug", (q) => q.eq("slug", topEntry[0]))
+        .first();
+      topArticleThisWeek = {
+        slug: topEntry[0],
+        title: article?.title ?? topEntry[0],
+        count: topEntry[1],
+      };
+    }
+
+    return { totalThisWeek, uniqueEmailsThisWeek, topArticleThisWeek };
+  },
+});
+
+// Export: return all unlock data (admin only — used for CSV/JSON download)
+export const exportUnlocks = query({
+  args: {
+    startDate: v.optional(v.number()),
+    endDate: v.optional(v.number()),
+    slug: v.optional(v.string()),
+  },
+  handler: async (ctx, { startDate, endDate, slug }) => {
+    let all = await ctx.db.query("articleUnlocks").collect();
+
+    if (slug) {
+      all = all.filter((u) => u.slug === slug);
+    }
+    if (startDate !== undefined) {
+      all = all.filter((u) => u.unlockedAt >= startDate!);
+    }
+    if (endDate !== undefined) {
+      all = all.filter((u) => u.unlockedAt <= endDate!);
+    }
+
+    // Enrich with titles
+    const enriched = await Promise.all(
+      all.map(async (unlock) => {
+        const article = await ctx.db
+          .query("previewArticles")
+          .withIndex("by_slug", (q) => q.eq("slug", unlock.slug))
+          .first();
+        return {
+          slug: unlock.slug,
+          title: article?.title ?? unlock.slug,
+          email: unlock.email,
+          unlockedAt: new Date(unlock.unlockedAt).toISOString(),
+        };
+      })
+    );
+
+    return enriched.sort(
+      (a, b) => new Date(b.unlockedAt).getTime() - new Date(a.unlockedAt).getTime()
+    );
+  },
+});

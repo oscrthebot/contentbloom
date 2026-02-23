@@ -113,4 +113,73 @@ Article types:
 
 ---
 
+## Email Analytics Dashboard
+
+Track who has unlocked gated articles by entering their email.
+
+### Overview
+
+When a prospect enters their email on a `/p/[slug]` preview page, the system:
+1. Stores their email + slug + timestamp in `articleUnlocks` table
+2. Returns the full article content
+
+The **Email Analytics Dashboard** at `/dashboard/email-analytics` shows:
+- Total unlocks + unique emails (with trend vs. previous period)
+- Line chart: unlocks per day (last 30 days)
+- Bar charts: top articles + email domain breakdown
+- Sortable/searchable paginated table of all unlock events
+- CSV & JSON export with optional date range filter
+
+### Dashboard URL
+
+```
+/dashboard/email-analytics
+```
+
+### Quick Stats Widget
+
+The dashboard home page (`/dashboard`) shows a weekly summary card:
+- Emails captured this week
+- Top article this week
+- Quick link to full analytics
+
+### API Endpoints (convex/preview.ts)
+
+| Function | Type | Description |
+|----------|------|-------------|
+| `preview.getUnlockStats` | query | Aggregate stats (optionally date-filtered) |
+| `preview.getWeeklyStats` | query | Current week summary (for home widget) |
+| `preview.listAllUnlocks` | query | Paginated list with search |
+| `preview.getUnlocksByArticle` | query | All unlocks for a specific slug |
+| `preview.exportUnlocks` | query | Full export data (for CSV/JSON download) |
+
+### Seeding Demo Data
+
+To populate the dashboard with realistic demo data:
+
+```bash
+npx convex run seedAnalytics:seedDemoData
+```
+
+This creates:
+- 5 demo preview articles
+- ~80 unlock events spread over the last 30 days
+- Diverse email addresses including personal (gmail) + business domains
+
+### Analytics Components
+
+Reusable components in `/components/analytics/`:
+
+| Component | Description |
+|-----------|-------------|
+| `StatCard` | Big number with trend indicator (up/down %) |
+| `LineChart` | Time series SVG chart with hover tooltips |
+| `BarChart` | Categorical SVG bar chart with hover tooltips |
+| `DataTable` | Sortable, paginated table (client-side) |
+| `ExportButton` | CSV/JSON download button with loading state |
+
+All components are dependency-free (no Recharts) — custom SVG charts.
+
+---
+
 *OSCR autonomously manages everything except payment processing.*
