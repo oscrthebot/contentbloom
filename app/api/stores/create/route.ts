@@ -1,7 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
+import { after } from "next/server";
 import { cookies } from "next/headers";
 import { getConvexClient } from "../../../../lib/convex";
 import { api } from "../../../../convex/_generated/api";
+import { runArticlePipeline } from "../../../../generator/pipeline-runner";
+import { Id } from "../../../../convex/_generated/dataModel";
 
 export async function POST(req: NextRequest) {
   try {
@@ -30,7 +33,7 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "storeUrl is required" }, { status: 400 });
     }
 
-    // Create the store (discount calculated server-side based on existing count)
+    // Create the store
     const result = await convex.mutation(api.stores.createStore, {
       userId: user._id,
       storeName,
@@ -43,7 +46,7 @@ export async function POST(req: NextRequest) {
         | "scale",
     });
 
-    // If it's the first store, also update the user's primary profile fields
+    // Update user primary profile if first store
     if (result.isFirstStore) {
       await convex.mutation(api.users.updateProfile, {
         userId: user._id,
@@ -53,9 +56,8 @@ export async function POST(req: NextRequest) {
       });
     }
 
-    // Immediately create a queued placeholder article in Convex so the
-    // dashboard shows the animated state right away.
-    // The actual generation runs via /api/articles/process-queue (cron every 10 min).
+    // Create the queued placeholder — shows animated loading state in dashboard immediately
+    let articleId: Id<"articles"> | null = null;
     try {
       let clientId = user.clientId;
       if (!clientId) {
@@ -67,13 +69,73 @@ export async function POST(req: NextRequest) {
           email: user.email,
         });
       }
-      await convex.mutation(api.userArticles.createPlaceholder, {
+      articleId = await convex.mutation(api.userArticles.createPlaceholder, {
         clientId,
         niche: niche || "general",
         storeName,
       });
+
+      // Run the pipeline AFTER the response is sent using Next.js after()
+      // This is non-blocking: the user gets redirected to /dashboard immediately
+      // while generation runs in the background (works on Vercel Hobby)
+      const capturedClientId = clientId;
+      const capturedArticleId = articleId;
+      after(async () => {
+        try {
+          await convex.mutation(api.articles.updateArticleStatus, {
+            id: capturedArticleId,
+            status: "generating",
+          });
+
+          const pipeline = await runArticlePipeline({
+            storeName,
+            storeUrl,
+            niche: niche || "general",
+            language: "en",
+            articleType: "guide",
+            wordCount: 1500,
+            clientId: capturedClientId as string,
+          });
+
+          if (pipeline.success && pipeline.article) {
+            const { article } = pipeline;
+            await convex.mutation(api.userArticles.updateGeneratedArticle, {
+              id: capturedArticleId,
+              title: article.title,
+              slug: article.slug,
+              metaTitle: article.metaTitle,
+              metaDescription: article.metaDescription,
+              content: article.content,
+              rawContent: article.rawContent ?? undefined,
+              targetKeyword: article.targetKeyword,
+              secondaryKeywords: article.secondaryKeywords,
+              wordCount: article.wordCount,
+              readingTime: article.readingTime,
+              schemaMarkup: article.schemaMarkup ? JSON.stringify(article.schemaMarkup) : undefined,
+              faqItems: article.faqItems ?? [],
+              qaScore: article.qaScore ?? undefined,
+              qaIssues: article.qaIssues ?? undefined,
+              status: "review",
+            });
+          } else {
+            // Requeue on failure
+            await convex.mutation(api.articles.updateArticleStatus, {
+              id: capturedArticleId,
+              status: "queued",
+            });
+          }
+        } catch {
+          // Requeue on error — daily cron will pick it up
+          if (capturedArticleId) {
+            await convex.mutation(api.articles.updateArticleStatus, {
+              id: capturedArticleId,
+              status: "queued",
+            }).catch(() => {});
+          }
+        }
+      });
     } catch {
-      // Non-blocking — dashboard will show setup CTA if placeholder fails
+      // Non-blocking — daily cron will handle generation
     }
 
     return NextResponse.json({
@@ -82,6 +144,7 @@ export async function POST(req: NextRequest) {
       isFirstStore: result.isFirstStore,
       discountMultiplier: result.discountMultiplier,
       storeIndex: result.storeIndex,
+      articleQueued: !!articleId,
     });
   } catch (error) {
     console.error("Store create error:", error);
