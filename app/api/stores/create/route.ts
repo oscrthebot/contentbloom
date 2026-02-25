@@ -53,6 +53,19 @@ export async function POST(req: NextRequest) {
       });
     }
 
+    // Trigger article generation asynchronously (fire and forget)
+    const baseUrl = process.env.NEXT_PUBLIC_APP_URL || "https://bloomcontent.site";
+    fetch(`${baseUrl}/api/articles/generate`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        // Forward session cookie so the generate endpoint can auth the user
+        Cookie: `cb_session=${sessionToken}`,
+      },
+    }).catch(() => {
+      // Silent fail — generation will be retried via cron
+    });
+
     return NextResponse.json({
       success: true,
       storeId: result.storeId,

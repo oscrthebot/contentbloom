@@ -2,6 +2,7 @@ import { cookies } from "next/headers";
 import { getConvexClient } from "../../lib/convex";
 import { api } from "../../convex/_generated/api";
 import { ArticlesList } from "./ArticlesList";
+import { ArticleGenerating } from "./ArticleGenerating";
 
 export default async function DashboardPage() {
   const cookieStore = await cookies();
@@ -12,7 +13,9 @@ export default async function DashboardPage() {
   const result = await convex.query(api.userArticles.listForUser, { sessionToken });
 
   const articles = ("articles" in result ? result.articles : []) ?? [];
-  const plan = user?.plan || "trial";
+
+  // Check if any article is currently generating
+  const isGenerating = articles.some((a: { status: string }) => a.status === "generating");
 
   return (
     <div>
@@ -21,9 +24,9 @@ export default async function DashboardPage() {
       {/* Stats */}
       <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 16, marginBottom: 32 }}>
         {[
-          { label: "Total articles", value: articles.length },
-          { label: "Delivered", value: articles.filter((a) => a.status === "delivered").length },
-          { label: "Pending feedback", value: articles.filter((a) => a.status === "delivered" && !a.feedback).length },
+          { label: "Total articles", value: articles.filter((a: { status: string }) => a.status !== "generating").length },
+          { label: "Delivered", value: articles.filter((a: { status: string }) => a.status === "delivered").length },
+          { label: "Pending feedback", value: articles.filter((a: { status: string; feedback?: string }) => a.status === "delivered" && !a.feedback).length },
         ].map((stat) => (
           <div key={stat.label} style={{
             background: "#fff",
@@ -37,7 +40,15 @@ export default async function DashboardPage() {
         ))}
       </div>
 
-      {articles.length === 0 ? (
+      {/* Currently generating */}
+      {isGenerating && (
+        <div style={{ marginBottom: 24 }}>
+          <ArticleGenerating storeName={user?.storeName || "your store"} />
+        </div>
+      )}
+
+      {/* No articles and not generating */}
+      {articles.filter((a: { status: string }) => a.status !== "generating").length === 0 && !isGenerating ? (
         <div style={{
           background: "#fff",
           borderRadius: 12,
@@ -69,28 +80,19 @@ export default async function DashboardPage() {
                 Complete setup →
               </a>
             </>
-          ) : plan === "trial" ? (
-            <>
-              <h3 style={{ fontSize: 18, fontWeight: 600, color: "#111827", marginBottom: 8 }}>
-                Your first article is in the queue
-              </h3>
-              <p style={{ color: "#6b7280", fontSize: 14 }}>
-                We&apos;re working on your first SEO article for <strong>{user.storeName}</strong>. You&apos;ll get an email when it&apos;s ready.
-              </p>
-            </>
           ) : (
             <>
               <h3 style={{ fontSize: 18, fontWeight: 600, color: "#111827", marginBottom: 8 }}>
                 No articles yet
               </h3>
               <p style={{ color: "#6b7280", fontSize: 14 }}>
-                Your first article will appear here once it has been generated.
+                Your first article will appear here once it has been generated for <strong>{user.storeName}</strong>.
               </p>
             </>
           )}
         </div>
       ) : (
-        <ArticlesList articles={articles} />
+        <ArticlesList articles={articles.filter((a: { status: string }) => a.status !== "generating")} />
       )}
     </div>
   );
