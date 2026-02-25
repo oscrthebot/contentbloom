@@ -229,6 +229,19 @@ export const createPlaceholder = mutation({
     storeName: v.string(),
   },
   handler: async (ctx, args) => {
+    // Prevent duplicates: if there's already a queued/generating article, return its id
+    const existing = await ctx.db
+      .query("articles")
+      .withIndex("by_client", (q) => q.eq("clientId", args.clientId))
+      .filter((q) =>
+        q.or(
+          q.eq(q.field("status"), "queued"),
+          q.eq(q.field("status"), "generating")
+        )
+      )
+      .first();
+    if (existing) return existing._id;
+
     return await ctx.db.insert("articles", {
       clientId: args.clientId,
       title: `Generating SEO article for ${args.storeName}…`,

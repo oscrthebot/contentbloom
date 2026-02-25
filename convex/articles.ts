@@ -71,6 +71,13 @@ export const updateArticleStatus = mutation({
   },
 });
 
+export const deleteArticle = mutation({
+  args: { id: v.id("articles") },
+  handler: async (ctx, args) => {
+    await ctx.db.delete(args.id);
+  },
+});
+
 export const getArticlesByKeyword = query({
   args: { clientId: v.id("clients"), keyword: v.string() },
   handler: async (ctx, args) => {
