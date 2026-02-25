@@ -32,12 +32,24 @@ export const updateProfile = mutation({
     storeUrl: v.optional(v.string()),
     niche: v.optional(v.string()),
     language: v.optional(v.string()),
+    authorProfile: v.optional(v.object({
+      fullName: v.string(),
+      bio: v.string(),
+      yearsExperience: v.number(),
+      niche: v.string(),
+      linkedinUrl: v.optional(v.string()),
+      twitterUrl: v.optional(v.string()),
+      credentials: v.optional(v.string()),
+    })),
   },
   handler: async (ctx, args) => {
-    const { userId, ...updates } = args;
-    const filtered: Record<string, string> = {};
+    const { userId, authorProfile, ...updates } = args;
+    const filtered: Record<string, any> = {};
     for (const [k, val] of Object.entries(updates)) {
       if (val !== undefined) filtered[k] = val;
+    }
+    if (authorProfile !== undefined) {
+      filtered.authorProfile = authorProfile;
     }
     await ctx.db.patch(userId, filtered);
   },

@@ -564,3 +564,9 @@ Telegram notified: noreply-dmarc-support@google.com
 [17:30 UTC] No new emails
 NEW EMAIL: noreply-dmarc-support@google.com → rafa@bloomcontent.site | Report domain: bloomcontent.site Submitter: google.com Report-ID: 17931510766235010079
 Telegram notified: noreply-dmarc-support@google.com
+/root/.openclaw/workspace/contentbloom/check-inbox.py:147: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  print(f"[{datetime.utcnow().strftime('%H:%M UTC')}] No new emails")
+[18:30 UTC] No new emails
+/root/.openclaw/workspace/contentbloom/check-inbox.py:147: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  print(f"[{datetime.utcnow().strftime('%H:%M UTC')}] No new emails")
+[19:00 UTC] No new emails

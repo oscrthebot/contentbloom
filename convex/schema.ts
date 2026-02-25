@@ -71,6 +71,7 @@ export default defineSchema({
     canonicalUrl: v.optional(v.string()),
     qaScore: v.optional(v.number()),
     qaIssues: v.optional(v.array(v.string())),
+    qaCriticalIssues: v.optional(v.array(v.string())),
     monthlyVolume: v.optional(v.number()),
     isPaidFeature: v.optional(v.boolean()),
     status: v.union(

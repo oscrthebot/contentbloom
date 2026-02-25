@@ -66,7 +66,8 @@ export interface FAQItem {
 
 export interface QAResult {
   score: number;
-  issues: string[];
+  issues: string[];          // style/flow issues
+  criticalIssues: string[]; // factual errors, misleading claims, health misinformation
 }
 
 // ---------- AI Client ----------
@@ -159,13 +160,25 @@ export async function fetchShopifyProducts(storeUrl: string): Promise<Product[]>
 
 // ---------- QA Fix Pass ----------
 
-export async function fixQAIssues(content: string, issues: string[]): Promise<string> {
+export async function fixQAIssues(
+  content: string,
+  issues: string[],
+  criticalIssues?: string[]
+): Promise<string> {
+  const allIssues = [
+    ...(criticalIssues && criticalIssues.length > 0
+      ? criticalIssues.map(i => `[CRITICAL] ${i}`)
+      : []),
+    ...issues,
+  ];
+
   const prompt = `You are an expert editor. Fix the following issues in this article, one by one.
-Do NOT add new content or change the article structure.
+CRITICAL issues marked with [CRITICAL] must be fixed first and thoroughly — they involve factual errors, health misinformation, or misleading claims.
+Do NOT add new content beyond what is needed to fix the issues.
 Only fix the specific problems listed.
 
 Issues to fix:
-${issues.map((i, n) => `${n + 1}. ${i}`).join('\n')}
+${allIssues.map((i, n) => `${n + 1}. ${i}`).join('\n')}
 
 Return ONLY the corrected article text, no commentary.`;
 
@@ -299,26 +312,42 @@ export async function reviewArticle(
   keyword: string,
   storeName: string
 ): Promise<QAResult> {
-  const prompt = `Review this article for "${keyword}" written for ${storeName}. 
+  const prompt = `Review this article for "${keyword}" written for ${storeName}.
 
-Check for:
-- Invented statistics without sources
+## Style/Flow issues (go in "issues"):
 - Keyword stuffing (keyword used unnaturally >5 times)
-- Inconsistent tone
-- Filler paragraphs
-- Overly aggressive CTAs
-- Factual claims that seem wrong
+- Inconsistent tone or voice
+- Filler paragraphs that add no value
+- Overly aggressive or repetitive CTAs
+- Awkward sentence construction
+
+## CRITICAL issues (go in "criticalIssues") — these BLOCK delivery:
+- Factual errors or invented statistics without credible basis
+- Product misrepresentation (wrong prices, features, claims)
+- Health misinformation (dangerous advice, exaggerated health claims)
+- Missing the core topic entirely (article doesn't address "${keyword}")
+- Misleading claims that could harm the reader or ${storeName}'s reputation
 
 Article:
 ${content.slice(0, 6000)}
 
-Return ONLY JSON: {"score": 0-100, "issues": ["issue1", "issue2"]}
-Score 80+ is acceptable.`;
+Return ONLY JSON:
+{
+  "score": 0-100,
+  "issues": ["style issue 1", "style issue 2"],
+  "criticalIssues": ["critical issue 1"]
+}
+Score 80+ is acceptable. criticalIssues should be empty [] if none found.`;
 
   const raw = await aiCall('You are an article QA reviewer. Return only valid JSON.', prompt);
   const jsonMatch = raw.match(/\{[\s\S]*\}/);
-  if (!jsonMatch) return { score: 70, issues: ['Could not parse QA response'] };
-  return JSON.parse(jsonMatch[0]) as QAResult;
+  if (!jsonMatch) return { score: 70, issues: ['Could not parse QA response'], criticalIssues: [] };
+  const parsed = JSON.parse(jsonMatch[0]);
+  return {
+    score: parsed.score ?? 70,
+    issues: parsed.issues ?? [],
+    criticalIssues: parsed.criticalIssues ?? [],
+  };
 }
 
 // ---------- Keyword Research (DataForSEO or mock) ----------

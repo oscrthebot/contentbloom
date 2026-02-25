@@ -19,8 +19,10 @@ interface Article {
   status: string;
   qaScore?: number;
   qaIssues?: string[];
+  qaCriticalIssues?: string[];
   faqItems?: Array<{ question: string; answer: string }>;
   monthlyVolume?: number;
+  storeName?: string;
 }
 
 interface Feedback {
@@ -33,27 +35,31 @@ interface Feedback {
 function buildRenderer() {
   const renderer = new Renderer();
 
-  // Blockquote: detect product banners by presence of a CTA link
+  // Blockquote: detect product banners by presence of any link (<a href)
+  // Format in markdown: > **Product Name** — description. [Ver producto →](url)
   renderer.blockquote = ({ tokens }: { tokens: any }) => {
-    // Re-render inner tokens to HTML first
+    // Re-render inner tokens to HTML using a plain renderer
     const innerHtml = (marked as any).parser(tokens, { renderer: new Renderer() });
-    // Product banner detection: contains a link with CTA text
-    const isProductBanner =
-      /href=/.test(innerHtml) &&
-      /(shop now|view product|buy now|get it here|order now)/i.test(innerHtml);
+
+    // Product banner detection: any blockquote that contains a hyperlink
+    const isProductBanner = /<a\s[^>]*href=/i.test(innerHtml);
 
     if (isProductBanner) {
-      // Extract the CTA link
-      const linkMatch = innerHtml.match(/<a[^>]+href="([^"]+)"[^>]*>(.*?)<\/a>/i);
-      const ctaHref = linkMatch ? linkMatch[1] : "#";
-      const ctaText = linkMatch ? linkMatch[2].replace(/<[^>]+>/g, "") : "Shop now";
+      // Extract the last link as the CTA
+      const linkMatches = [...innerHtml.matchAll(/<a[^>]+href="([^"]+)"[^>]*>([\s\S]*?)<\/a>/gi)];
+      const lastLink = linkMatches[linkMatches.length - 1];
+      const ctaHref = lastLink ? lastLink[1] : "#";
+      const ctaText = lastLink ? lastLink[2].replace(/<[^>]+>/g, "").trim() : "Ver producto →";
 
-      // Strip the CTA link from the inner content for display
-      const contentWithoutCta = innerHtml.replace(/<a[^>]+href="[^"]*"[^>]*>.*?<\/a>/gi, "").trim();
-      // Remove surrounding <p> tags if any, we'll structure manually
-      const cleanContent = contentWithoutCta.replace(/^<p>([\s\S]*?)<\/p>$/i, "$1").trim();
+      // Strip all links from inner content to show only text + icon
+      const contentWithoutLinks = innerHtml.replace(/<a[^>]+href="[^"]*"[^>]*>[\s\S]*?<\/a>/gi, "").trim();
+      // Remove wrapping <p> tags for clean layout
+      const cleanContent = contentWithoutLinks
+        .replace(/^<p>([\s\S]*?)<\/p>$/i, "$1")
+        .replace(/\s*—\s*$/, "") // trim trailing em-dash if link was at end
+        .trim();
 
-      return `<div class="product-banner"><div class="product-banner-text">${cleanContent}</div><a href="${ctaHref}" target="_blank" rel="noopener noreferrer">${ctaText} →</a></div>`;
+      return `<div class="product-banner"><div class="product-banner-text">🛍️ ${cleanContent}</div><a href="${ctaHref}" target="_blank" rel="noopener noreferrer" class="product-banner-btn">${ctaText}</a></div>`;
     }
 
     return `<blockquote>${innerHtml}</blockquote>`;
@@ -163,10 +169,21 @@ export function ArticleView({
         .article-body li { margin-bottom: 6px; line-height: 1.65; color: #374151; }
         .article-body blockquote { border-left: 3px solid #e5e7eb; padding-left: 16px; color: #6b7280; font-style: italic; margin: 16px 0; }
         .product-banner { background: #f0fdf4; border: 1px solid #bbf7d0; border-left: 4px solid #16a34a; border-radius: 8px; padding: 16px 20px; margin: 24px 0; display: flex; justify-content: space-between; align-items: center; gap: 16px; }
-        .product-banner-text strong { font-size: 15px; color: #111827; display: block; margin-bottom: 4px; }
-        .product-banner-text p { font-size: 13px; color: #374151; margin: 0; }
-        .product-banner > a { background: #16a34a; color: white !important; padding: 8px 16px; border-radius: 6px; text-decoration: none !important; font-size: 13px; font-weight: 600; white-space: nowrap; flex-shrink: 0; }
+        .product-banner-text { font-size: 14px; color: #374151; flex: 1; }
+        .product-banner-text strong { font-size: 15px; color: #111827; font-weight: 600; }
+        .product-banner-btn { background: #16a34a; color: white !important; padding: 8px 16px; border-radius: 6px; text-decoration: none !important; font-size: 13px; font-weight: 600; white-space: nowrap; flex-shrink: 0; }
+        .product-banner-btn:hover { background: #15803d; }
         .stat-chip { display: inline-flex; align-items: center; gap: 5px; background: #fff; border: 1px solid #e5e7eb; border-radius: 20px; padding: 5px 12px; font-size: 13px; color: #374151; font-weight: 500; }
+        .traffic-card { background: #fff; border-radius: 12px; border: 1px solid #e5e7eb; margin-bottom: 16px; overflow: hidden; }
+        .traffic-card-header { background: #16a34a; color: #fff; padding: 12px 20px; font-size: 14px; font-weight: 700; letter-spacing: .02em; }
+        .traffic-card-desc { padding: 14px 20px 8px; font-size: 13px; color: #374151; line-height: 1.55; }
+        .traffic-stat-row { display: flex; gap: 12px; padding: 8px 20px 12px; }
+        .traffic-stat-box { flex: 1; background: #f5f4f2; border-radius: 8px; padding: 14px 16px; min-width: 0; }
+        .traffic-stat-num { font-size: 22px; font-weight: 800; color: #111827; }
+        .traffic-stat-num.green { color: #16a34a; }
+        .traffic-stat-label { font-size: 12px; font-weight: 600; color: #374151; margin: 2px 0 0; }
+        .traffic-stat-sub { font-size: 11px; color: #9ca3af; margin-top: 2px; }
+        .traffic-card-footer { padding: 8px 20px 14px; font-size: 11px; color: #9ca3af; }
         .kw-tag { display: inline-block; background: #f0fdf4; color: #166534; border: 1px solid #bbf7d0; border-radius: 12px; padding: 2px 10px; font-size: 12px; font-weight: 500; margin: 2px; }
         .faq-item { border: 1px solid #e5e7eb; border-radius: 8px; overflow: hidden; margin-bottom: 8px; }
         .faq-question { display: flex; justify-content: space-between; align-items: center; padding: 12px 16px; cursor: pointer; background: #fff; font-size: 14px; font-weight: 600; color: #111827; }
@@ -219,7 +236,36 @@ export function ArticleView({
         </div>
       </div>
 
-      {/* ---- QA Issues panel (yellow, collapsible) ---- */}
+      {/* ---- CRITICAL QA Issues panel (RED, blocking) ---- */}
+      {article.qaCriticalIssues && article.qaCriticalIssues.length > 0 && (
+        <div style={{
+          background: "#fef2f2",
+          border: "1px solid #fca5a5",
+          borderLeft: "4px solid #dc2626",
+          borderRadius: 10,
+          marginBottom: 16,
+          overflow: "hidden",
+        }}>
+          <div style={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            padding: "12px 16px",
+            fontSize: 13,
+            fontWeight: 700,
+            color: "#991b1b",
+          }}>
+            <span>🚫 Critical QA Issues — Article held for review ({article.qaCriticalIssues.length})</span>
+          </div>
+          <ul style={{ margin: 0, padding: "0 16px 12px 32px" }}>
+            {article.qaCriticalIssues.map((issue, i) => (
+              <li key={i} style={{ fontSize: 13, color: "#7f1d1d", marginBottom: 4, lineHeight: 1.5 }}>{issue}</li>
+            ))}
+          </ul>
+        </div>
+      )}
+
+      {/* ---- Style QA Issues panel (yellow, collapsible) ---- */}
       {article.qaIssues && article.qaIssues.length > 0 && (
         <div style={{
           background: "#fffbeb",
@@ -244,7 +290,7 @@ export function ArticleView({
               color: "#92400e",
             }}
           >
-            <span>⚠️ QA Notes ({article.qaIssues.length} issue{article.qaIssues.length !== 1 ? "s" : ""})</span>
+            <span>⚠️ Style Notes ({article.qaIssues.length} issue{article.qaIssues.length !== 1 ? "s" : ""})</span>
             <span style={{ fontSize: 11, color: "#b45309" }}>{qaOpen ? "▲ Hide" : "▼ Show"}</span>
           </button>
           {qaOpen && (
@@ -260,11 +306,6 @@ export function ArticleView({
       {/* ---- Keyword stats chips ---- */}
       <div style={{ display: "flex", flexWrap: "wrap", gap: 8, marginBottom: 16 }}>
         <span className="stat-chip">🔍 {article.targetKeyword}</span>
-        {article.monthlyVolume != null ? (
-          <span className="stat-chip">📊 {article.monthlyVolume.toLocaleString()} searches/mo</span>
-        ) : (
-          <span className="stat-chip">📊 — searches/mo</span>
-        )}
         <span className="stat-chip">📝 {article.wordCount.toLocaleString()} words</span>
         <span className="stat-chip">⏱ {readingTime} min read</span>
         {article.qaScore != null && (
@@ -272,14 +313,88 @@ export function ArticleView({
         )}
       </div>
 
-      {/* Revenue estimates */}
-      {article.monthlyVolume != null && article.monthlyVolume > 0 && (
-        <div style={{ display: "flex", flexWrap: "wrap", gap: 8, marginBottom: 16 }}>
-          <span className="stat-chip">📈 {Math.round(article.monthlyVolume * 0.03 * 12).toLocaleString()} visits/yr</span>
-          <span className="stat-chip">💰 €{Math.round(article.monthlyVolume * 0.03 * 12 * 0.02 * 50).toLocaleString()}/yr</span>
-          <span className="stat-chip" title="Based on 3% CTR, 2% conversion, €50 avg order" style={{ cursor: "help" }}>ℹ️ Estimates</span>
-        </div>
-      )}
+      {/* ---- Traffic Opportunity Card ---- */}
+      {article.monthlyVolume != null && article.monthlyVolume > 0 && (() => {
+        const volume = article.monthlyVolume!;
+        const growthPct = [0, 0, 1, 2, 4, 8, 15, 28, 45, 65, 82, 100];
+        const maxMonthly = volume * 0.035;
+        const monthlyVisitors = growthPct.map(p => Math.round(maxMonthly * p / 100));
+        const organicYr1 = monthlyVisitors.reduce((a, b) => a + b, 0);
+        const customers = Math.round(organicYr1 * 0.02);
+        const displayVol = volume >= 1000 ? `${(volume / 1000).toFixed(1)}k` : String(volume);
+        const storeName = article.storeName || "tu tienda";
+
+        // SVG chart
+        const svgW = 560; const svgH = 100;
+        const padL = 8; const padR = 8; const padT = 8; const padB = 20;
+        const chartW = svgW - padL - padR;
+        const chartH = svgH - padT - padB;
+        const maxV = Math.max(...monthlyVisitors, 1);
+        const pts = monthlyVisitors.map((v, i) => {
+          const x = padL + (i / 11) * chartW;
+          const y = padT + chartH - (v / maxV) * chartH;
+          return `${x},${y}`;
+        });
+        const firstX = padL; const firstY = padT + chartH;
+        const lastX = padL + chartW; const lastY = padT + chartH;
+        const polyline = pts.join(' ');
+        const fillPath = `M${firstX},${firstY} L${pts.join(' L')} L${lastX},${lastY} Z`;
+        // X-axis label positions: month indices 0=Jan,3=Abr,6=Jul,9=Oct
+        const xLabels = [
+          { i: 0, label: 'Ene' },
+          { i: 3, label: 'Abr' },
+          { i: 6, label: 'Jul' },
+          { i: 9, label: 'Oct' },
+        ];
+
+        return (
+          <div className="traffic-card">
+            <div className="traffic-card-header">📊 OPORTUNIDAD DE TRÁFICO</div>
+            <div className="traffic-card-desc">
+              <strong>{volume.toLocaleString()}</strong> personas/mes buscan &ldquo;{article.targetKeyword}&rdquo;. Esto es lo que el SEO consistente podría suponer para <strong>{storeName}</strong> en 12 meses:
+            </div>
+            <div className="traffic-stat-row">
+              <div className="traffic-stat-box">
+                <div className="traffic-stat-num">{displayVol}</div>
+                <div className="traffic-stat-label">Búsquedas mensuales</div>
+                <div className="traffic-stat-sub">para tu cluster de keywords</div>
+              </div>
+              <div className="traffic-stat-box">
+                <div className="traffic-stat-num">{organicYr1.toLocaleString()}</div>
+                <div className="traffic-stat-label">Visitantes orgánicos (año 1)</div>
+                <div className="traffic-stat-sub">estimación conservadora acumulada</div>
+              </div>
+              <div className="traffic-stat-box">
+                <div className="traffic-stat-num green">{customers.toLocaleString()}</div>
+                <div className="traffic-stat-label">Clientes potenciales</div>
+                <div className="traffic-stat-sub">al 2% de conversión</div>
+              </div>
+            </div>
+            {/* SVG Growth Chart */}
+            <div style={{ padding: "0 20px 4px" }}>
+              <div style={{ fontSize: 11, color: "#6b7280", marginBottom: 6, fontWeight: 500 }}>Visitantes orgánicos acumulados — proyección 12 meses</div>
+              <svg viewBox={`0 0 ${svgW} ${svgH}`} width="100%" height="140" style={{ display: "block" }}>
+                {/* Filled area */}
+                <path d={fillPath} fill="#dcfce7" opacity="0.7" />
+                {/* Line */}
+                <polyline points={polyline} fill="none" stroke="#16a34a" strokeWidth="2.5" strokeLinejoin="round" strokeLinecap="round" />
+                {/* X-axis labels */}
+                {xLabels.map(({ i, label }) => (
+                  <text
+                    key={i}
+                    x={padL + (i / 11) * chartW}
+                    y={svgH - 2}
+                    fontSize="10"
+                    fill="#9ca3af"
+                    textAnchor="middle"
+                  >{label}</text>
+                ))}
+              </svg>
+            </div>
+            <div className="traffic-card-footer">Proyección basada en posición media 5-8, CTR 3.5%, conversión 2% visitante-cliente.</div>
+          </div>
+        );
+      })()}
 
       {/* ---- SEO metadata card ---- */}
       <div className="card">

@@ -15,13 +15,39 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "Invalid session" }, { status: 401 });
     }
 
-    const { name, storeName, storeUrl, niche } = await req.json();
+    const body = await req.json();
+    const { name, storeName, storeUrl, niche } = body;
+
+    // Build authorProfile if any fields are provided
+    let authorProfile: {
+      fullName: string;
+      bio: string;
+      yearsExperience: number;
+      niche: string;
+      linkedinUrl?: string;
+      twitterUrl?: string;
+      credentials?: string;
+    } | undefined;
+
+    if (body.authorProfile) {
+      authorProfile = {
+        fullName: body.authorProfile.fullName ?? "",
+        bio: body.authorProfile.bio ?? "",
+        yearsExperience: Number(body.authorProfile.yearsExperience) || 0,
+        niche: body.authorProfile.niche ?? niche ?? "",
+        linkedinUrl: body.authorProfile.linkedinUrl || undefined,
+        twitterUrl: body.authorProfile.twitterUrl || undefined,
+        credentials: body.authorProfile.credentials || undefined,
+      };
+    }
+
     await convex.mutation(api.users.updateProfile, {
       userId: user._id,
       name,
       storeName,
       storeUrl,
       niche,
+      ...(authorProfile ? { authorProfile } : {}),
     });
 
     return NextResponse.json({ success: true });

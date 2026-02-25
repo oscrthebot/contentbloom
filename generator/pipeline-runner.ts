@@ -69,6 +69,7 @@ export interface PipelineResult {
     readingTime: number;
     qaScore: number;
     qaIssues: string[];
+    qaCriticalIssues: string[];
     frontmatter: string;
     monthlyVolume?: number;
   };
@@ -222,15 +223,28 @@ export async function runArticlePipeline(request: PipelineRequest): Promise<Pipe
     let qa: QAResult = await reviewArticle(humanizedContent, keywords.targetKeyword, request.storeName);
     steps.push({ step: '8-qa', status: 'ok', durationMs: t(), note: `Score: ${qa.score}` });
 
-    // QA retry loop: if score < 85, fix and re-review (max 2 retries)
+    // QA retry loop: always retry if critical issues exist, or if score < 85 (max 2 retries)
     const QA_THRESHOLD = 85;
     const MAX_QA_RETRIES = 2;
-    for (let retry = 1; retry <= MAX_QA_RETRIES && qa.score < QA_THRESHOLD && qa.issues.length > 0; retry++) {
+    for (
+      let retry = 1;
+      retry <= MAX_QA_RETRIES &&
+        (qa.criticalIssues.length > 0 || (qa.score < QA_THRESHOLD && qa.issues.length > 0));
+      retry++
+    ) {
       t = stepTimer();
-      console.log(`  🔄 QA retry ${retry}: score was ${qa.score}, issues: [${qa.issues.join('; ')}], retrying...`);
-      humanizedContent = await fixQAIssues(humanizedContent, qa.issues);
+      console.log(
+        `  🔄 QA retry ${retry}: score=${qa.score}, criticalIssues=[${qa.criticalIssues.join('; ')}], issues=[${qa.issues.join('; ')}]`
+      );
+      humanizedContent = await fixQAIssues(humanizedContent, qa.issues, qa.criticalIssues);
       qa = await reviewArticle(humanizedContent, keywords.targetKeyword, request.storeName);
-      steps.push({ step: `8-qa-retry-${retry}`, status: 'ok', durationMs: t(), note: `Score: ${qa.score}` });
+      steps.push({ step: `8-qa-retry-${retry}`, status: 'ok', durationMs: t(), note: `Score: ${qa.score}, critical: ${qa.criticalIssues.length}` });
+    }
+
+    // If critical issues remain after all retries → queue for manual review, do NOT deliver
+    const hasCriticalRemaining = qa.criticalIssues.length > 0;
+    if (hasCriticalRemaining) {
+      console.warn(`  🚫 Critical QA issues remain after ${MAX_QA_RETRIES} retries — holding article in 'queued' status`);
     }
 
     // Step 9: Export markdown + frontmatter
@@ -253,6 +267,13 @@ qaScore: ${qa.score}
     t = stepTimer();
     let convexArticleId: string | undefined;
     try {
+      // Determine final status: block delivery if critical issues remain
+      const finalStatus = hasCriticalRemaining
+        ? 'queued'          // hold for manual review
+        : qa.score >= 80
+          ? 'review'
+          : 'generating';
+
       convexArticleId = await convex.mutation(api.articles.createArticle, {
         clientId: request.clientId as any,
         title: generated.title,
@@ -270,8 +291,9 @@ qaScore: ${qa.score}
         canonicalUrl: articleUrl,
         qaScore: qa.score,
         qaIssues: qa.issues,
+        qaCriticalIssues: qa.criticalIssues,
         monthlyVolume: keywords.monthlyVolume,
-        status: qa.score >= 80 ? 'review' : 'generating',
+        status: finalStatus,
         isPaidFeature: request.isPaidFeature ?? false,
       });
       steps.push({ step: '10-save', status: 'ok', durationMs: t() });
@@ -296,6 +318,7 @@ qaScore: ${qa.score}
         readingTime: generated.readingTime,
         qaScore: qa.score,
         qaIssues: qa.issues,
+        qaCriticalIssues: qa.criticalIssues,
         frontmatter,
         monthlyVolume: keywords.monthlyVolume,
       },

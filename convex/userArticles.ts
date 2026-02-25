@@ -206,6 +206,7 @@ export const updateGeneratedArticle = mutation({
     faqItems: v.optional(v.array(v.object({ question: v.string(), answer: v.string() }))),
     qaScore: v.optional(v.number()),
     qaIssues: v.optional(v.array(v.string())),
+    qaCriticalIssues: v.optional(v.array(v.string())),
     monthlyVolume: v.optional(v.number()),
     status: v.union(
       v.literal("queued"), v.literal("generating"), v.literal("review"),
