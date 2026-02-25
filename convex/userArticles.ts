@@ -152,6 +152,41 @@ export const ensureClientRecord = mutation({
 });
 
 /**
+ * Get the next queued article to process, with store context.
+ */
+export const getNextQueued = query({
+  args: {},
+  handler: async (ctx) => {
+    // Find oldest queued article
+    const article = await ctx.db
+      .query("articles")
+      .withIndex("by_status", (q) => q.eq("status", "queued"))
+      .first();
+
+    if (!article) return null;
+
+    // Get the client to find store info
+    const client = await ctx.db.get(article.clientId);
+    if (!client) return null;
+
+    // Find user linked to this client
+    const user = await ctx.db
+      .query("users")
+      .filter((q) => q.eq(q.field("clientId"), article.clientId))
+      .first();
+
+    return {
+      articleId: article._id,
+      clientId: article.clientId,
+      storeName: client.storeName,
+      storeUrl: `https://${client.domain}`,
+      niche: client.niche,
+      userId: user?._id,
+    };
+  },
+});
+
+/**
  * Update a placeholder article with real generated content.
  */
 export const updateGeneratedArticle = mutation({

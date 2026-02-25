@@ -9,7 +9,12 @@ function wrap(content: string) {
 .container{max-width:520px;margin:40px auto;padding:32px;background:#fff;border-radius:12px;border:1px solid #e5e7eb}
 .btn{display:inline-block;padding:12px 28px;background:#16a34a;color:#fff;text-decoration:none;border-radius:8px;font-weight:600;font-size:14px}
 .footer{margin-top:32px;padding-top:16px;border-top:1px solid #e5e7eb;font-size:12px;color:#6b7280}
-</style></head><body><div class="container">${content}</div></body></html>`;
+</style></head><body><div class="container">
+<div style="display:flex;align-items:center;gap:10px;margin-bottom:28px;padding-bottom:20px;border-bottom:1px solid #f3f4f6">
+  <img src="${BASE_URL}/rocket.svg" width="28" height="28" alt="BloomContent" style="image-rendering:pixelated;display:block" />
+  <span style="font-weight:700;font-size:16px;color:#111827;letter-spacing:-0.01em">BloomContent</span>
+</div>
+${content}</div></body></html>`;
 }
 
 export async function sendMagicLinkEmail(email: string, token: string) {

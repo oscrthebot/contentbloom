@@ -4,34 +4,45 @@ import Image from "next/image";
 interface LogoProps {
   size?: "sm" | "md" | "lg";
   href?: string;
-  className?: string;
+  dark?: boolean; // true = white text (for dark backgrounds)
 }
 
 const sizes = {
-  sm: { w: 120, h: 24 },
-  md: { w: 160, h: 32 },
-  lg: { w: 200, h: 40 },
+  sm: { rocket: 18, fontSize: 13 },
+  md: { rocket: 22, fontSize: 15 },
+  lg: { rocket: 28, fontSize: 18 },
 };
 
-export function Logo({ size = "md", href = "/", className }: LogoProps) {
-  const { w, h } = sizes[size];
+export function Logo({ size = "md", href = "/", dark = false }: LogoProps) {
+  const { rocket, fontSize } = sizes[size];
 
-  const img = (
-    <Image
-      src="/logo.svg"
-      alt="BloomContent"
-      width={w}
-      height={h}
-      priority
-      style={{ display: "block" }}
-    />
+  const inner = (
+    <span style={{ display: "inline-flex", alignItems: "center", gap: 8, textDecoration: "none" }}>
+      <Image
+        src="/rocket.svg"
+        alt="BloomContent"
+        width={rocket}
+        height={rocket}
+        style={{ imageRendering: "pixelated", display: "block" }}
+        priority
+      />
+      <span style={{
+        fontWeight: 700,
+        fontSize,
+        color: dark ? "#fff" : "#111827",
+        letterSpacing: "-0.01em",
+        fontFamily: "-apple-system, BlinkMacSystemFont, 'Inter', sans-serif",
+      }}>
+        BloomContent
+      </span>
+    </span>
   );
 
-  if (!href) return <span className={className}>{img}</span>;
+  if (!href) return inner;
 
   return (
-    <Link href={href} style={{ display: "inline-block", textDecoration: "none" }} className={className}>
-      {img}
+    <Link href={href} style={{ textDecoration: "none", display: "inline-flex" }}>
+      {inner}
     </Link>
   );
 }
