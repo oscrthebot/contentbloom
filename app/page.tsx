@@ -12,7 +12,7 @@ function Nav() {
       <div className="nav-inner">
         <Link href="/" style={{ display: "flex", alignItems: "center", gap: 10, textDecoration: "none" }}>
           <Image src="/rocket.svg" alt="BloomContent" width={28} height={28} style={{ imageRendering: "pixelated" }} />
-          <span style={{ fontWeight: 700, fontSize: 15, color: "var(--t1)", letterSpacing: "-0.01em" }}>BloomContent</span>
+          <span style={{ fontWeight: 700, fontSize: 15, color: "var(--t1)", letterSpacing: "-0.02em", fontFamily: "'Clash Display', sans-serif" }}>BloomContent</span>
         </Link>
 
         <div style={{ display: "flex", alignItems: "center", gap: 32, fontSize: 13, color: "var(--t2)" }} className="hide-mobile">
@@ -325,7 +325,7 @@ function Footer() {
       <div className="container" style={{ display: "flex", flexWrap: "wrap", alignItems: "center", justifyContent: "space-between", gap: 20 }}>
         <Link href="/" style={{ display: "flex", alignItems: "center", gap: 8, textDecoration: "none" }}>
           <Image src="/rocket.svg" alt="BloomContent" width={22} height={22} style={{ imageRendering: "pixelated" }} />
-          <span style={{ fontWeight: 700, fontSize: 14, color: "var(--t1)" }}>BloomContent</span>
+          <span style={{ fontWeight: 700, fontSize: 14, color: "var(--t1)", letterSpacing: "-0.02em", fontFamily: "'Clash Display', sans-serif" }}>BloomContent</span>
         </Link>
         <div style={{ display: "flex", gap: 28 }}>
           {[["Privacy","/privacy"],["Terms","/terms"],["Contact","/contact"]].map(([l,href]) => (

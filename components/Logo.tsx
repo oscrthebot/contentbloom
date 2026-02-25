@@ -30,8 +30,9 @@ export function Logo({ size = "md", href = "/", dark = false }: LogoProps) {
         fontWeight: 700,
         fontSize,
         color: dark ? "#fff" : "#111827",
-        letterSpacing: "-0.01em",
-        fontFamily: "-apple-system, BlinkMacSystemFont, 'Inter', sans-serif",
+        letterSpacing: "-0.02em",
+        fontFamily: "'Clash Display', -apple-system, sans-serif",
+        lineHeight: 1,
       }}>
         BloomContent
       </span>

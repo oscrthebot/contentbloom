@@ -40,6 +40,13 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
+      <head>
+        <link rel="preconnect" href="https://api.fontshare.com" />
+        <link
+          href="https://api.fontshare.com/v2/css?f[]=clash-display@700&display=swap"
+          rel="stylesheet"
+        />
+      </head>
       <body className={inter.variable} style={{ fontFamily: "Inter, -apple-system, sans-serif", background: "#f9f8f8" }}>
         {children}
       </body>
