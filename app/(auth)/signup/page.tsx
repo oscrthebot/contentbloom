@@ -18,7 +18,7 @@ export default function SignupPage() {
       const res = await fetch("/api/auth/magic-link", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, purpose: "signup" }),
+        body: JSON.stringify({ email, purpose: "login" }),
       });
 
       if (!res.ok) throw new Error("Failed to send");
