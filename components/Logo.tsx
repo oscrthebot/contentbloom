@@ -27,11 +27,11 @@ export function Logo({ size = "md", href = "/", dark = false }: LogoProps) {
         priority
       />
       <span style={{
-        fontWeight: 700,
+        fontWeight: 900,
         fontSize,
         color: dark ? "#fff" : "#111827",
         letterSpacing: "-0.02em",
-        fontFamily: "'Clash Display', -apple-system, sans-serif",
+        fontFamily: "'Outfit', -apple-system, sans-serif",
         lineHeight: 1,
       }}>
         BloomContent
