@@ -31,6 +31,7 @@ export const updateProfile = mutation({
     storeName: v.optional(v.string()),
     storeUrl: v.optional(v.string()),
     niche: v.optional(v.string()),
+    language: v.optional(v.string()),
   },
   handler: async (ctx, args) => {
     const { userId, ...updates } = args;

@@ -32,6 +32,7 @@ export const createArticle = mutation({
     canonicalUrl: v.optional(v.string()),
     qaScore: v.optional(v.number()),
     qaIssues: v.optional(v.array(v.string())),
+    monthlyVolume: v.optional(v.number()),
     status: v.union(
       v.literal("generating"),
       v.literal("review"),

@@ -272,12 +272,12 @@ export function ArticleView({
         )}
       </div>
 
-      {/* Secondary keywords */}
-      {article.secondaryKeywords.length > 0 && (
-        <div style={{ marginBottom: 20 }}>
-          {article.secondaryKeywords.map((kw) => (
-            <span key={kw} className="kw-tag">{kw}</span>
-          ))}
+      {/* Revenue estimates */}
+      {article.monthlyVolume != null && article.monthlyVolume > 0 && (
+        <div style={{ display: "flex", flexWrap: "wrap", gap: 8, marginBottom: 16 }}>
+          <span className="stat-chip">📈 {Math.round(article.monthlyVolume * 0.03 * 12).toLocaleString()} visits/yr</span>
+          <span className="stat-chip">💰 €{Math.round(article.monthlyVolume * 0.03 * 12 * 0.02 * 50).toLocaleString()}/yr</span>
+          <span className="stat-chip" title="Based on 3% CTR, 2% conversion, €50 avg order" style={{ cursor: "help" }}>ℹ️ Estimates</span>
         </div>
       )}
 

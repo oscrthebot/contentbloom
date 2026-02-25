@@ -70,7 +70,7 @@ async function main() {
     storeName: user.storeName,
     storeUrl: user.storeUrl,
     niche: user.niche || 'general',
-    language: 'en',
+    language: user.language || 'en',
     articleType: 'guide',
     wordCount: 1500,
     clientId: clientId as string,
@@ -110,6 +110,7 @@ async function main() {
     faqItems: article.faqItems ?? [],
     qaScore: article.qaScore ?? undefined,
     qaIssues: article.qaIssues ?? undefined,
+    monthlyVolume: article.monthlyVolume ?? undefined,
     status: 'review',
   });
 

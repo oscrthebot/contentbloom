@@ -18,6 +18,9 @@ import {
   generateFAQ,
   humanizeContent,
   reviewArticle,
+  detectStoreLanguage,
+  fetchShopifyProducts,
+  fixQAIssues,
 } from './article-generator';
 import { generateArticleSchema } from '../lib/schema-generator';
 import { generateSlug } from '../lib/slug-generator';
@@ -67,6 +70,7 @@ export interface PipelineResult {
     qaScore: number;
     qaIssues: string[];
     frontmatter: string;
+    monthlyVolume?: number;
   };
   convexArticleId?: string;
   error?: string;
@@ -105,11 +109,20 @@ export async function runArticlePipeline(request: PipelineRequest): Promise<Pipe
       steps.push({ step: '1-keywords', status: 'ok', durationMs: t() });
     }
 
-    // Step 2: Load author/brand context
+    // Step 2: Load author/brand context + fetch products
     t = stepTimer();
     let authorProfile = request.authorProfile;
     let products = request.products ?? [];
     let existingArticles: ExistingArticle[] = [];
+
+    // Fetch real products from Shopify if none provided
+    if (products.length === 0 && request.storeUrl) {
+      const shopifyProducts = await fetchShopifyProducts(request.storeUrl);
+      if (shopifyProducts.length > 0) {
+        products = shopifyProducts;
+        console.log(`  📦 Fetched ${shopifyProducts.length} products from Shopify`);
+      }
+    }
 
     // Try to load from Convex if we have userId
     if (request.userId) {
@@ -128,6 +141,27 @@ export async function runArticlePipeline(request: PipelineRequest): Promise<Pipe
     }
     steps.push({ step: '2-context', status: 'ok', durationMs: t() });
 
+    // Step 2b: Language detection
+    t = stepTimer();
+    let language = request.language;
+    if (!language || language === 'en') {
+      const detected = await detectStoreLanguage(request.storeUrl);
+      if (detected !== 'en') {
+        language = detected;
+        console.log(`  🌐 Detected store language: ${detected}`);
+      }
+    }
+    // Save detected language back to user record
+    if (request.userId && language !== request.language) {
+      try {
+        await convex.mutation(api.users.updateProfile, {
+          userId: request.userId as any,
+          language,
+        } as any);
+      } catch {}
+    }
+    steps.push({ step: '2b-language', status: 'ok', durationMs: t(), note: `Language: ${language}` });
+
     // Step 3: Generate article
     t = stepTimer();
     const articleRequest: ArticleRequest = {
@@ -141,7 +175,7 @@ export async function runArticlePipeline(request: PipelineRequest): Promise<Pipe
       wordCount: request.wordCount,
       authorProfile: request.isPaidFeature ? authorProfile : undefined,
       existingArticles: existingArticles.length > 0 ? existingArticles : undefined,
-      language: request.language,
+      language,
       isPaidFeature: request.isPaidFeature,
     };
     const generated: GeneratedArticle = await generateArticle(articleRequest);
@@ -180,13 +214,24 @@ export async function runArticlePipeline(request: PipelineRequest): Promise<Pipe
     // Step 7: Humanizer pass
     t = stepTimer();
     const rawContent = generated.content;
-    const humanizedContent = await humanizeContent(generated.content);
+    let humanizedContent = await humanizeContent(generated.content);
     steps.push({ step: '7-humanizer', status: 'ok', durationMs: t() });
 
-    // Step 8: QA review
+    // Step 8: QA review + auto-retry
     t = stepTimer();
-    const qa: QAResult = await reviewArticle(humanizedContent, keywords.targetKeyword, request.storeName);
+    let qa: QAResult = await reviewArticle(humanizedContent, keywords.targetKeyword, request.storeName);
     steps.push({ step: '8-qa', status: 'ok', durationMs: t(), note: `Score: ${qa.score}` });
+
+    // QA retry loop: if score < 85, fix and re-review (max 2 retries)
+    const QA_THRESHOLD = 85;
+    const MAX_QA_RETRIES = 2;
+    for (let retry = 1; retry <= MAX_QA_RETRIES && qa.score < QA_THRESHOLD && qa.issues.length > 0; retry++) {
+      t = stepTimer();
+      console.log(`  🔄 QA retry ${retry}: score was ${qa.score}, issues: [${qa.issues.join('; ')}], retrying...`);
+      humanizedContent = await fixQAIssues(humanizedContent, qa.issues);
+      qa = await reviewArticle(humanizedContent, keywords.targetKeyword, request.storeName);
+      steps.push({ step: `8-qa-retry-${retry}`, status: 'ok', durationMs: t(), note: `Score: ${qa.score}` });
+    }
 
     // Step 9: Export markdown + frontmatter
     t = stepTimer();
@@ -225,6 +270,7 @@ qaScore: ${qa.score}
         canonicalUrl: articleUrl,
         qaScore: qa.score,
         qaIssues: qa.issues,
+        monthlyVolume: keywords.monthlyVolume,
         status: qa.score >= 80 ? 'review' : 'generating',
         isPaidFeature: request.isPaidFeature ?? false,
       });
@@ -251,6 +297,7 @@ qaScore: ${qa.score}
         qaScore: qa.score,
         qaIssues: qa.issues,
         frontmatter,
+        monthlyVolume: keywords.monthlyVolume,
       },
       convexArticleId: convexArticleId ? String(convexArticleId) : undefined,
       steps,

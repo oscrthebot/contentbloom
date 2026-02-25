@@ -9,6 +9,7 @@
  */
 
 import OpenAI from 'openai';
+import Anthropic from '@anthropic-ai/sdk';
 
 // ---------- Types ----------
 
@@ -70,47 +71,126 @@ export interface QAResult {
 
 // ---------- AI Client ----------
 
-function getAIClient(): OpenAI {
+const OPENROUTER_MODEL = process.env.AI_MODEL || 'anthropic/claude-sonnet-4-6';
+const ANTHROPIC_MODEL = 'claude-sonnet-4-20250514';
+
+async function aiCall(systemPrompt: string, userPrompt: string): Promise<string> {
   const openrouterKey = process.env.OPENROUTER_API_KEY;
   const anthropicKey = process.env.ANTHROPIC_API_KEY;
 
+  // Try OpenRouter first
   if (openrouterKey) {
-    return new OpenAI({
-      baseURL: 'https://openrouter.ai/api/v1',
-      apiKey: openrouterKey,
-    });
+    try {
+      const client = new OpenAI({
+        baseURL: 'https://openrouter.ai/api/v1',
+        apiKey: openrouterKey,
+      });
+      const response = await client.chat.completions.create({
+        model: OPENROUTER_MODEL,
+        messages: [
+          { role: 'system', content: systemPrompt },
+          { role: 'user', content: userPrompt },
+        ],
+        max_tokens: 4000,
+        temperature: 0.7,
+      });
+      return response.choices[0]?.message?.content ?? '';
+    } catch (e: any) {
+      // If 402 (out of credits), fall through to Anthropic
+      if (!e?.message?.includes('402') || !anthropicKey) throw e;
+      console.log('  ⚠️ OpenRouter out of credits, falling back to Anthropic API');
+    }
   }
+
+  // Fallback to direct Anthropic SDK
   if (anthropicKey) {
-    return new OpenAI({
-      baseURL: 'https://api.anthropic.com/v1',
-      apiKey: anthropicKey,
+    const isOAuth = anthropicKey.startsWith('sk-ant-oat');
+    const client = new Anthropic(
+      isOAuth
+        ? { authToken: anthropicKey, apiKey: null as any }
+        : { apiKey: anthropicKey }
+    );
+    const response = await client.messages.create({
+      model: ANTHROPIC_MODEL,
+      max_tokens: 4000,
+      system: systemPrompt,
+      messages: [{ role: 'user', content: userPrompt }],
     });
+    const block = response.content[0];
+    return block.type === 'text' ? block.text : '';
   }
+
   throw new Error('No AI API key found. Set OPENROUTER_API_KEY or ANTHROPIC_API_KEY.');
 }
 
-const MODEL = 'anthropic/claude-sonnet-4-6';
+// ---------- Language Detection ----------
 
-async function aiCall(systemPrompt: string, userPrompt: string): Promise<string> {
-  const client = getAIClient();
-  const response = await client.chat.completions.create({
-    model: MODEL,
-    messages: [
-      { role: 'system', content: systemPrompt },
-      { role: 'user', content: userPrompt },
-    ],
-    max_tokens: 8000,
-    temperature: 0.7,
-  });
-  return response.choices[0]?.message?.content ?? '';
+export async function detectStoreLanguage(storeUrl: string): Promise<string> {
+  try {
+    const url = storeUrl.startsWith('http') ? storeUrl : `https://${storeUrl}`;
+    const res = await fetch(url, { signal: AbortSignal.timeout(5000) });
+    const html = await res.text();
+    const match = html.match(/<html[^>]+lang=["']([^"']+)["']/i);
+    if (match) return match[1].split('-')[0].toLowerCase();
+  } catch {}
+  return 'en';
 }
+
+// ---------- Shopify Product Fetching ----------
+
+export async function fetchShopifyProducts(storeUrl: string): Promise<Product[]> {
+  try {
+    const base = (storeUrl.startsWith('http') ? storeUrl : `https://${storeUrl}`).replace(/\/$/, '');
+    const res = await fetch(`${base}/products.json?limit=10`, {
+      signal: AbortSignal.timeout(5000),
+    });
+    if (!res.ok) return [];
+    const data = await res.json();
+    return (data.products || []).slice(0, 6).map((p: any) => ({
+      name: p.title,
+      url: `${base}/products/${p.handle}`,
+      description: p.body_html?.replace(/<[^>]*>/g, '').slice(0, 100) || '',
+      price: p.variants?.[0]?.price ? `€${p.variants[0].price}` : undefined,
+    }));
+  } catch {
+    return [];
+  }
+}
+
+// ---------- QA Fix Pass ----------
+
+export async function fixQAIssues(content: string, issues: string[]): Promise<string> {
+  const prompt = `You are an expert editor. Fix the following issues in this article, one by one.
+Do NOT add new content or change the article structure.
+Only fix the specific problems listed.
+
+Issues to fix:
+${issues.map((i, n) => `${n + 1}. ${i}`).join('\n')}
+
+Return ONLY the corrected article text, no commentary.`;
+
+  return await aiCall(prompt, content);
+}
+
+// ---------- Language Instructions ----------
+
+const langInstructions: Record<string, string> = {
+  en: 'Write entirely in English (American English).',
+  es: 'Write entirely in Spanish (Spain). Use natural, fluent Spanish throughout — including headings, CTAs, and all text. Do NOT mix languages.',
+  de: 'Write entirely in German.',
+  fr: 'Write entirely in French.',
+};
 
 // ---------- Step 3a: Article Generation ----------
 
 export function buildArticlePrompt(params: ArticleRequest): string {
   const productList = params.products
-    .map(p => `- ${p.name}: ${p.url}${p.description ? ` — ${p.description}` : ''}`)
+    .map(p => `- ${p.name}: ${p.url}${p.description ? ` — ${p.description}` : ''}${(p as any).price ? ` (${(p as any).price})` : ''}`)
     .join('\n');
+
+  const lang = params.language || 'en';
+  const langInstruction = langInstructions[lang] || langInstructions['en'];
+  const ctaText = lang === 'es' ? 'Ver producto →' : lang === 'de' ? 'Produkt ansehen →' : lang === 'fr' ? 'Voir le produit →' : 'Shop now';
 
   const authorSection = params.authorProfile
     ? `\n**Author Voice:** Write as ${params.authorProfile.fullName}. ${params.authorProfile.bio}. They have ${params.authorProfile.yearsExperience} years of experience in ${params.authorProfile.niche}. Use their voice and experience throughout.${params.authorProfile.credentials ? ` Credentials: ${params.authorProfile.credentials}` : ''}\n`
@@ -120,7 +200,7 @@ export function buildArticlePrompt(params: ArticleRequest): string {
     ? `\n**Internal Links:** Include 2-3 internal links to these existing articles where relevant:\n${params.existingArticles.map(a => `- "${a.title}" → /blog/${a.slug} (keyword: ${a.keyword})`).join('\n')}\n`
     : '';
 
-  return `You are an expert SEO copywriter for e-commerce stores. Write in ${params.language === 'en' ? 'American English' : params.language}.
+  return `You are an expert SEO copywriter for e-commerce stores. ${langInstruction}
 
 Write a ${params.wordCount}+ word ${params.articleType} article for ${params.storeName} (${params.storeUrl}), an online store in the ${params.niche} space.
 
@@ -130,7 +210,7 @@ ${authorSection}
 **IMPORTANT RULES:**
 - Include 2-3 first-person observations naturally (e.g. "I've tested...", "In my experience...", "What I've found is...")
 - Include 2-3 in-content product callouts referencing THESE specific products. Format as:
-  > **[Product name]** — [one-line pitch]. [Shop now](url)
+  > **[Product name]** — [one-line pitch]. [${ctaText}](url)
 
 **Products to feature:**
 ${productList}
