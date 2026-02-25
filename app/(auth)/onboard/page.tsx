@@ -7,7 +7,7 @@ function OnboardContent() {
   const searchParams = useSearchParams();
   const router = useRouter();
   const token = searchParams.get("token");
-  const plan = searchParams.get("plan") || "starter";
+  const plan = searchParams.get("plan") || ""; // plan is now optional
 
   const [step, setStep] = useState<"verifying" | "profile" | "done">(token ? "verifying" : "profile");
   const [form, setForm] = useState({ name: "", storeName: "", storeUrl: "", niche: "" });
@@ -27,27 +27,47 @@ function OnboardContent() {
     setError("");
 
     try {
-      const res = await fetch("/api/auth/update-profile", {
+      // First update the user profile (name)
+      const profileRes = await fetch("/api/auth/update-profile", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form),
+        body: JSON.stringify({ name: form.name, storeName: form.storeName, storeUrl: form.storeUrl, niche: form.niche }),
       });
 
-      if (!res.ok) throw new Error("Failed");
+      if (!profileRes.ok) throw new Error("Failed to update profile");
 
-      // Try checkout, fall back to dashboard
-      const checkout = await fetch("/api/checkout", {
+      // Create the store record
+      const storeRes = await fetch("/api/stores/create", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ plan }),
+        body: JSON.stringify({
+          storeName: form.storeName,
+          storeUrl: form.storeUrl,
+          niche: form.niche,
+          plan: plan || "trial",
+        }),
       });
 
-      const data = await checkout.json();
-      if (data.url) {
-        window.location.href = data.url;
-      } else {
-        router.push("/dashboard");
+      if (!storeRes.ok) throw new Error("Failed to create store");
+
+      // Redirect logic:
+      // - If plan is specified (from checkout flow), go to checkout
+      // - Otherwise (signup flow / trial), go to dashboard
+      if (plan && plan !== "trial") {
+        const checkout = await fetch("/api/checkout", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ plan }),
+        });
+
+        const data = await checkout.json();
+        if (data.url) {
+          window.location.href = data.url;
+          return;
+        }
       }
+
+      router.push("/dashboard");
     } catch {
       setError("Something went wrong. Please try again.");
       setLoading(false);
@@ -80,19 +100,27 @@ function OnboardContent() {
             <>
               <div style={{ marginBottom: 24 }}>
                 <h2 style={{ fontSize: 20, fontWeight: 600, color: "#111827", marginBottom: 4 }}>
-                  Welcome! Complete your profile
+                  Welcome! Set up your store
                 </h2>
-                <p style={{ color: "#6b7280", fontSize: 14 }}>
-                  You selected the <span style={{
-                    display: "inline-block",
-                    padding: "2px 10px",
-                    background: "#dcfce7",
-                    color: "#16a34a",
-                    borderRadius: 6,
-                    fontWeight: 600,
-                    fontSize: 13,
-                  }}>{planLabels[plan] || plan}</span> plan
-                </p>
+                {plan && planLabels[plan] ? (
+                  <p style={{ color: "#6b7280", fontSize: 14 }}>
+                    You selected the{" "}
+                    <span style={{
+                      display: "inline-block",
+                      padding: "2px 10px",
+                      background: "#dcfce7",
+                      color: "#16a34a",
+                      borderRadius: 6,
+                      fontWeight: 600,
+                      fontSize: 13,
+                    }}>{planLabels[plan]}</span>{" "}
+                    plan
+                  </p>
+                ) : (
+                  <p style={{ color: "#6b7280", fontSize: 14 }}>
+                    Tell us about your store so we can generate your first SEO article.
+                  </p>
+                )}
               </div>
 
               <form onSubmit={handleSubmit}>
@@ -146,6 +174,19 @@ function OnboardContent() {
                   {loading ? "Setting up..." : "Continue"}
                 </button>
               </form>
+
+              {/* Multi-store note */}
+              <p style={{
+                marginTop: 20,
+                fontSize: 12,
+                color: "#9ca3af",
+                textAlign: "center",
+                lineHeight: 1.5,
+              }}>
+                💡 You can add more stores later from your dashboard
+                <br />
+                <span style={{ color: "#16a34a", fontWeight: 500 }}>+20% discount for each additional store</span>
+              </p>
             </>
           )}
         </div>

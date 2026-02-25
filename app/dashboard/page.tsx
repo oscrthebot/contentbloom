@@ -45,13 +45,37 @@ export default async function DashboardPage() {
           padding: 48,
           textAlign: "center",
         }}>
-          {plan === "trial" ? (
+          {!user?.storeName ? (
             <>
               <h3 style={{ fontSize: 18, fontWeight: 600, color: "#111827", marginBottom: 8 }}>
-                Your free article is being prepared
+                Set up your store to get started
+              </h3>
+              <p style={{ color: "#6b7280", fontSize: 14, marginBottom: 20 }}>
+                We need a few details about your store to generate your first SEO article.
+              </p>
+              <a
+                href="/onboard"
+                style={{
+                  display: "inline-block",
+                  padding: "10px 24px",
+                  borderRadius: 8,
+                  background: "#16a34a",
+                  color: "#fff",
+                  textDecoration: "none",
+                  fontSize: 14,
+                  fontWeight: 600,
+                }}
+              >
+                Complete setup →
+              </a>
+            </>
+          ) : plan === "trial" ? (
+            <>
+              <h3 style={{ fontSize: 18, fontWeight: 600, color: "#111827", marginBottom: 8 }}>
+                Your first article is in the queue
               </h3>
               <p style={{ color: "#6b7280", fontSize: 14 }}>
-                We are generating your first SEO article. You will receive an email when it is ready.
+                We&apos;re working on your first SEO article for <strong>{user.storeName}</strong>. You&apos;ll get an email when it&apos;s ready.
               </p>
             </>
           ) : (

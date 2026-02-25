@@ -16,6 +16,7 @@ import type * as outreachLog from "../outreachLog.js";
 import type * as preview from "../preview.js";
 import type * as seedAnalytics from "../seedAnalytics.js";
 import type * as stats from "../stats.js";
+import type * as stores from "../stores.js";
 import type * as userArticles from "../userArticles.js";
 import type * as users from "../users.js";
 
@@ -34,6 +35,7 @@ declare const fullApi: ApiFromModules<{
   preview: typeof preview;
   seedAnalytics: typeof seedAnalytics;
   stats: typeof stats;
+  stores: typeof stores;
   userArticles: typeof userArticles;
   users: typeof users;
 }>;

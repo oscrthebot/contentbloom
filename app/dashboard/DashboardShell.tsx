@@ -2,10 +2,11 @@
 
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { FileText, User, CreditCard, LogOut } from "lucide-react";
+import { FileText, User, CreditCard, LogOut, Store } from "lucide-react";
 
 const navItems = [
   { href: "/dashboard", label: "Articles", icon: FileText },
+  { href: "/dashboard/stores", label: "My Stores", icon: Store },
   { href: "/dashboard/profile", label: "Profile", icon: User },
   { href: "/dashboard/plan", label: "Plan & Billing", icon: CreditCard },
 ];

@@ -200,6 +200,22 @@ export default defineSchema({
     .index("by_article", ["articleId"])
     .index("by_user", ["userId"]),
 
+  // Stores — multiple stores per user
+  stores: defineTable({
+    userId: v.id("users"),
+    storeName: v.string(),
+    storeUrl: v.string(),
+    niche: v.optional(v.string()),
+    shopifyDomain: v.optional(v.string()),
+    shopifyToken: v.optional(v.string()),
+    plan: v.union(v.literal("trial"), v.literal("starter"), v.literal("growth"), v.literal("scale")),
+    status: v.union(v.literal("active"), v.literal("paused"), v.literal("cancelled")),
+    storeIndex: v.number(),           // 0 = first store, 1 = second, etc.
+    discountMultiplier: v.number(),   // 1.0, 0.8, 0.64, etc.
+    stripeSubscriptionId: v.optional(v.string()),
+    createdAt: v.number(),
+  }).index("by_user", ["userId"]),
+
   // Daily reports
   reports: defineTable({
     date: v.string(),

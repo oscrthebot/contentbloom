@@ -17,8 +17,8 @@ export async function GET(req: NextRequest) {
     }
 
     const redirectPath =
-      result.purpose === "onboarding" && result.isNewUser
-        ? `/onboard?plan=${result.onboardingPlan || "starter"}`
+      result.isNewUser
+        ? `/onboard${result.onboardingPlan ? `?plan=${result.onboardingPlan}` : ""}`
         : "/dashboard";
 
     const response = NextResponse.redirect(new URL(redirectPath, req.url));
