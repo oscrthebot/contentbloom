@@ -3,6 +3,7 @@ import { getConvexClient } from "../../lib/convex";
 import { api } from "../../convex/_generated/api";
 import { ArticlesList } from "./ArticlesList";
 import { ArticleGenerating } from "./ArticleGenerating";
+import { GenerateButton } from "./GenerateButton";
 
 export default async function DashboardPage() {
   const cookieStore = await cookies();
@@ -83,11 +84,12 @@ export default async function DashboardPage() {
           ) : (
             <>
               <h3 style={{ fontSize: 18, fontWeight: 600, color: "#111827", marginBottom: 8 }}>
-                No articles yet
+                Ready to generate your first article
               </h3>
               <p style={{ color: "#6b7280", fontSize: 14 }}>
-                Your first article will appear here once it has been generated for <strong>{user.storeName}</strong>.
+                Your store <strong>{user.storeName}</strong> is set up. Click below to generate your first SEO article.
               </p>
+              <GenerateButton storeName={user.storeName!} />
             </>
           )}
         </div>
