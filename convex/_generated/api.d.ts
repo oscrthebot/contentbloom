@@ -12,6 +12,7 @@ import type * as articles from "../articles.js";
 import type * as auth from "../auth.js";
 import type * as clients from "../clients.js";
 import type * as leads from "../leads.js";
+import type * as outreach from "../outreach.js";
 import type * as outreachLog from "../outreachLog.js";
 import type * as preview from "../preview.js";
 import type * as seedAnalytics from "../seedAnalytics.js";
@@ -31,6 +32,7 @@ declare const fullApi: ApiFromModules<{
   auth: typeof auth;
   clients: typeof clients;
   leads: typeof leads;
+  outreach: typeof outreach;
   outreachLog: typeof outreachLog;
   preview: typeof preview;
   seedAnalytics: typeof seedAnalytics;

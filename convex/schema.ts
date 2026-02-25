@@ -226,6 +226,52 @@ export default defineSchema({
     createdAt: v.number(),
   }).index("by_user", ["userId"]),
 
+  // ── Cold outreach infrastructure ──────────────────────────────────────────
+
+  // Sending mailboxes
+  mailboxes: defineTable({
+    email: v.string(),
+    displayName: v.string(),
+    smtpHost: v.string(),
+    smtpPort: v.number(),
+    imapHost: v.string(),
+    imapPort: v.number(),
+    dailyLimit: v.number(),
+    warmupDay: v.number(),      // 0 = not started, 28+ = fully warmed
+    status: v.union(
+      v.literal("active"),      // fully warmed, sending cold outreach
+      v.literal("warming"),     // in warmup period
+      v.literal("paused"),
+    ),
+    domain: v.string(),         // bloomcontent.site | trybloomcontent.site
+    sentToday: v.optional(v.number()),
+    lastSentAt: v.optional(v.string()),
+  })
+    .index("by_status", ["status"])
+    .index("by_email", ["email"]),
+
+  // Outreach campaigns
+  outreachCampaigns: defineTable({
+    name: v.string(),
+    status: v.union(v.literal("draft"), v.literal("active"), v.literal("paused"), v.literal("completed")),
+    dailyLimitTotal: v.number(),       // across all mailboxes
+    sendWindowStart: v.string(),       // "09:00"
+    sendWindowEnd: v.string(),         // "18:00"
+    timezone: v.string(),
+    createdAt: v.number(),
+    startedAt: v.optional(v.number()),
+  }).index("by_status", ["status"]),
+
+  // Campaign sequence steps (email templates)
+  outreachSequenceSteps: defineTable({
+    campaignId: v.id("outreachCampaigns"),
+    stepNumber: v.number(),            // 0 = cold intro, 1..N = follow-ups
+    subjectTemplate: v.string(),
+    bodyTemplate: v.string(),
+    delayDays: v.number(),             // days after previous step
+    isReply: v.boolean(),              // true = reply in same thread
+  }).index("by_campaign", ["campaignId"]),
+
   // Daily reports
   reports: defineTable({
     date: v.string(),
