@@ -5,7 +5,7 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 
 export const metadata: Metadata = {
-  title: "ContentBloom — AI Blog Content for Shopify Stores",
+  title: "BloomContent — AI Blog Content for Shopify Stores",
   description: "Daily SEO blog posts for your Shopify store, done for you by AI. Starting at €49/month.",
   metadataBase: new URL("https://bloomcontent.site"),
   icons: {
@@ -14,16 +14,16 @@ export const metadata: Metadata = {
     apple: "/rocket.svg",
   },
   openGraph: {
-    title: "ContentBloom — AI Blog Content for Shopify Stores",
+    title: "BloomContent — AI Blog Content for Shopify Stores",
     description: "Daily SEO blog posts for your Shopify store, done for you by AI. Starting at €49/month.",
     url: "https://bloomcontent.site",
-    siteName: "ContentBloom",
+    siteName: "BloomContent",
     images: [
       {
         url: "/opengraph-image",
         width: 1200,
         height: 630,
-        alt: "ContentBloom — AI Blog Content for Shopify Stores",
+        alt: "BloomContent — AI Blog Content for Shopify Stores",
       },
     ],
     type: "website",
@@ -31,7 +31,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "ContentBloom — AI Blog Content for Shopify Stores",
+    title: "BloomContent — AI Blog Content for Shopify Stores",
     description: "Daily SEO blog posts for your Shopify store, done for you by AI. Starting at €49/month.",
     images: ["/opengraph-image"],
   },

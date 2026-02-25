@@ -1,5 +1,5 @@
 /**
- * ContentBloom - Shopify Store Finder
+ * BloomContent - Shopify Store Finder
  * 
  * Finds Shopify stores that need content help:
  * - No blog or very few posts
@@ -61,7 +61,7 @@ const DEFAULT_CONFIG: ScraperConfig = {
 async function isShopifyStore(domain: string): Promise<boolean> {
   try {
     const response = await fetch(`https://${domain}`, {
-      headers: { 'User-Agent': 'Mozilla/5.0 (compatible; ContentBloom/1.0)' }
+      headers: { 'User-Agent': 'Mozilla/5.0 (compatible; BloomContent/1.0)' }
     });
     const html = await response.text();
     
@@ -90,7 +90,7 @@ async function analyzeStore(domain: string): Promise<Partial<ShopifyLead> | null
     
     try {
       const blogResponse = await fetch(`https://${domain}/blogs/news.json`, {
-        headers: { 'User-Agent': 'Mozilla/5.0 (compatible; ContentBloom/1.0)' }
+        headers: { 'User-Agent': 'Mozilla/5.0 (compatible; BloomContent/1.0)' }
       });
       if (blogResponse.ok) {
         const blogData = await blogResponse.json();
@@ -105,7 +105,7 @@ async function analyzeStore(domain: string): Promise<Partial<ShopifyLead> | null
     let productCount = 0;
     try {
       const productsResponse = await fetch(`https://${domain}/products.json?limit=250`, {
-        headers: { 'User-Agent': 'Mozilla/5.0 (compatible; ContentBloom/1.0)' }
+        headers: { 'User-Agent': 'Mozilla/5.0 (compatible; BloomContent/1.0)' }
       });
       if (productsResponse.ok) {
         const productsData = await productsResponse.json();
@@ -121,7 +121,7 @@ async function analyzeStore(domain: string): Promise<Partial<ShopifyLead> | null
     
     try {
       const contactResponse = await fetch(`https://${domain}/pages/contact`, {
-        headers: { 'User-Agent': 'Mozilla/5.0 (compatible; ContentBloom/1.0)' }
+        headers: { 'User-Agent': 'Mozilla/5.0 (compatible; BloomContent/1.0)' }
       });
       const contactHtml = await contactResponse.text();
       
@@ -197,7 +197,7 @@ async function searchNiche(niche: string, country: string): Promise<string[]> {
 async function findLeads(config: ScraperConfig = DEFAULT_CONFIG): Promise<ShopifyLead[]> {
   const leads: ShopifyLead[] = [];
   
-  console.log('🔍 ContentBloom Lead Finder');
+  console.log('🔍 BloomContent Lead Finder');
   console.log('===========================');
   console.log(`Niches: ${config.niches.join(', ')}`);
   console.log(`Countries: ${config.countries.join(', ')}`);

@@ -1,7 +1,7 @@
 import { ImageResponse } from "next/og";
 
 export const runtime = "edge";
-export const alt = "ContentBloom — AI Blog Content for Shopify Stores";
+export const alt = "BloomContent — AI Blog Content for Shopify Stores";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -43,7 +43,7 @@ export default async function Image() {
             display: "flex",
           }}
         >
-          ContentBloom
+          BloomContent
         </div>
 
         {/* Subtitle */}

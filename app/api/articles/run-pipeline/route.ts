@@ -43,7 +43,7 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "Pipeline failed" }, { status: 500 });
     }
 
-    const { article, schemaMarkup, faqItems } = result;
+    const { article } = result;
 
     // Update the placeholder with real content
     await convex.mutation(api.userArticles.updateGeneratedArticle, {
@@ -53,15 +53,15 @@ export async function POST(req: NextRequest) {
       metaTitle: article.metaTitle,
       metaDescription: article.metaDescription,
       content: article.content,
-      rawContent: article.rawContent,
+      rawContent: article.rawContent ?? undefined,
       targetKeyword: article.targetKeyword,
       secondaryKeywords: article.secondaryKeywords,
       wordCount: article.wordCount,
       readingTime: article.readingTime,
-      schemaMarkup: JSON.stringify(schemaMarkup),
-      faqItems: faqItems || [],
-      qaScore: result.qaResult?.score,
-      qaIssues: result.qaResult?.issues,
+      schemaMarkup: article.schemaMarkup ? JSON.stringify(article.schemaMarkup) : undefined,
+      faqItems: article.faqItems ?? [],
+      qaScore: article.qaScore ?? undefined,
+      qaIssues: article.qaIssues ?? undefined,
       status: "review",
     });
 

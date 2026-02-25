@@ -1,11 +1,11 @@
 To: rafa@happyoperators.com
-Subject: ✅ 45 Qualified Shopify Store Leads for ContentBloom (29 with Contact Info)
+Subject: ✅ 45 Qualified Shopify Store Leads for BloomContent (29 with Contact Info)
 
 ---
 
 Hi Rafa,
 
-Great news! I've completed the lead generation for ContentBloom. Here's what we found:
+Great news! I've completed the lead generation for BloomContent. Here's what we found:
 
 ## 📊 Summary
 
@@ -80,7 +80,7 @@ For each potential store, I:
 
 ## 💡 Key Insight
 
-**All 45 leads have ZERO blog posts** - this means they have maximum content need! These are perfect prospects for ContentBloom's content writing services. They have the products, the customers, but missing the content marketing that could drive more traffic and sales.
+**All 45 leads have ZERO blog posts** - this means they have maximum content need! These are perfect prospects for BloomContent's content writing services. They have the products, the customers, but missing the content marketing that could drive more traffic and sales.
 
 The 29 leads in Convex are ready for immediate outreach!
 

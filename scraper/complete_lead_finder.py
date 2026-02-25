@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Complete Lead Finder for ContentBloom
+Complete Lead Finder for BloomContent
 Finds Shopify stores using multiple methods and analyzes them
 """
 
@@ -407,7 +407,7 @@ def main():
     qualified_leads = []
     
     print("="*60)
-    print("🚀 ContentBloom Lead Generator")
+    print("🚀 BloomContent Lead Generator")
     print("="*60)
     print(f"Target: 100 qualified Shopify store leads")
     print(f"Quality threshold: Score >= 40/100")

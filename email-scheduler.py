@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-ContentBloom Email Scheduler
+BloomContent Email Scheduler
 Sends cold emails daily respecting per-account warmup phases.
 Usage: python3 email-scheduler.py [--dry-run]
 """
@@ -263,9 +263,9 @@ def send_onboarding_email(lead: dict, plan: str = "starter"):
         return False
 
     msg = MIMEMultipart("alternative")
-    msg["From"] = f"ContentBloom <{hey_user}>"
+    msg["From"] = f"BloomContent <{hey_user}>"
     msg["To"] = lead["email"]
-    msg["Subject"] = "Welcome to ContentBloom - complete your setup"
+    msg["Subject"] = "Welcome to BloomContent - complete your setup"
 
     store_name = lead.get("storeName", "your store")
     text = (

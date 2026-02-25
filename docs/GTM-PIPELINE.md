@@ -1,7 +1,7 @@
 # Go-To-Market Pipeline
 
 ## Overview
-This document outlines the complete GTM strategy for ContentBloom, from lead generation to customer conversion.
+This document outlines the complete GTM strategy for BloomContent, from lead generation to customer conversion.
 
 ## Pipeline Stages
 
@@ -104,7 +104,7 @@ This type of content could drive 20-30 extra sales per month. Want to
 see how we can automate this for you?
 
 Best,
-ContentBloom Team
+BloomContent Team
 ```
 
 **Email 2: Social Proof (Day 3)**

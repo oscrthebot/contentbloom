@@ -1,7 +1,7 @@
 # Shopify Blog Publishing Integration - Research & Implementation
 
 **Date:** 2026-02-19  
-**Project:** ContentBloom MVP  
+**Project:** BloomContent MVP  
 **Author:** AI Agent
 
 ---
@@ -40,7 +40,7 @@ There are **3 main approaches** to publishing blog articles directly to Shopify 
 {
   "article": {
     "title": "My New Article Title",
-    "author": "ContentBloom",
+    "author": "BloomContent",
     "tags": "SEO, Marketing, E-commerce",
     "body_html": "<h2>Article content here</h2><p>With HTML formatting...</p>",
     "published_at": "2026-02-19T10:00:00Z",  // null = draft
@@ -259,12 +259,12 @@ app.listen(3000);
 
 ### User Flow (Merchant Perspective)
 
-1. **Discovery:** Merchant receives email from ContentBloom: "Get 2 free articles + install our app for one-click publishing"
+1. **Discovery:** Merchant receives email from BloomContent: "Get 2 free articles + install our app for one-click publishing"
 2. **Installation:** Merchant clicks install link → Shopify OAuth page appears
-3. **Authorization:** "ContentBloom wants to: Read and write blog content" → Merchant clicks "Install app"
-4. **Onboarding:** Merchant is redirected to ContentBloom dashboard (embedded in Shopify admin)
+3. **Authorization:** "BloomContent wants to: Read and write blog content" → Merchant clicks "Install app"
+4. **Onboarding:** Merchant is redirected to BloomContent dashboard (embedded in Shopify admin)
 5. **Usage:** 
-   - ContentBloom shows: "2 articles ready to publish!"
+   - BloomContent shows: "2 articles ready to publish!"
    - Merchant clicks "Publish to Blog" → Selects which blog → Done!
 6. **Article appears live** on their store instantly
 
@@ -297,14 +297,14 @@ Merchant creates a "Custom App" in their Shopify admin, generates API credential
 
 1. Go to Shopify Admin → Settings → Apps and sales channels
 2. Click "Develop apps" → "Allow custom app development" (if needed)
-3. Click "Create an app" → Name it "ContentBloom"
+3. Click "Create an app" → Name it "BloomContent"
 4. Go to **Configuration** → **Admin API scopes**
 5. Select: `write_content`, `read_content`
 6. Click "Save"
 7. Go to **API credentials** → Click "Install app"
 8. Copy **Admin API access token** (shows only once!)
 9. Copy **API key** and **API secret key**
-10. Send to ContentBloom securely (email, encrypted message, etc.)
+10. Send to BloomContent securely (email, encrypted message, etc.)
 
 #### 2. Store Credentials Securely
 
@@ -347,7 +347,7 @@ def publish_article(shop, access_token, blog_id, article_data):
 article = {
     "title": "10 SEO Tips for E-commerce",
     "body_html": "<h2>Introduction</h2><p>SEO is crucial...</p>",
-    "author": "ContentBloom",
+    "author": "BloomContent",
     "tags": "SEO, Marketing",
     "published_at": None  # Draft
 }
@@ -364,11 +364,11 @@ print(f"Article created! ID: {result['article']['id']}")
 
 ### User Flow (Merchant Perspective)
 
-1. **Onboarding email:** ContentBloom sends detailed instructions with screenshots
+1. **Onboarding email:** BloomContent sends detailed instructions with screenshots
 2. **Manual setup:** Merchant spends 5-10 minutes creating custom app
 3. **Credential sharing:** Merchant copies API token → Sends via secure method
-4. **Confirmation:** ContentBloom team confirms credentials work
-5. **Publishing:** ContentBloom publishes articles on behalf of merchant (no direct access for merchant)
+4. **Confirmation:** BloomContent team confirms credentials work
+5. **Publishing:** BloomContent publishes articles on behalf of merchant (no direct access for merchant)
 
 **Friction points:**
 - Non-technical merchants may struggle with setup
@@ -411,7 +411,7 @@ Use automation platforms as middleware between your app and Shopify.
      "title": "Article Title",
      "body_html": "<p>Content...</p>",
      "tags": "SEO",
-     "author": "ContentBloom"
+     "author": "BloomContent"
    }
    ```
 
@@ -457,7 +457,7 @@ Use automation platforms as middleware between your app and Shopify.
 
 ---
 
-## Recommended Implementation Plan for ContentBloom MVP
+## Recommended Implementation Plan for BloomContent MVP
 
 ### Phase 1: Immediate (Week 1-2) - Use Option B
 
@@ -511,7 +511,7 @@ Use automation platforms as middleware between your app and Shopify.
 import requests
 from datetime import datetime
 
-def create_draft_article(shop, access_token, blog_id, title, html_content, tags, author="ContentBloom"):
+def create_draft_article(shop, access_token, blog_id, title, html_content, tags, author="BloomContent"):
     """
     Create a draft article (not published immediately)
     """
@@ -595,7 +595,7 @@ publishArticleNow(
   {
     title: "5 Ways to Use Organic Dog Treats for Training",
     body_html: "<h2>Training with treats</h2><p>Positive reinforcement works...</p>",
-    author: "ContentBloom",
+    author: "BloomContent",
     tags: "training, dogs, tips"
   }
 );
@@ -710,7 +710,7 @@ Before going live, test:
 
 ## Final Recommendation
 
-**For ContentBloom MVP:**
+**For BloomContent MVP:**
 
 1. **Start with Option B (Custom App)** for first 5-10 clients
    - Fastest time-to-market

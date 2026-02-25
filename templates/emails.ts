@@ -1,5 +1,5 @@
 /**
- * ContentBloom - Email Templates
+ * BloomContent - Email Templates
  * 
  * All emails OSCR sends autonomously:
  * - Cold outreach
@@ -48,7 +48,7 @@ If you're interested, just reply "yes" and I'll have the content ready in 48 hou
 
 Best,
 Rafael
-ContentBloom
+BloomContent
 
 P.S. Here's a sample article I wrote for a similar store: [link]`
     },
@@ -72,7 +72,7 @@ Si te interesa, responde "sí" y tendrás el contenido en 48 horas.
 
 Un saludo,
 Rafael
-ContentBloom
+BloomContent
 
 PD: Aquí tienes un artículo de ejemplo que escribí para una tienda similar: [link]`
     },
@@ -96,7 +96,7 @@ Bei Interesse einfach mit "Ja" antworten - in 48 Stunden habt ihr den Content.
 
 Beste Grüße,
 Rafael
-ContentBloom
+BloomContent
 
 PS: Hier ein Beispielartikel für einen ähnlichen Shop: [link]`
     },
@@ -120,7 +120,7 @@ Si ça vous intéresse, répondez simplement "oui" et vous aurez le contenu en 4
 
 Cordialement,
 Rafael
-ContentBloom
+BloomContent
 
 PS : Voici un article exemple écrit pour une boutique similaire : [link]`
     }
@@ -177,7 +177,7 @@ No pressure at all - the free articles are yours to keep either way.
 
 Best,
 Rafael
-ContentBloom`
+BloomContent`
     },
     es: {
       subject: `¡Tus artículos SEO gratis para ${ctx.storeName} están listos! 🎉`,
@@ -222,7 +222,7 @@ Sin presión - los artículos gratis son tuyos de todas formas.
 
 Un saludo,
 Rafael
-ContentBloom`
+BloomContent`
     }
   };
   
@@ -309,7 +309,7 @@ export function conversionResponse(ctx: StoreContext, plan: 'starter' | 'growth'
   const articles = { starter: 1, growth: 3, scale: 5 };
   
   return {
-    subject: `Welcome to ContentBloom! 🎉 - ${ctx.storeName}`,
+    subject: `Welcome to BloomContent! 🎉 - ${ctx.storeName}`,
     body: `Hi${ctx.ownerName ? ` ${ctx.ownerName}` : ''},
 
 Awesome - welcome aboard! 🎉
@@ -333,6 +333,6 @@ Excited to help ${ctx.storeName} grow!
 
 Best,
 Rafael
-ContentBloom`
+BloomContent`
   };
 }

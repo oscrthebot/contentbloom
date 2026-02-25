@@ -1,4 +1,4 @@
-# ContentBloom Database Schemas
+# BloomContent Database Schemas
 
 ## Overview
 
@@ -89,7 +89,7 @@ const leads = defineTable({
 
 ### 2. `clients` - Converted Customers
 
-Stores that signed up for ContentBloom service.
+Stores that signed up for BloomContent service.
 
 ```typescript
 const clients = defineTable({
@@ -204,7 +204,7 @@ const articles = defineTable({
   tags: v.array(v.string()),
   
   // Author & metadata
-  author: v.string(),                 // "ContentBloom" or specific writer name
+  author: v.string(),                 // "BloomContent" or specific writer name
   wordCount: v.number(),
   readingTimeMinutes: v.number(),
   
@@ -258,7 +258,7 @@ const articles = defineTable({
   "primaryKeyword": "organic dog treats",
   "secondaryKeywords": ["dog treat benefits", "healthy dog snacks", "natural pet treats"],
   "tags": ["organic", "dog health", "nutrition", "pet care"],
-  "author": "ContentBloom",
+  "author": "BloomContent",
   "wordCount": 1847,
   "readingTimeMinutes": 7,
   "status": "published",

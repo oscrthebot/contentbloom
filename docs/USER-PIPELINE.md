@@ -251,7 +251,7 @@ export const createCheckoutSession = mutation({
 **Overview Page:**
 ```
 ┌─────────────────────────────────────────────┐
-│  Welcome to ContentBloom! 👋                │
+│  Welcome to BloomContent! 👋                │
 ├─────────────────────────────────────────────┤
 │                                             │
 │  ┌─ Quick Start ──────────────────────┐    │

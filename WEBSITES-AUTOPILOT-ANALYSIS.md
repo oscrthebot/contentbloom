@@ -6,7 +6,7 @@
 
 ---
 
-## 1. VIABILIDAD DE REUTILIZACIÓN (ContentBloom → Website Autopilot)
+## 1. VIABILIDAD DE REUTILIZACIÓN (BloomContent → Website Autopilot)
 
 ### ✅ Lo que se puede reutilizar directamente
 
@@ -33,7 +33,7 @@
 **RECOMENDACIÓN: Dominio nuevo.** Razones:
 1. "BloomContent" suena a content marketing, no a web design para negocios locales
 2. Las cuentas email en warmup tardan ~3 semanas — no es tanto tiempo perdido
-3. Separar dominios protege la reputación de email de ContentBloom si algo sale mal
+3. Separar dominios protege la reputación de email de BloomContent si algo sale mal
 4. Sugerencias: **localwebpro.site**, **siteboost.agency**, **webcraft.site**
 
 **Coste:** ~€10-15/año dominio + ~€3/mes cuentas email Zoho
@@ -85,7 +85,7 @@
 
 | Aspecto | Evaluación |
 |---|---|
-| **Viable con OpenClaw?** | ✅ Sí — es lo que ContentBloom ya hace |
+| **Viable con OpenClaw?** | ✅ Sí — es lo que BloomContent ya hace |
 | **APIs necesarias** | SMTP (tenemos), Twilio SMS (nuevo) |
 | **Ya tenemos** | email-scheduler.py, warmup logic, templates, Zoho SMTP |
 | **Tiempo implementación** | 1 semana (adaptar templates + integrar Twilio) |
@@ -194,9 +194,9 @@
 - Costes: ~€100/mes operativos + ~€200/mes en APIs a escala
 - **Margen: ~€2,400/mes (~88%)**
 
-### Comparativa con ContentBloom
+### Comparativa con BloomContent
 
-| Métrica | ContentBloom | Website Autopilot |
+| Métrica | BloomContent | Website Autopilot |
 |---|---|---|
 | **Ticket medio** | €500-2000/mes (content packages) | €497 setup + €49-97/mes |
 | **Ciclo de venta** | Largo (semanas) | Corto (demo ya hecho) |
@@ -208,7 +208,7 @@
 
 ### ¿Cuál tiene más potencial a 12 meses?
 
-**ContentBloom a corto plazo (0-6 meses):** Ya está live, está generando datos reales. La prioridad debería ser optimizar conversión aquí.
+**BloomContent a corto plazo (0-6 meses):** Ya está live, está generando datos reales. La prioridad debería ser optimizar conversión aquí.
 
 **Website Autopilot a medio plazo (6-12 meses):** Tiene potencial mayor porque:
 1. El mercado de negocios locales sin web decente es ENORME
@@ -216,7 +216,7 @@
 3. Los márgenes son brutales una vez automatizado
 4. El MRR se acumula (hosting + mantenimiento)
 
-**Recomendación:** NO abandonar ContentBloom. Construir Website Autopilot en paralelo, empezando con los agentes más fáciles.
+**Recomendación:** NO abandonar BloomContent. Construir Website Autopilot en paralelo, empezando con los agentes más fáciles.
 
 ---
 
@@ -276,7 +276,7 @@
 **Razonamiento:**
 
 **A favor (por qué GO):**
-1. La infraestructura de ContentBloom cubre ~40% del trabajo
+1. La infraestructura de BloomContent cubre ~40% del trabajo
 2. El concepto de "demo pre-construida" es genuinamente diferenciador
 3. Los costes operativos son bajísimos (€50-100/mes)
 4. El mercado de negocios locales con webs malas es masivo
@@ -287,11 +287,11 @@
 1. **El post original exagera.** Nano Banana Pro no hace lo que dice, Kling 2.6 no existe como tal, cold SMS en Europa tiene riesgo GDPR serio
 2. **El UGC video pipeline no es viable hoy** como se describe — necesita herramientas diferentes (HeyGen, D-ID, Runway) y cuesta más
 3. **Competencia.** Vender webs a negocios locales es un mercado saturado. La diferenciación está en la automatización y el demo pre-construido, pero el producto final (una web) es commodity
-4. **ContentBloom está LIVE.** Dividir atención ahora podría dañar ambos proyectos
+4. **BloomContent está LIVE.** Dividir atención ahora podría dañar ambos proyectos
 
 ### ⚡ Recomendación concreta:
 
-1. **No pausar ContentBloom** — está generando datos reales, sigue optimizando
+1. **No pausar BloomContent** — está generando datos reales, sigue optimizando
 2. **Empezar Scout + Intel como proyecto paralelo** (2-3 semanas, ~€50)
 3. **Validar demanda** antes de construir todo el pipeline: generar 10 briefs de negocios reales, crear 3 demo sites manualmente, enviar 20 emails personalizados a mano
 4. **Si hay respuestas positivas (>5% reply rate)** → construir el pipeline completo

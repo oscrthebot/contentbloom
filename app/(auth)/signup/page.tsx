@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { Logo } from "../../../components/Logo";
 
 export default function SignupPage() {
   const [email, setEmail] = useState("");
@@ -34,9 +35,7 @@ export default function SignupPage() {
     <div style={{ minHeight: "100vh", display: "flex", alignItems: "center", justifyContent: "center", background: "#f9fafb" }}>
       <div style={{ width: "100%", maxWidth: 420, padding: 32 }}>
         <div style={{ textAlign: "center", marginBottom: 40 }}>
-          <Link href="/" style={{ textDecoration: "none" }}>
-            <span style={{ fontSize: 24, fontWeight: 700, color: "#111827" }}>ContentBloom</span>
-          </Link>
+          <Logo size="lg" href="/" />
         </div>
 
         <div style={{

@@ -1,4 +1,4 @@
-# Content Generation Pipeline - ContentBloom MVP
+# Content Generation Pipeline - BloomContent MVP
 
 ## Overview
 
@@ -117,7 +117,7 @@ title: "The Ultimate Guide to Organic Dog Treats in 2026"
 meta_title: "Best Organic Dog Treats: Complete Guide (2026)"
 meta_description: "Discover the healthiest organic dog treats for your pup. Expert tips, ingredient guides, and vet-approved recommendations."
 primary_keyword: "organic dog treats"
-author: "ContentBloom"
+author: "BloomContent"
 date: "2026-02-19"
 ---
 

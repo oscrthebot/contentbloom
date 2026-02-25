@@ -16,13 +16,13 @@ export async function sendMagicLinkEmail(email: string, token: string) {
   const url = `${BASE_URL}/api/auth/verify?token=${token}`;
   await sendEmail({
     to: email,
-    subject: "Your ContentBloom login link",
+    subject: "Your BloomContent login link",
     text: `Click to log in (link valid 15 minutes):\n\n${url}\n\nIf you didn't request this, ignore this email.`,
     html: wrap(`
       <p>Click the button below to log in. This link is valid for 15 minutes.</p>
-      <p style="margin:24px 0"><a href="${url}" class="btn">Log in to ContentBloom</a></p>
+      <p style="margin:24px 0"><a href="${url}" class="btn">Log in to BloomContent</a></p>
       <p style="font-size:13px;color:#6b7280">If you didn't request this, you can safely ignore this email.</p>
-      <div class="footer">ContentBloom &mdash; AI content for e-commerce</div>
+      <div class="footer">BloomContent &mdash; AI content for e-commerce</div>
     `),
   });
 }
@@ -31,14 +31,14 @@ export async function sendOnboardingEmail(email: string, token: string, plan: st
   const url = `${BASE_URL}/onboard?token=${token}&plan=${plan}`;
   await sendEmail({
     to: email,
-    subject: "Welcome to ContentBloom - complete your setup",
+    subject: "Welcome to BloomContent - complete your setup",
     text: `Great news - your ${plan} plan is ready.\n\nComplete your setup here:\n${url}\n\nLooking forward to working with you.`,
     html: wrap(`
       <p>Great news &mdash; your <strong>${plan}</strong> plan is ready.</p>
       <p>Click below to complete your setup and start receiving SEO content for your store.</p>
       <p style="margin:24px 0"><a href="${url}" class="btn">Complete setup</a></p>
       <p style="font-size:13px;color:#6b7280">This link is valid for 7 days.</p>
-      <div class="footer">ContentBloom &mdash; AI content for e-commerce</div>
+      <div class="footer">BloomContent &mdash; AI content for e-commerce</div>
     `),
   });
 }
@@ -52,7 +52,7 @@ export async function sendArticleReadyEmail(email: string, title: string, keywor
     html: wrap(`
       <p>Your article <strong>&ldquo;${title}&rdquo;</strong> targeting <em>${keyword}</em> is ready in your dashboard.</p>
       <p style="margin:24px 0"><a href="${url}" class="btn">View article</a></p>
-      <div class="footer">ContentBloom &mdash; AI content for e-commerce</div>
+      <div class="footer">BloomContent &mdash; AI content for e-commerce</div>
     `),
   });
 }
@@ -60,14 +60,14 @@ export async function sendArticleReadyEmail(email: string, title: string, keywor
 export async function sendWelcomeAfterPaymentEmail(email: string, plan: string) {
   await sendEmail({
     to: email,
-    subject: `You're all set! ContentBloom ${plan} activated`,
+    subject: `You're all set! BloomContent ${plan} activated`,
     text: `Your ${plan} plan is now active.\n\nYour first article will be ready within 24 hours. Once it's in your dashboard, you can review it and give feedback.\n\nIf you ever need anything, just reply to this email.\n\nDashboard: ${BASE_URL}/dashboard`,
     html: wrap(`
       <p>Your <strong>${plan}</strong> plan is now active.</p>
       <p>Your first article will be ready within 24 hours. Once it appears in your dashboard, you can review it and provide feedback directly.</p>
       <p style="margin:24px 0"><a href="${BASE_URL}/dashboard" class="btn">Go to dashboard</a></p>
       <p style="font-size:13px;color:#6b7280">Need anything? Just reply to this email.</p>
-      <div class="footer">ContentBloom &mdash; AI content for e-commerce</div>
+      <div class="footer">BloomContent &mdash; AI content for e-commerce</div>
     `),
   });
 }

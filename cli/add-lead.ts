@@ -1,6 +1,6 @@
 #!/usr/bin/env ts-node
 /**
- * ContentBloom - Add Lead CLI
+ * BloomContent - Add Lead CLI
  * 
  * Quick way to add leads manually:
  * npx ts-node cli/add-lead.ts --domain example.com --email owner@example.com --niche "organic skincare"
@@ -83,7 +83,7 @@ function listLeads(status?: string): void {
   const leads = loadLeads();
   const filtered = status ? leads.filter(l => l.status === status) : leads;
   
-  console.log('\n📋 ContentBloom Leads');
+  console.log('\n📋 BloomContent Leads');
   console.log('=====================');
   console.log(`Total: ${leads.length} | Showing: ${filtered.length}\n`);
   
@@ -111,7 +111,7 @@ if (args.includes('--list') || args.includes('-l')) {
   listLeads(status);
 } else if (args.includes('--help') || args.includes('-h')) {
   console.log(`
-ContentBloom Lead Manager
+BloomContent Lead Manager
 
 Usage:
   npx ts-node cli/add-lead.ts [options]

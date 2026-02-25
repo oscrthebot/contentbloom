@@ -22,7 +22,7 @@ export async function sendEmail({
   html: string;
 }) {
   return transporter.sendMail({
-    from: '"ContentBloom" <hey@bloomcontent.site>',
+    from: '"BloomContent" <hey@bloomcontent.site>',
     to,
     subject,
     text,

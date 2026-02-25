@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-ContentBloom Lead Scraper
+BloomContent Lead Scraper
 Maintains a 14-day buffer of leads. Scrapes more when running low.
 Usage: python3 lead-scraper.py [--dry-run]
 """
@@ -97,7 +97,7 @@ def convex_mutation(url, key, path, args):
 
 # ── Scraping helpers ──────────────────────────────────────────────────────────
 
-HEADERS = {"User-Agent": "Mozilla/5.0 (compatible; ContentBloom/1.0)"}
+HEADERS = {"User-Agent": "Mozilla/5.0 (compatible; BloomContent/1.0)"}
 
 SKIP_EMAIL_DOMAINS = {
     "example.com", "sentry.io", "schema.org", "w3.org", "shopify.com",

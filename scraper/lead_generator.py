@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-ContentBloom Lead Generator
+BloomContent Lead Generator
 Finds and analyzes Shopify stores that need content help
 """
 
@@ -324,7 +324,7 @@ def main():
     analyzer = ShopifyLeadAnalyzer()
     all_leads = []
     
-    print("🚀 ContentBloom Lead Generator Starting...")
+    print("🚀 BloomContent Lead Generator Starting...")
     print(f"Target: 100 qualified Shopify store leads\n")
     
     # For demonstration, let's analyze some known Shopify stores

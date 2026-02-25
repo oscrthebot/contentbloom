@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-ContentBloom inbox monitor
+BloomContent inbox monitor
 Checks matt.roberts & rafa @bloomcontent.site for new replies
 Sends Telegram notification when a prospect replies
 """
@@ -64,7 +64,7 @@ def notify_telegram(account, from_, subject, body):
     token = '8593076538:AAFui0vdyFJuUCO-psZYT3ljDscDENnajkE'
     chat_id = '1796388904'
     text = (
-        f"📬 *Nueva respuesta en ContentBloom*\n\n"
+        f"📬 *Nueva respuesta en BloomContent*\n\n"
         f"*Cuenta:* `{account}`\n"
         f"*De:* {from_}\n"
         f"*Asunto:* {subject}\n\n"

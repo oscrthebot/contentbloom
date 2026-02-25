@@ -2,6 +2,7 @@
 
 import { useState, useEffect, Suspense } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
+import { Logo } from "../../../components/Logo";
 
 function OnboardContent() {
   const searchParams = useSearchParams();
@@ -84,7 +85,7 @@ function OnboardContent() {
     <div style={{ minHeight: "100vh", display: "flex", alignItems: "center", justifyContent: "center", background: "#f9fafb" }}>
       <div style={{ width: "100%", maxWidth: 480, padding: 32 }}>
         <div style={{ textAlign: "center", marginBottom: 32 }}>
-          <span style={{ fontSize: 24, fontWeight: 700, color: "#111827" }}>ContentBloom</span>
+          <Logo size="lg" href="/" />
         </div>
 
         <div style={{

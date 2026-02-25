@@ -1,5 +1,5 @@
 /**
- * ContentBloom - Daily Automation Pipeline
+ * BloomContent - Daily Automation Pipeline
  * 
  * This is what OSCR runs every day:
  * 1. Check for new leads to contact
@@ -290,7 +290,7 @@ function generateDailyReport(): DailyReport {
  * Main daily automation
  */
 async function runDailyAutomation(): Promise<void> {
-  console.log('\n🚀 ContentBloom Daily Automation');
+  console.log('\n🚀 BloomContent Daily Automation');
   console.log('================================');
   console.log(`Date: ${new Date().toISOString()}\n`);
   

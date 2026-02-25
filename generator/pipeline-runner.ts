@@ -1,5 +1,5 @@
 /**
- * ContentBloom - Article Pipeline Runner (v2)
+ * BloomContent - Article Pipeline Runner (v2)
  *
  * Orchestrates the full 10-step article generation pipeline.
  */

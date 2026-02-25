@@ -1,4 +1,4 @@
-# ContentBloom - Quick Start Guide
+# BloomContent - Quick Start Guide
 
 **🚀 Get your first client in 7 days**
 
@@ -249,7 +249,7 @@ Best of luck with [StoreName]!
 
 3. **Send for approval:**
    ```
-   Subject: Your ContentBloom Articles are Ready!
+   Subject: Your BloomContent Articles are Ready!
 
    Hi [FirstName],
 
@@ -327,7 +327,7 @@ Hi [FirstName],
 
 Glad you're happy with the 2 articles! Here's how we can keep the momentum going:
 
-**ContentBloom Monthly Plans:**
+**BloomContent Monthly Plans:**
 
 📦 Starter - $299/month
 - 4 SEO-optimized articles

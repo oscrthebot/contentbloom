@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Shopify Store Scraper - ContentBloom MVP
+Shopify Store Scraper - BloomContent MVP
 Finds Shopify stores, checks for blogs, extracts contact info
 """
 
@@ -205,7 +205,7 @@ class ShopifyScraper:
 
 
 def main():
-    parser = argparse.ArgumentParser(description='Scrape Shopify stores for ContentBloom')
+    parser = argparse.ArgumentParser(description='Scrape Shopify stores for BloomContent')
     parser.add_argument('--file', help='File with list of URLs to scrape')
     parser.add_argument('--url', help='Single URL to scrape')
     parser.add_argument('--output', default='shopify_leads.json', help='Output JSON file')

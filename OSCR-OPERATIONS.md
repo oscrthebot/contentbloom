@@ -1,8 +1,8 @@
-# ContentBloom - OSCR Operations Guide
+# BloomContent - OSCR Operations Guide
 
 ## My Role
 
-I run ContentBloom autonomously. Rafa checks in occasionally but I handle:
+I run BloomContent autonomously. Rafa checks in occasionally but I handle:
 - Finding leads
 - Writing/sending outreach emails
 - Generating demo content
@@ -115,7 +115,7 @@ npx ts-node pipeline/daily-automation.ts
 
 Use Gmail (oscrthebot@gmail.com):
 - Port: 587 + STARTTLS
-- From: ContentBloom <oscrthebot@gmail.com>
+- From: BloomContent <oscrthebot@gmail.com>
 - Reply-to: rafa@happyoperators.com
 
 ---

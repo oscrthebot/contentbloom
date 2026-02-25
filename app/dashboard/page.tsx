@@ -26,7 +26,7 @@ export default async function DashboardPage() {
         {[
           { label: "Total articles", value: articles.filter((a: { status: string }) => a.status !== "generating").length },
           { label: "Delivered", value: articles.filter((a: { status: string }) => a.status === "delivered").length },
-          { label: "Pending feedback", value: articles.filter((a: { status: string; feedback?: string }) => a.status === "delivered" && !a.feedback).length },
+          { label: "Pending feedback", value: articles.filter((a: { status: string; feedback?: unknown }) => a.status === "delivered" && !a.feedback).length },
         ].map((stat) => (
           <div key={stat.label} style={{
             background: "#fff",

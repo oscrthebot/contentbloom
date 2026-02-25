@@ -1,4 +1,4 @@
-# ContentBloom 🌸
+# BloomContent 🌸
 
 AI-powered SEO content automation for e-commerce stores.
 

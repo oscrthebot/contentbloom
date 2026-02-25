@@ -1,4 +1,4 @@
-# Email Outreach Templates - ContentBloom
+# Email Outreach Templates - BloomContent
 
 ## Template 1: Intro Email (Day 0)
 
@@ -22,7 +22,7 @@ Interested? Just reply "YES" and I'll get started this week.
 
 Best regards,  
 {{sender_name}}  
-ContentBloom  
+BloomContent  
 {{sender_email}}
 
 P.S. No credit card needed, no catch. Just high-quality content to help your store grow.
@@ -48,7 +48,7 @@ This offer is only available for a limited number of stores this month. If you'r
 
 Cheers,  
 {{sender_name}}  
-ContentBloom
+BloomContent
 
 ---
 
@@ -72,7 +72,7 @@ If you're curious but not 100% sure, you can always reply with questions. Or if 
 Either way, best of luck with your store!
 
 {{sender_name}}  
-ContentBloom  
+BloomContent  
 {{sender_email}}
 
 P.S. If you're not interested, no worries at all—feel free to reply "not interested" and I'll remove you from my list. I respect your time!
@@ -105,7 +105,7 @@ Reply to this email with your answers to Step 1, and we'll get rolling.
 Looking forward to working with you!
 
 {{sender_name}}  
-ContentBloom  
+BloomContent  
 {{sender_email}}
 
 ---

@@ -1,12 +1,12 @@
 # Shopify Integration Guide
 
 ## Overview
-This document details how ContentBloom integrates with Shopify to automatically publish blog content.
+This document details how BloomContent integrates with Shopify to automatically publish blog content.
 
 ## Architecture
 
 ```
-ContentBloom                  Shopify Store
+BloomContent                  Shopify Store
     │                              │
     ├─ Generate Content            │
     │                              │
@@ -105,7 +105,7 @@ Body:
 {
   "article": {
     "title": "10 Best Running Shoes for Marathon Training",
-    "author": "ContentBloom",
+    "author": "BloomContent",
     "tags": "running, marathon, shoes, training, fitness",
     "body_html": "<h2>Introduction</h2><p>...</p>",
     "published_at": "2024-02-20T10:00:00-05:00",
@@ -131,7 +131,7 @@ Response:
     "created_at": "2024-02-19T16:00:00-05:00",
     "body_html": "<h2>Introduction</h2><p>...</p>",
     "blog_id": 123456789,
-    "author": "ContentBloom",
+    "author": "BloomContent",
     "user_id": null,
     "published_at": "2024-02-20T10:00:00-05:00",
     "updated_at": "2024-02-19T16:00:00-05:00",
@@ -194,7 +194,7 @@ export const publishArticle = action({
     const articleData = {
       article: {
         title: content.title,
-        author: "ContentBloom AI",
+        author: "BloomContent AI",
         tags: content.keywords?.join(", ") || "",
         body_html: content.content,
         published_at: content.scheduledFor 

@@ -25,7 +25,7 @@ function NotFound() {
   return (
     <div style={{ maxWidth: 720, margin: "0 auto", padding: "140px 24px", textAlign: "center" }}>
       <p style={{ fontSize: 14, color: "var(--t3)" }}>Article not found.</p>
-      <Link href="/" style={{ color: "var(--accent)", fontSize: 14 }}>← Go to ContentBloom</Link>
+      <Link href="/" style={{ color: "var(--accent)", fontSize: 14 }}>← Go to BloomContent</Link>
     </div>
   );
 }
@@ -120,8 +120,8 @@ export default function ArticlePreviewPage() {
       {/* Nav */}
       <nav style={{ position: "fixed", top: 0, left: 0, right: 0, height: 60, background: "rgba(249,248,248,.92)", backdropFilter: "blur(12px)", borderBottom: "1px solid var(--border)", zIndex: 100, display: "flex", alignItems: "center", padding: "0 24px", justifyContent: "space-between" }}>
         <Link href="/" style={{ display: "flex", alignItems: "center", gap: 8, textDecoration: "none" }}>
-          <Image src="/rocket.svg" alt="ContentBloom" width={24} height={24} style={{ imageRendering: "pixelated" }} />
-          <span style={{ fontWeight: 700, fontSize: 14, color: "var(--t1)" }}>ContentBloom</span>
+          <Image src="/rocket.svg" alt="BloomContent" width={24} height={24} style={{ imageRendering: "pixelated" }} />
+          <span style={{ fontWeight: 700, fontSize: 14, color: "var(--t1)" }}>BloomContent</span>
         </Link>
         <Link href="/signup" className="btn btn-dark" style={{ fontSize: 13, padding: "8px 16px" }}>
           Get 2 Free Articles <ArrowRight size={13} />
@@ -238,7 +238,7 @@ export default function ArticlePreviewPage() {
                 Get one article like this<br />every day, automatically
               </h3>
               <p style={{ fontSize: 15, color: "var(--t2)", maxWidth: 380, margin: "0 auto 28px" }}>
-                ContentBloom writes and publishes daily SEO articles for {article.businessName}. Automated, keyword-researched, done for you.
+                BloomContent writes and publishes daily SEO articles for {article.businessName}. Automated, keyword-researched, done for you.
               </p>
               <Link href="/#pricing" className="btn btn-dark" style={{ fontSize: 15, padding: "13px 28px" }}>
                 See Plans — from €49/mo <ChevronRight size={15} />

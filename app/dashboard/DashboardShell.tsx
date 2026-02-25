@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { FileText, User, CreditCard, LogOut, Store } from "lucide-react";
+import { Logo } from "../../components/Logo";
 
 const navItems = [
   { href: "/dashboard", label: "Articles", icon: FileText },
@@ -49,9 +50,7 @@ export function DashboardShell({
         flexDirection: "column",
       }}>
         <div style={{ padding: "24px 20px 16px" }}>
-          <Link href="/dashboard" style={{ textDecoration: "none" }}>
-            <span style={{ fontSize: 20, fontWeight: 700, color: "#111827" }}>ContentBloom</span>
-          </Link>
+          <Logo size="md" href="/dashboard" />
         </div>
 
         <nav style={{ flex: 1, padding: "0 12px" }}>

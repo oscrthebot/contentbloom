@@ -1,8 +1,8 @@
-# ContentBloom Setup Guide
+# BloomContent Setup Guide
 
 ## Project Overview
 
-**ContentBloom** is an AI-powered content automation platform for e-commerce stores. It automatically generates SEO-optimized blog posts, manages content calendars, and publishes directly to Shopify/WooCommerce.
+**BloomContent** is an AI-powered content automation platform for e-commerce stores. It automatically generates SEO-optimized blog posts, manages content calendars, and publishes directly to Shopify/WooCommerce.
 
 **Tech Stack:**
 - Next.js 15 (App Router)
@@ -156,7 +156,7 @@ curl -X POST http://localhost:3000/api/dataforseo/keywords \
 ### Test OAuth Flow
 
 1. Create development store in Shopify Partners
-2. Navigate to `/dashboard/store` in ContentBloom
+2. Navigate to `/dashboard/store` in BloomContent
 3. Click "Connect Shopify Store"
 4. Complete OAuth flow
 5. Test publishing a blog post

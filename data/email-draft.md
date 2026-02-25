@@ -1,13 +1,13 @@
-# Email to Rafa - ContentBloom Lead Generation Results
+# Email to Rafa - BloomContent Lead Generation Results
 
 **To:** rafa@happyoperators.com  
-**Subject:** ✅ 100 Qualified Shopify Store Leads for ContentBloom
+**Subject:** ✅ 100 Qualified Shopify Store Leads for BloomContent
 
 ---
 
 Hi Rafa,
 
-Great news! I've completed the lead generation for ContentBloom. Here's what we found:
+Great news! I've completed the lead generation for BloomContent. Here's what we found:
 
 ## 📊 Summary
 

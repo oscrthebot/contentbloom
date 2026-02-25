@@ -1,5 +1,5 @@
 /**
- * ContentBloom - SEO Article Generator (v2)
+ * BloomContent - SEO Article Generator (v2)
  *
  * Full AI-powered pipeline using OpenRouter/Claude for:
  * - Article generation with E-E-A-T author voice
