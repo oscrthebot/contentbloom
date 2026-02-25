@@ -57,15 +57,27 @@ export default defineSchema({
   articles: defineTable({
     clientId: v.id("clients"),
     title: v.string(),
+    slug: v.optional(v.string()),
+    metaTitle: v.optional(v.string()),
     metaDescription: v.string(),
     content: v.string(),
+    rawContent: v.optional(v.string()),
     targetKeyword: v.string(),
     secondaryKeywords: v.array(v.string()),
+    schemaMarkup: v.optional(v.string()),
+    faqItems: v.optional(v.array(v.object({ question: v.string(), answer: v.string() }))),
+    readingTime: v.optional(v.number()),
     wordCount: v.number(),
+    canonicalUrl: v.optional(v.string()),
+    qaScore: v.optional(v.number()),
+    qaIssues: v.optional(v.array(v.string())),
+    isPaidFeature: v.optional(v.boolean()),
     status: v.union(
       v.literal("queued"),
       v.literal("generating"),
       v.literal("review"),
+      v.literal("approved"),
+      v.literal("published"),
       v.literal("delivered"),
       v.literal("revision")
     ),
@@ -73,7 +85,8 @@ export default defineSchema({
     revisionNotes: v.optional(v.string()),
   })
     .index("by_client", ["clientId"])
-    .index("by_status", ["status"]),
+    .index("by_status", ["status"])
+    .index("by_keyword", ["targetKeyword"]),
 
   // Outreach log - email history
   outreachLog: defineTable({
@@ -124,6 +137,68 @@ export default defineSchema({
   })
     .index("by_slug", ["slug"])
     .index("by_email", ["email"]),
+
+  // Authenticated user accounts
+  users: defineTable({
+    email: v.string(),
+    name: v.optional(v.string()),
+    storeName: v.optional(v.string()),
+    storeUrl: v.optional(v.string()),
+    niche: v.optional(v.string()),
+    plan: v.union(v.literal("trial"), v.literal("starter"), v.literal("growth"), v.literal("scale"), v.literal("cancelled")),
+    trialArticleUsed: v.boolean(),
+    stripeCustomerId: v.optional(v.string()),
+    stripeSubscriptionId: v.optional(v.string()),
+    subscriptionStatus: v.optional(v.string()),
+    clientId: v.optional(v.id("clients")),
+    authorProfile: v.optional(v.object({
+      fullName: v.string(),
+      bio: v.string(),
+      yearsExperience: v.number(),
+      niche: v.string(),
+      linkedinUrl: v.optional(v.string()),
+      twitterUrl: v.optional(v.string()),
+      credentials: v.optional(v.string()),
+    })),
+    createdAt: v.number(),
+    lastLoginAt: v.optional(v.number()),
+  })
+    .index("by_email", ["email"])
+    .index("by_stripe_customer", ["stripeCustomerId"]),
+
+  // Magic link tokens for passwordless auth
+  authTokens: defineTable({
+    email: v.string(),
+    token: v.string(),
+    expiresAt: v.number(),
+    used: v.boolean(),
+    purpose: v.union(v.literal("login"), v.literal("onboarding")),
+    onboardingPlan: v.optional(v.string()),
+    metadata: v.optional(v.string()),
+  })
+    .index("by_token", ["token"])
+    .index("by_email", ["email"]),
+
+  // Sessions for logged-in users
+  userSessions: defineTable({
+    userId: v.id("users"),
+    sessionToken: v.string(),
+    expiresAt: v.number(),
+    createdAt: v.number(),
+  })
+    .index("by_session_token", ["sessionToken"])
+    .index("by_user", ["userId"]),
+
+  // Article feedback
+  articleFeedback: defineTable({
+    articleId: v.id("articles"),
+    userId: v.id("users"),
+    rating: v.union(v.literal("good"), v.literal("needs_revision")),
+    comment: v.optional(v.string()),
+    submittedAt: v.number(),
+  })
+    .index("by_article", ["articleId"])
+    .index("by_user", ["userId"]),
 
   // Daily reports
   reports: defineTable({

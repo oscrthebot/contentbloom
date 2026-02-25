@@ -192,30 +192,61 @@ async function sendFollowUps(): Promise<number> {
 }
 
 /**
- * Step 3: Generate content for clients
+ * Step 3: Generate content for clients using the v2 pipeline
  */
 async function generateClientContent(): Promise<number> {
   const clients = loadClients();
   let generated = 0;
-  
+
+  // Dynamic import to avoid issues if openai not installed
+  const { runArticlePipeline } = await import('../generator/pipeline-runner');
+
   for (const client of clients.filter(c => c.status === 'active')) {
     const articlesToGenerate = client.articlesPerDay;
-    
+
     for (let i = 0; i < articlesToGenerate; i++) {
-      const task: ArticleTask = {
-        id: `${client.id}-${Date.now()}-${i}`,
-        keyword: `[keyword for ${client.storeName}]`, // OSCR will fill this
-        type: 'guide',
-        status: 'queued',
-        createdAt: new Date().toISOString()
-      };
-      
-      client.contentQueue.push(task);
-      generated++;
-      console.log(`📝 Queued article for ${client.storeName}`);
+      try {
+        console.log(`📝 Generating article ${i + 1}/${articlesToGenerate} for ${client.storeName}...`);
+
+        const result = await runArticlePipeline({
+          storeName: client.storeName,
+          storeUrl: `https://${client.domain}`,
+          niche: 'general', // Would come from client data
+          language: 'en',
+          articleType: 'guide',
+          wordCount: 1500,
+          clientId: client.id,
+        });
+
+        if (result.success && result.article) {
+          const task: ArticleTask = {
+            id: `${client.id}-${Date.now()}-${i}`,
+            keyword: result.article.targetKeyword,
+            type: 'guide',
+            status: 'review',
+            createdAt: new Date().toISOString(),
+          };
+          client.contentQueue.push(task);
+          generated++;
+          console.log(`  ✅ "${result.article.title}" (QA: ${result.article.qaScore}/100)`);
+          result.steps.forEach(s => console.log(`     ${s.step}: ${s.status} (${s.durationMs}ms)${s.note ? ' — ' + s.note : ''}`));
+        } else {
+          console.log(`  ❌ Pipeline failed: ${result.error}`);
+          const task: ArticleTask = {
+            id: `${client.id}-${Date.now()}-${i}`,
+            keyword: '[failed]',
+            type: 'guide',
+            status: 'queued',
+            createdAt: new Date().toISOString(),
+          };
+          client.contentQueue.push(task);
+        }
+      } catch (err) {
+        console.error(`  ❌ Error generating for ${client.storeName}:`, err);
+      }
     }
   }
-  
+
   saveClients(clients);
   return generated;
 }

@@ -309,3 +309,427 @@
 2026-02-22 06:05:04,195 INFO   SKIP (no email): mqtas1-3r.myshopify.com
 2026-02-22 06:05:04,195 INFO === Done | Scraped 50/111 needed ===
 2026-02-22 06:05:04,195 INFO === Done | Scraped 50/111 needed ===
+2026-02-23 06:00:01,287 INFO === Lead Scraper | 2026-02-23 ===
+2026-02-23 06:00:01,287 INFO === Lead Scraper | 2026-02-23 ===
+2026-02-23 06:00:01,768 INFO New leads: 69 | Daily sends: 10 | Buffer needed: 140
+2026-02-23 06:00:01,768 INFO New leads: 69 | Daily sends: 10 | Buffer needed: 140
+2026-02-23 06:00:01,768 INFO Deficit: 71 leads. Starting scrape...
+2026-02-23 06:00:01,768 INFO Deficit: 71 leads. Starting scrape...
+2026-02-23 06:00:01,768 INFO Searching niche: kitchen gadgets
+2026-02-23 06:00:01,768 INFO Searching niche: kitchen gadgets
+2026-02-23 06:00:03,578 INFO   Found 5 candidates
+2026-02-23 06:00:03,578 INFO   Found 5 candidates
+2026-02-23 06:00:06,175 INFO   SKIP (no email): lovetocook.myshopify.com
+2026-02-23 06:00:06,175 INFO   SKIP (no email): lovetocook.myshopify.com
+2026-02-23 06:00:07,207 INFO   SKIP (email exists): lenox-corporation.myshopify.com
+2026-02-23 06:00:07,207 INFO   SKIP (email exists): lenox-corporation.myshopify.com
+2026-02-23 06:00:08,479 INFO   ADDED: fd9180-5.myshopify.com | customerservice@jbprince.com
+2026-02-23 06:00:08,479 INFO   ADDED: fd9180-5.myshopify.com | customerservice@jbprince.com
+2026-02-23 06:00:13,681 INFO   SKIP (no email): the-secret-kitchen.myshopify.com
+2026-02-23 06:00:13,681 INFO   SKIP (no email): the-secret-kitchen.myshopify.com
+2026-02-23 06:00:50,957 INFO   SKIP (no email): getitright-dev.myshopify.com
+2026-02-23 06:00:50,957 INFO   SKIP (no email): getitright-dev.myshopify.com
+2026-02-23 06:00:50,958 INFO Searching niche: jewelry accessories
+2026-02-23 06:00:50,958 INFO Searching niche: jewelry accessories
+2026-02-23 06:00:53,993 INFO   Found 4 candidates
+2026-02-23 06:00:53,993 INFO   Found 4 candidates
+2026-02-23 06:00:58,153 INFO   SKIP (no email): charming-charlie-new.myshopify.com
+2026-02-23 06:00:58,153 INFO   SKIP (no email): charming-charlie-new.myshopify.com
+2026-02-23 06:00:59,351 INFO   ADDED: ivonnesfashion.myshopify.com | ivonne@ivonnesfashions.com
+2026-02-23 06:00:59,351 INFO   ADDED: ivonnesfashion.myshopify.com | ivonne@ivonnesfashions.com
+2026-02-23 06:01:02,711 INFO   SKIP (no email): sammoon.myshopify.com
+2026-02-23 06:01:02,711 INFO   SKIP (no email): sammoon.myshopify.com
+2026-02-23 06:01:03,724 INFO   ADDED: lisilerch.myshopify.com | info@lisilerch.com
+2026-02-23 06:01:03,724 INFO   ADDED: lisilerch.myshopify.com | info@lisilerch.com
+2026-02-23 06:01:05,436 INFO Searching niche: home decor
+2026-02-23 06:01:05,436 INFO Searching niche: home decor
+2026-02-23 06:01:08,776 INFO   Found 8 candidates
+2026-02-23 06:01:08,776 INFO   Found 8 candidates
+2026-02-23 06:01:11,459 INFO   SKIP (no email): frank-lloyd-wright-store.myshopify.com
+2026-02-23 06:01:11,459 INFO   SKIP (no email): frank-lloyd-wright-store.myshopify.com
+2026-02-23 06:01:12,276 INFO   SKIP (email exists): lenox-corporation.myshopify.com
+2026-02-23 06:01:12,276 INFO   SKIP (email exists): lenox-corporation.myshopify.com
+2026-02-23 06:01:14,840 INFO   ADDED: forest-homes.myshopify.com | support@foresthomesstore.com
+2026-02-23 06:01:14,840 INFO   ADDED: forest-homes.myshopify.com | support@foresthomesstore.com
+2026-02-23 06:01:18,667 INFO   SKIP (no email): scandinaviandesigns1963.myshopify.com
+2026-02-23 06:01:18,667 INFO   SKIP (no email): scandinaviandesigns1963.myshopify.com
+2026-02-23 06:01:22,884 INFO   SKIP (email exists): parachute-home-2.myshopify.com
+2026-02-23 06:01:22,884 INFO   SKIP (email exists): parachute-home-2.myshopify.com
+2026-02-23 06:01:24,904 INFO   ADDED: bd1959-3.myshopify.com | expohomedecormiami@gmail.com
+2026-02-23 06:01:24,904 INFO   ADDED: bd1959-3.myshopify.com | expohomedecormiami@gmail.com
+2026-02-23 06:01:28,960 INFO   SKIP (no email): lulu-and-georgia.myshopify.com
+2026-02-23 06:01:28,960 INFO   SKIP (no email): lulu-and-georgia.myshopify.com
+2026-02-23 06:01:31,343 INFO   SKIP (no email): nestings-home-decor-gifts-co.myshopify.com
+2026-02-23 06:01:31,343 INFO   SKIP (no email): nestings-home-decor-gifts-co.myshopify.com
+2026-02-23 06:01:31,344 INFO Searching niche: pet supplies
+2026-02-23 06:01:31,344 INFO Searching niche: pet supplies
+2026-02-23 06:01:35,583 INFO   Found 5 candidates
+2026-02-23 06:01:35,583 INFO   Found 5 candidates
+2026-02-23 06:01:37,924 INFO   ADDED: incred-pets.myshopify.com | customercare@incredpets.com
+2026-02-23 06:01:37,924 INFO   ADDED: incred-pets.myshopify.com | customercare@incredpets.com
+2026-02-23 06:01:41,763 INFO   SKIP (no email): smallpetselect.myshopify.com
+2026-02-23 06:01:41,763 INFO   SKIP (no email): smallpetselect.myshopify.com
+2026-02-23 06:01:43,879 INFO   ADDED: americanpetsupplies.myshopify.com | info@americanpetsupplies.com
+2026-02-23 06:01:43,879 INFO   ADDED: americanpetsupplies.myshopify.com | info@americanpetsupplies.com
+2026-02-23 06:01:49,092 INFO   SKIP (no email): khpet.myshopify.com
+2026-02-23 06:01:49,092 INFO   SKIP (no email): khpet.myshopify.com
+2026-02-23 06:01:51,258 INFO   SKIP (no email): exotic-nutrition-pet-supply.myshopify.com
+2026-02-23 06:01:51,258 INFO   SKIP (no email): exotic-nutrition-pet-supply.myshopify.com
+2026-02-23 06:01:51,258 INFO Searching niche: organic skincare beauty
+2026-02-23 06:01:51,258 INFO Searching niche: organic skincare beauty
+2026-02-23 06:01:53,872 INFO   Found 7 candidates
+2026-02-23 06:01:53,872 INFO   Found 7 candidates
+2026-02-23 06:01:56,593 INFO   SKIP (no email): next-world.myshopify.com
+2026-02-23 06:01:56,593 INFO   SKIP (no email): next-world.myshopify.com
+2026-02-23 06:02:00,031 INFO   SKIP (no email): isun-alive-ageless-skincare.myshopify.com
+2026-02-23 06:02:00,031 INFO   SKIP (no email): isun-alive-ageless-skincare.myshopify.com
+2026-02-23 06:02:01,159 INFO   ADDED: araza-natural-beauty.myshopify.com | service@arazabeauty.com
+2026-02-23 06:02:01,159 INFO   ADDED: araza-natural-beauty.myshopify.com | service@arazabeauty.com
+2026-02-23 06:02:05,400 INFO   ADDED: french-girl.myshopify.com | customercare@frenchgirlorganics.com
+2026-02-23 06:02:05,400 INFO   ADDED: french-girl.myshopify.com | customercare@frenchgirlorganics.com
+2026-02-23 06:02:10,048 INFO   SKIP (no email): vegout-pharm.myshopify.com
+2026-02-23 06:02:10,048 INFO   SKIP (no email): vegout-pharm.myshopify.com
+2026-02-23 06:02:12,336 INFO   SKIP (no email): dr-alkaitis-organics.myshopify.com
+2026-02-23 06:02:12,336 INFO   SKIP (no email): dr-alkaitis-organics.myshopify.com
+2026-02-23 06:02:15,553 INFO   SKIP (no email): us-kora-organics-by-miranda-kerr.myshopify.com
+2026-02-23 06:02:15,553 INFO   SKIP (no email): us-kora-organics-by-miranda-kerr.myshopify.com
+2026-02-23 06:02:15,553 INFO Searching niche: baby products
+2026-02-23 06:02:15,553 INFO Searching niche: baby products
+2026-02-23 06:02:16,781 INFO   Found 6 candidates
+2026-02-23 06:02:16,781 INFO   Found 6 candidates
+2026-02-23 06:02:18,894 INFO   SKIP (no email): copper-pearl.myshopify.com
+2026-02-23 06:02:18,894 INFO   SKIP (no email): copper-pearl.myshopify.com
+2026-02-23 06:02:20,072 INFO   ADDED: jneveu.myshopify.com | customercare@babydelight.com
+2026-02-23 06:02:20,072 INFO   ADDED: jneveu.myshopify.com | customercare@babydelight.com
+2026-02-23 06:02:22,943 INFO   SKIP (no email): dd1dfe-a3.myshopify.com
+2026-02-23 06:02:22,943 INFO   SKIP (no email): dd1dfe-a3.myshopify.com
+2026-02-23 06:02:25,563 INFO   ADDED: babybliss-2815.myshopify.com | dallas@shopbabybliss.com
+2026-02-23 06:02:25,563 INFO   ADDED: babybliss-2815.myshopify.com | dallas@shopbabybliss.com
+2026-02-23 06:02:30,310 INFO   SKIP (no email): the-good-life-ltd.myshopify.com
+2026-02-23 06:02:30,310 INFO   SKIP (no email): the-good-life-ltd.myshopify.com
+2026-02-23 06:02:32,275 INFO   SKIP (no email): coteriebabyinc.myshopify.com
+2026-02-23 06:02:32,275 INFO   SKIP (no email): coteriebabyinc.myshopify.com
+2026-02-23 06:02:32,276 INFO Searching niche: coffee tea
+2026-02-23 06:02:32,276 INFO Searching niche: coffee tea
+2026-02-23 06:02:37,549 INFO   Found 7 candidates
+2026-02-23 06:02:37,549 INFO   Found 7 candidates
+2026-02-23 06:02:40,181 INFO   SKIP (no email): coffeeandteacollective.myshopify.com
+2026-02-23 06:02:40,181 INFO   SKIP (no email): coffeeandteacollective.myshopify.com
+2026-02-23 06:02:42,680 INFO   ADDED: teeccino-store.myshopify.com | info@teeccino.com
+2026-02-23 06:02:42,680 INFO   ADDED: teeccino-store.myshopify.com | info@teeccino.com
+2026-02-23 06:02:47,717 INFO   SKIP (no email): flavorful-brews.myshopify.com
+2026-02-23 06:02:47,717 INFO   SKIP (no email): flavorful-brews.myshopify.com
+2026-02-23 06:02:49,635 INFO   SKIP (no email): mhfoods.myshopify.com
+2026-02-23 06:02:49,635 INFO   SKIP (no email): mhfoods.myshopify.com
+2026-02-23 06:02:50,648 INFO   ADDED: joffreys-coffee-and-tea-co.myshopify.com | customerservice@joffreys.com
+2026-02-23 06:02:50,648 INFO   ADDED: joffreys-coffee-and-tea-co.myshopify.com | customerservice@joffreys.com
+2026-02-23 06:02:55,172 INFO   SKIP (no email): euphoriabyvwr.myshopify.com
+2026-02-23 06:02:55,172 INFO   SKIP (no email): euphoriabyvwr.myshopify.com
+2026-02-23 06:02:57,557 INFO   SKIP (no email): vashon-coffee-company.myshopify.com
+2026-02-23 06:02:57,557 INFO   SKIP (no email): vashon-coffee-company.myshopify.com
+2026-02-23 06:02:57,558 INFO Searching niche: sustainable fashion
+2026-02-23 06:02:57,558 INFO Searching niche: sustainable fashion
+2026-02-23 06:02:58,679 INFO   Found 4 candidates
+2026-02-23 06:02:58,679 INFO   Found 4 candidates
+2026-02-23 06:03:01,245 INFO   SKIP (no email): known-supply.myshopify.com
+2026-02-23 06:03:01,245 INFO   SKIP (no email): known-supply.myshopify.com
+2026-02-23 06:03:02,247 INFO   ADDED: boodywearus.myshopify.com | customercare.na@boody.com
+2026-02-23 06:03:02,247 INFO   ADDED: boodywearus.myshopify.com | customercare.na@boody.com
+2026-02-23 06:03:06,721 INFO   SKIP (no email): 4-loving-people.myshopify.com
+2026-02-23 06:03:06,721 INFO   SKIP (no email): 4-loving-people.myshopify.com
+2026-02-23 06:03:08,026 INFO   ADDED: fashionformulauk.myshopify.com | info@maake.com
+2026-02-23 06:03:08,026 INFO   ADDED: fashionformulauk.myshopify.com | info@maake.com
+2026-02-23 06:03:09,289 INFO Searching niche: fitness gym equipment
+2026-02-23 06:03:09,289 INFO Searching niche: fitness gym equipment
+2026-02-23 06:03:16,319 INFO   Found 6 candidates
+2026-02-23 06:03:16,319 INFO   Found 6 candidates
+2026-02-23 06:03:21,845 INFO   SKIP (no email): 3a1ebd.myshopify.com
+2026-02-23 06:03:21,845 INFO   SKIP (no email): 3a1ebd.myshopify.com
+2026-02-23 06:03:22,826 INFO   ADDED: valor-athletics-inc.myshopify.com | info@valorfitness.com
+2026-02-23 06:03:22,826 INFO   ADDED: valor-athletics-inc.myshopify.com | info@valorfitness.com
+2026-02-23 06:03:25,733 INFO   ADDED: fitnessfactoryoutlet.myshopify.com | sales@fitnessfactoryoutlet.com
+2026-02-23 06:03:25,733 INFO   ADDED: fitnessfactoryoutlet.myshopify.com | sales@fitnessfactoryoutlet.com
+2026-02-23 06:03:28,848 INFO   SKIP (email exists): torque-commercial.myshopify.com
+2026-02-23 06:03:28,848 INFO   SKIP (email exists): torque-commercial.myshopify.com
+2026-02-23 06:03:31,554 INFO   SKIP (no email): lifelinefitness.myshopify.com
+2026-02-23 06:03:31,554 INFO   SKIP (no email): lifelinefitness.myshopify.com
+2026-02-23 06:03:33,404 INFO   SKIP (email exists): xmark-9135.myshopify.com
+2026-02-23 06:03:33,404 INFO   SKIP (email exists): xmark-9135.myshopify.com
+2026-02-23 06:03:33,404 INFO === Done | Scraped 17/71 needed ===
+2026-02-23 06:03:33,404 INFO === Done | Scraped 17/71 needed ===
+2026-02-24 06:00:01,935 INFO === Lead Scraper | 2026-02-24 ===
+2026-02-24 06:00:01,935 INFO === Lead Scraper | 2026-02-24 ===
+2026-02-24 06:00:02,320 INFO New leads: 76 | Daily sends: 10 | Buffer needed: 140
+2026-02-24 06:00:02,320 INFO New leads: 76 | Daily sends: 10 | Buffer needed: 140
+2026-02-24 06:00:02,320 INFO Deficit: 64 leads. Starting scrape...
+2026-02-24 06:00:02,320 INFO Deficit: 64 leads. Starting scrape...
+2026-02-24 06:00:02,320 INFO Searching niche: kitchen gadgets
+2026-02-24 06:00:02,320 INFO Searching niche: kitchen gadgets
+2026-02-24 06:00:03,914 INFO   Found 5 candidates
+2026-02-24 06:00:03,914 INFO   Found 5 candidates
+2026-02-24 06:00:07,136 INFO   SKIP (no email): lovetocook.myshopify.com
+2026-02-24 06:00:07,136 INFO   SKIP (no email): lovetocook.myshopify.com
+2026-02-24 06:00:46,573 INFO   SKIP (no email): getitright-dev.myshopify.com
+2026-02-24 06:00:46,573 INFO   SKIP (no email): getitright-dev.myshopify.com
+2026-02-24 06:00:49,625 INFO   SKIP (no email): the-secret-kitchen.myshopify.com
+2026-02-24 06:00:49,625 INFO   SKIP (no email): the-secret-kitchen.myshopify.com
+2026-02-24 06:00:50,376 INFO   SKIP (email exists): lenox-corporation.myshopify.com
+2026-02-24 06:00:50,376 INFO   SKIP (email exists): lenox-corporation.myshopify.com
+2026-02-24 06:00:54,195 INFO   SKIP (no email): zulay-kitchen-clearwater.myshopify.com
+2026-02-24 06:00:54,195 INFO   SKIP (no email): zulay-kitchen-clearwater.myshopify.com
+2026-02-24 06:00:54,195 INFO Searching niche: jewelry accessories
+2026-02-24 06:00:54,195 INFO Searching niche: jewelry accessories
+2026-02-24 06:00:56,523 INFO   Found 5 candidates
+2026-02-24 06:00:56,523 INFO   Found 5 candidates
+2026-02-24 06:00:58,967 INFO   SKIP (no email): stella-dot-jewelry-co.myshopify.com
+2026-02-24 06:00:58,967 INFO   SKIP (no email): stella-dot-jewelry-co.myshopify.com
+2026-02-24 06:01:03,258 INFO   SKIP (no email): charming-charlie-new.myshopify.com
+2026-02-24 06:01:03,258 INFO   SKIP (no email): charming-charlie-new.myshopify.com
+2026-02-24 06:01:05,826 INFO   SKIP (no email): avigail-adam.myshopify.com
+2026-02-24 06:01:05,826 INFO   SKIP (no email): avigail-adam.myshopify.com
+2026-02-24 06:01:07,843 INFO   SKIP (no email): sammoon.myshopify.com
+2026-02-24 06:01:07,843 INFO   SKIP (no email): sammoon.myshopify.com
+2026-02-24 06:01:09,116 INFO   ADDED: alegria-accessories-inc.myshopify.com | scapehart@alegriaaccessories.com
+2026-02-24 06:01:09,116 INFO   ADDED: alegria-accessories-inc.myshopify.com | scapehart@alegriaaccessories.com
+2026-02-24 06:01:10,244 INFO Searching niche: home decor
+2026-02-24 06:01:10,244 INFO Searching niche: home decor
+2026-02-24 06:01:18,513 INFO   Found 6 candidates
+2026-02-24 06:01:18,513 INFO   Found 6 candidates
+2026-02-24 06:01:22,003 INFO   SKIP (no email): frank-lloyd-wright-store.myshopify.com
+2026-02-24 06:01:22,003 INFO   SKIP (no email): frank-lloyd-wright-store.myshopify.com
+2026-02-24 06:01:22,790 INFO   SKIP (email exists): lenox-corporation.myshopify.com
+2026-02-24 06:01:22,790 INFO   SKIP (email exists): lenox-corporation.myshopify.com
+2026-02-24 06:01:25,844 INFO   SKIP (no email): scandinaviandesigns1963.myshopify.com
+2026-02-24 06:01:25,844 INFO   SKIP (no email): scandinaviandesigns1963.myshopify.com
+2026-02-24 06:01:30,983 INFO   SKIP (email exists): parachute-home-2.myshopify.com
+2026-02-24 06:01:30,983 INFO   SKIP (email exists): parachute-home-2.myshopify.com
+2026-02-24 06:01:33,171 INFO   SKIP (no email): lulu-and-georgia.myshopify.com
+2026-02-24 06:01:33,171 INFO   SKIP (no email): lulu-and-georgia.myshopify.com
+2026-02-24 06:01:35,087 INFO   SKIP (no email): arhausllc.myshopify.com
+2026-02-24 06:01:35,087 INFO   SKIP (no email): arhausllc.myshopify.com
+2026-02-24 06:01:35,089 INFO Searching niche: pet supplies
+2026-02-24 06:01:35,089 INFO Searching niche: pet supplies
+2026-02-24 06:01:40,372 INFO   Found 4 candidates
+2026-02-24 06:01:40,372 INFO   Found 4 candidates
+2026-02-24 06:01:41,595 INFO   ADDED: abelpetsupply.myshopify.com | abelpetsupply@gmail.com
+2026-02-24 06:01:41,595 INFO   ADDED: abelpetsupply.myshopify.com | abelpetsupply@gmail.com
+2026-02-24 06:01:45,998 INFO   SKIP (no email): pets-plus-natural-online.myshopify.com
+2026-02-24 06:01:45,998 INFO   SKIP (no email): pets-plus-natural-online.myshopify.com
+2026-02-24 06:01:48,820 INFO   SKIP (no email): exotic-nutrition-pet-supply.myshopify.com
+2026-02-24 06:01:48,820 INFO   SKIP (no email): exotic-nutrition-pet-supply.myshopify.com
+2026-02-24 06:01:50,862 INFO   SKIP (no email): khpet.myshopify.com
+2026-02-24 06:01:50,862 INFO   SKIP (no email): khpet.myshopify.com
+2026-02-24 06:01:50,864 INFO Searching niche: organic skincare beauty
+2026-02-24 06:01:50,864 INFO Searching niche: organic skincare beauty
+2026-02-24 06:01:52,566 INFO   Found 4 candidates
+2026-02-24 06:01:52,566 INFO   Found 4 candidates
+2026-02-24 06:01:53,785 INFO   SKIP (no email): next-world.myshopify.com
+2026-02-24 06:01:53,785 INFO   SKIP (no email): next-world.myshopify.com
+2026-02-24 06:01:55,940 INFO   SKIP (no email): isun-alive-ageless-skincare.myshopify.com
+2026-02-24 06:01:55,940 INFO   SKIP (no email): isun-alive-ageless-skincare.myshopify.com
+2026-02-24 06:01:57,974 INFO   SKIP (no email): us-kora-organics-by-miranda-kerr.myshopify.com
+2026-02-24 06:01:57,974 INFO   SKIP (no email): us-kora-organics-by-miranda-kerr.myshopify.com
+2026-02-24 06:02:00,949 INFO   SKIP (no email): vegout-pharm.myshopify.com
+2026-02-24 06:02:00,949 INFO   SKIP (no email): vegout-pharm.myshopify.com
+2026-02-24 06:02:00,949 INFO Searching niche: baby products
+2026-02-24 06:02:00,949 INFO Searching niche: baby products
+2026-02-24 06:02:02,654 INFO   Found 6 candidates
+2026-02-24 06:02:02,654 INFO   Found 6 candidates
+2026-02-24 06:02:04,036 INFO   SKIP (no email): dd1dfe-a3.myshopify.com
+2026-02-24 06:02:04,036 INFO   SKIP (no email): dd1dfe-a3.myshopify.com
+2026-02-24 06:02:06,822 INFO   SKIP (no email): copper-pearl.myshopify.com
+2026-02-24 06:02:06,822 INFO   SKIP (no email): copper-pearl.myshopify.com
+2026-02-24 06:02:08,713 INFO   SKIP (no email): the-good-life-ltd.myshopify.com
+2026-02-24 06:02:08,713 INFO   SKIP (no email): the-good-life-ltd.myshopify.com
+2026-02-24 06:02:11,140 INFO   SKIP (no email): stg-burtsbeesbaby.myshopify.com
+2026-02-24 06:02:11,140 INFO   SKIP (no email): stg-burtsbeesbaby.myshopify.com
+2026-02-24 06:02:13,694 INFO   ADDED: d45dd1-1c.myshopify.com | cs@bambibaby.com
+2026-02-24 06:02:13,694 INFO   ADDED: d45dd1-1c.myshopify.com | cs@bambibaby.com
+2026-02-24 06:02:19,307 INFO   SKIP (no email): bibsworld-store-us.myshopify.com
+2026-02-24 06:02:19,307 INFO   SKIP (no email): bibsworld-store-us.myshopify.com
+2026-02-24 06:02:19,308 INFO Searching niche: coffee tea
+2026-02-24 06:02:19,308 INFO Searching niche: coffee tea
+2026-02-24 06:02:22,455 INFO   Found 6 candidates
+2026-02-24 06:02:22,455 INFO   Found 6 candidates
+2026-02-24 06:02:24,555 INFO   SKIP (no email): coffeeandteacollective.myshopify.com
+2026-02-24 06:02:24,555 INFO   SKIP (no email): coffeeandteacollective.myshopify.com
+2026-02-24 06:02:27,484 INFO   SKIP (no email): flavorful-brews.myshopify.com
+2026-02-24 06:02:27,484 INFO   SKIP (no email): flavorful-brews.myshopify.com
+2026-02-24 06:02:29,103 INFO   SKIP (no email): compass-coffee.myshopify.com
+2026-02-24 06:02:29,103 INFO   SKIP (no email): compass-coffee.myshopify.com
+2026-02-24 06:02:31,492 INFO   SKIP (no email): mhfoods.myshopify.com
+2026-02-24 06:02:31,492 INFO   SKIP (no email): mhfoods.myshopify.com
+2026-02-24 06:02:32,447 INFO   ADDED: focusedcoffee.myshopify.com | support@gist-apps.com
+2026-02-24 06:02:32,447 INFO   ADDED: focusedcoffee.myshopify.com | support@gist-apps.com
+2026-02-24 06:02:38,499 INFO   ADDED: coffeeandytea.myshopify.com | hello@drinkchapters.com
+2026-02-24 06:02:38,499 INFO   ADDED: coffeeandytea.myshopify.com | hello@drinkchapters.com
+2026-02-24 06:02:41,318 INFO Searching niche: sustainable fashion
+2026-02-24 06:02:41,318 INFO Searching niche: sustainable fashion
+2026-02-24 06:02:44,384 INFO   Found 4 candidates
+2026-02-24 06:02:44,384 INFO   Found 4 candidates
+2026-02-24 06:02:47,216 INFO   SKIP (no email): known-supply.myshopify.com
+2026-02-24 06:02:47,216 INFO   SKIP (no email): known-supply.myshopify.com
+2026-02-24 06:02:48,929 INFO   ADDED: westman-atelier.myshopify.com | shadematch@westman-atelier.com
+2026-02-24 06:02:48,929 INFO   ADDED: westman-atelier.myshopify.com | shadematch@westman-atelier.com
+2026-02-24 06:02:54,050 INFO   SKIP (no email): 4-loving-people.myshopify.com
+2026-02-24 06:02:54,050 INFO   SKIP (no email): 4-loving-people.myshopify.com
+2026-02-24 06:02:55,230 INFO   SKIP (no email): vast-prods.myshopify.com
+2026-02-24 06:02:55,230 INFO   SKIP (no email): vast-prods.myshopify.com
+2026-02-24 06:02:55,231 INFO Searching niche: fitness gym equipment
+2026-02-24 06:02:55,231 INFO Searching niche: fitness gym equipment
+2026-02-24 06:03:01,176 INFO   Found 5 candidates
+2026-02-24 06:03:01,176 INFO   Found 5 candidates
+2026-02-24 06:03:05,475 INFO   SKIP (no email): 3a1ebd.myshopify.com
+2026-02-24 06:03:05,475 INFO   SKIP (no email): 3a1ebd.myshopify.com
+2026-02-24 06:03:06,474 INFO   ADDED: giant-lifting.myshopify.com | team@giantlifting.com
+2026-02-24 06:03:06,474 INFO   ADDED: giant-lifting.myshopify.com | team@giantlifting.com
+2026-02-24 06:03:10,602 INFO   SKIP (no email): sunny-health-and-fitness.myshopify.com
+2026-02-24 06:03:10,602 INFO   SKIP (no email): sunny-health-and-fitness.myshopify.com
+2026-02-24 06:03:13,248 INFO   SKIP (no email): lifelinefitness.myshopify.com
+2026-02-24 06:03:13,248 INFO   SKIP (no email): lifelinefitness.myshopify.com
+2026-02-24 06:03:15,196 INFO   SKIP (no email): mqtas1-3r.myshopify.com
+2026-02-24 06:03:15,196 INFO   SKIP (no email): mqtas1-3r.myshopify.com
+2026-02-24 06:03:15,198 INFO === Done | Scraped 7/64 needed ===
+2026-02-24 06:03:15,198 INFO === Done | Scraped 7/64 needed ===
+2026-02-25 06:00:02,031 INFO === Lead Scraper | 2026-02-25 ===
+2026-02-25 06:00:02,031 INFO === Lead Scraper | 2026-02-25 ===
+2026-02-25 06:00:02,439 INFO New leads: 73 | Daily sends: 10 | Buffer needed: 140
+2026-02-25 06:00:02,439 INFO New leads: 73 | Daily sends: 10 | Buffer needed: 140
+2026-02-25 06:00:02,439 INFO Deficit: 67 leads. Starting scrape...
+2026-02-25 06:00:02,439 INFO Deficit: 67 leads. Starting scrape...
+2026-02-25 06:00:02,439 INFO Searching niche: kitchen gadgets
+2026-02-25 06:00:02,439 INFO Searching niche: kitchen gadgets
+2026-02-25 06:00:04,226 INFO   Found 6 candidates
+2026-02-25 06:00:04,226 INFO   Found 6 candidates
+2026-02-25 06:00:06,632 INFO   SKIP (no email): lovetocook.myshopify.com
+2026-02-25 06:00:06,632 INFO   SKIP (no email): lovetocook.myshopify.com
+2026-02-25 06:00:08,005 INFO   ADDED: prepara.myshopify.com | info@prepara.com
+2026-02-25 06:00:08,005 INFO   ADDED: prepara.myshopify.com | info@prepara.com
+2026-02-25 06:00:12,515 INFO   SKIP (no email): the-secret-kitchen.myshopify.com
+2026-02-25 06:00:12,515 INFO   SKIP (no email): the-secret-kitchen.myshopify.com
+2026-02-25 06:00:13,358 INFO   SKIP (email exists): lenox-corporation.myshopify.com
+2026-02-25 06:00:13,358 INFO   SKIP (email exists): lenox-corporation.myshopify.com
+2026-02-25 06:00:52,788 INFO   SKIP (no email): getitright-dev.myshopify.com
+2026-02-25 06:00:52,788 INFO   SKIP (no email): getitright-dev.myshopify.com
+2026-02-25 06:00:55,629 INFO   SKIP (no email): zulay-kitchen-clearwater.myshopify.com
+2026-02-25 06:00:55,629 INFO   SKIP (no email): zulay-kitchen-clearwater.myshopify.com
+2026-02-25 06:00:55,630 INFO Searching niche: jewelry accessories
+2026-02-25 06:00:55,630 INFO Searching niche: jewelry accessories
+2026-02-25 06:00:57,650 INFO   Found 5 candidates
+2026-02-25 06:00:57,650 INFO   Found 5 candidates
+2026-02-25 06:01:00,466 INFO   SKIP (no email): stella-dot-jewelry-co.myshopify.com
+2026-02-25 06:01:00,466 INFO   SKIP (no email): stella-dot-jewelry-co.myshopify.com
+2026-02-25 06:01:03,163 INFO   SKIP (no email): avigail-adam.myshopify.com
+2026-02-25 06:01:03,163 INFO   SKIP (no email): avigail-adam.myshopify.com
+2026-02-25 06:01:05,983 INFO   SKIP (no email): usjewelryhouse.myshopify.com
+2026-02-25 06:01:05,983 INFO   SKIP (no email): usjewelryhouse.myshopify.com
+2026-02-25 06:01:07,469 INFO   ADDED: debbiesjewelryshop.myshopify.com | debbie@debsjewelryshop.com
+2026-02-25 06:01:07,469 INFO   ADDED: debbiesjewelryshop.myshopify.com | debbie@debsjewelryshop.com
+2026-02-25 06:01:13,673 INFO   SKIP (no email): charming-charlie-new.myshopify.com
+2026-02-25 06:01:13,673 INFO   SKIP (no email): charming-charlie-new.myshopify.com
+2026-02-25 06:01:13,673 INFO Searching niche: home decor
+2026-02-25 06:01:13,673 INFO Searching niche: home decor
+2026-02-25 06:01:16,552 INFO   Found 6 candidates
+2026-02-25 06:01:16,552 INFO   Found 6 candidates
+2026-02-25 06:01:17,453 INFO   SKIP (email exists): lenox-corporation.myshopify.com
+2026-02-25 06:01:17,453 INFO   SKIP (email exists): lenox-corporation.myshopify.com
+2026-02-25 06:01:19,976 INFO   SKIP (no email): thestablehomedecor.myshopify.com
+2026-02-25 06:01:19,976 INFO   SKIP (no email): thestablehomedecor.myshopify.com
+2026-02-25 06:01:22,979 INFO   SKIP (no email): scandinaviandesigns1963.myshopify.com
+2026-02-25 06:01:22,979 INFO   SKIP (no email): scandinaviandesigns1963.myshopify.com
+2026-02-25 06:01:25,510 INFO   ADDED: farmhouse-wares.myshopify.com | customercare@farmhousewares.com
+2026-02-25 06:01:25,510 INFO   ADDED: farmhouse-wares.myshopify.com | customercare@farmhousewares.com
+2026-02-25 06:01:28,672 INFO   ADDED: hawkins-new-york.myshopify.com | press@hawkinsnewyork.com
+2026-02-25 06:01:28,672 INFO   ADDED: hawkins-new-york.myshopify.com | press@hawkinsnewyork.com
+2026-02-25 06:01:33,420 INFO   SKIP (no email): nestings-home-decor-gifts-co.myshopify.com
+2026-02-25 06:01:33,420 INFO   SKIP (no email): nestings-home-decor-gifts-co.myshopify.com
+2026-02-25 06:01:33,421 INFO Searching niche: pet supplies
+2026-02-25 06:01:33,421 INFO Searching niche: pet supplies
+2026-02-25 06:01:44,365 INFO   Found 4 candidates
+2026-02-25 06:01:44,365 INFO   Found 4 candidates
+2026-02-25 06:01:45,249 INFO   ADDED: so-ag.myshopify.com | sales@southernagriculture.com
+2026-02-25 06:01:45,249 INFO   ADDED: so-ag.myshopify.com | sales@southernagriculture.com
+2026-02-25 06:01:49,923 INFO   SKIP (no email): smallpetselect.myshopify.com
+2026-02-25 06:01:49,923 INFO   SKIP (no email): smallpetselect.myshopify.com
+2026-02-25 06:01:53,000 INFO   SKIP (no email): exotic-nutrition-pet-supply.myshopify.com
+2026-02-25 06:01:53,000 INFO   SKIP (no email): exotic-nutrition-pet-supply.myshopify.com
+2026-02-25 06:01:55,559 INFO   SKIP (no email): khpet.myshopify.com
+2026-02-25 06:01:55,559 INFO   SKIP (no email): khpet.myshopify.com
+2026-02-25 06:01:55,560 INFO Searching niche: organic skincare beauty
+2026-02-25 06:01:55,560 INFO Searching niche: organic skincare beauty
+2026-02-25 06:02:04,626 INFO   Found 4 candidates
+2026-02-25 06:02:04,626 INFO   Found 4 candidates
+2026-02-25 06:02:05,839 INFO   SKIP (no email): next-world.myshopify.com
+2026-02-25 06:02:05,839 INFO   SKIP (no email): next-world.myshopify.com
+2026-02-25 06:02:08,969 INFO   SKIP (no email): vegout-pharm.myshopify.com
+2026-02-25 06:02:08,969 INFO   SKIP (no email): vegout-pharm.myshopify.com
+2026-02-25 06:02:11,690 INFO   SKIP (no email): dr-alkaitis-organics.myshopify.com
+2026-02-25 06:02:11,690 INFO   SKIP (no email): dr-alkaitis-organics.myshopify.com
+2026-02-25 06:02:13,725 INFO   SKIP (no email): us-kora-organics-by-miranda-kerr.myshopify.com
+2026-02-25 06:02:13,725 INFO   SKIP (no email): us-kora-organics-by-miranda-kerr.myshopify.com
+2026-02-25 06:02:13,726 INFO Searching niche: baby products
+2026-02-25 06:02:13,726 INFO Searching niche: baby products
+2026-02-25 06:02:19,075 INFO   Found 7 candidates
+2026-02-25 06:02:19,075 INFO   Found 7 candidates
+2026-02-25 06:02:20,262 INFO   SKIP (no email): dd1dfe-a3.myshopify.com
+2026-02-25 06:02:20,262 INFO   SKIP (no email): dd1dfe-a3.myshopify.com
+2026-02-25 06:02:22,254 INFO   SKIP (no email): copper-pearl.myshopify.com
+2026-02-25 06:02:22,254 INFO   SKIP (no email): copper-pearl.myshopify.com
+2026-02-25 06:02:24,209 INFO   ADDED: papercliplife-com.myshopify.com | info@papercliplife.com
+2026-02-25 06:02:24,209 INFO   ADDED: papercliplife-com.myshopify.com | info@papercliplife.com
+2026-02-25 06:03:02,261 INFO   SKIP (no email): babys-and-kids-1st.myshopify.com
+2026-02-25 06:03:02,261 INFO   SKIP (no email): babys-and-kids-1st.myshopify.com
+2026-02-25 06:03:04,686 INFO   SKIP (no email): stg-burtsbeesbaby.myshopify.com
+2026-02-25 06:03:04,686 INFO   SKIP (no email): stg-burtsbeesbaby.myshopify.com
+2026-02-25 06:03:07,667 INFO   ADDED: mustelausa-dev.myshopify.com | name@domain.com
+2026-02-25 06:03:07,667 INFO   ADDED: mustelausa-dev.myshopify.com | name@domain.com
+2026-02-25 06:03:14,283 INFO   ADDED: keababies.myshopify.com | outreach@keababies.com
+2026-02-25 06:03:14,283 INFO   ADDED: keababies.myshopify.com | outreach@keababies.com
+2026-02-25 06:03:16,214 INFO Searching niche: coffee tea
+2026-02-25 06:03:16,214 INFO Searching niche: coffee tea
+2026-02-25 06:03:17,407 INFO   Found 4 candidates
+2026-02-25 06:03:17,407 INFO   Found 4 candidates
+2026-02-25 06:03:19,276 INFO   SKIP (no email): coffeeandteacollective.myshopify.com
+2026-02-25 06:03:19,276 INFO   SKIP (no email): coffeeandteacollective.myshopify.com
+2026-02-25 06:03:22,214 INFO   SKIP (no email): flavorful-brews.myshopify.com
+2026-02-25 06:03:22,214 INFO   SKIP (no email): flavorful-brews.myshopify.com
+2026-02-25 06:03:24,019 INFO   SKIP (no email): compass-coffee.myshopify.com
+2026-02-25 06:03:24,019 INFO   SKIP (no email): compass-coffee.myshopify.com
+2026-02-25 06:03:26,061 INFO   SKIP (no email): mhfoods.myshopify.com
+2026-02-25 06:03:26,061 INFO   SKIP (no email): mhfoods.myshopify.com
+2026-02-25 06:03:26,062 INFO Searching niche: sustainable fashion
+2026-02-25 06:03:26,062 INFO Searching niche: sustainable fashion
+2026-02-25 06:03:27,601 INFO   Found 5 candidates
+2026-02-25 06:03:27,601 INFO   Found 5 candidates
+2026-02-25 06:03:30,113 INFO   SKIP (no email): known-supply.myshopify.com
+2026-02-25 06:03:30,113 INFO   SKIP (no email): known-supply.myshopify.com
+2026-02-25 06:03:32,594 INFO   SKIP (no email): togetherband.myshopify.com
+2026-02-25 06:03:32,594 INFO   SKIP (no email): togetherband.myshopify.com
+2026-02-25 06:03:34,134 INFO   SKIP (no email): laudethelabel.myshopify.com
+2026-02-25 06:03:34,134 INFO   SKIP (no email): laudethelabel.myshopify.com
+2026-02-25 06:03:36,794 INFO   SKIP (no email): 4-loving-people.myshopify.com
+2026-02-25 06:03:36,794 INFO   SKIP (no email): 4-loving-people.myshopify.com
+2026-02-25 06:03:38,502 INFO   ADDED: sustainablybb.myshopify.com | contact@wullandoak.com
+2026-02-25 06:03:38,502 INFO   ADDED: sustainablybb.myshopify.com | contact@wullandoak.com
+2026-02-25 06:03:40,506 INFO Searching niche: fitness gym equipment
+2026-02-25 06:03:40,506 INFO Searching niche: fitness gym equipment
+2026-02-25 06:03:44,194 INFO   Found 8 candidates
+2026-02-25 06:03:44,194 INFO   Found 8 candidates
+2026-02-25 06:03:47,403 INFO   SKIP (no email): 3a1ebd.myshopify.com
+2026-02-25 06:03:47,403 INFO   SKIP (no email): 3a1ebd.myshopify.com
+2026-02-25 06:03:49,503 INFO   SKIP (no email): mqtas1-3r.myshopify.com
+2026-02-25 06:03:49,503 INFO   SKIP (no email): mqtas1-3r.myshopify.com
+2026-02-25 06:03:50,435 INFO   ADDED: topfitnessstore.myshopify.com | sales@topfitness.com
+2026-02-25 06:03:50,435 INFO   ADDED: topfitnessstore.myshopify.com | sales@topfitness.com
+2026-02-25 06:03:55,479 INFO   SKIP (no email): lifelinefitness.myshopify.com
+2026-02-25 06:03:55,479 INFO   SKIP (no email): lifelinefitness.myshopify.com
+2026-02-25 06:03:57,831 INFO   SKIP (no email): sunny-health-and-fitness.myshopify.com
+2026-02-25 06:03:57,831 INFO   SKIP (no email): sunny-health-and-fitness.myshopify.com
+2026-02-25 06:03:59,103 INFO   SKIP (email exists): torque-commercial.myshopify.com
+2026-02-25 06:03:59,103 INFO   SKIP (email exists): torque-commercial.myshopify.com
+2026-02-25 06:04:01,248 INFO   ADDED: ironbullstrengthdev.myshopify.com | support@ironbullstrength.com
+2026-02-25 06:04:01,248 INFO   ADDED: ironbullstrengthdev.myshopify.com | support@ironbullstrength.com
+2026-02-25 06:04:04,837 INFO   ADDED: fitnessexchange.myshopify.com | trade-in@fitnessexchange.com
+2026-02-25 06:04:04,837 INFO   ADDED: fitnessexchange.myshopify.com | trade-in@fitnessexchange.com
+2026-02-25 06:04:07,337 INFO === Done | Scraped 12/67 needed ===
+2026-02-25 06:04:07,337 INFO === Done | Scraped 12/67 needed ===

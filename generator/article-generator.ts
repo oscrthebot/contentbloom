@@ -1,217 +1,276 @@
 /**
- * ContentBloom - SEO Article Generator
- * 
- * Generates high-quality SEO content for e-commerce stores:
- * - Product-focused articles
- * - Buying guides
- * - How-to content
- * - Comparison articles
+ * ContentBloom - SEO Article Generator (v2)
+ *
+ * Full AI-powered pipeline using OpenRouter/Claude for:
+ * - Article generation with E-E-A-T author voice
+ * - FAQ generation
+ * - Humanizer pass
+ * - QA review
  */
+
+import OpenAI from 'openai';
+
+// ---------- Types ----------
+
+export interface AuthorProfile {
+  fullName: string;
+  bio: string;
+  yearsExperience: number;
+  niche: string;
+  linkedinUrl?: string;
+  twitterUrl?: string;
+  credentials?: string;
+}
+
+export interface Product {
+  name: string;
+  url: string;
+  description?: string;
+}
+
+export interface ExistingArticle {
+  title: string;
+  slug: string;
+  keyword: string;
+}
 
 export interface ArticleRequest {
   storeName: string;
   storeUrl: string;
   niche: string;
-  products: string[];
+  products: Product[];
   targetKeyword: string;
+  secondaryKeywords: string[];
   articleType: 'guide' | 'howto' | 'comparison' | 'listicle' | 'story';
-  language: 'en' | 'es' | 'de' | 'fr';
   wordCount: number;
+  authorProfile?: AuthorProfile;
+  existingArticles?: ExistingArticle[];
+  language: string;
+  isPaidFeature?: boolean;
 }
 
 export interface GeneratedArticle {
   title: string;
   metaDescription: string;
   content: string;
-  targetKeyword: string;
   secondaryKeywords: string[];
-  suggestedImages: string[];
-  internalLinks: string[];
   wordCount: number;
   readingTime: number;
 }
 
-/**
- * Generate content strategy for a store
- */
-export function generateContentStrategy(
-  storeName: string,
-  niche: string,
-  products: string[]
-): string[] {
-  // Article ideas based on niche and products
-  const templates = [
-    `The Ultimate Guide to Choosing ${niche} Products in 2026`,
-    `${products[0]} vs ${products[1]}: Which is Right for You?`,
-    `10 Ways to Get the Most Out of Your ${niche}`,
-    `How to Care for Your ${niche} Products`,
-    `Why Quality ${niche} Makes All the Difference`,
-    `${niche} Trends to Watch in 2026`,
-    `A Beginner's Guide to ${niche}`,
-    `Common ${niche} Mistakes and How to Avoid Them`,
-    `The History of ${niche}: From Past to Present`,
-    `Expert Tips: Getting Started with ${niche}`,
-  ];
-  
-  return templates;
+export interface FAQItem {
+  question: string;
+  answer: string;
 }
 
-/**
- * Generate article prompt for Claude
- */
-export function generateArticlePrompt(request: ArticleRequest): string {
-  const languageInstructions = {
-    en: 'Write in American English.',
-    es: 'Write in Spanish (Spain).',
-    de: 'Write in German.',
-    fr: 'Write in French.'
-  };
-  
-  const typeInstructions = {
-    guide: 'This should be a comprehensive buying guide that helps readers make informed decisions.',
-    howto: 'This should be a step-by-step tutorial that walks readers through a process.',
-    comparison: 'This should compare different options objectively, highlighting pros and cons.',
-    listicle: 'This should be an engaging list format with clear sections.',
-    story: 'This should tell a compelling story that connects emotionally with readers.'
-  };
-  
-  return `You are an expert SEO copywriter for e-commerce stores.
+export interface QAResult {
+  score: number;
+  issues: string[];
+}
 
-Write a ${request.wordCount}+ word article for ${request.storeName} (${request.storeUrl}), an online store in the ${request.niche} space.
+// ---------- AI Client ----------
 
-**Article Details:**
-- Type: ${request.articleType}
-- Target keyword: "${request.targetKeyword}"
-- Products to mention: ${request.products.join(', ')}
+function getAIClient(): OpenAI {
+  const openrouterKey = process.env.OPENROUTER_API_KEY;
+  const anthropicKey = process.env.ANTHROPIC_API_KEY;
 
-**Instructions:**
-${typeInstructions[request.articleType]}
-${languageInstructions[request.language]}
+  if (openrouterKey) {
+    return new OpenAI({
+      baseURL: 'https://openrouter.ai/api/v1',
+      apiKey: openrouterKey,
+    });
+  }
+  if (anthropicKey) {
+    return new OpenAI({
+      baseURL: 'https://api.anthropic.com/v1',
+      apiKey: anthropicKey,
+    });
+  }
+  throw new Error('No AI API key found. Set OPENROUTER_API_KEY or ANTHROPIC_API_KEY.');
+}
 
+const MODEL = 'anthropic/claude-sonnet-4-6';
+
+async function aiCall(systemPrompt: string, userPrompt: string): Promise<string> {
+  const client = getAIClient();
+  const response = await client.chat.completions.create({
+    model: MODEL,
+    messages: [
+      { role: 'system', content: systemPrompt },
+      { role: 'user', content: userPrompt },
+    ],
+    max_tokens: 8000,
+    temperature: 0.7,
+  });
+  return response.choices[0]?.message?.content ?? '';
+}
+
+// ---------- Step 3a: Article Generation ----------
+
+export function buildArticlePrompt(params: ArticleRequest): string {
+  const productList = params.products
+    .map(p => `- ${p.name}: ${p.url}${p.description ? ` — ${p.description}` : ''}`)
+    .join('\n');
+
+  const authorSection = params.authorProfile
+    ? `\n**Author Voice:** Write as ${params.authorProfile.fullName}. ${params.authorProfile.bio}. They have ${params.authorProfile.yearsExperience} years of experience in ${params.authorProfile.niche}. Use their voice and experience throughout.${params.authorProfile.credentials ? ` Credentials: ${params.authorProfile.credentials}` : ''}\n`
+    : '';
+
+  const internalLinksSection = params.existingArticles?.length
+    ? `\n**Internal Links:** Include 2-3 internal links to these existing articles where relevant:\n${params.existingArticles.map(a => `- "${a.title}" → /blog/${a.slug} (keyword: ${a.keyword})`).join('\n')}\n`
+    : '';
+
+  return `You are an expert SEO copywriter for e-commerce stores. Write in ${params.language === 'en' ? 'American English' : params.language}.
+
+Write a ${params.wordCount}+ word ${params.articleType} article for ${params.storeName} (${params.storeUrl}), an online store in the ${params.niche} space.
+
+**Target Keyword:** "${params.targetKeyword}"
+**Secondary Keywords:** ${params.secondaryKeywords.join(', ')}
+${authorSection}
+**IMPORTANT RULES:**
+- Include 2-3 first-person observations naturally (e.g. "I've tested...", "In my experience...", "What I've found is...")
+- Include 2-3 in-content product callouts referencing THESE specific products. Format as:
+  > **[Product name]** — [one-line pitch]. [Shop now](url)
+
+**Products to feature:**
+${productList}
+${internalLinksSection}
 **SEO Requirements:**
-- Include the target keyword in the title, first paragraph, and 2-3 times naturally throughout
+- Target keyword in title, first paragraph, and 2-3 times naturally throughout
 - Use H2 and H3 headings with keyword variations
-- Write a compelling meta description (150-160 characters)
-- Include a clear call-to-action linking to the store's products
+- Compelling meta description (150-160 characters)
 
-**Tone:**
-- Friendly and conversational, not salesy
-- Expert but accessible
-- Focus on helping the reader, not just selling
+**Tone:** Friendly, expert, conversational. Help the reader, don't hard-sell.
 
-**Structure:**
-1. Hook/Introduction (capture attention)
-2. Main content (valuable information)
-3. Product mentions (natural, not forced)
-4. Conclusion with CTA
-
-**Output Format:**
-Return as JSON:
+**Output as JSON only:**
 {
-  "title": "SEO-optimized title with keyword",
+  "title": "SEO-optimized title",
   "metaDescription": "150-160 char description",
-  "content": "Full article in markdown format",
-  "secondaryKeywords": ["keyword1", "keyword2", "keyword3"],
-  "suggestedImages": ["Description of image 1", "Description of image 2"],
-  "internalLinks": ["Suggested anchor text for product link 1"]
+  "content": "Full article in markdown",
+  "secondaryKeywords": ["kw1", "kw2", "kw3"]
 }`;
 }
 
-/**
- * Format article for delivery (PDF-ready markdown)
- */
-export function formatArticleForDelivery(article: GeneratedArticle, storeName: string): string {
-  return `# ${article.title}
+export async function generateArticle(request: ArticleRequest): Promise<GeneratedArticle> {
+  const prompt = buildArticlePrompt(request);
+  const raw = await aiCall('You are an SEO article writer. Return only valid JSON.', prompt);
 
-**Store:** ${storeName}
-**Target Keyword:** ${article.targetKeyword}
-**Word Count:** ${article.wordCount} words
-**Reading Time:** ${article.readingTime} minutes
+  // Extract JSON from response
+  const jsonMatch = raw.match(/\{[\s\S]*\}/);
+  if (!jsonMatch) throw new Error('Failed to parse article JSON from AI response');
 
----
+  const parsed = JSON.parse(jsonMatch[0]) as {
+    title: string;
+    metaDescription: string;
+    content: string;
+    secondaryKeywords: string[];
+  };
 
-## Meta Description
-> ${article.metaDescription}
-
----
-
-## Article Content
-
-${article.content}
-
----
-
-## SEO Checklist
-- [ ] Add meta description to Shopify SEO settings
-- [ ] Add target keyword to URL slug
-- [ ] Include alt text on all images
-- [ ] Add internal links to product pages
-
-## Suggested Images
-${article.suggestedImages.map((img, i) => `${i + 1}. ${img}`).join('\n')}
-
-## Secondary Keywords to Include
-${article.secondaryKeywords.map(kw => `- ${kw}`).join('\n')}
-
----
-
-*Generated by ContentBloom for ${storeName}*
-`;
+  const wordCount = parsed.content.split(/\s+/).length;
+  return {
+    title: parsed.title,
+    metaDescription: parsed.metaDescription,
+    content: parsed.content,
+    secondaryKeywords: parsed.secondaryKeywords,
+    wordCount,
+    readingTime: Math.ceil(wordCount / 200),
+  };
 }
 
-/**
- * Generate demo package for a store
- */
-export async function generateDemoPackage(
-  storeName: string,
-  storeUrl: string,
+// ---------- Step 3b: FAQ Generation ----------
+
+export async function generateFAQ(keyword: string, content: string): Promise<FAQItem[]> {
+  const prompt = `Based on this article about "${keyword}", generate 4 FAQ entries that a real person would search on Google. Each answer should be 40-60 words.
+
+Article excerpt (first 2000 chars):
+${content.slice(0, 2000)}
+
+Return ONLY a JSON array:
+[{"question": "...", "answer": "..."}, ...]`;
+
+  const raw = await aiCall('You generate FAQ content. Return only valid JSON array.', prompt);
+  const jsonMatch = raw.match(/\[[\s\S]*\]/);
+  if (!jsonMatch) return [];
+  return JSON.parse(jsonMatch[0]) as FAQItem[];
+}
+
+// ---------- Step 3c: Humanizer Pass ----------
+
+const HUMANIZER_SYSTEM = `You are an editor removing AI-generated writing patterns. Edit the text to:
+- Remove: "ultimate guide", "comprehensive", "expert tips", "groundbreaking", "in conclusion", "dive into", "delve into", "it's worth noting"
+- Remove em dash overuse (replace with comma or period)
+- Remove "rule of three" lists where not natural
+- Remove promotional adjectives: "stunning", "vibrant", "breathtaking", "game-changing"
+- Replace "serves as / stands as" with "is / has / does"
+- Remove filler: "In order to", "At this point in time", "It is important to note"
+- Vary sentence length: mix short punchy sentences with longer flowing ones
+- Keep all factual content, internal links, product callouts, and SEO keywords intact
+- Do NOT add new content, only edit existing text
+Return only the edited text, no commentary.`;
+
+export async function humanizeContent(content: string): Promise<string> {
+  return await aiCall(HUMANIZER_SYSTEM, content);
+}
+
+// ---------- Step 3d: QA Review ----------
+
+export async function reviewArticle(
+  content: string,
+  keyword: string,
+  storeName: string
+): Promise<QAResult> {
+  const prompt = `Review this article for "${keyword}" written for ${storeName}. 
+
+Check for:
+- Invented statistics without sources
+- Keyword stuffing (keyword used unnaturally >5 times)
+- Inconsistent tone
+- Filler paragraphs
+- Overly aggressive CTAs
+- Factual claims that seem wrong
+
+Article:
+${content.slice(0, 6000)}
+
+Return ONLY JSON: {"score": 0-100, "issues": ["issue1", "issue2"]}
+Score 80+ is acceptable.`;
+
+  const raw = await aiCall('You are an article QA reviewer. Return only valid JSON.', prompt);
+  const jsonMatch = raw.match(/\{[\s\S]*\}/);
+  if (!jsonMatch) return { score: 70, issues: ['Could not parse QA response'] };
+  return JSON.parse(jsonMatch[0]) as QAResult;
+}
+
+// ---------- Keyword Research (DataForSEO or mock) ----------
+
+export interface KeywordData {
+  targetKeyword: string;
+  secondaryKeywords: string[];
+  monthlyVolume?: number;
+}
+
+export async function researchKeywords(
   niche: string,
-  products: string[],
-  language: 'en' | 'es' | 'de' | 'fr' = 'en'
-): Promise<{
-  articles: GeneratedArticle[];
-  strategy: string[];
-}> {
-  // Generate content strategy
-  const strategy = generateContentStrategy(storeName, niche, products);
-  
-  // Generate 2 demo articles
-  const articleRequests: ArticleRequest[] = [
-    {
-      storeName,
-      storeUrl,
-      niche,
-      products,
-      targetKeyword: `best ${niche} guide`,
-      articleType: 'guide',
-      language,
-      wordCount: 1500
-    },
-    {
-      storeName,
-      storeUrl,
-      niche,
-      products,
-      targetKeyword: `how to choose ${niche}`,
-      articleType: 'howto',
-      language,
-      wordCount: 1500
-    }
-  ];
-  
-  // In production, this would call Claude API
-  // For now, return structure for OSCR to fill
-  const articles: GeneratedArticle[] = articleRequests.map(req => ({
-    title: `[GENERATE: ${req.articleType} about ${req.targetKeyword}]`,
-    metaDescription: '[GENERATE: 150-160 char meta description]',
-    content: generateArticlePrompt(req),
-    targetKeyword: req.targetKeyword,
-    secondaryKeywords: [],
-    suggestedImages: [],
-    internalLinks: [],
-    wordCount: req.wordCount,
-    readingTime: Math.ceil(req.wordCount / 200)
-  }));
-  
-  return { articles, strategy };
+  storeName: string,
+  seedKeywords?: string[]
+): Promise<KeywordData> {
+  const dataForSEOKey = process.env.DATAFORSEO_KEY;
+
+  if (dataForSEOKey) {
+    // Real DataForSEO implementation would go here
+    // For now, fall through to mock
+  }
+
+  // Mock keyword research
+  const seed = seedKeywords?.[0] ?? niche;
+  return {
+    targetKeyword: `best ${seed} ${new Date().getFullYear()}`,
+    secondaryKeywords: [
+      `${seed} guide`,
+      `how to choose ${seed}`,
+      `${seed} for beginners`,
+      `top ${seed} products`,
+    ],
+    monthlyVolume: 1200,
+  };
 }

@@ -87,3 +87,465 @@ Telegram notified: Rafa Romero <rafa@happyoperators.com>
 /root/.openclaw/workspace/contentbloom/check-inbox.py:147: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
   print(f"[{datetime.utcnow().strftime('%H:%M UTC')}] No new emails")
 [08:30 UTC] No new emails
+/root/.openclaw/workspace/contentbloom/check-inbox.py:147: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  print(f"[{datetime.utcnow().strftime('%H:%M UTC')}] No new emails")
+[09:00 UTC] No new emails
+/root/.openclaw/workspace/contentbloom/check-inbox.py:147: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  print(f"[{datetime.utcnow().strftime('%H:%M UTC')}] No new emails")
+[09:30 UTC] No new emails
+/root/.openclaw/workspace/contentbloom/check-inbox.py:147: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  print(f"[{datetime.utcnow().strftime('%H:%M UTC')}] No new emails")
+[10:00 UTC] No new emails
+/root/.openclaw/workspace/contentbloom/check-inbox.py:147: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  print(f"[{datetime.utcnow().strftime('%H:%M UTC')}] No new emails")
+[10:30 UTC] No new emails
+NEW EMAIL: "Aya Eco Fashion" <embracelife@ecoaya.com> → rafa@bloomcontent.site | Thanks for Your Message - We'll Be Back on Monday! Re: quick thing for Ayaecofashion
+Telegram notified: "Aya Eco Fashion" <embracelife@ecoaya.com>
+NEW EMAIL: noreply-dmarc-support@google.com → rafa@bloomcontent.site | Report domain: bloomcontent.site Submitter: google.com Report-ID: 2453619948434685180
+Telegram notified: noreply-dmarc-support@google.com
+/root/.openclaw/workspace/contentbloom/check-inbox.py:147: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  print(f"[{datetime.utcnow().strftime('%H:%M UTC')}] No new emails")
+[12:00 UTC] No new emails
+/root/.openclaw/workspace/contentbloom/check-inbox.py:147: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  print(f"[{datetime.utcnow().strftime('%H:%M UTC')}] No new emails")
+[12:30 UTC] No new emails
+/root/.openclaw/workspace/contentbloom/check-inbox.py:147: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  print(f"[{datetime.utcnow().strftime('%H:%M UTC')}] No new emails")
+[13:00 UTC] No new emails
+/root/.openclaw/workspace/contentbloom/check-inbox.py:147: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  print(f"[{datetime.utcnow().strftime('%H:%M UTC')}] No new emails")
+[13:30 UTC] No new emails
+/root/.openclaw/workspace/contentbloom/check-inbox.py:147: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  print(f"[{datetime.utcnow().strftime('%H:%M UTC')}] No new emails")
+[14:00 UTC] No new emails
+/root/.openclaw/workspace/contentbloom/check-inbox.py:147: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  print(f"[{datetime.utcnow().strftime('%H:%M UTC')}] No new emails")
+[14:30 UTC] No new emails
+/root/.openclaw/workspace/contentbloom/check-inbox.py:147: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  print(f"[{datetime.utcnow().strftime('%H:%M UTC')}] No new emails")
+[15:00 UTC] No new emails
+/root/.openclaw/workspace/contentbloom/check-inbox.py:147: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  print(f"[{datetime.utcnow().strftime('%H:%M UTC')}] No new emails")
+[15:30 UTC] No new emails
+/root/.openclaw/workspace/contentbloom/check-inbox.py:147: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  print(f"[{datetime.utcnow().strftime('%H:%M UTC')}] No new emails")
+[16:00 UTC] No new emails
+/root/.openclaw/workspace/contentbloom/check-inbox.py:147: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  print(f"[{datetime.utcnow().strftime('%H:%M UTC')}] No new emails")
+[16:30 UTC] No new emails
+/root/.openclaw/workspace/contentbloom/check-inbox.py:147: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  print(f"[{datetime.utcnow().strftime('%H:%M UTC')}] No new emails")
+[17:00 UTC] No new emails
+/root/.openclaw/workspace/contentbloom/check-inbox.py:147: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  print(f"[{datetime.utcnow().strftime('%H:%M UTC')}] No new emails")
+[17:30 UTC] No new emails
+/root/.openclaw/workspace/contentbloom/check-inbox.py:147: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  print(f"[{datetime.utcnow().strftime('%H:%M UTC')}] No new emails")
+[18:00 UTC] No new emails
+/root/.openclaw/workspace/contentbloom/check-inbox.py:147: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  print(f"[{datetime.utcnow().strftime('%H:%M UTC')}] No new emails")
+[18:30 UTC] No new emails
+/root/.openclaw/workspace/contentbloom/check-inbox.py:147: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  print(f"[{datetime.utcnow().strftime('%H:%M UTC')}] No new emails")
+[19:00 UTC] No new emails
+/root/.openclaw/workspace/contentbloom/check-inbox.py:147: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  print(f"[{datetime.utcnow().strftime('%H:%M UTC')}] No new emails")
+[19:30 UTC] No new emails
+/root/.openclaw/workspace/contentbloom/check-inbox.py:147: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  print(f"[{datetime.utcnow().strftime('%H:%M UTC')}] No new emails")
+[20:00 UTC] No new emails
+/root/.openclaw/workspace/contentbloom/check-inbox.py:147: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  print(f"[{datetime.utcnow().strftime('%H:%M UTC')}] No new emails")
+[20:30 UTC] No new emails
+/root/.openclaw/workspace/contentbloom/check-inbox.py:147: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  print(f"[{datetime.utcnow().strftime('%H:%M UTC')}] No new emails")
+[21:00 UTC] No new emails
+/root/.openclaw/workspace/contentbloom/check-inbox.py:147: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  print(f"[{datetime.utcnow().strftime('%H:%M UTC')}] No new emails")
+[21:30 UTC] No new emails
+/root/.openclaw/workspace/contentbloom/check-inbox.py:147: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  print(f"[{datetime.utcnow().strftime('%H:%M UTC')}] No new emails")
+[22:00 UTC] No new emails
+/root/.openclaw/workspace/contentbloom/check-inbox.py:147: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  print(f"[{datetime.utcnow().strftime('%H:%M UTC')}] No new emails")
+[22:30 UTC] No new emails
+/root/.openclaw/workspace/contentbloom/check-inbox.py:147: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  print(f"[{datetime.utcnow().strftime('%H:%M UTC')}] No new emails")
+[23:00 UTC] No new emails
+/root/.openclaw/workspace/contentbloom/check-inbox.py:147: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  print(f"[{datetime.utcnow().strftime('%H:%M UTC')}] No new emails")
+[23:30 UTC] No new emails
+/root/.openclaw/workspace/contentbloom/check-inbox.py:147: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  print(f"[{datetime.utcnow().strftime('%H:%M UTC')}] No new emails")
+[00:00 UTC] No new emails
+/root/.openclaw/workspace/contentbloom/check-inbox.py:147: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  print(f"[{datetime.utcnow().strftime('%H:%M UTC')}] No new emails")
+[00:30 UTC] No new emails
+/root/.openclaw/workspace/contentbloom/check-inbox.py:147: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  print(f"[{datetime.utcnow().strftime('%H:%M UTC')}] No new emails")
+[01:00 UTC] No new emails
+/root/.openclaw/workspace/contentbloom/check-inbox.py:147: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  print(f"[{datetime.utcnow().strftime('%H:%M UTC')}] No new emails")
+[01:30 UTC] No new emails
+/root/.openclaw/workspace/contentbloom/check-inbox.py:147: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  print(f"[{datetime.utcnow().strftime('%H:%M UTC')}] No new emails")
+[02:00 UTC] No new emails
+/root/.openclaw/workspace/contentbloom/check-inbox.py:147: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  print(f"[{datetime.utcnow().strftime('%H:%M UTC')}] No new emails")
+[02:30 UTC] No new emails
+/root/.openclaw/workspace/contentbloom/check-inbox.py:147: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  print(f"[{datetime.utcnow().strftime('%H:%M UTC')}] No new emails")
+[03:00 UTC] No new emails
+/root/.openclaw/workspace/contentbloom/check-inbox.py:147: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  print(f"[{datetime.utcnow().strftime('%H:%M UTC')}] No new emails")
+[03:30 UTC] No new emails
+/root/.openclaw/workspace/contentbloom/check-inbox.py:147: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  print(f"[{datetime.utcnow().strftime('%H:%M UTC')}] No new emails")
+[04:00 UTC] No new emails
+/root/.openclaw/workspace/contentbloom/check-inbox.py:147: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  print(f"[{datetime.utcnow().strftime('%H:%M UTC')}] No new emails")
+[04:30 UTC] No new emails
+/root/.openclaw/workspace/contentbloom/check-inbox.py:147: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  print(f"[{datetime.utcnow().strftime('%H:%M UTC')}] No new emails")
+[05:00 UTC] No new emails
+/root/.openclaw/workspace/contentbloom/check-inbox.py:147: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  print(f"[{datetime.utcnow().strftime('%H:%M UTC')}] No new emails")
+[05:30 UTC] No new emails
+/root/.openclaw/workspace/contentbloom/check-inbox.py:147: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  print(f"[{datetime.utcnow().strftime('%H:%M UTC')}] No new emails")
+[06:00 UTC] No new emails
+/root/.openclaw/workspace/contentbloom/check-inbox.py:147: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  print(f"[{datetime.utcnow().strftime('%H:%M UTC')}] No new emails")
+[06:30 UTC] No new emails
+/root/.openclaw/workspace/contentbloom/check-inbox.py:147: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  print(f"[{datetime.utcnow().strftime('%H:%M UTC')}] No new emails")
+[07:00 UTC] No new emails
+/root/.openclaw/workspace/contentbloom/check-inbox.py:147: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  print(f"[{datetime.utcnow().strftime('%H:%M UTC')}] No new emails")
+[07:30 UTC] No new emails
+/root/.openclaw/workspace/contentbloom/check-inbox.py:147: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  print(f"[{datetime.utcnow().strftime('%H:%M UTC')}] No new emails")
+[08:00 UTC] No new emails
+/root/.openclaw/workspace/contentbloom/check-inbox.py:147: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  print(f"[{datetime.utcnow().strftime('%H:%M UTC')}] No new emails")
+[08:30 UTC] No new emails
+/root/.openclaw/workspace/contentbloom/check-inbox.py:147: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  print(f"[{datetime.utcnow().strftime('%H:%M UTC')}] No new emails")
+[09:00 UTC] No new emails
+NEW EMAIL: Teeccino Customer Service <info@teeccino.com> → rafa@bloomcontent.site | [Request received]
+Telegram notified: Teeccino Customer Service <info@teeccino.com>
+/root/.openclaw/workspace/contentbloom/check-inbox.py:147: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  print(f"[{datetime.utcnow().strftime('%H:%M UTC')}] No new emails")
+[10:00 UTC] No new emails
+/root/.openclaw/workspace/contentbloom/check-inbox.py:147: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  print(f"[{datetime.utcnow().strftime('%H:%M UTC')}] No new emails")
+[10:30 UTC] No new emails
+NEW EMAIL: noreply-dmarc-support@google.com → rafa@bloomcontent.site | Report domain: bloomcontent.site Submitter: google.com Report-ID: 3342512876417049709
+Telegram notified: noreply-dmarc-support@google.com
+NEW EMAIL: Major Fitness Support <support@majorfitness.com> → rafa@bloomcontent.site | [quick thing for Kjbfitness2022] Share your feedback with us
+Telegram notified: Major Fitness Support <support@majorfitness.com>
+NEW EMAIL: noreply-dmarc-support@google.com → rafa@bloomcontent.site | Report domain: bloomcontent.site Submitter: google.com Report-ID: 3342512876417049709
+Telegram notified: noreply-dmarc-support@google.com
+/root/.openclaw/workspace/contentbloom/check-inbox.py:147: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  print(f"[{datetime.utcnow().strftime('%H:%M UTC')}] No new emails")
+[12:30 UTC] No new emails
+/root/.openclaw/workspace/contentbloom/check-inbox.py:147: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  print(f"[{datetime.utcnow().strftime('%H:%M UTC')}] No new emails")
+[13:00 UTC] No new emails
+/root/.openclaw/workspace/contentbloom/check-inbox.py:147: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  print(f"[{datetime.utcnow().strftime('%H:%M UTC')}] No new emails")
+[13:30 UTC] No new emails
+/root/.openclaw/workspace/contentbloom/check-inbox.py:147: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  print(f"[{datetime.utcnow().strftime('%H:%M UTC')}] No new emails")
+[14:00 UTC] No new emails
+/root/.openclaw/workspace/contentbloom/check-inbox.py:147: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  print(f"[{datetime.utcnow().strftime('%H:%M UTC')}] No new emails")
+[14:30 UTC] No new emails
+/root/.openclaw/workspace/contentbloom/check-inbox.py:147: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  print(f"[{datetime.utcnow().strftime('%H:%M UTC')}] No new emails")
+[15:00 UTC] No new emails
+/root/.openclaw/workspace/contentbloom/check-inbox.py:147: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  print(f"[{datetime.utcnow().strftime('%H:%M UTC')}] No new emails")
+[15:30 UTC] No new emails
+/root/.openclaw/workspace/contentbloom/check-inbox.py:147: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  print(f"[{datetime.utcnow().strftime('%H:%M UTC')}] No new emails")
+[16:00 UTC] No new emails
+/root/.openclaw/workspace/contentbloom/check-inbox.py:147: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  print(f"[{datetime.utcnow().strftime('%H:%M UTC')}] No new emails")
+[16:30 UTC] No new emails
+/root/.openclaw/workspace/contentbloom/check-inbox.py:147: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  print(f"[{datetime.utcnow().strftime('%H:%M UTC')}] No new emails")
+[17:00 UTC] No new emails
+/root/.openclaw/workspace/contentbloom/check-inbox.py:147: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  print(f"[{datetime.utcnow().strftime('%H:%M UTC')}] No new emails")
+[17:30 UTC] No new emails
+/root/.openclaw/workspace/contentbloom/check-inbox.py:147: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  print(f"[{datetime.utcnow().strftime('%H:%M UTC')}] No new emails")
+[18:00 UTC] No new emails
+/root/.openclaw/workspace/contentbloom/check-inbox.py:147: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  print(f"[{datetime.utcnow().strftime('%H:%M UTC')}] No new emails")
+[18:30 UTC] No new emails
+/root/.openclaw/workspace/contentbloom/check-inbox.py:147: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  print(f"[{datetime.utcnow().strftime('%H:%M UTC')}] No new emails")
+[19:00 UTC] No new emails
+/root/.openclaw/workspace/contentbloom/check-inbox.py:147: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  print(f"[{datetime.utcnow().strftime('%H:%M UTC')}] No new emails")
+[19:30 UTC] No new emails
+/root/.openclaw/workspace/contentbloom/check-inbox.py:147: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  print(f"[{datetime.utcnow().strftime('%H:%M UTC')}] No new emails")
+[20:00 UTC] No new emails
+/root/.openclaw/workspace/contentbloom/check-inbox.py:147: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  print(f"[{datetime.utcnow().strftime('%H:%M UTC')}] No new emails")
+[20:30 UTC] No new emails
+/root/.openclaw/workspace/contentbloom/check-inbox.py:147: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  print(f"[{datetime.utcnow().strftime('%H:%M UTC')}] No new emails")
+[21:00 UTC] No new emails
+/root/.openclaw/workspace/contentbloom/check-inbox.py:147: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  print(f"[{datetime.utcnow().strftime('%H:%M UTC')}] No new emails")
+[21:30 UTC] No new emails
+/root/.openclaw/workspace/contentbloom/check-inbox.py:147: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  print(f"[{datetime.utcnow().strftime('%H:%M UTC')}] No new emails")
+[22:00 UTC] No new emails
+/root/.openclaw/workspace/contentbloom/check-inbox.py:147: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  print(f"[{datetime.utcnow().strftime('%H:%M UTC')}] No new emails")
+[22:30 UTC] No new emails
+/root/.openclaw/workspace/contentbloom/check-inbox.py:147: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  print(f"[{datetime.utcnow().strftime('%H:%M UTC')}] No new emails")
+[23:00 UTC] No new emails
+/root/.openclaw/workspace/contentbloom/check-inbox.py:147: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  print(f"[{datetime.utcnow().strftime('%H:%M UTC')}] No new emails")
+[23:30 UTC] No new emails
+/root/.openclaw/workspace/contentbloom/check-inbox.py:147: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  print(f"[{datetime.utcnow().strftime('%H:%M UTC')}] No new emails")
+[00:00 UTC] No new emails
+/root/.openclaw/workspace/contentbloom/check-inbox.py:147: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  print(f"[{datetime.utcnow().strftime('%H:%M UTC')}] No new emails")
+[00:30 UTC] No new emails
+/root/.openclaw/workspace/contentbloom/check-inbox.py:147: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  print(f"[{datetime.utcnow().strftime('%H:%M UTC')}] No new emails")
+[01:00 UTC] No new emails
+/root/.openclaw/workspace/contentbloom/check-inbox.py:147: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  print(f"[{datetime.utcnow().strftime('%H:%M UTC')}] No new emails")
+[01:30 UTC] No new emails
+/root/.openclaw/workspace/contentbloom/check-inbox.py:147: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  print(f"[{datetime.utcnow().strftime('%H:%M UTC')}] No new emails")
+[02:00 UTC] No new emails
+/root/.openclaw/workspace/contentbloom/check-inbox.py:147: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  print(f"[{datetime.utcnow().strftime('%H:%M UTC')}] No new emails")
+[02:30 UTC] No new emails
+/root/.openclaw/workspace/contentbloom/check-inbox.py:147: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  print(f"[{datetime.utcnow().strftime('%H:%M UTC')}] No new emails")
+[03:00 UTC] No new emails
+/root/.openclaw/workspace/contentbloom/check-inbox.py:147: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  print(f"[{datetime.utcnow().strftime('%H:%M UTC')}] No new emails")
+[03:30 UTC] No new emails
+NEW EMAIL: reports@fastmaildmarc.com → rafa@bloomcontent.site | Report Domain: bloomcontent.site Submitter: fastmail.com
+ Report-ID:2026.02.23.1890949103
+Telegram notified: reports@fastmaildmarc.com
+/root/.openclaw/workspace/contentbloom/check-inbox.py:147: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  print(f"[{datetime.utcnow().strftime('%H:%M UTC')}] No new emails")
+[04:30 UTC] No new emails
+/root/.openclaw/workspace/contentbloom/check-inbox.py:147: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  print(f"[{datetime.utcnow().strftime('%H:%M UTC')}] No new emails")
+[05:00 UTC] No new emails
+/root/.openclaw/workspace/contentbloom/check-inbox.py:147: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  print(f"[{datetime.utcnow().strftime('%H:%M UTC')}] No new emails")
+[05:30 UTC] No new emails
+/root/.openclaw/workspace/contentbloom/check-inbox.py:147: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  print(f"[{datetime.utcnow().strftime('%H:%M UTC')}] No new emails")
+[06:00 UTC] No new emails
+/root/.openclaw/workspace/contentbloom/check-inbox.py:147: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  print(f"[{datetime.utcnow().strftime('%H:%M UTC')}] No new emails")
+[06:30 UTC] No new emails
+/root/.openclaw/workspace/contentbloom/check-inbox.py:147: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  print(f"[{datetime.utcnow().strftime('%H:%M UTC')}] No new emails")
+[07:00 UTC] No new emails
+/root/.openclaw/workspace/contentbloom/check-inbox.py:147: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  print(f"[{datetime.utcnow().strftime('%H:%M UTC')}] No new emails")
+[07:30 UTC] No new emails
+/root/.openclaw/workspace/contentbloom/check-inbox.py:147: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  print(f"[{datetime.utcnow().strftime('%H:%M UTC')}] No new emails")
+[08:00 UTC] No new emails
+/root/.openclaw/workspace/contentbloom/check-inbox.py:147: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  print(f"[{datetime.utcnow().strftime('%H:%M UTC')}] No new emails")
+[08:30 UTC] No new emails
+/root/.openclaw/workspace/contentbloom/check-inbox.py:147: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  print(f"[{datetime.utcnow().strftime('%H:%M UTC')}] No new emails")
+[09:00 UTC] No new emails
+/root/.openclaw/workspace/contentbloom/check-inbox.py:147: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  print(f"[{datetime.utcnow().strftime('%H:%M UTC')}] No new emails")
+[09:30 UTC] No new emails
+/root/.openclaw/workspace/contentbloom/check-inbox.py:147: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  print(f"[{datetime.utcnow().strftime('%H:%M UTC')}] No new emails")
+[10:00 UTC] No new emails
+/root/.openclaw/workspace/contentbloom/check-inbox.py:147: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  print(f"[{datetime.utcnow().strftime('%H:%M UTC')}] No new emails")
+[10:30 UTC] No new emails
+/root/.openclaw/workspace/contentbloom/check-inbox.py:147: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  print(f"[{datetime.utcnow().strftime('%H:%M UTC')}] No new emails")
+[11:00 UTC] No new emails
+NEW EMAIL: noreply-dmarc-support@google.com → rafa@bloomcontent.site | Report domain: bloomcontent.site Submitter: google.com Report-ID: 12034528776985036632
+Telegram notified: noreply-dmarc-support@google.com
+/root/.openclaw/workspace/contentbloom/check-inbox.py:147: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  print(f"[{datetime.utcnow().strftime('%H:%M UTC')}] No new emails")
+[12:00 UTC] No new emails
+/root/.openclaw/workspace/contentbloom/check-inbox.py:147: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  print(f"[{datetime.utcnow().strftime('%H:%M UTC')}] No new emails")
+[12:30 UTC] No new emails
+/root/.openclaw/workspace/contentbloom/check-inbox.py:147: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  print(f"[{datetime.utcnow().strftime('%H:%M UTC')}] No new emails")
+[13:00 UTC] No new emails
+/root/.openclaw/workspace/contentbloom/check-inbox.py:147: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  print(f"[{datetime.utcnow().strftime('%H:%M UTC')}] No new emails")
+[13:30 UTC] No new emails
+/root/.openclaw/workspace/contentbloom/check-inbox.py:147: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  print(f"[{datetime.utcnow().strftime('%H:%M UTC')}] No new emails")
+[14:00 UTC] No new emails
+/root/.openclaw/workspace/contentbloom/check-inbox.py:147: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  print(f"[{datetime.utcnow().strftime('%H:%M UTC')}] No new emails")
+[14:30 UTC] No new emails
+/root/.openclaw/workspace/contentbloom/check-inbox.py:147: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  print(f"[{datetime.utcnow().strftime('%H:%M UTC')}] No new emails")
+[15:00 UTC] No new emails
+/root/.openclaw/workspace/contentbloom/check-inbox.py:147: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  print(f"[{datetime.utcnow().strftime('%H:%M UTC')}] No new emails")
+[15:30 UTC] No new emails
+/root/.openclaw/workspace/contentbloom/check-inbox.py:147: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  print(f"[{datetime.utcnow().strftime('%H:%M UTC')}] No new emails")
+[16:00 UTC] No new emails
+/root/.openclaw/workspace/contentbloom/check-inbox.py:147: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  print(f"[{datetime.utcnow().strftime('%H:%M UTC')}] No new emails")
+[16:30 UTC] No new emails
+/root/.openclaw/workspace/contentbloom/check-inbox.py:147: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  print(f"[{datetime.utcnow().strftime('%H:%M UTC')}] No new emails")
+[17:00 UTC] No new emails
+/root/.openclaw/workspace/contentbloom/check-inbox.py:147: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  print(f"[{datetime.utcnow().strftime('%H:%M UTC')}] No new emails")
+[17:30 UTC] No new emails
+/root/.openclaw/workspace/contentbloom/check-inbox.py:147: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  print(f"[{datetime.utcnow().strftime('%H:%M UTC')}] No new emails")
+[18:00 UTC] No new emails
+/root/.openclaw/workspace/contentbloom/check-inbox.py:147: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  print(f"[{datetime.utcnow().strftime('%H:%M UTC')}] No new emails")
+[18:30 UTC] No new emails
+/root/.openclaw/workspace/contentbloom/check-inbox.py:147: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  print(f"[{datetime.utcnow().strftime('%H:%M UTC')}] No new emails")
+[19:00 UTC] No new emails
+/root/.openclaw/workspace/contentbloom/check-inbox.py:147: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  print(f"[{datetime.utcnow().strftime('%H:%M UTC')}] No new emails")
+[19:30 UTC] No new emails
+NEW EMAIL: "DMARC Aggregate Report" <dmarcreport@microsoft.com> → rafa@bloomcontent.site | [Preview] Report Domain: bloomcontent.site Submitter: enterprise.protection.outlook.com Report-ID: 666c66332bbd40f1bc8a0cfc386156c8
+Telegram notified: "DMARC Aggregate Report" <dmarcreport@microsoft.com>
+/root/.openclaw/workspace/contentbloom/check-inbox.py:147: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  print(f"[{datetime.utcnow().strftime('%H:%M UTC')}] No new emails")
+[20:30 UTC] No new emails
+/root/.openclaw/workspace/contentbloom/check-inbox.py:147: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  print(f"[{datetime.utcnow().strftime('%H:%M UTC')}] No new emails")
+[21:00 UTC] No new emails
+/root/.openclaw/workspace/contentbloom/check-inbox.py:147: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  print(f"[{datetime.utcnow().strftime('%H:%M UTC')}] No new emails")
+[21:30 UTC] No new emails
+/root/.openclaw/workspace/contentbloom/check-inbox.py:147: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  print(f"[{datetime.utcnow().strftime('%H:%M UTC')}] No new emails")
+[22:00 UTC] No new emails
+/root/.openclaw/workspace/contentbloom/check-inbox.py:147: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  print(f"[{datetime.utcnow().strftime('%H:%M UTC')}] No new emails")
+[22:30 UTC] No new emails
+/root/.openclaw/workspace/contentbloom/check-inbox.py:147: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  print(f"[{datetime.utcnow().strftime('%H:%M UTC')}] No new emails")
+[23:00 UTC] No new emails
+/root/.openclaw/workspace/contentbloom/check-inbox.py:147: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  print(f"[{datetime.utcnow().strftime('%H:%M UTC')}] No new emails")
+[23:30 UTC] No new emails
+/root/.openclaw/workspace/contentbloom/check-inbox.py:147: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  print(f"[{datetime.utcnow().strftime('%H:%M UTC')}] No new emails")
+[00:00 UTC] No new emails
+/root/.openclaw/workspace/contentbloom/check-inbox.py:147: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  print(f"[{datetime.utcnow().strftime('%H:%M UTC')}] No new emails")
+[00:30 UTC] No new emails
+/root/.openclaw/workspace/contentbloom/check-inbox.py:147: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  print(f"[{datetime.utcnow().strftime('%H:%M UTC')}] No new emails")
+[01:00 UTC] No new emails
+/root/.openclaw/workspace/contentbloom/check-inbox.py:147: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  print(f"[{datetime.utcnow().strftime('%H:%M UTC')}] No new emails")
+[01:30 UTC] No new emails
+/root/.openclaw/workspace/contentbloom/check-inbox.py:147: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  print(f"[{datetime.utcnow().strftime('%H:%M UTC')}] No new emails")
+[02:00 UTC] No new emails
+/root/.openclaw/workspace/contentbloom/check-inbox.py:147: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  print(f"[{datetime.utcnow().strftime('%H:%M UTC')}] No new emails")
+[02:30 UTC] No new emails
+/root/.openclaw/workspace/contentbloom/check-inbox.py:147: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  print(f"[{datetime.utcnow().strftime('%H:%M UTC')}] No new emails")
+[03:00 UTC] No new emails
+/root/.openclaw/workspace/contentbloom/check-inbox.py:147: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  print(f"[{datetime.utcnow().strftime('%H:%M UTC')}] No new emails")
+[03:30 UTC] No new emails
+/root/.openclaw/workspace/contentbloom/check-inbox.py:147: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  print(f"[{datetime.utcnow().strftime('%H:%M UTC')}] No new emails")
+[04:00 UTC] No new emails
+/root/.openclaw/workspace/contentbloom/check-inbox.py:147: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  print(f"[{datetime.utcnow().strftime('%H:%M UTC')}] No new emails")
+[04:30 UTC] No new emails
+/root/.openclaw/workspace/contentbloom/check-inbox.py:147: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  print(f"[{datetime.utcnow().strftime('%H:%M UTC')}] No new emails")
+[05:00 UTC] No new emails
+/root/.openclaw/workspace/contentbloom/check-inbox.py:147: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  print(f"[{datetime.utcnow().strftime('%H:%M UTC')}] No new emails")
+[05:30 UTC] No new emails
+/root/.openclaw/workspace/contentbloom/check-inbox.py:147: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  print(f"[{datetime.utcnow().strftime('%H:%M UTC')}] No new emails")
+[06:00 UTC] No new emails
+/root/.openclaw/workspace/contentbloom/check-inbox.py:147: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  print(f"[{datetime.utcnow().strftime('%H:%M UTC')}] No new emails")
+[06:30 UTC] No new emails
+/root/.openclaw/workspace/contentbloom/check-inbox.py:147: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  print(f"[{datetime.utcnow().strftime('%H:%M UTC')}] No new emails")
+[07:00 UTC] No new emails
+/root/.openclaw/workspace/contentbloom/check-inbox.py:147: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  print(f"[{datetime.utcnow().strftime('%H:%M UTC')}] No new emails")
+[07:30 UTC] No new emails
+/root/.openclaw/workspace/contentbloom/check-inbox.py:147: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  print(f"[{datetime.utcnow().strftime('%H:%M UTC')}] No new emails")
+[08:00 UTC] No new emails
+/root/.openclaw/workspace/contentbloom/check-inbox.py:147: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  print(f"[{datetime.utcnow().strftime('%H:%M UTC')}] No new emails")
+[08:30 UTC] No new emails
+/root/.openclaw/workspace/contentbloom/check-inbox.py:147: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  print(f"[{datetime.utcnow().strftime('%H:%M UTC')}] No new emails")
+[09:00 UTC] No new emails
+NEW EMAIL: <postmaster@newfold.com> → rafa@bloomcontent.site | Undeliverable: quick thing for Mustelausa Dev
+Telegram notified: <postmaster@newfold.com>
+/root/.openclaw/workspace/contentbloom/check-inbox.py:147: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  print(f"[{datetime.utcnow().strftime('%H:%M UTC')}] No new emails")
+[10:00 UTC] No new emails
+/root/.openclaw/workspace/contentbloom/check-inbox.py:147: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  print(f"[{datetime.utcnow().strftime('%H:%M UTC')}] No new emails")
+[10:30 UTC] No new emails
+/root/.openclaw/workspace/contentbloom/check-inbox.py:147: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  print(f"[{datetime.utcnow().strftime('%H:%M UTC')}] No new emails")
+[11:00 UTC] No new emails
+/root/.openclaw/workspace/contentbloom/check-inbox.py:147: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  print(f"[{datetime.utcnow().strftime('%H:%M UTC')}] No new emails")
+[11:30 UTC] No new emails
+/root/.openclaw/workspace/contentbloom/check-inbox.py:147: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  print(f"[{datetime.utcnow().strftime('%H:%M UTC')}] No new emails")
+[12:00 UTC] No new emails
+/root/.openclaw/workspace/contentbloom/check-inbox.py:147: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  print(f"[{datetime.utcnow().strftime('%H:%M UTC')}] No new emails")
+[12:30 UTC] No new emails
+/root/.openclaw/workspace/contentbloom/check-inbox.py:147: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  print(f"[{datetime.utcnow().strftime('%H:%M UTC')}] No new emails")
+[13:00 UTC] No new emails
+/root/.openclaw/workspace/contentbloom/check-inbox.py:147: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  print(f"[{datetime.utcnow().strftime('%H:%M UTC')}] No new emails")
+[13:30 UTC] No new emails
+/root/.openclaw/workspace/contentbloom/check-inbox.py:147: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  print(f"[{datetime.utcnow().strftime('%H:%M UTC')}] No new emails")
+[14:00 UTC] No new emails
+/root/.openclaw/workspace/contentbloom/check-inbox.py:147: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  print(f"[{datetime.utcnow().strftime('%H:%M UTC')}] No new emails")
+[14:30 UTC] No new emails
+/root/.openclaw/workspace/contentbloom/check-inbox.py:147: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  print(f"[{datetime.utcnow().strftime('%H:%M UTC')}] No new emails")
+[15:00 UTC] No new emails

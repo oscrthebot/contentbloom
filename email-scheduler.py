@@ -232,5 +232,76 @@ def main():
 
     log.info("=== Done ===")
 
+def send_onboarding_email(lead: dict, plan: str = "starter"):
+    """Called when a lead replies 'yes' to cold outreach.
+    Creates an onboarding magic link via Convex and sends the welcome email.
+    """
+    env = load_env()
+    convex_url = env["NEXT_PUBLIC_CONVEX_URL"]
+    convex_key = env["CONVEX_DEPLOY_KEY"]
+
+    # 1. Create onboarding token via Convex
+    result = convex_mutation(convex_url, convex_key, "auth:createOnboardingLink", {
+        "email": lead["email"],
+        "plan": plan,
+    })
+
+    if not result or "token" not in result:
+        log.error(f"Failed to create onboarding token for {lead['email']}")
+        return False
+
+    token = result["token"]
+    onboard_url = f"https://bloomcontent.site/onboard?token={token}&plan={plan}"
+
+    # 2. Send email from hey@bloomcontent.site
+    hey_user = env.get("SMTP_HEY_USER", "hey@bloomcontent.site")
+    hey_pass = env.get("SMTP_HEY_PASS", "")
+
+    if not hey_pass:
+        log.warning("SMTP_HEY_PASS not set - cannot send onboarding email")
+        log.info(f"Onboarding URL for {lead['email']}: {onboard_url}")
+        return False
+
+    msg = MIMEMultipart("alternative")
+    msg["From"] = f"ContentBloom <{hey_user}>"
+    msg["To"] = lead["email"]
+    msg["Subject"] = "Welcome to ContentBloom - complete your setup"
+
+    store_name = lead.get("storeName", "your store")
+    text = (
+        f"Great news - your {plan} plan is ready for {store_name}.\n\n"
+        f"Complete your setup here:\n{onboard_url}\n\n"
+        "Looking forward to working with you."
+    )
+    html = f"""<div style="font-family:Inter,sans-serif;max-width:520px;margin:40px auto;padding:32px;background:#fff;border-radius:12px;border:1px solid #e5e7eb">
+<p>Great news &mdash; your <strong>{plan}</strong> plan is ready for {store_name}.</p>
+<p>Click below to complete your setup and start receiving SEO content.</p>
+<p style="margin:24px 0"><a href="{onboard_url}" style="display:inline-block;padding:12px 28px;background:#16a34a;color:#fff;text-decoration:none;border-radius:8px;font-weight:600">Complete setup</a></p>
+<p style="font-size:13px;color:#6b7280">This link is valid for 7 days.</p>
+</div>"""
+
+    msg.attach(MIMEText(text, "plain"))
+    msg.attach(MIMEText(html, "html"))
+
+    try:
+        with smtplib.SMTP("smtp.zoho.eu", 587) as srv:
+            srv.starttls()
+            srv.login(hey_user, hey_pass)
+            srv.sendmail(hey_user, [lead["email"]], msg.as_string())
+        log.info(f"Onboarding email sent to {lead['email']}")
+    except Exception as e:
+        log.error(f"Failed to send onboarding email to {lead['email']}: {e}")
+        return False
+
+    # 3. Update lead status
+    convex_mutation(convex_url, convex_key, "leads:updateStatus", {
+        "id": lead["_id"],
+        "status": "converted",
+        "lastContact": datetime.utcnow().strftime("%Y-%m-%dT%H:%M:%SZ"),
+    })
+
+    return True
+
+
 if __name__ == "__main__":
     main()
