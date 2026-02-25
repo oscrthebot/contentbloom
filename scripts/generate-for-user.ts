@@ -75,6 +75,7 @@ async function main() {
     wordCount: 1500,
     clientId: clientId as string,
     userId: user._id as string,
+    authorProfile: user.authorProfile ?? undefined,
   });
 
   // 5. Log step results

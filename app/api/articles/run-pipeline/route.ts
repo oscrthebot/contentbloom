@@ -62,6 +62,7 @@ export async function POST(req: NextRequest) {
       faqItems: article.faqItems ?? [],
       qaScore: article.qaScore ?? undefined,
       qaIssues: article.qaIssues ?? undefined,
+      productBanners: (article as any).productBanners ?? undefined,
       status: "review",
     });
 

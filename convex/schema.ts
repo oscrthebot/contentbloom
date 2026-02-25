@@ -74,6 +74,13 @@ export default defineSchema({
     qaCriticalIssues: v.optional(v.array(v.string())),
     monthlyVolume: v.optional(v.number()),
     isPaidFeature: v.optional(v.boolean()),
+    productBanners: v.optional(v.array(v.object({
+      name: v.string(),
+      imageUrl: v.optional(v.string()),
+      price: v.optional(v.string()),
+      description: v.optional(v.string()),
+      url: v.string(),
+    }))),
     status: v.union(
       v.literal("queued"),
       v.literal("generating"),

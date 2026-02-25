@@ -27,6 +27,8 @@ export interface Product {
   name: string;
   url: string;
   description?: string;
+  imageUrl?: string;
+  price?: string;
 }
 
 export interface ExistingArticle {
@@ -75,7 +77,7 @@ export interface QAResult {
 const OPENROUTER_MODEL = process.env.AI_MODEL || 'anthropic/claude-sonnet-4-6';
 const ANTHROPIC_MODEL = 'claude-sonnet-4-20250514';
 
-async function aiCall(systemPrompt: string, userPrompt: string): Promise<string> {
+async function aiCall(systemPrompt: string, userPrompt: string, maxTokens = 4000): Promise<string> {
   const openrouterKey = process.env.OPENROUTER_API_KEY;
   const anthropicKey = process.env.ANTHROPIC_API_KEY;
 
@@ -85,6 +87,10 @@ async function aiCall(systemPrompt: string, userPrompt: string): Promise<string>
       const client = new OpenAI({
         baseURL: 'https://openrouter.ai/api/v1',
         apiKey: openrouterKey,
+        defaultHeaders: {
+          'HTTP-Referer': process.env.NEXT_PUBLIC_APP_URL || 'https://bloomcontent.site',
+          'X-Title': 'BloomContent',
+        },
       });
       const response = await client.chat.completions.create({
         model: OPENROUTER_MODEL,
@@ -92,28 +98,50 @@ async function aiCall(systemPrompt: string, userPrompt: string): Promise<string>
           { role: 'system', content: systemPrompt },
           { role: 'user', content: userPrompt },
         ],
-        max_tokens: 4000,
+        max_tokens: Math.min(maxTokens, 3000), // cap for credit management
         temperature: 0.7,
       });
       return response.choices[0]?.message?.content ?? '';
     } catch (e: any) {
-      // If 402 (out of credits), fall through to Anthropic
-      if (!e?.message?.includes('402') || !anthropicKey) throw e;
-      console.log('  ⚠️ OpenRouter out of credits, falling back to Anthropic API');
+      const msg = String(e?.message || '');
+      const isFallbackError = msg.includes('402') || msg.includes('429') || msg.includes('credits') || msg.includes('quota');
+      if (!isFallbackError || !anthropicKey) throw e;
+      console.log('  ⚠️ OpenRouter error (fallback to Anthropic):', msg.slice(0, 120));
     }
   }
 
   // Fallback to direct Anthropic SDK
   if (anthropicKey) {
     const isOAuth = anthropicKey.startsWith('sk-ant-oat');
-    const client = new Anthropic(
-      isOAuth
-        ? { authToken: anthropicKey, apiKey: null as any }
-        : { apiKey: anthropicKey }
-    );
+
+    if (isOAuth) {
+      // OAuth tokens: use direct fetch with Authorization: Bearer header
+      // (some Anthropic SDK versions handle this inconsistently)
+      const res = await fetch('https://api.anthropic.com/v1/messages', {
+        method: 'POST',
+        headers: {
+          'content-type': 'application/json',
+          'anthropic-version': '2023-06-01',
+          'anthropic-beta': 'oauth-2025-04-20',
+          'Authorization': `Bearer ${anthropicKey}`,
+        },
+        body: JSON.stringify({
+          model: ANTHROPIC_MODEL,
+          max_tokens: maxTokens,
+          system: systemPrompt,
+          messages: [{ role: 'user', content: userPrompt }],
+        }),
+      });
+      const data: any = await res.json();
+      if (!res.ok) throw new Error(`${res.status} ${JSON.stringify(data)}`);
+      const block = data.content?.[0];
+      return block?.type === 'text' ? block.text : '';
+    }
+
+    const client = new Anthropic({ apiKey: anthropicKey });
     const response = await client.messages.create({
       model: ANTHROPIC_MODEL,
-      max_tokens: 4000,
+      max_tokens: maxTokens,
       system: systemPrompt,
       messages: [{ role: 'user', content: userPrompt }],
     });
@@ -150,8 +178,9 @@ export async function fetchShopifyProducts(storeUrl: string): Promise<Product[]>
     return (data.products || []).slice(0, 6).map((p: any) => ({
       name: p.title,
       url: `${base}/products/${p.handle}`,
-      description: p.body_html?.replace(/<[^>]*>/g, '').slice(0, 100) || '',
-      price: p.variants?.[0]?.price ? `€${p.variants[0].price}` : undefined,
+      description: p.body_html?.replace(/<[^>]*>/g, '').slice(0, 120) || '',
+      price: p.variants?.[0]?.price ? `$${p.variants[0].price}` : undefined,
+      imageUrl: p.images?.[0]?.src || p.featured_image?.src || undefined,
     }));
   } catch {
     return [];
@@ -206,7 +235,12 @@ export function buildArticlePrompt(params: ArticleRequest): string {
   const ctaText = lang === 'es' ? 'Ver producto →' : lang === 'de' ? 'Produkt ansehen →' : lang === 'fr' ? 'Voir le produit →' : 'Shop now';
 
   const authorSection = params.authorProfile
-    ? `\n**Author Voice:** Write as ${params.authorProfile.fullName}. ${params.authorProfile.bio}. They have ${params.authorProfile.yearsExperience} years of experience in ${params.authorProfile.niche}. Use their voice and experience throughout.${params.authorProfile.credentials ? ` Credentials: ${params.authorProfile.credentials}` : ''}\n`
+    ? `\n**AUTHOR VOICE (mandatory):**
+You are writing as ${params.authorProfile.fullName}, ${params.authorProfile.yearsExperience} years of experience in ${params.authorProfile.niche}.
+Bio: "${params.authorProfile.bio}"${params.authorProfile.credentials ? `\nCredentials: ${params.authorProfile.credentials}` : ''}
+- Write at least 3 first-person observations in the article: "En mi experiencia...", "He probado...", "Después de años trabajando con clientes..."
+- Reference their expertise naturally in the text
+- The author voice should feel authentic, not promotional\n`
     : '';
 
   const internalLinksSection = params.existingArticles?.length
@@ -244,13 +278,29 @@ ${internalLinksSection}
 }`;
 }
 
+const ARTICLE_GENERATION_SYSTEM = `You are an SEO article writer. Return only valid JSON.
+
+STYLE RULES (strict — enforce before writing a single word):
+- Use the target keyword naturally — maximum once every 200 words. Never in multiple consecutive headings.
+- Write in a consistent tone throughout: informative and conversational, not switching between formal/casual.
+- Every paragraph must add new information. Delete filler ("In today's world...", "It's important to note...", "In conclusion...").
+- Include maximum ONE product CTA per section. Never repeat the same product twice.
+- Vary sentence length: mix 8-word punchy sentences with longer flowing ones. Avoid starting 3 sentences in a row with the same word.`;
+
 export async function generateArticle(request: ArticleRequest): Promise<GeneratedArticle> {
   const prompt = buildArticlePrompt(request);
-  const raw = await aiCall('You are an SEO article writer. Return only valid JSON.', prompt);
+  // Use 6000 tokens for article generation to accommodate long articles in JSON format
+  const raw = await aiCall(ARTICLE_GENERATION_SYSTEM, prompt, 6000);
+
+  // Strip markdown code fences if present (```json ... ```)
+  const stripped = raw.replace(/^```(?:json)?\s*/i, '').replace(/\s*```\s*$/i, '').trim();
 
   // Extract JSON from response
-  const jsonMatch = raw.match(/\{[\s\S]*\}/);
-  if (!jsonMatch) throw new Error('Failed to parse article JSON from AI response');
+  const jsonMatch = (stripped || raw).match(/\{[\s\S]*\}/);
+  if (!jsonMatch) {
+    console.error('  ❌ Raw AI response (first 500 chars):', raw.slice(0, 500));
+    throw new Error('Failed to parse article JSON from AI response');
+  }
 
   const parsed = JSON.parse(jsonMatch[0]) as {
     title: string;
@@ -282,7 +332,8 @@ Return ONLY a JSON array:
 [{"question": "...", "answer": "..."}, ...]`;
 
   const raw = await aiCall('You generate FAQ content. Return only valid JSON array.', prompt);
-  const jsonMatch = raw.match(/\[[\s\S]*\]/);
+  const strippedFaq = raw.replace(/^```(?:json)?\s*/i, '').replace(/\s*```\s*$/i, '').trim();
+  const jsonMatch = (strippedFaq || raw).match(/\[[\s\S]*\]/);
   if (!jsonMatch) return [];
   return JSON.parse(jsonMatch[0]) as FAQItem[];
 }
@@ -340,7 +391,8 @@ Return ONLY JSON:
 Score 80+ is acceptable. criticalIssues should be empty [] if none found.`;
 
   const raw = await aiCall('You are an article QA reviewer. Return only valid JSON.', prompt);
-  const jsonMatch = raw.match(/\{[\s\S]*\}/);
+  const strippedQa = raw.replace(/^```(?:json)?\s*/i, '').replace(/\s*```\s*$/i, '').trim();
+  const jsonMatch = (strippedQa || raw).match(/\{[\s\S]*\}/);
   if (!jsonMatch) return { score: 70, issues: ['Could not parse QA response'], criticalIssues: [] };
   const parsed = JSON.parse(jsonMatch[0]);
   return {

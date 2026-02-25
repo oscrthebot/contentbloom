@@ -72,6 +72,13 @@ export interface PipelineResult {
     qaCriticalIssues: string[];
     frontmatter: string;
     monthlyVolume?: number;
+    productBanners?: Array<{
+      name: string;
+      imageUrl?: string;
+      price?: string;
+      description?: string;
+      url: string;
+    }>;
   };
   convexArticleId?: string;
   error?: string;
@@ -139,8 +146,23 @@ export async function runArticlePipeline(request: PipelineRequest): Promise<Pipe
       } catch {
         // Convex query failed, continue without
       }
+
+      // Fetch authorProfile from user record if not provided in request
+      if (!authorProfile) {
+        try {
+          const user = await convex.query(api.users.getById, {
+            userId: request.userId as any,
+          });
+          if (user?.authorProfile) {
+            authorProfile = user.authorProfile;
+            console.log(`  👤 Loaded authorProfile for: ${authorProfile.fullName}`);
+          }
+        } catch {
+          // Could not load authorProfile, continue without
+        }
+      }
     }
-    steps.push({ step: '2-context', status: 'ok', durationMs: t() });
+    steps.push({ step: '2-context', status: 'ok', durationMs: t(), note: authorProfile ? `Author: ${authorProfile.fullName}` : 'No author profile' });
 
     // Step 2b: Language detection
     t = stepTimer();
@@ -174,7 +196,7 @@ export async function runArticlePipeline(request: PipelineRequest): Promise<Pipe
       secondaryKeywords: keywords.secondaryKeywords,
       articleType: request.articleType,
       wordCount: request.wordCount,
-      authorProfile: request.isPaidFeature ? authorProfile : undefined,
+      authorProfile: authorProfile ?? undefined,
       existingArticles: existingArticles.length > 0 ? existingArticles : undefined,
       language,
       isPaidFeature: request.isPaidFeature,
@@ -223,22 +245,27 @@ export async function runArticlePipeline(request: PipelineRequest): Promise<Pipe
     let qa: QAResult = await reviewArticle(humanizedContent, keywords.targetKeyword, request.storeName);
     steps.push({ step: '8-qa', status: 'ok', durationMs: t(), note: `Score: ${qa.score}` });
 
-    // QA retry loop: always retry if critical issues exist, or if score < 85 (max 2 retries)
-    const QA_THRESHOLD = 85;
-    const MAX_QA_RETRIES = 2;
+    // QA retry loop: always retry if critical issues exist, or score < 90, or style issues > 2 (max 3 retries)
+    const QA_THRESHOLD = 90;
+    const MAX_QA_RETRIES = 3;
     for (
       let retry = 1;
       retry <= MAX_QA_RETRIES &&
-        (qa.criticalIssues.length > 0 || (qa.score < QA_THRESHOLD && qa.issues.length > 0));
+        (qa.criticalIssues.length > 0 || qa.score < QA_THRESHOLD || qa.issues.length > 2);
       retry++
     ) {
       t = stepTimer();
+      const issuesSummary = [...qa.criticalIssues.map(i => `[CRITICAL] ${i}`), ...qa.issues].join('; ');
       console.log(
-        `  🔄 QA retry ${retry}: score=${qa.score}, criticalIssues=[${qa.criticalIssues.join('; ')}], issues=[${qa.issues.join('; ')}]`
+        `  🔄 QA retry ${retry}: score=${qa.score}, issues=${qa.issues.length}, criticalIssues=${qa.criticalIssues.length}`
       );
+      console.log(`     Fixing: ${issuesSummary}`);
       humanizedContent = await fixQAIssues(humanizedContent, qa.issues, qa.criticalIssues);
+      const prevScore = qa.score;
+      const prevIssues = qa.issues.length;
       qa = await reviewArticle(humanizedContent, keywords.targetKeyword, request.storeName);
-      steps.push({ step: `8-qa-retry-${retry}`, status: 'ok', durationMs: t(), note: `Score: ${qa.score}, critical: ${qa.criticalIssues.length}` });
+      console.log(`  ✅ After retry ${retry}: score ${prevScore}→${qa.score}, issues ${prevIssues}→${qa.issues.length}`);
+      steps.push({ step: `8-qa-retry-${retry}`, status: 'ok', durationMs: t(), note: `Score: ${qa.score}, issues: ${qa.issues.length}, critical: ${qa.criticalIssues.length}` });
     }
 
     // If critical issues remain after all retries → queue for manual review, do NOT deliver
@@ -321,6 +348,13 @@ qaScore: ${qa.score}
         qaCriticalIssues: qa.criticalIssues,
         frontmatter,
         monthlyVolume: keywords.monthlyVolume,
+        productBanners: products.map(p => ({
+          name: p.name,
+          imageUrl: p.imageUrl,
+          price: p.price,
+          description: p.description?.slice(0, 120),
+          url: p.url,
+        })),
       },
       convexArticleId: convexArticleId ? String(convexArticleId) : undefined,
       steps,

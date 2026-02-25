@@ -5,6 +5,14 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { marked, Renderer } from "marked";
 
+interface ProductBanner {
+  name: string;
+  imageUrl?: string;
+  price?: string;
+  description?: string;
+  url: string;
+}
+
 interface Article {
   _id: string;
   title: string;
@@ -23,6 +31,7 @@ interface Article {
   faqItems?: Array<{ question: string; answer: string }>;
   monthlyVolume?: number;
   storeName?: string;
+  productBanners?: ProductBanner[];
 }
 
 interface Feedback {
@@ -31,61 +40,91 @@ interface Feedback {
   submittedAt: number;
 }
 
-// ---------- marked setup ----------
-function buildRenderer() {
+// ─── Product banner renderer ──────────────────────────────────────────────────
+// Reuses the exact BannerCard design from cold outreach preview pages.
+
+function buildProductMap(banners?: ProductBanner[]): Map<string, ProductBanner> {
+  const map = new Map<string, ProductBanner>();
+  if (!banners) return map;
+  for (const b of banners) {
+    map.set(b.name.toLowerCase().trim(), b);
+    // Also index by URL handle: "moisturizer-spf-30" → "moisturizer spf 30"
+    const handle = b.url.split("/").pop()?.replace(/-/g, " ").toLowerCase() ?? "";
+    if (handle) map.set(handle, b);
+  }
+  return map;
+}
+
+function buildRenderer(productMap: Map<string, ProductBanner>) {
   const renderer = new Renderer();
 
-  // Blockquote: detect product banners by presence of any link (<a href)
-  // Format in markdown: > **Product Name** — description. [Ver producto →](url)
   renderer.blockquote = ({ tokens }: { tokens: any }) => {
-    // Re-render inner tokens to HTML using a plain renderer
     const innerHtml = (marked as any).parser(tokens, { renderer: new Renderer() });
 
-    // Product banner detection: any blockquote that contains a hyperlink
+    // Product banner: blockquote that contains a hyperlink
     const isProductBanner = /<a\s[^>]*href=/i.test(innerHtml);
+    if (!isProductBanner) return `<blockquote>${innerHtml}</blockquote>`;
 
-    if (isProductBanner) {
-      // Extract the last link as the CTA
-      const linkMatches = [...innerHtml.matchAll(/<a[^>]+href="([^"]+)"[^>]*>([\s\S]*?)<\/a>/gi)];
-      const lastLink = linkMatches[linkMatches.length - 1];
-      const ctaHref = lastLink ? lastLink[1] : "#";
-      const ctaText = lastLink ? lastLink[2].replace(/<[^>]+>/g, "").trim() : "Ver producto →";
+    // Extract CTA link
+    const linkMatches = [...innerHtml.matchAll(/<a[^>]+href="([^"]+)"[^>]*>([\s\S]*?)<\/a>/gi)];
+    const lastLink  = linkMatches[linkMatches.length - 1];
+    const ctaHref   = lastLink ? lastLink[1] : "#";
+    const ctaText   = lastLink ? lastLink[2].replace(/<[^>]+>/g, "").trim() : "Shop now";
 
-      // Strip all links from inner content to show only text + icon
-      const contentWithoutLinks = innerHtml.replace(/<a[^>]+href="[^"]*"[^>]*>[\s\S]*?<\/a>/gi, "").trim();
-      // Remove wrapping <p> tags for clean layout
-      const cleanContent = contentWithoutLinks
-        .replace(/^<p>([\s\S]*?)<\/p>$/i, "$1")
-        .replace(/\s*—\s*$/, "") // trim trailing em-dash if link was at end
-        .trim();
+    // Extract product name
+    const strongMatch = innerHtml.match(/<strong>([\s\S]*?)<\/strong>/i);
+    const productName = strongMatch ? strongMatch[1].replace(/<[^>]+>/g, "").trim() : "";
 
-      return `<div class="product-banner"><div class="product-banner-text">🛍️ ${cleanContent}</div><a href="${ctaHref}" target="_blank" rel="noopener noreferrer" class="product-banner-btn">${ctaText}</a></div>`;
-    }
+    // Extract description
+    const afterStrong = strongMatch
+      ? innerHtml.slice(innerHtml.indexOf(strongMatch[0]) + strongMatch[0].length)
+      : innerHtml;
+    const descRaw = lastLink
+      ? afterStrong.slice(0, afterStrong.lastIndexOf(lastLink[0]))
+      : afterStrong;
+    const description = descRaw.replace(/<[^>]+>/g, "").replace(/^[\s\u2014\-–—|]+|[\s\u2014\-–—|]+$/g, "").trim();
 
-    return `<blockquote>${innerHtml}</blockquote>`;
+    // Lookup real product data
+    const key  = productName.toLowerCase().trim();
+    const data = productMap.get(key) ?? [...productMap.values()].find(p => ctaHref.includes(p.url.split("/").pop() ?? "___"));
+
+    const imageUrl  = data?.imageUrl;
+    const price     = data?.price;
+    const ctaLabel  = (ctaText || "Shop now").replace(/[→>»]+$/, "").trim();
+
+    const imgHtml = imageUrl
+      ? `<img src="${imageUrl}" alt="${productName}" class="pcard-img" onerror="this.style.display='none'" />`
+      : `<div class="pcard-img pcard-img-placeholder">🛍️</div>`;
+
+    const badgeRow = price
+      ? `<div class="pcard-top"><span class="pcard-badge">RECOMMENDED</span><span class="pcard-price">${price}</span></div>`
+      : `<div class="pcard-top"><span class="pcard-badge">RECOMMENDED</span></div>`;
+
+    return `<a href="${ctaHref}" class="pcard" target="_blank" rel="noopener noreferrer">${imgHtml}<div class="pcard-body">${badgeRow}<div class="pcard-name">${productName || description.slice(0, 50)}</div><div class="pcard-desc">${description.slice(0, 140)}</div></div><div class="pcard-cta">${ctaLabel} →</div></a>`;
   };
 
   return renderer;
 }
 
-function renderMarkdown(md: string): string {
-  const renderer = buildRenderer();
+function renderMarkdown(md: string, productBanners?: ProductBanner[]): string {
+  const productMap = buildProductMap(productBanners);
+  const renderer   = buildRenderer(productMap);
   marked.use({ renderer, breaks: false, gfm: true });
   return marked.parse(md) as string;
 }
 
-// ---------- Helper: download file ----------
+// ─── Helpers ─────────────────────────────────────────────────────────────────
+
 function downloadFile(filename: string, content: string) {
   const blob = new Blob([content], { type: "text/html;charset=utf-8" });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement("a");
-  a.href = url;
-  a.download = filename;
-  a.click();
+  const url  = URL.createObjectURL(blob);
+  const a    = document.createElement("a");
+  a.href = url; a.download = filename; a.click();
   URL.revokeObjectURL(url);
 }
 
-// ---------- Component ----------
+// ─── Component ───────────────────────────────────────────────────────────────
+
 export function ArticleView({
   article,
   feedback,
@@ -97,19 +136,19 @@ export function ArticleView({
 }) {
   const router = useRouter();
   const [showRevisionForm, setShowRevisionForm] = useState(false);
-  const [comment, setComment] = useState("");
+  const [comment,    setComment]    = useState("");
   const [submitting, setSubmitting] = useState(false);
-  const [submitted, setSubmitted] = useState(!!feedback);
-  const [copyState, setCopyState] = useState<"idle" | "html" | "md">("idle");
-  const [qaOpen, setQaOpen] = useState(false);
-  const [openFaq, setOpenFaq] = useState<number | null>(null);
+  const [submitted,  setSubmitted]  = useState(!!feedback);
+  const [copyState,  setCopyState]  = useState<"idle" | "html" | "md">("idle");
+  const [qaOpen,     setQaOpen]     = useState(false);
+  const [openFaq,    setOpenFaq]    = useState<number | null>(null);
   const [renderedHtml, setRenderedHtml] = useState("");
 
   const readingTime = article.readingTime ?? Math.ceil(article.wordCount / 250);
 
   useEffect(() => {
-    setRenderedHtml(renderMarkdown(article.content));
-  }, [article.content]);
+    setRenderedHtml(renderMarkdown(article.content, article.productBanners));
+  }, [article.content, article.productBanners]);
 
   async function submitFeedback(rating: "good" | "needs_revision") {
     setSubmitting(true);
@@ -123,436 +162,324 @@ export function ArticleView({
           comment: rating === "needs_revision" ? comment : undefined,
         }),
       });
-      if (res.ok) {
-        setSubmitted(true);
-        router.refresh();
-      }
-    } finally {
-      setSubmitting(false);
-    }
+      if (res.ok) { setSubmitted(true); router.refresh(); }
+    } finally { setSubmitting(false); }
   }
 
   function copyHtml() {
-    const html = renderMarkdown(article.content);
-    navigator.clipboard.writeText(html);
+    navigator.clipboard.writeText(renderMarkdown(article.content, article.productBanners));
     setCopyState("html");
     setTimeout(() => setCopyState("idle"), 2000);
   }
-
   function copyMarkdown() {
     navigator.clipboard.writeText(article.content);
     setCopyState("md");
     setTimeout(() => setCopyState("idle"), 2000);
   }
-
   function downloadHtml() {
-    const html = renderMarkdown(article.content);
+    const html = renderMarkdown(article.content, article.productBanners);
     const full = `<h1>${article.title}</h1>\n${html}`;
-    const slug = article.slug || article.title.toLowerCase().replace(/\s+/g, "-");
-    downloadFile(`${slug}.html`, full);
+    downloadFile(`${article.slug || "article"}.html`, full);
   }
 
   const hasFeedback = submitted || !!feedback;
 
-  // ---- render ----
+  // ─── Traffic opportunity chart ──────────────────────────────────────────
+  const trafficCard = (() => {
+    if (!article.monthlyVolume || article.monthlyVolume <= 0) return null;
+    const vol    = article.monthlyVolume;
+    const growth = [0, 0, 1, 2, 4, 8, 15, 28, 45, 65, 82, 100];
+    const maxMo  = vol * 0.035;
+    const monthly  = growth.map(p => Math.round(maxMo * p / 100));
+    const organicYr1 = monthly.reduce((a, b) => a + b, 0);
+    const customers  = Math.round(organicYr1 * 0.02);
+    const displayVol = vol >= 1000 ? `${(vol / 1000).toFixed(1)}k` : String(vol);
+    const store      = article.storeName || "your store";
+
+    // SVG
+    const W=560, H=100, pL=8, pR=8, pT=8, pB=20;
+    const cW=W-pL-pR, cH=H-pT-pB, maxV=Math.max(...monthly, 1);
+    const pts = monthly.map((v, i) => `${pL+(i/11)*cW},${pT+cH-(v/maxV)*cH}`);
+    const fill = `M${pL},${pT+cH} L${pts.join(" L")} L${pL+cW},${pT+cH} Z`;
+    const xLbls = [{i:0,l:"Jan"},{i:3,l:"Apr"},{i:6,l:"Jul"},{i:9,l:"Oct"}];
+
+    return (
+      <div style={{ background: "#fff", border: "1px solid var(--border)", borderRadius: 14, marginBottom: 20, overflow: "hidden" }}>
+        <div style={{ background: "var(--accent)", color: "#fff", padding: "10px 20px", fontSize: 12, fontWeight: 700, letterSpacing: ".06em", textTransform: "uppercase" }}>
+          📊 Traffic Opportunity
+        </div>
+        <div style={{ display: "grid", gridTemplateColumns: "55% 45%", gap: 24, alignItems: "center", padding: "4px 0 8px" }}>
+          <div>
+            <p style={{ padding: "14px 20px 10px", fontSize: 14, color: "var(--t2)", lineHeight: 1.6 }}>
+              <strong style={{ color: "var(--t1)" }}>{vol.toLocaleString()}</strong> people/month search "{article.targetKeyword}". What consistent SEO could mean for <strong style={{ color: "var(--t1)" }}>{store}</strong> in 12 months:
+            </p>
+            <div style={{ display: "flex", gap: 10, padding: "0 20px 12px" }}>
+              {[
+                { n: displayVol, l: "Monthly searches", s: "for your keyword cluster" },
+                { n: organicYr1.toLocaleString(), l: "Organic visitors", s: "projected year 1" },
+                { n: customers.toLocaleString(), l: "Potential customers", s: "at 2% conversion", green: true },
+              ].map(({ n, l, s, green }) => (
+                <div key={l} style={{ flex: 1, background: "var(--bg)", borderRadius: 10, padding: "12px 14px", border: "1px solid var(--border)" }}>
+                  <div style={{ fontSize: 20, fontWeight: 800, color: green ? "var(--accent)" : "var(--t1)" }}>{n}</div>
+                  <div style={{ fontSize: 12, fontWeight: 600, color: "var(--t2)", margin: "2px 0" }}>{l}</div>
+                  <div style={{ fontSize: 11, color: "var(--t3)" }}>{s}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+          <div style={{ paddingRight: 20 }}>
+            <div style={{ fontSize: 11, color: "var(--t3)", marginBottom: 6, fontWeight: 500 }}>Projected organic visitors — 12 months</div>
+            <svg viewBox={`0 0 ${W} ${H}`} width="100%" height="120" style={{ display: "block" }}>
+              <path d={fill} fill="#dcfce7" opacity="0.7" />
+              <polyline points={pts.join(" ")} fill="none" stroke="var(--accent)" strokeWidth="2.5" strokeLinejoin="round" strokeLinecap="round" />
+              {xLbls.map(({ i, l }) => (
+                <text key={i} x={pL+(i/11)*cW} y={H-2} fontSize="10" fill="#b0adac" textAnchor="middle">{l}</text>
+              ))}
+            </svg>
+          </div>
+        </div>
+        <div style={{ padding: "0 20px 12px", fontSize: 11, color: "var(--t3)" }}>
+          Estimate based on avg position 5-8, 3.5% CTR, 2% visitor-to-customer conversion.
+        </div>
+      </div>
+    );
+  })();
+
   return (
     <>
-      {/* ---- Inline styles ---- */}
+      {/* ─── Global styles ────────────────────────────────────────────────── */}
       <style>{`
-        .article-body h1 { font-size: 24px; font-weight: 700; margin: 28px 0 12px; color: #111827; }
-        .article-body h2 { font-size: 20px; font-weight: 700; margin: 24px 0 10px; color: #111827; border-bottom: 1px solid #f3f4f6; padding-bottom: 8px; }
-        .article-body h3 { font-size: 17px; font-weight: 600; margin: 20px 0 8px; color: #111827; }
-        .article-body p { margin: 0 0 16px; line-height: 1.75; color: #374151; }
-        .article-body hr { border: none; border-top: 1px solid #e5e7eb; margin: 24px 0; }
-        .article-body a { color: #16a34a; text-decoration: underline; }
-        .article-body ul, .article-body ol { margin: 0 0 16px; padding-left: 24px; }
-        .article-body li { margin-bottom: 6px; line-height: 1.65; color: #374151; }
-        .article-body blockquote { border-left: 3px solid #e5e7eb; padding-left: 16px; color: #6b7280; font-style: italic; margin: 16px 0; }
-        .product-banner { background: #f0fdf4; border: 1px solid #bbf7d0; border-left: 4px solid #16a34a; border-radius: 8px; padding: 16px 20px; margin: 24px 0; display: flex; justify-content: space-between; align-items: center; gap: 16px; }
-        .product-banner-text { font-size: 14px; color: #374151; flex: 1; }
-        .product-banner-text strong { font-size: 15px; color: #111827; font-weight: 600; }
-        .product-banner-btn { background: #16a34a; color: white !important; padding: 8px 16px; border-radius: 6px; text-decoration: none !important; font-size: 13px; font-weight: 600; white-space: nowrap; flex-shrink: 0; }
-        .product-banner-btn:hover { background: #15803d; }
-        .stat-chip { display: inline-flex; align-items: center; gap: 5px; background: #fff; border: 1px solid #e5e7eb; border-radius: 20px; padding: 5px 12px; font-size: 13px; color: #374151; font-weight: 500; }
-        .traffic-card { background: #fff; border-radius: 12px; border: 1px solid #e5e7eb; margin-bottom: 16px; overflow: hidden; }
-        .traffic-card-header { background: #16a34a; color: #fff; padding: 12px 20px; font-size: 14px; font-weight: 700; letter-spacing: .02em; }
-        .traffic-card-desc { padding: 14px 20px 8px; font-size: 13px; color: #374151; line-height: 1.55; }
-        .traffic-stat-row { display: flex; gap: 12px; padding: 8px 20px 12px; }
-        .traffic-stat-box { flex: 1; background: #f5f4f2; border-radius: 8px; padding: 14px 16px; min-width: 0; }
-        .traffic-stat-num { font-size: 22px; font-weight: 800; color: #111827; }
-        .traffic-stat-num.green { color: #16a34a; }
-        .traffic-stat-label { font-size: 12px; font-weight: 600; color: #374151; margin: 2px 0 0; }
-        .traffic-stat-sub { font-size: 11px; color: #9ca3af; margin-top: 2px; }
-        .traffic-card-footer { padding: 8px 20px 14px; font-size: 11px; color: #9ca3af; }
-        .kw-tag { display: inline-block; background: #f0fdf4; color: #166534; border: 1px solid #bbf7d0; border-radius: 12px; padding: 2px 10px; font-size: 12px; font-weight: 500; margin: 2px; }
-        .faq-item { border: 1px solid #e5e7eb; border-radius: 8px; overflow: hidden; margin-bottom: 8px; }
-        .faq-question { display: flex; justify-content: space-between; align-items: center; padding: 12px 16px; cursor: pointer; background: #fff; font-size: 14px; font-weight: 600; color: #111827; }
-        .faq-question:hover { background: #f9fafb; }
-        .faq-answer { padding: 12px 16px; font-size: 14px; color: #374151; line-height: 1.7; border-top: 1px solid #f3f4f6; background: #fafafa; }
-        .top-bar { position: sticky; top: 0; z-index: 50; background: #fff; border-bottom: 1px solid #e5e7eb; padding: 10px 0; margin-bottom: 20px; display: flex; align-items: center; justify-content: space-between; gap: 12px; }
-        .btn-green { padding: 8px 16px; border-radius: 8px; background: #16a34a; color: #fff; border: none; font-size: 13px; font-weight: 600; cursor: pointer; white-space: nowrap; }
-        .btn-green:hover { background: #15803d; }
-        .btn-outline { padding: 8px 16px; border-radius: 8px; background: transparent; color: #374151; border: 1px solid #e5e7eb; font-size: 13px; font-weight: 500; cursor: pointer; white-space: nowrap; }
-        .btn-outline:hover { background: #f9fafb; }
-        .btn-outline-sm { padding: 6px 12px; border-radius: 6px; background: transparent; color: #374151; border: 1px solid #e5e7eb; font-size: 12px; font-weight: 500; cursor: pointer; white-space: nowrap; }
-        .btn-outline-sm:hover { background: #f9fafb; }
-        .card { background: #fff; border-radius: 12px; border: 1px solid #e5e7eb; padding: 20px; margin-bottom: 16px; }
+        /* ── Article body ── */
+        .ab h1 { font-size:23px; font-weight:800; margin:28px 0 12px; color:var(--t1); letter-spacing:-.02em; line-height:1.25; }
+        .ab h2 { font-size:19px; font-weight:700; margin:28px 0 10px; color:var(--t1); letter-spacing:-.015em; border-bottom:1px solid var(--border); padding-bottom:8px; }
+        .ab h3 { font-size:16px; font-weight:700; margin:20px 0 8px; color:var(--t1); }
+        .ab p  { margin:0 0 16px; line-height:1.8; color:var(--t2); font-size:15px; }
+        .ab hr { border:none; border-top:1px solid var(--border); margin:28px 0; }
+        .ab a  { color:var(--accent); text-decoration:underline; }
+        .ab ul,.ab ol { margin:0 0 16px; padding-left:22px; }
+        .ab li { margin-bottom:7px; line-height:1.7; color:var(--t2); font-size:15px; }
+        .ab blockquote { border-left:3px solid var(--border-md); padding-left:16px; color:var(--t3); font-style:italic; margin:16px 0; }
+        .ab strong { color:var(--t1); font-weight:700; }
+        /* ── Product card (BannerCard style) ── */
+        .pcard {
+          display:flex; align-items:center; gap:16px;
+          margin:28px 0; padding:18px 20px;
+          background:#fff; border:1px solid var(--border);
+          border-radius:14px; text-decoration:none !important;
+          box-shadow:0 2px 12px rgba(0,0,0,.05);
+          transition:transform .15s, box-shadow .15s;
+          cursor:pointer;
+        }
+        .pcard:hover { transform:translateY(-2px); box-shadow:0 6px 24px rgba(0,0,0,.10); }
+        .pcard-img {
+          width:56px; height:56px; border-radius:10px;
+          object-fit:cover; flex-shrink:0;
+          background:var(--bg); border:1px solid var(--border);
+        }
+        .pcard-img-placeholder {
+          display:flex; align-items:center; justify-content:center;
+          font-size:22px;
+        }
+        .pcard-body { flex:1; min-width:0; }
+        .pcard-top { display:flex; align-items:center; gap:8px; margin-bottom:4px; flex-wrap:wrap; }
+        .pcard-badge {
+          font-size:10px; font-weight:700; letter-spacing:.06em;
+          text-transform:uppercase; background:rgba(22,163,74,.10);
+          color:var(--accent); padding:2px 8px; border-radius:100px;
+        }
+        .pcard-price { font-size:13px; font-weight:700; color:var(--accent); }
+        .pcard-name { font-size:14px; font-weight:700; color:var(--t1); margin-bottom:3px; line-height:1.3; }
+        .pcard-desc { font-size:13px; color:var(--t2); line-height:1.5; }
+        .pcard-cta {
+          flex-shrink:0; padding:9px 16px;
+          border-radius:100px; background:var(--t1);
+          color:#fff !important; font-size:13px; font-weight:600;
+          white-space:nowrap; text-decoration:none !important;
+        }
+        @media(max-width:600px){
+          .pcard { flex-wrap:wrap; }
+          .pcard-cta { width:100%; text-align:center; }
+        }
+        /* ── UI chips / tags ── */
+        .chip { display:inline-flex; align-items:center; gap:5px; background:#fff; border:1px solid var(--border); border-radius:100px; padding:5px 12px; font-size:12px; color:var(--t2); font-weight:500; }
+        .kwtag { display:inline-block; background:var(--accent-lt); color:#166534; border:1px solid rgba(22,163,74,.25); border-radius:12px; padding:2px 10px; font-size:12px; font-weight:500; margin:2px; }
+        /* ── Top action bar ── */
+        .topbar { position:sticky; top:0; z-index:50; background:rgba(249,248,248,.92); backdrop-filter:blur(12px); border-bottom:1px solid var(--border); padding:10px 0; margin-bottom:20px; display:flex; align-items:center; justify-content:space-between; gap:12px; }
+        /* ── Sections ── */
+        .section { background:#fff; border:1px solid var(--border); border-radius:14px; padding:20px; margin-bottom:16px; box-shadow:var(--shadow-sm); }
+        .section-title { font-size:13px; font-weight:700; color:var(--t1); margin-bottom:14px; letter-spacing:.01em; text-transform:uppercase; }
+        /* ── Buttons ── */
+        .btn-g { padding:8px 16px; border-radius:100px; background:var(--accent); color:#fff; border:none; font-size:13px; font-weight:600; cursor:pointer; white-space:nowrap; transition:opacity .15s; }
+        .btn-g:hover { opacity:.85; }
+        .btn-o { padding:8px 16px; border-radius:100px; background:transparent; color:var(--t2); border:1px solid var(--border-md); font-size:13px; font-weight:500; cursor:pointer; white-space:nowrap; }
+        .btn-o:hover { background:rgba(0,0,0,.04); }
+        .btn-sm { padding:6px 12px; border-radius:100px; background:transparent; color:var(--t2); border:1px solid var(--border); font-size:12px; font-weight:500; cursor:pointer; white-space:nowrap; }
+        .btn-sm:hover { background:rgba(0,0,0,.04); }
+        /* ── FAQ ── */
+        .faq-item { border:1px solid var(--border); border-radius:10px; overflow:hidden; margin-bottom:8px; }
+        .faq-q { display:flex; justify-content:space-between; align-items:center; padding:12px 16px; cursor:pointer; background:#fff; font-size:14px; font-weight:600; color:var(--t1); }
+        .faq-q:hover { background:var(--bg); }
+        .faq-a { padding:12px 16px; font-size:14px; color:var(--t2); line-height:1.7; border-top:1px solid var(--border); background:var(--bg); }
       `}</style>
 
-      {/* ---- Sticky top action bar ---- */}
-      <div className="top-bar">
-        <div style={{ display: "flex", alignItems: "center", gap: 12, minWidth: 0 }}>
-          <Link
-            href="/dashboard"
-            style={{ color: "#6b7280", fontSize: 13, textDecoration: "none", whiteSpace: "nowrap" }}
-          >
+      {/* ─── Sticky top bar ──────────────────────────────────────────────── */}
+      <div className="topbar">
+        <div style={{ display:"flex", alignItems:"center", gap:12, minWidth:0 }}>
+          <Link href="/dashboard" style={{ color:"var(--t3)", fontSize:13, textDecoration:"none", whiteSpace:"nowrap" }}>
             ← Back
           </Link>
-          <span style={{ fontSize: 14, fontWeight: 600, color: "#111827", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+          <span style={{ fontSize:14, fontWeight:600, color:"var(--t1)", overflow:"hidden", textOverflow:"ellipsis", whiteSpace:"nowrap" }}>
             {article.title}
           </span>
         </div>
-
-        <div style={{ display: "flex", gap: 8, flexShrink: 0 }}>
+        <div style={{ display:"flex", gap:8, flexShrink:0 }}>
           {hasFeedback ? (
-            <span style={{ fontSize: 13, color: "#16a34a", fontWeight: 500 }}>✓ Feedback submitted</span>
+            <span style={{ fontSize:13, color:"var(--accent)", fontWeight:500 }}>✓ Feedback submitted</span>
           ) : (
             <>
-              <button
-                className="btn-green"
-                onClick={() => submitFeedback("good")}
-                disabled={submitting}
-              >
-                ✓ Approve
-              </button>
-              <button
-                className="btn-outline"
-                onClick={() => { setShowRevisionForm(true); window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" }); }}
-              >
-                ✗ Needs revision
-              </button>
+              <button className="btn-g" onClick={() => submitFeedback("good")} disabled={submitting}>✓ Approve</button>
+              <button className="btn-o" onClick={() => { setShowRevisionForm(true); window.scrollTo({ top: document.body.scrollHeight, behavior:"smooth" }); }}>✗ Revise</button>
             </>
           )}
         </div>
       </div>
 
-      {/* ---- CRITICAL QA Issues panel (RED, blocking) ---- */}
+      {/* ─── Critical QA (blocking) ──────────────────────────────────────── */}
       {article.qaCriticalIssues && article.qaCriticalIssues.length > 0 && (
-        <div style={{
-          background: "#fef2f2",
-          border: "1px solid #fca5a5",
-          borderLeft: "4px solid #dc2626",
-          borderRadius: 10,
-          marginBottom: 16,
-          overflow: "hidden",
-        }}>
-          <div style={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-            padding: "12px 16px",
-            fontSize: 13,
-            fontWeight: 700,
-            color: "#991b1b",
-          }}>
-            <span>🚫 Critical QA Issues — Article held for review ({article.qaCriticalIssues.length})</span>
+        <div style={{ background:"#fef2f2", border:"1px solid #fca5a5", borderLeft:"4px solid #dc2626", borderRadius:12, marginBottom:16, overflow:"hidden" }}>
+          <div style={{ padding:"12px 16px", fontSize:13, fontWeight:700, color:"#991b1b" }}>
+            🚫 Critical QA Issues — Article held for review ({article.qaCriticalIssues.length})
           </div>
-          <ul style={{ margin: 0, padding: "0 16px 12px 32px" }}>
+          <ul style={{ margin:0, padding:"0 16px 12px 32px" }}>
             {article.qaCriticalIssues.map((issue, i) => (
-              <li key={i} style={{ fontSize: 13, color: "#7f1d1d", marginBottom: 4, lineHeight: 1.5 }}>{issue}</li>
+              <li key={i} style={{ fontSize:13, color:"#7f1d1d", marginBottom:4, lineHeight:1.5 }}>{issue}</li>
             ))}
           </ul>
         </div>
       )}
 
-      {/* ---- Style QA Issues panel (yellow, collapsible) ---- */}
+      {/* ─── Style QA (collapsible) ──────────────────────────────────────── */}
       {article.qaIssues && article.qaIssues.length > 0 && (
-        <div style={{
-          background: "#fffbeb",
-          border: "1px solid #fde68a",
-          borderRadius: 10,
-          marginBottom: 16,
-          overflow: "hidden",
-        }}>
-          <button
-            onClick={() => setQaOpen(!qaOpen)}
-            style={{
-              width: "100%",
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
-              padding: "12px 16px",
-              background: "transparent",
-              border: "none",
-              cursor: "pointer",
-              fontSize: 13,
-              fontWeight: 600,
-              color: "#92400e",
-            }}
-          >
-            <span>⚠️ Style Notes ({article.qaIssues.length} issue{article.qaIssues.length !== 1 ? "s" : ""})</span>
-            <span style={{ fontSize: 11, color: "#b45309" }}>{qaOpen ? "▲ Hide" : "▼ Show"}</span>
+        <div style={{ background:"#fffbeb", border:"1px solid #fde68a", borderRadius:12, marginBottom:16, overflow:"hidden" }}>
+          <button onClick={() => setQaOpen(!qaOpen)} style={{ width:"100%", display:"flex", justifyContent:"space-between", alignItems:"center", padding:"12px 16px", background:"transparent", border:"none", cursor:"pointer", fontSize:13, fontWeight:600, color:"#92400e" }}>
+            <span>⚠️ Style notes ({article.qaIssues.length})</span>
+            <span style={{ fontSize:11, color:"#b45309" }}>{qaOpen ? "▲ Hide" : "▼ Show"}</span>
           </button>
           {qaOpen && (
-            <ul style={{ margin: 0, padding: "0 16px 12px 32px" }}>
+            <ul style={{ margin:0, padding:"0 16px 12px 32px" }}>
               {article.qaIssues.map((issue, i) => (
-                <li key={i} style={{ fontSize: 13, color: "#78350f", marginBottom: 4, lineHeight: 1.5 }}>{issue}</li>
+                <li key={i} style={{ fontSize:13, color:"#78350f", marginBottom:4, lineHeight:1.5 }}>{issue}</li>
               ))}
             </ul>
           )}
         </div>
       )}
 
-      {/* ---- Keyword stats chips ---- */}
-      <div style={{ display: "flex", flexWrap: "wrap", gap: 8, marginBottom: 16 }}>
-        <span className="stat-chip">🔍 {article.targetKeyword}</span>
-        <span className="stat-chip">📝 {article.wordCount.toLocaleString()} words</span>
-        <span className="stat-chip">⏱ {readingTime} min read</span>
+      {/* ─── Stats chips ─────────────────────────────────────────────────── */}
+      <div style={{ display:"flex", flexWrap:"wrap", gap:8, marginBottom:20 }}>
+        <span className="chip">🔍 {article.targetKeyword}</span>
+        <span className="chip">📝 {article.wordCount.toLocaleString()} words</span>
+        <span className="chip">⏱ {readingTime} min read</span>
         {article.qaScore != null && (
-          <span className="stat-chip">⭐ QA: {article.qaScore}/100</span>
+          <span className="chip" style={{ color: article.qaScore >= 85 ? "var(--accent)" : "#b45309" }}>
+            ⭐ QA {article.qaScore}/100
+          </span>
         )}
       </div>
 
-      {/* ---- Traffic Opportunity Card ---- */}
-      {article.monthlyVolume != null && article.monthlyVolume > 0 && (() => {
-        const volume = article.monthlyVolume!;
-        const growthPct = [0, 0, 1, 2, 4, 8, 15, 28, 45, 65, 82, 100];
-        const maxMonthly = volume * 0.035;
-        const monthlyVisitors = growthPct.map(p => Math.round(maxMonthly * p / 100));
-        const organicYr1 = monthlyVisitors.reduce((a, b) => a + b, 0);
-        const customers = Math.round(organicYr1 * 0.02);
-        const displayVol = volume >= 1000 ? `${(volume / 1000).toFixed(1)}k` : String(volume);
-        const storeName = article.storeName || "tu tienda";
+      {/* ─── Traffic Opportunity Card ─────────────────────────────────────── */}
+      {trafficCard}
 
-        // SVG chart
-        const svgW = 560; const svgH = 100;
-        const padL = 8; const padR = 8; const padT = 8; const padB = 20;
-        const chartW = svgW - padL - padR;
-        const chartH = svgH - padT - padB;
-        const maxV = Math.max(...monthlyVisitors, 1);
-        const pts = monthlyVisitors.map((v, i) => {
-          const x = padL + (i / 11) * chartW;
-          const y = padT + chartH - (v / maxV) * chartH;
-          return `${x},${y}`;
-        });
-        const firstX = padL; const firstY = padT + chartH;
-        const lastX = padL + chartW; const lastY = padT + chartH;
-        const polyline = pts.join(' ');
-        const fillPath = `M${firstX},${firstY} L${pts.join(' L')} L${lastX},${lastY} Z`;
-        // X-axis label positions: month indices 0=Jan,3=Abr,6=Jul,9=Oct
-        const xLabels = [
-          { i: 0, label: 'Ene' },
-          { i: 3, label: 'Abr' },
-          { i: 6, label: 'Jul' },
-          { i: 9, label: 'Oct' },
-        ];
-
-        return (
-          <div className="traffic-card">
-            <div className="traffic-card-header">📊 OPORTUNIDAD DE TRÁFICO</div>
-            <div className="traffic-card-desc">
-              <strong>{volume.toLocaleString()}</strong> personas/mes buscan &ldquo;{article.targetKeyword}&rdquo;. Esto es lo que el SEO consistente podría suponer para <strong>{storeName}</strong> en 12 meses:
-            </div>
-            <div className="traffic-stat-row">
-              <div className="traffic-stat-box">
-                <div className="traffic-stat-num">{displayVol}</div>
-                <div className="traffic-stat-label">Búsquedas mensuales</div>
-                <div className="traffic-stat-sub">para tu cluster de keywords</div>
-              </div>
-              <div className="traffic-stat-box">
-                <div className="traffic-stat-num">{organicYr1.toLocaleString()}</div>
-                <div className="traffic-stat-label">Visitantes orgánicos (año 1)</div>
-                <div className="traffic-stat-sub">estimación conservadora acumulada</div>
-              </div>
-              <div className="traffic-stat-box">
-                <div className="traffic-stat-num green">{customers.toLocaleString()}</div>
-                <div className="traffic-stat-label">Clientes potenciales</div>
-                <div className="traffic-stat-sub">al 2% de conversión</div>
-              </div>
-            </div>
-            {/* SVG Growth Chart */}
-            <div style={{ padding: "0 20px 4px" }}>
-              <div style={{ fontSize: 11, color: "#6b7280", marginBottom: 6, fontWeight: 500 }}>Visitantes orgánicos acumulados — proyección 12 meses</div>
-              <svg viewBox={`0 0 ${svgW} ${svgH}`} width="100%" height="140" style={{ display: "block" }}>
-                {/* Filled area */}
-                <path d={fillPath} fill="#dcfce7" opacity="0.7" />
-                {/* Line */}
-                <polyline points={polyline} fill="none" stroke="#16a34a" strokeWidth="2.5" strokeLinejoin="round" strokeLinecap="round" />
-                {/* X-axis labels */}
-                {xLabels.map(({ i, label }) => (
-                  <text
-                    key={i}
-                    x={padL + (i / 11) * chartW}
-                    y={svgH - 2}
-                    fontSize="10"
-                    fill="#9ca3af"
-                    textAnchor="middle"
-                  >{label}</text>
-                ))}
-              </svg>
-            </div>
-            <div className="traffic-card-footer">Proyección basada en posición media 5-8, CTR 3.5%, conversión 2% visitante-cliente.</div>
-          </div>
-        );
-      })()}
-
-      {/* ---- SEO metadata card ---- */}
-      <div className="card">
-        <div style={{ fontSize: 13, fontWeight: 600, color: "#111827", marginBottom: 12 }}>SEO Metadata</div>
-        <div style={{ display: "grid", gap: 8 }}>
+      {/* ─── SEO Metadata ────────────────────────────────────────────────── */}
+      <div className="section">
+        <div className="section-title">SEO Metadata</div>
+        <div style={{ display:"grid", gap:10 }}>
           {article.metaTitle && (
             <div>
-              <div style={{ fontSize: 11, color: "#6b7280", fontWeight: 500, marginBottom: 2 }}>Meta title</div>
-              <div style={{ fontSize: 13, color: "#111827" }}>{article.metaTitle}</div>
+              <div style={{ fontSize:11, color:"var(--t3)", fontWeight:600, marginBottom:2, textTransform:"uppercase", letterSpacing:".04em" }}>Meta title</div>
+              <div style={{ fontSize:14, color:"var(--t1)" }}>{article.metaTitle}</div>
             </div>
           )}
           <div>
-            <div style={{ fontSize: 11, color: "#6b7280", fontWeight: 500, marginBottom: 2 }}>Meta description</div>
-            <div style={{ fontSize: 13, color: "#374151", lineHeight: 1.6 }}>{article.metaDescription}</div>
-          </div>
-          <div>
-            <div style={{ fontSize: 11, color: "#6b7280", fontWeight: 500, marginBottom: 2 }}>Target keyword</div>
-            <div style={{ fontSize: 13, color: "#374151" }}>{article.targetKeyword}</div>
+            <div style={{ fontSize:11, color:"var(--t3)", fontWeight:600, marginBottom:2, textTransform:"uppercase", letterSpacing:".04em" }}>Meta description</div>
+            <div style={{ fontSize:14, color:"var(--t2)", lineHeight:1.65 }}>{article.metaDescription}</div>
           </div>
           {article.secondaryKeywords.length > 0 && (
             <div>
-              <div style={{ fontSize: 11, color: "#6b7280", fontWeight: 500, marginBottom: 4 }}>Secondary keywords</div>
-              <div>
-                {article.secondaryKeywords.map((kw) => (
-                  <span key={kw} className="kw-tag">{kw}</span>
-                ))}
-              </div>
+              <div style={{ fontSize:11, color:"var(--t3)", fontWeight:600, marginBottom:6, textTransform:"uppercase", letterSpacing:".04em" }}>Secondary keywords</div>
+              <div>{article.secondaryKeywords.map(kw => <span key={kw} className="kwtag">{kw}</span>)}</div>
             </div>
           )}
         </div>
       </div>
 
-      {/* ---- Article content ---- */}
-      <div className="card">
-        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 16, flexWrap: "wrap", gap: 8 }}>
-          <div style={{ fontSize: 13, fontWeight: 600, color: "#111827" }}>Article content</div>
-          <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
-            <button
-              className="btn-green"
-              onClick={copyHtml}
-              style={{ fontSize: 12, padding: "6px 12px" }}
-            >
-              {copyState === "html" ? "Copied!" : "Copy HTML"}
+      {/* ─── Article Content ─────────────────────────────────────────────── */}
+      <div className="section">
+        <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", marginBottom:20, flexWrap:"wrap", gap:8 }}>
+          <div className="section-title" style={{ margin:0 }}>Article Content</div>
+          <div style={{ display:"flex", gap:6, flexWrap:"wrap" }}>
+            <button className="btn-g" onClick={copyHtml} style={{ fontSize:12, padding:"6px 14px" }}>
+              {copyState === "html" ? "Copied!" : "📋 Copy HTML"}
             </button>
-            <button
-              className="btn-outline-sm"
-              onClick={copyMarkdown}
-            >
+            <button className="btn-sm" onClick={copyMarkdown}>
               {copyState === "md" ? "Copied!" : "Copy Markdown"}
             </button>
-            <button
-              className="btn-outline-sm"
-              onClick={downloadHtml}
-            >
-              ⬇ Download HTML
-            </button>
+            <button className="btn-sm" onClick={downloadHtml}>⬇ Download</button>
           </div>
         </div>
-
-        <div
-          className="article-body"
-          dangerouslySetInnerHTML={{ __html: renderedHtml }}
-        />
+        <div className="ab" dangerouslySetInnerHTML={{ __html: renderedHtml }} />
       </div>
 
-      {/* ---- FAQ section ---- */}
+      {/* ─── FAQ ─────────────────────────────────────────────────────────── */}
       {article.faqItems && article.faqItems.length > 0 && (
-        <div className="card">
-          <div style={{ fontSize: 15, fontWeight: 700, color: "#111827", marginBottom: 14 }}>Frequently Asked Questions</div>
+        <div className="section">
+          <div className="section-title">Frequently Asked Questions</div>
           {article.faqItems.map((item, i) => (
             <div key={i} className="faq-item">
-              <div
-                className="faq-question"
-                onClick={() => setOpenFaq(openFaq === i ? null : i)}
-              >
+              <div className="faq-q" onClick={() => setOpenFaq(openFaq === i ? null : i)}>
                 <span>{item.question}</span>
-                <span style={{ fontSize: 12, color: "#6b7280", marginLeft: 8 }}>{openFaq === i ? "▲" : "▼"}</span>
+                <span style={{ fontSize:12, color:"var(--t3)", marginLeft:8 }}>{openFaq === i ? "▲" : "▼"}</span>
               </div>
-              {openFaq === i && (
-                <div className="faq-answer">{item.answer}</div>
-              )}
+              {openFaq === i && <div className="faq-a">{item.answer}</div>}
             </div>
           ))}
         </div>
       )}
 
-      {/* ---- Feedback section ---- */}
-      <div className="card">
-        <div style={{ fontSize: 15, fontWeight: 600, color: "#111827", marginBottom: 12 }}>Feedback</div>
-
+      {/* ─── Feedback ────────────────────────────────────────────────────── */}
+      <div className="section">
+        <div className="section-title">Feedback</div>
         {hasFeedback ? (
-          <div style={{ padding: 16, background: "#f0fdf4", borderRadius: 8, fontSize: 14, color: "#166534" }}>
+          <div style={{ padding:16, background:"#f0fdf4", borderRadius:10, fontSize:14, color:"#166534" }}>
             {feedback?.rating === "good" || (!feedback && submitted)
-              ? "✓ Thanks for your feedback! Your article is approved."
-              : "Thanks! We'll revise and notify you when the updated version is ready."}
+              ? "✓ Thanks! Your article is approved."
+              : "Thanks! We'll revise and let you know when it's ready."}
           </div>
         ) : (
           <div>
-            <p style={{ fontSize: 14, color: "#6b7280", marginBottom: 16 }}>How does this article look?</p>
-
+            <p style={{ fontSize:14, color:"var(--t2)", marginBottom:16 }}>How does this article look?</p>
             {showRevisionForm ? (
               <div>
                 <textarea
                   value={comment}
-                  onChange={(e) => setComment(e.target.value)}
+                  onChange={e => setComment(e.target.value)}
                   placeholder="What would you like changed? Be as specific as possible."
                   rows={4}
-                  style={{
-                    width: "100%",
-                    padding: "10px 14px",
-                    borderRadius: 8,
-                    border: "1px solid #e5e7eb",
-                    fontSize: 14,
-                    resize: "vertical",
-                    marginBottom: 12,
-                    boxSizing: "border-box",
-                  }}
+                  style={{ width:"100%", padding:"10px 14px", borderRadius:10, border:"1px solid var(--border-md)", fontSize:14, resize:"vertical", marginBottom:12, boxSizing:"border-box", background:"var(--bg)" }}
                 />
-                <div style={{ display: "flex", gap: 8 }}>
-                  <button
-                    onClick={() => submitFeedback("needs_revision")}
-                    disabled={submitting}
-                    style={{
-                      padding: "10px 20px",
-                      borderRadius: 8,
-                      background: "#f59e0b",
-                      color: "#fff",
-                      border: "none",
-                      fontSize: 14,
-                      fontWeight: 600,
-                      cursor: "pointer",
-                    }}
-                  >
-                    {submitting ? "Submitting..." : "Request revision"}
+                <div style={{ display:"flex", gap:8 }}>
+                  <button onClick={() => submitFeedback("needs_revision")} disabled={submitting} style={{ padding:"10px 20px", borderRadius:100, background:"#f59e0b", color:"#fff", border:"none", fontSize:14, fontWeight:600, cursor:"pointer" }}>
+                    {submitting ? "Submitting…" : "Request revision"}
                   </button>
-                  <button
-                    onClick={() => setShowRevisionForm(false)}
-                    className="btn-outline"
-                  >
-                    Cancel
-                  </button>
+                  <button className="btn-o" onClick={() => setShowRevisionForm(false)}>Cancel</button>
                 </div>
               </div>
             ) : (
-              <div style={{ display: "flex", gap: 12 }}>
-                <button
-                  className="btn-green"
-                  onClick={() => submitFeedback("good")}
-                  disabled={submitting}
-                  style={{ padding: "10px 20px", fontSize: 14 }}
-                >
+              <div style={{ display:"flex", gap:10 }}>
+                <button className="btn-g" onClick={() => submitFeedback("good")} disabled={submitting} style={{ padding:"10px 22px", fontSize:14 }}>
                   ✓ Looks good
                 </button>
-                <button
-                  className="btn-outline"
-                  onClick={() => setShowRevisionForm(true)}
-                  style={{ padding: "10px 20px", fontSize: 14 }}
-                >
+                <button className="btn-o" onClick={() => setShowRevisionForm(true)} style={{ padding:"10px 22px", fontSize:14 }}>
                   ✗ Needs revision
                 </button>
               </div>

@@ -60,7 +60,11 @@ export const getForUser = query({
       .withIndex("by_article", (q) => q.eq("articleId", args.articleId))
       .first();
 
-    return { article, feedback: feedback?.userId === user._id ? feedback : null };
+    // Join storeName from client
+    const client = await ctx.db.get(article.clientId);
+    const articleWithMeta = { ...article, storeName: client?.storeName ?? undefined };
+
+    return { article: articleWithMeta, feedback: feedback?.userId === user._id ? feedback : null };
   },
 });
 
@@ -208,6 +212,13 @@ export const updateGeneratedArticle = mutation({
     qaIssues: v.optional(v.array(v.string())),
     qaCriticalIssues: v.optional(v.array(v.string())),
     monthlyVolume: v.optional(v.number()),
+    productBanners: v.optional(v.array(v.object({
+      name: v.string(),
+      imageUrl: v.optional(v.string()),
+      price: v.optional(v.string()),
+      description: v.optional(v.string()),
+      url: v.string(),
+    }))),
     status: v.union(
       v.literal("queued"), v.literal("generating"), v.literal("review"),
       v.literal("approved"), v.literal("published"), v.literal("delivered"), v.literal("revision")

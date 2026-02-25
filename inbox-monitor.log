@@ -570,3 +570,14 @@ Telegram notified: noreply-dmarc-support@google.com
 /root/.openclaw/workspace/contentbloom/check-inbox.py:147: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
   print(f"[{datetime.utcnow().strftime('%H:%M UTC')}] No new emails")
 [19:00 UTC] No new emails
+/root/.openclaw/workspace/contentbloom/check-inbox.py:147: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  print(f"[{datetime.utcnow().strftime('%H:%M UTC')}] No new emails")
+[19:30 UTC] No new emails
+NEW EMAIL: "DMARC Aggregate Report" <dmarcreport@microsoft.com> → rafa@bloomcontent.site | [Preview] Report Domain: bloomcontent.site Submitter: enterprise.protection.outlook.com Report-ID: 4c058201d542462f8ca61a5cc3fee490
+Telegram notified: "DMARC Aggregate Report" <dmarcreport@microsoft.com>
+NEW EMAIL: Rafa <rafa@trybloomcontent.site> → matt.roberts@bloomcontent.site | Article draft — thoughts?
+Telegram notified: Rafa <rafa@trybloomcontent.site>
+NEW EMAIL: Matt <matt@trybloomcontent.site> → rafa@bloomcontent.site | Quick question about the Shopify blog setup
+Telegram notified: Matt <matt@trybloomcontent.site>
+NEW EMAIL: Matt <matt@trybloomcontent.site> → rafa@bloomcontent.site | Article draft — thoughts?
+Telegram notified: Matt <matt@trybloomcontent.site>
