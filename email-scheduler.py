@@ -32,6 +32,9 @@ log = logging.getLogger(__name__)
 
 # ── Config ────────────────────────────────────────────────────────────────────
 
+# Anthropic API Key for AI-powered follow-ups
+ANTHROPIC_API_KEY = os.getenv("ANTHROPIC_API_KEY", "")
+
 def load_env():
     env = {}
     with open(BASE_DIR / ".env") as f:
@@ -40,7 +43,124 @@ def load_env():
             if line and not line.startswith("#") and "=" in line:
                 k, v = line.split("=", 1)
                 env[k] = v
+                # Also check for ANTHROPIC_API_KEY in .env
+                if k == "ANTHROPIC_API_KEY":
+                    global ANTHROPIC_API_KEY
+                    ANTHROPIC_API_KEY = v
     return env
+
+# ── AI Follow-up Generation (Anthropic Sonnet) ───────────────────────────────
+
+def generate_ai_followup(store_name: str, niche: str, follow_up_count: int, lang: str = "en", sender_name: str = "Matt") -> tuple:
+    """
+    Generate personalized follow-up email using Anthropic Sonnet.
+    Returns: (subject, body)
+    """
+    if not ANTHROPIC_API_KEY:
+        log.warning("No ANTHROPIC_API_KEY, using template follow-ups")
+        return None, None
+    
+    follow_up_types = {
+        1: "gentle check-in (day 3)",
+        2: "last chance (day 6)", 
+        3: "closing the loop (day 10)"
+    }
+    
+    follow_up_type = follow_up_types.get(follow_up_count, "follow-up")
+    
+    prompts = {
+        "en": f"""Write a short, personalized follow-up email for a cold outreach about free SEO content.
+
+Context:
+- Store: {store_name}
+- Niche: {niche}
+- Type: {follow_up_type}
+- Sender: {sender_name} from BloomContent
+- Offering: 2 free SEO articles + content strategy
+
+Requirements:
+- Subject line: short, personal, not salesy
+- Body: 2-3 short paragraphs max
+- Tone: friendly but professional
+- CTA: clear and simple
+- No generic fluff - make it feel personal
+
+Format exactly as:
+SUBJECT: [subject line]
+
+[email body]""",
+        "es": f"""Escribe un email de seguimiento corto y personalizado para un outreach sobre contenido SEO gratuito.
+
+Contexto:
+- Tienda: {store_name}
+- Nicho: {niche}
+- Tipo: {follow_up_type}
+- Remitente: {sender_name} de BloomContent
+- Oferta: 2 artículos SEO gratuitos + estrategia de contenido
+
+Requisitos:
+- Asunto: corto, personal, no comercial
+- Cuerpo: máximo 2-3 párrafos cortos
+- Tono: amigable pero profesional
+- CTA: clara y simple
+- Sin clichés - que parezca personal
+
+Formato exacto:
+ASUNTO: [línea de asunto]
+
+[cuerpo del email]""",
+    }
+    
+    prompt = prompts.get(lang, prompts["en"])
+    
+    try:
+        response = requests.post(
+            "https://api.anthropic.com/v1/messages",
+            headers={
+                "Content-Type": "application/json",
+                "x-api-key": ANTHROPIC_API_KEY,
+                "anthropic-version": "2023-06-01"
+            },
+            json={
+                "model": "claude-3-5-sonnet-20241022",
+                "max_tokens": 500,
+                "temperature": 0.7,
+                "messages": [{"role": "user", "content": prompt}]
+            },
+            timeout=30
+        )
+        
+        if response.status_code == 200:
+            content = response.json()["content"][0]["text"]
+            
+            # Parse subject and body
+            lines = content.strip().split("\n")
+            subject = ""
+            body_lines = []
+            in_body = False
+            
+            for line in lines:
+                if line.startswith("SUBJECT:") or line.startswith("ASUNTO:"):
+                    subject = line.split(":", 1)[1].strip()
+                elif in_body:
+                    body_lines.append(line)
+                elif line.strip() == "" and subject:
+                    in_body = True
+            
+            if not in_body:
+                # If no blank line found, everything after subject is body
+                body_lines = lines[1:]
+            
+            body = "\n".join(body_lines).strip()
+            
+            if subject and body:
+                log.info(f"AI follow-up generated for {store_name} (type: {follow_up_type})")
+                return subject, body
+                
+    except Exception as e:
+        log.error(f"AI follow-up generation failed: {e}")
+    
+    return None, None
 
 def load_accounts():
     with open(BASE_DIR / "accounts.json") as f:
@@ -152,10 +272,22 @@ Takes 2 minutes to read. Let me know what you think.
 # ── Follow-up email templates ─────────────────────────────────────────────────
 
 def build_follow_up_email(lead: dict, sender_name: str, follow_up_count: int) -> tuple[str, str]:
-    """Build follow-up email based on follow_up_count (1, 2, or 3)."""
+    """Build follow-up email based on follow_up_count (1, 2, or 3).
+    
+    Tries AI generation first (Sonnet), falls back to templates if unavailable.
+    """
     store = lead.get("storeName", lead.get("domain", "your store"))
     niche = lead.get("niche", "your niche")
     lang = lead.get("language", "en")
+
+    # Try AI-generated follow-up first (using Sonnet - tier 2)
+    ai_subject, ai_body = generate_ai_followup(store, niche, follow_up_count, lang, sender_name)
+    if ai_subject and ai_body:
+        log.info(f"Using AI-generated follow-up #{follow_up_count} for {store}")
+        return ai_subject, ai_body
+
+    # Fall back to templates if AI fails
+    log.info(f"Using template follow-up #{follow_up_count} for {store}")
 
     # Follow-up #1: Day 3 after initial - gentle check-in
     if follow_up_count == 1:
