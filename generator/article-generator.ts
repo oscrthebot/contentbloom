@@ -98,7 +98,7 @@ async function aiCall(systemPrompt: string, userPrompt: string, maxTokens = 4000
           { role: 'system', content: systemPrompt },
           { role: 'user', content: userPrompt },
         ],
-        max_tokens: Math.min(maxTokens, 3000), // cap for credit management
+        max_tokens: Math.min(maxTokens, 8000), // allow up to 8000 tokens (full articles)
         temperature: 0.7,
       });
       return response.choices[0]?.message?.content ?? '';
@@ -211,7 +211,7 @@ ${allIssues.map((i, n) => `${n + 1}. ${i}`).join('\n')}
 
 Return ONLY the corrected article text, no commentary.`;
 
-  return await aiCall(prompt, content);
+  return await aiCall(prompt, content, 8000);
 }
 
 // ---------- Language Instructions ----------
@@ -353,7 +353,7 @@ const HUMANIZER_SYSTEM = `You are an editor removing AI-generated writing patter
 Return only the edited text, no commentary.`;
 
 export async function humanizeContent(content: string): Promise<string> {
-  return await aiCall(HUMANIZER_SYSTEM, content);
+  return await aiCall(HUMANIZER_SYSTEM, content, 8000);
 }
 
 // ---------- Step 3d: QA Review ----------
