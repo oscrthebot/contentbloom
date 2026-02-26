@@ -107,3 +107,95 @@ export const getArticlesByKeyword = query({
     );
   },
 });
+
+// ── Revision System ────────────────────────────────────────────────────────
+
+export const requestRevision = mutation({
+  args: {
+    articleId: v.id("articles"),
+    feedback: v.string(),
+    userId: v.id("users"),
+  },
+  handler: async (ctx, args) => {
+    const article = await ctx.db.get(args.articleId);
+    if (!article) return { error: "Article not found" };
+
+    // Get user to check plan
+    const user = await ctx.db.get(args.userId);
+    if (!user) return { error: "User not found" };
+
+    // Trial users get 0 revisions
+    if (user.plan === "trial") {
+      return { error: "Revisions are not available on trial plans" };
+    }
+
+    // Check if revision already requested for this article
+    const currentRevisionCount = article.revisionCount ?? 0;
+    if (currentRevisionCount >= 1) {
+      return { error: "Revision limit reached for this article" };
+    }
+
+    // Update article with revision request
+    await ctx.db.patch(args.articleId, {
+      revisionRequested: true,
+      revisionCount: currentRevisionCount + 1,
+      revisionFeedback: args.feedback,
+      revisionStatus: "requested",
+    });
+
+    return { success: true };
+  },
+});
+
+export const startRevision = mutation({
+  args: {
+    articleId: v.id("articles"),
+  },
+  handler: async (ctx, args) => {
+    const article = await ctx.db.get(args.articleId);
+    if (!article) return { error: "Article not found" };
+
+    await ctx.db.patch(args.articleId, {
+      revisionStatus: "in_progress",
+    });
+
+    return { success: true };
+  },
+});
+
+export const completeRevision = mutation({
+  args: {
+    originalArticleId: v.id("articles"),
+    newArticleId: v.id("articles"),
+  },
+  handler: async (ctx, args) => {
+    const originalArticle = await ctx.db.get(args.originalArticleId);
+    if (!originalArticle) return { error: "Original article not found" };
+
+    // Mark original as completed
+    await ctx.db.patch(args.originalArticleId, {
+      revisionStatus: "completed",
+    });
+
+    // Update new article with reference to original
+    await ctx.db.patch(args.newArticleId, {
+      originalArticleId: args.originalArticleId,
+    });
+
+    return { success: true };
+  },
+});
+
+export const getArticlesNeedingRevision = query({
+  args: {},
+  handler: async (ctx) => {
+    const articles = await ctx.db
+      .query("articles")
+      .withIndex("by_status", (q) => q.eq("status", "revision"))
+      .collect();
+
+    return articles.filter(
+      (a) => a.revisionStatus === "requested" || a.revisionStatus === "in_progress"
+    );
+  },
+});

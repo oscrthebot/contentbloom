@@ -104,9 +104,24 @@ export const submitFeedback = mutation({
 
     // Update article status if revision requested
     if (args.rating === "needs_revision") {
+      // Check if user can request revisions (trial users cannot)
+      if (user.plan === "trial") {
+        return { error: "Revisions are not available on trial plans. Upgrade to request changes." };
+      }
+
+      // Check revision limit (1 per article for paid plans)
+      const currentRevisionCount = article.revisionCount ?? 0;
+      if (currentRevisionCount >= 1) {
+        return { error: "You have already used your free revision for this article." };
+      }
+
       await ctx.db.patch(args.articleId, {
         status: "revision",
         revisionNotes: args.comment || "Revision requested by client",
+        revisionRequested: true,
+        revisionCount: currentRevisionCount + 1,
+        revisionFeedback: args.comment || "Revision requested by client",
+        revisionStatus: "requested",
       });
     }
 

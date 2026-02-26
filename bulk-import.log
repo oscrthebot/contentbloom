@@ -1,0 +1,124 @@
+2026-02-26 10:43:34,280 INFO === Bulk Import to Convex [DRY-RUN] | 2026-02-26 ===
+2026-02-26 10:43:34,280 INFO Fetching existing leads from Convex...
+2026-02-26 10:43:34,457 INFO Found 131 existing leads in Convex
+2026-02-26 10:43:34,457 INFO Extracting leads from coldpipe sources...
+2026-02-26 10:43:34,458 INFO Loaded 10 records from ready_leads.json
+2026-02-26 10:43:34,458 INFO Loaded 5 records from enriched_all.json
+2026-02-26 10:43:34,459 INFO Loaded 53 records from enriched_leads.json
+2026-02-26 10:43:34,460 INFO Found 34 unique leads with emails in coldpipe files
+2026-02-26 10:43:34,460 INFO After deduplication: 34 leads to import
+2026-02-26 10:43:34,460 INFO [DRY-RUN] mutation leads:add {"domain": "madpenguinskincare.com", "storeName": "MadPenguin Skincare", "niche": "organic skincare beauty", "email": "m
+2026-02-26 10:43:34,460 INFO IMPORTED: madpenguinskincare.com | madpenguinskincare@gmail.com
+2026-02-26 10:43:34,460 INFO [DRY-RUN] mutation leads:add {"domain": "heydayskincare.com", "storeName": "Heyday Skincare Silver Lake", "niche": "general", "email": "hello@heydays
+2026-02-26 10:43:34,461 INFO IMPORTED: heydayskincare.com | hello@heydayskincare.com
+2026-02-26 10:43:34,461 INFO [DRY-RUN] mutation leads:add {"domain": "thethingswedo.co", "storeName": "The Things We Do", "niche": "general", "email": "info@thethingswedo.co", "l
+2026-02-26 10:43:34,461 INFO IMPORTED: thethingswedo.co | info@thethingswedo.co
+2026-02-26 10:43:34,461 INFO [DRY-RUN] mutation leads:add {"domain": "mpalacebeauty.com", "storeName": "PalaceBeautyMetro", "niche": "organic skincare beauty", "email": "palacebe
+2026-02-26 10:43:34,461 INFO IMPORTED: mpalacebeauty.com | palacebeautymetro@gmail.com
+2026-02-26 10:43:34,461 INFO [DRY-RUN] mutation leads:add {"domain": "aapeus.com", "storeName": "AAPE STORE LOS ANGELES", "niche": "general", "email": "aapecs_us@bape.com", "lang
+2026-02-26 10:43:34,461 INFO IMPORTED: aapeus.com | aapecs_us@bape.com
+2026-02-26 10:43:34,461 INFO [DRY-RUN] mutation leads:add {"domain": "smkoreabeauty.com", "storeName": "SM Korea Beauty", "niche": "organic skincare beauty", "email": "smkoreabea
+2026-02-26 10:43:34,461 INFO IMPORTED: smkoreabeauty.com | smkoreabeauty@gmail.com
+2026-02-26 10:43:34,462 INFO [DRY-RUN] mutation leads:add {"domain": "us.aritaum.com", "storeName": "ARITAUM, AMORE HANNAM \uc544\ub9ac\ub530\uc6c0 \uc5d8\uc5d0\uc774", "niche": 
+2026-02-26 10:43:34,462 INFO IMPORTED: us.aritaum.com | aritaum@apus.amorepacific.com
+2026-02-26 10:43:34,462 INFO [DRY-RUN] mutation leads:add {"domain": "franzskincareusa.com", "storeName": "Franz Skincare USA", "niche": "organic skincare beauty", "email": "hell
+2026-02-26 10:43:34,462 INFO IMPORTED: franzskincareusa.com | hello@franzskincareusa.com
+2026-02-26 10:43:34,462 INFO [DRY-RUN] mutation leads:add {"domain": "skinbysistahsheppard.com", "storeName": "SKIN BY SISTAH SHEPPARD", "niche": "organic skincare beauty", "emai
+2026-02-26 10:43:34,462 INFO IMPORTED: skinbysistahsheppard.com | skinbysistahsheppard@yahoo.com
+2026-02-26 10:43:34,462 INFO [DRY-RUN] mutation leads:add {"domain": "nudebrownsugar.com", "storeName": "Nude Brown Sugar", "niche": "organic skincare beauty", "email": "nudebrow
+2026-02-26 10:43:34,462 INFO IMPORTED: nudebrownsugar.com | nudebrownsugar@gmail.com
+2026-02-26 10:43:34,462 INFO [DRY-RUN] mutation leads:add {"domain": "saintmauve.com", "storeName": "Saint Mauve - Beauty Store", "niche": "organic skincare beauty", "email": "in
+2026-02-26 10:43:34,462 INFO IMPORTED: saintmauve.com | info@saintmauve.com
+2026-02-26 10:43:34,463 INFO [DRY-RUN] mutation leads:add {"domain": "lastingimpressionskincare.com", "storeName": "Lasting Impression Corrective Skincare", "niche": "organic ski
+2026-02-26 10:43:34,463 INFO IMPORTED: lastingimpressionskincare.com | 605a7baede844d278b89dc95ae0a9123@sentry-next.wixpress.com
+2026-02-26 10:43:34,463 INFO [DRY-RUN] mutation leads:add {"domain": "beautybylizla.com", "storeName": "Beauty by Liz", "niche": "organic skincare beauty", "email": "beautybylizl
+2026-02-26 10:43:34,463 INFO IMPORTED: beautybylizla.com | beautybylizla@gmail.com
+2026-02-26 10:43:34,463 INFO [DRY-RUN] mutation leads:add {"domain": "beinginla.com", "storeName": "Being in LA", "niche": "organic skincare beauty", "email": "bewell@beinginla.c
+2026-02-26 10:43:34,463 INFO IMPORTED: beinginla.com | bewell@beinginla.com
+2026-02-26 10:43:34,463 INFO [DRY-RUN] mutation leads:add {"domain": "sjskintherapy.com", "storeName": "Sojeong Skin Therapy", "niche": "organic skincare beauty", "email": "ssjso
+2026-02-26 10:43:34,463 INFO IMPORTED: sjskintherapy.com | ssjsori@hotmail.com
+2026-02-26 10:43:34,463 INFO [DRY-RUN] mutation leads:add {"domain": "skinrealmla.com", "storeName": "Skin Realm Facial Studio", "niche": "general", "email": "tara@skinrealmla.co
+2026-02-26 10:43:34,464 INFO IMPORTED: skinrealmla.com | tara@skinrealmla.com
+2026-02-26 10:43:34,464 INFO [DRY-RUN] mutation leads:add {"domain": "marileanaskincare.com", "storeName": "Marileana Skin Care", "niche": "organic skincare beauty", "email": "in
+2026-02-26 10:43:34,464 INFO IMPORTED: marileanaskincare.com | info@marileanaskincare.com
+2026-02-26 10:43:34,464 INFO [DRY-RUN] mutation leads:add {"domain": "shopluxenaturalsskincare.com", "storeName": "Luxe Natural's Skincare", "niche": "organic skincare beauty", "
+2026-02-26 10:43:34,464 INFO IMPORTED: shopluxenaturalsskincare.com | luxenaturalsskincare@gmail.com
+2026-02-26 10:43:34,464 INFO [DRY-RUN] mutation leads:add {"domain": "aniise.com", "storeName": "Aniise Natural Skin Care and Cosmetics", "niche": "organic skincare beauty", "ema
+2026-02-26 10:43:34,464 INFO IMPORTED: aniise.com | ecom-swiper@11.css
+2026-02-26 10:43:34,464 INFO [DRY-RUN] mutation leads:add {"domain": "misarangbeauty.com", "storeName": "Misarang Beauty & M Clinic", "niche": "organic skincare beauty", "email":
+2026-02-26 10:43:34,464 INFO IMPORTED: misarangbeauty.com | misarangbeautyus@gmail.com
+2026-02-26 10:43:34,464 INFO [DRY-RUN] mutation leads:add {"domain": "laeveskin.com", "storeName": "LA Eve Skin Clinic", "niche": "general", "email": "sunnycha1003@gmail.com", "l
+2026-02-26 10:43:34,465 INFO IMPORTED: laeveskin.com | sunnycha1003@gmail.com
+2026-02-26 10:43:34,465 INFO [DRY-RUN] mutation leads:add {"domain": "shinylaserclinic.com", "storeName": "Shiny Laser Skin Clinic \u2013 Koreatown Med Spa & Laser Skin Experts",
+2026-02-26 10:43:34,465 INFO IMPORTED: shinylaserclinic.com | shinylaserclicnic@gmail.com
+2026-02-26 10:43:34,465 INFO [DRY-RUN] mutation leads:add {"domain": "skinsanctuaryla.com", "storeName": "Skin Sanctuary | Spiritual Skin Healing Specialist | DMK Enzyme Therapy"
+2026-02-26 10:43:34,465 INFO IMPORTED: skinsanctuaryla.com | veronica.skinsanctuary@gmail.com
+2026-02-26 10:43:34,465 INFO [DRY-RUN] mutation leads:add {"domain": "glambeautyla.co", "storeName": "GLAM BEAUTY", "niche": "organic skincare beauty", "email": "glams1101@gmail.
+2026-02-26 10:43:34,465 INFO IMPORTED: glambeautyla.co | glams1101@gmail.com
+2026-02-26 10:43:34,465 INFO [DRY-RUN] mutation leads:add {"domain": "skincarewellnesspa.com", "storeName": "Skincare Wellness Spa", "niche": "general", "email": "skincare.wellne
+2026-02-26 10:43:34,465 INFO IMPORTED: skincarewellnesspa.com | skincare.wellness23@gmail.com
+2026-02-26 10:43:34,466 INFO [DRY-RUN] mutation leads:add {"domain": "irenesskintopia.com", "storeName": "Irene's Skintopia", "niche": "organic skincare beauty", "email": "info@i
+2026-02-26 10:43:34,466 INFO IMPORTED: irenesskintopia.com | info@irenesskintopia.com
+2026-02-26 10:43:34,466 INFO [DRY-RUN] mutation leads:add {"domain": "skinrejuvebytiffany.com", "storeName": "Skin Rejuve by Tiffany", "niche": "organic skincare beauty", "email"
+2026-02-26 10:43:34,466 INFO IMPORTED: skinrejuvebytiffany.com | tiffany@skinrejuvebytiffany.com
+2026-02-26 10:43:34,466 INFO [DRY-RUN] mutation leads:add {"domain": "ivemedicalspa.com", "storeName": "IVE MEDICAL SPA", "niche": "organic skincare beauty", "email": "hello@ivem
+2026-02-26 10:43:34,466 INFO IMPORTED: ivemedicalspa.com | hello@ivemedicalspa.com
+2026-02-26 10:43:34,466 INFO [DRY-RUN] mutation leads:add {"domain": "thelaskinbar.com", "storeName": "THE LA SKIN BAR LLC", "niche": "general", "email": "info@thelaskinbar.com",
+2026-02-26 10:43:34,466 INFO IMPORTED: thelaskinbar.com | info@thelaskinbar.com
+2026-02-26 10:43:34,466 INFO [DRY-RUN] mutation leads:add {"domain": "skincarebycarin.com", "storeName": "Skincare by Carin", "niche": "organic skincare beauty", "email": "hello@
+2026-02-26 10:43:34,467 INFO IMPORTED: skincarebycarin.com | hello@skincarebycarin.com
+2026-02-26 10:43:34,467 INFO [DRY-RUN] mutation leads:add {"domain": "fresha.com", "storeName": "Paris By Nature Skin and Body", "niche": "general", "email": "388fe63e6063cc241ca
+2026-02-26 10:43:34,467 INFO IMPORTED: fresha.com | 388fe63e6063cc241ca2a1b0f52622a3@o61919.ingest.us.sentry.io
+2026-02-26 10:43:34,467 INFO [DRY-RUN] mutation leads:add {"domain": "la.koreaportal.com", "storeName": "Total Skin Care", "niche": "organic skincare beauty", "email": "ads@korea
+2026-02-26 10:43:34,467 INFO IMPORTED: la.koreaportal.com | ads@koreaportal.com
+2026-02-26 10:43:34,467 INFO [DRY-RUN] mutation leads:add {"domain": "drskinclinicla.com", "storeName": "DR SKIN CLINIC_ACNE COSMETIC_Acne Treatments", "niche": "organic skincare
+2026-02-26 10:43:34,467 INFO IMPORTED: drskinclinicla.com | info@mysite.com
+2026-02-26 10:43:34,467 INFO [DRY-RUN] mutation leads:add {"domain": "primeskin.glossgenius.com", "storeName": "Prime Skin LA", "niche": "general", "email": "primeskinla@gmail.co
+2026-02-26 10:43:34,467 INFO IMPORTED: primeskin.glossgenius.com | primeskinla@gmail.com
+2026-02-26 10:43:34,468 INFO === Done | Imported 34 leads, 0 failed ===
+2026-02-26 10:43:34,656 INFO Convex stats after import: {'contacted': 50.0, 'converted': 0.0, 'demoSent': 0.0, 'new': 81.0, 'rejected': 0.0, 'replied': 0.0, 'total': 131.0}
+2026-02-26 10:43:39,502 INFO === Bulk Import to Convex | 2026-02-26 ===
+2026-02-26 10:43:39,502 INFO Fetching existing leads from Convex...
+2026-02-26 10:43:39,644 INFO Found 131 existing leads in Convex
+2026-02-26 10:43:39,644 INFO Extracting leads from coldpipe sources...
+2026-02-26 10:43:39,645 INFO Loaded 10 records from ready_leads.json
+2026-02-26 10:43:39,645 INFO Loaded 5 records from enriched_all.json
+2026-02-26 10:43:39,645 INFO Loaded 53 records from enriched_leads.json
+2026-02-26 10:43:39,645 INFO Found 34 unique leads with emails in coldpipe files
+2026-02-26 10:43:39,645 INFO After deduplication: 34 leads to import
+2026-02-26 10:43:39,843 INFO IMPORTED: madpenguinskincare.com | madpenguinskincare@gmail.com
+2026-02-26 10:43:40,056 INFO IMPORTED: heydayskincare.com | hello@heydayskincare.com
+2026-02-26 10:43:40,238 INFO IMPORTED: thethingswedo.co | info@thethingswedo.co
+2026-02-26 10:43:40,413 INFO IMPORTED: mpalacebeauty.com | palacebeautymetro@gmail.com
+2026-02-26 10:43:40,596 INFO IMPORTED: aapeus.com | aapecs_us@bape.com
+2026-02-26 10:43:40,769 INFO IMPORTED: smkoreabeauty.com | smkoreabeauty@gmail.com
+2026-02-26 10:43:40,962 INFO IMPORTED: us.aritaum.com | aritaum@apus.amorepacific.com
+2026-02-26 10:43:41,136 INFO IMPORTED: franzskincareusa.com | hello@franzskincareusa.com
+2026-02-26 10:43:41,278 INFO IMPORTED: skinbysistahsheppard.com | skinbysistahsheppard@yahoo.com
+2026-02-26 10:43:41,450 INFO IMPORTED: nudebrownsugar.com | nudebrownsugar@gmail.com
+2026-02-26 10:43:41,593 INFO IMPORTED: saintmauve.com | info@saintmauve.com
+2026-02-26 10:43:41,731 INFO IMPORTED: lastingimpressionskincare.com | 605a7baede844d278b89dc95ae0a9123@sentry-next.wixpress.com
+2026-02-26 10:43:41,899 INFO IMPORTED: beautybylizla.com | beautybylizla@gmail.com
+2026-02-26 10:43:42,076 INFO IMPORTED: beinginla.com | bewell@beinginla.com
+2026-02-26 10:43:42,218 INFO IMPORTED: sjskintherapy.com | ssjsori@hotmail.com
+2026-02-26 10:43:42,337 INFO IMPORTED: skinrealmla.com | tara@skinrealmla.com
+2026-02-26 10:43:42,481 INFO IMPORTED: marileanaskincare.com | info@marileanaskincare.com
+2026-02-26 10:43:42,614 INFO IMPORTED: shopluxenaturalsskincare.com | luxenaturalsskincare@gmail.com
+2026-02-26 10:43:42,770 INFO IMPORTED: aniise.com | ecom-swiper@11.css
+2026-02-26 10:43:42,955 INFO IMPORTED: misarangbeauty.com | misarangbeautyus@gmail.com
+2026-02-26 10:43:43,098 INFO IMPORTED: laeveskin.com | sunnycha1003@gmail.com
+2026-02-26 10:43:43,247 INFO IMPORTED: shinylaserclinic.com | shinylaserclicnic@gmail.com
+2026-02-26 10:43:43,362 INFO IMPORTED: skinsanctuaryla.com | veronica.skinsanctuary@gmail.com
+2026-02-26 10:43:43,475 INFO IMPORTED: glambeautyla.co | glams1101@gmail.com
+2026-02-26 10:43:43,607 INFO IMPORTED: skincarewellnesspa.com | skincare.wellness23@gmail.com
+2026-02-26 10:43:43,769 INFO IMPORTED: irenesskintopia.com | info@irenesskintopia.com
+2026-02-26 10:43:43,956 INFO IMPORTED: skinrejuvebytiffany.com | tiffany@skinrejuvebytiffany.com
+2026-02-26 10:43:44,095 INFO IMPORTED: ivemedicalspa.com | hello@ivemedicalspa.com
+2026-02-26 10:43:44,215 INFO IMPORTED: thelaskinbar.com | info@thelaskinbar.com
+2026-02-26 10:43:44,327 INFO IMPORTED: skincarebycarin.com | hello@skincarebycarin.com
+2026-02-26 10:43:44,464 INFO IMPORTED: fresha.com | 388fe63e6063cc241ca2a1b0f52622a3@o61919.ingest.us.sentry.io
+2026-02-26 10:43:44,588 INFO IMPORTED: la.koreaportal.com | ads@koreaportal.com
+2026-02-26 10:43:44,713 INFO IMPORTED: drskinclinicla.com | info@mysite.com
+2026-02-26 10:43:44,844 INFO IMPORTED: primeskin.glossgenius.com | primeskinla@gmail.com
+2026-02-26 10:43:44,845 INFO === Done | Imported 34 leads, 0 failed ===
+2026-02-26 10:43:45,009 INFO Convex stats after import: {'contacted': 50.0, 'converted': 0.0, 'demoSent': 0.0, 'new': 90.0, 'rejected': 0.0, 'replied': 0.0, 'total': 140.0}
