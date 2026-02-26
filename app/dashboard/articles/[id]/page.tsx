@@ -10,10 +10,13 @@ export default async function ArticlePage({ params }: { params: Promise<{ id: st
   const sessionToken = cookieStore.get("cb_session")!.value;
 
   const convex = getConvexClient();
-  const result = await convex.query(api.userArticles.getForUser, {
-    sessionToken,
-    articleId: id as Id<"articles">,
-  });
+  const [result, user] = await Promise.all([
+    convex.query(api.userArticles.getForUser, {
+      sessionToken,
+      articleId: id as Id<"articles">,
+    }),
+    convex.query(api.auth.validateSession, { sessionToken }),
+  ]);
 
   if ("error" in result) {
     return (
@@ -26,5 +29,19 @@ export default async function ArticlePage({ params }: { params: Promise<{ id: st
 
   const { article, feedback } = result;
 
-  return <ArticleView article={article!} feedback={feedback} sessionToken={sessionToken} />;
+  const shopifyConfig = user?.shopifyDomain && user?.shopifyAccessToken
+    ? {
+        shopifyDomain: user.shopifyDomain,
+        hasCredentials: true,
+      }
+    : { hasCredentials: false };
+
+  return (
+    <ArticleView
+      article={article!}
+      feedback={feedback}
+      sessionToken={sessionToken}
+      shopifyConfig={shopifyConfig}
+    />
+  );
 }

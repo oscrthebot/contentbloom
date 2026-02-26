@@ -92,6 +92,9 @@ export default defineSchema({
     ),
     deliveredAt: v.optional(v.string()),
     revisionNotes: v.optional(v.string()),
+    // Shopify publish fields
+    shopifyArticleId: v.optional(v.string()),
+    shopifyPublishedAt: v.optional(v.string()),
   })
     .index("by_client", ["clientId"])
     .index("by_status", ["status"])
@@ -170,6 +173,10 @@ export default defineSchema({
       credentials: v.optional(v.string()),
     })),
     language: v.optional(v.string()),
+    // Shopify integration
+    shopifyDomain: v.optional(v.string()),
+    shopifyAccessToken: v.optional(v.string()),
+    shopifyAutoPublish: v.optional(v.boolean()),
     createdAt: v.number(),
     lastLoginAt: v.optional(v.number()),
   })

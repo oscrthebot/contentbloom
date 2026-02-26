@@ -79,6 +79,20 @@ export const deleteArticle = mutation({
   },
 });
 
+export const markShopifyPublished = mutation({
+  args: {
+    articleId: v.id("articles"),
+    shopifyArticleId: v.string(),
+    shopifyPublishedAt: v.string(),
+  },
+  handler: async (ctx, args) => {
+    await ctx.db.patch(args.articleId, {
+      shopifyArticleId: args.shopifyArticleId,
+      shopifyPublishedAt: args.shopifyPublishedAt,
+    });
+  },
+});
+
 export const getArticlesByKeyword = query({
   args: { clientId: v.id("clients"), keyword: v.string() },
   handler: async (ctx, args) => {

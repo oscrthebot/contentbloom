@@ -32,6 +32,13 @@ interface Article {
   monthlyVolume?: number;
   storeName?: string;
   productBanners?: ProductBanner[];
+  shopifyArticleId?: string;
+  shopifyPublishedAt?: string;
+}
+
+interface ShopifyConfig {
+  hasCredentials: boolean;
+  shopifyDomain?: string;
 }
 
 interface Feedback {
@@ -129,10 +136,12 @@ export function ArticleView({
   article,
   feedback,
   sessionToken,
+  shopifyConfig,
 }: {
   article: Article;
   feedback: Feedback | null;
   sessionToken: string;
+  shopifyConfig?: ShopifyConfig;
 }) {
   const router = useRouter();
   const [showRevisionForm, setShowRevisionForm] = useState(false);
@@ -143,6 +152,17 @@ export function ArticleView({
   const [qaOpen,     setQaOpen]     = useState(false);
   const [openFaq,    setOpenFaq]    = useState<number | null>(null);
   const [renderedHtml, setRenderedHtml] = useState("");
+  const [shopifyPublishing, setShopifyPublishing] = useState(false);
+  const [shopifyResult, setShopifyResult] = useState<{
+    articleId?: string;
+    articleUrl?: string;
+    publishedAt?: string;
+    error?: string;
+  } | null>(
+    article.shopifyArticleId
+      ? { articleId: article.shopifyArticleId, publishedAt: article.shopifyPublishedAt }
+      : null
+  );
 
   const readingTime = article.readingTime ?? Math.ceil(article.wordCount / 250);
 
@@ -180,6 +200,33 @@ export function ArticleView({
     const html = renderMarkdown(article.content, article.productBanners);
     const full = `<h1>${article.title}</h1>\n${html}`;
     downloadFile(`${article.slug || "article"}.html`, full);
+  }
+
+  async function handlePublishToShopify() {
+    setShopifyPublishing(true);
+    setShopifyResult(null);
+    try {
+      const res = await fetch("/api/shopify/publish", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ articleId: article._id }),
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        setShopifyResult({ error: data.error || "Failed to publish" });
+      } else {
+        setShopifyResult({
+          articleId: data.shopifyArticleId,
+          articleUrl: data.shopifyArticleUrl,
+          publishedAt: new Date().toISOString(),
+        });
+        router.refresh();
+      }
+    } catch (err) {
+      setShopifyResult({ error: err instanceof Error ? err.message : "Unknown error" });
+    } finally {
+      setShopifyPublishing(false);
+    }
   }
 
   const hasFeedback = submitted || !!feedback;
@@ -332,7 +379,34 @@ export function ArticleView({
             {article.title}
           </span>
         </div>
-        <div style={{ display:"flex", gap:8, flexShrink:0 }}>
+        <div style={{ display:"flex", gap:8, flexShrink:0, alignItems:"center" }}>
+          {/* Shopify publish button */}
+          {shopifyConfig?.hasCredentials && (
+            shopifyResult?.articleId ? (
+              <span style={{ fontSize:13, color:"#16a34a", fontWeight:600, display:"flex", alignItems:"center", gap:4 }}>
+                🛍️ Published
+                {shopifyResult.articleUrl && (
+                  <a
+                    href={shopifyResult.articleUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{ fontSize:12, color:"#2563eb", fontWeight:500, marginLeft:4 }}
+                  >
+                    View →
+                  </a>
+                )}
+              </span>
+            ) : (
+              <button
+                className="btn-o"
+                onClick={handlePublishToShopify}
+                disabled={shopifyPublishing}
+                style={{ display:"flex", alignItems:"center", gap:5, borderColor:"#7c3aed", color:"#7c3aed" }}
+              >
+                {shopifyPublishing ? "Publishing…" : "🛍️ Publish to Shopify"}
+              </button>
+            )
+          )}
           {hasFeedback ? (
             <span style={{ fontSize:13, color:"var(--accent)", fontWeight:500 }}>✓ Feedback submitted</span>
           ) : (
@@ -372,6 +446,19 @@ export function ArticleView({
               ))}
             </ul>
           )}
+        </div>
+      )}
+
+      {/* ─── Shopify status ─────────────────────────────────────────────── */}
+      {shopifyResult?.error && (
+        <div style={{ background:"#fef2f2", border:"1px solid #fca5a5", borderRadius:10, padding:"12px 16px", marginBottom:16, fontSize:13, color:"#991b1b" }}>
+          ⚠️ Shopify publish failed: {shopifyResult.error}
+        </div>
+      )}
+      {shopifyConfig && !shopifyConfig.hasCredentials && (
+        <div style={{ background:"#faf5ff", border:"1px solid #e9d5ff", borderRadius:10, padding:"12px 16px", marginBottom:16, fontSize:13, color:"#6b21a8" }}>
+          🛍️ <strong>Connect Shopify</strong> to publish articles directly to your store.{" "}
+          <a href="/dashboard/stores" style={{ color:"#7c3aed", fontWeight:600 }}>Set up in Settings →</a>
         </div>
       )}
 

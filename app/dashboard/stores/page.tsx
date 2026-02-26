@@ -12,7 +12,10 @@ export default async function StoresPage() {
   }
 
   const convex = getConvexClient();
-  const stores = await convex.query(api.stores.getStoresByUser, { sessionToken });
+  const [stores, user] = await Promise.all([
+    convex.query(api.stores.getStoresByUser, { sessionToken }),
+    convex.query(api.auth.validateSession, { sessionToken }),
+  ]);
 
   // Plan base prices (EUR) — update when Stripe prices are confirmed
   const planPrices: Record<string, number> = {
@@ -22,5 +25,17 @@ export default async function StoresPage() {
     scale: 199,
   };
 
-  return <StoresClient stores={stores} planPrices={planPrices} />;
+  const shopifySettings = {
+    shopifyDomain: user?.shopifyDomain ?? "",
+    shopifyAutoPublish: user?.shopifyAutoPublish ?? false,
+    isConnected: !!(user?.shopifyDomain && user?.shopifyAccessToken),
+  };
+
+  return (
+    <StoresClient
+      stores={stores}
+      planPrices={planPrices}
+      shopifySettings={shopifySettings}
+    />
+  );
 }

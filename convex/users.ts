@@ -62,6 +62,34 @@ export const updateProfile = mutation({
   },
 });
 
+export const updateShopifySettings = mutation({
+  args: {
+    userId: v.id("users"),
+    shopifyDomain: v.optional(v.string()),
+    shopifyAccessToken: v.optional(v.string()),
+    shopifyAutoPublish: v.optional(v.boolean()),
+  },
+  handler: async (ctx, args) => {
+    const { userId, ...updates } = args;
+    const filtered: Record<string, any> = {};
+    for (const [k, val] of Object.entries(updates)) {
+      if (val !== undefined) filtered[k] = val;
+    }
+    await ctx.db.patch(userId, filtered);
+  },
+});
+
+export const clearShopifySettings = mutation({
+  args: { userId: v.id("users") },
+  handler: async (ctx, args) => {
+    await ctx.db.patch(args.userId, {
+      shopifyDomain: undefined,
+      shopifyAccessToken: undefined,
+      shopifyAutoPublish: false,
+    });
+  },
+});
+
 export const updateStripe = mutation({
   args: {
     userId: v.id("users"),

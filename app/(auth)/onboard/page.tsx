@@ -19,13 +19,18 @@ interface AuthorForm {
   credentials: string;
 }
 
+interface ShopifyForm {
+  shopifyDomain: string;
+  shopifyAccessToken: string;
+}
+
 function OnboardContent() {
   const searchParams = useSearchParams();
   const router = useRouter();
   const token = searchParams.get("token");
   const plan = searchParams.get("plan") || "";
 
-  const [step, setStep] = useState<"verifying" | "store" | "author" | "done">(
+  const [step, setStep] = useState<"verifying" | "store" | "author" | "shopify" | "done">(
     token ? "verifying" : "store"
   );
   const [storeForm, setStoreForm] = useState<StoreForm>({
@@ -40,6 +45,10 @@ function OnboardContent() {
     yearsExperience: "",
     linkedinUrl: "",
     credentials: "",
+  });
+  const [shopifyForm, setShopifyForm] = useState<ShopifyForm>({
+    shopifyDomain: "",
+    shopifyAccessToken: "",
   });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -91,14 +100,14 @@ function OnboardContent() {
 
   async function handleAuthorSubmit(e: React.FormEvent) {
     e.preventDefault();
-    await finishOnboarding(authorForm);
+    await saveAuthorAndContinue(authorForm);
   }
 
   async function handleSkipAuthor() {
-    await finishOnboarding(null);
+    await saveAuthorAndContinue(null);
   }
 
-  async function finishOnboarding(author: AuthorForm | null) {
+  async function saveAuthorAndContinue(author: AuthorForm | null) {
     setLoading(true);
     setError("");
 
@@ -116,6 +125,38 @@ function OnboardContent() {
               linkedinUrl: author.linkedinUrl || undefined,
               credentials: author.credentials || undefined,
             },
+          }),
+        });
+      }
+      setStep("shopify");
+    } catch {
+      setError("Something went wrong. Please try again.");
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  async function handleShopifySubmit(e: React.FormEvent) {
+    e.preventDefault();
+    await finishOnboarding(shopifyForm);
+  }
+
+  async function handleSkipShopify() {
+    await finishOnboarding(null);
+  }
+
+  async function finishOnboarding(shopify: ShopifyForm | null) {
+    setLoading(true);
+    setError("");
+
+    try {
+      if (shopify && shopify.shopifyDomain && shopify.shopifyAccessToken) {
+        await fetch("/api/shopify/settings", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            shopifyDomain: shopify.shopifyDomain,
+            shopifyAccessToken: shopify.shopifyAccessToken,
           }),
         });
       }
@@ -179,7 +220,7 @@ function OnboardContent() {
             <>
               {/* Step indicator */}
               <div style={{ display: "flex", gap: 6, marginBottom: 20 }}>
-                {["Tienda", "Perfil autor"].map((label, i) => (
+                {["Store", "Author", "Shopify"].map((label, i) => (
                   <div key={i} style={{ flex: 1, display: "flex", flexDirection: "column", alignItems: "center", gap: 4 }}>
                     <div style={{
                       width: 28, height: 28, borderRadius: "50%",
@@ -275,7 +316,7 @@ function OnboardContent() {
             <>
               {/* Step indicator */}
               <div style={{ display: "flex", gap: 6, marginBottom: 20 }}>
-                {["Tienda", "Perfil autor"].map((label, i) => (
+                {["Store", "Author", "Shopify"].map((label, i) => (
                   <div key={i} style={{ flex: 1, display: "flex", flexDirection: "column", alignItems: "center", gap: 4 }}>
                     <div style={{
                       width: 28, height: 28, borderRadius: "50%",
@@ -284,7 +325,7 @@ function OnboardContent() {
                       display: "flex", alignItems: "center", justifyContent: "center",
                       fontSize: 13, fontWeight: 700,
                     }}>{i === 0 ? "✓" : i + 1}</div>
-                    <span style={{ fontSize: 11, color: "#16a34a", fontWeight: 500 }}>{label}</span>
+                    <span style={{ fontSize: 11, color: i <= 1 ? "#16a34a" : "#9ca3af", fontWeight: 500 }}>{label}</span>
                   </div>
                 ))}
               </div>
@@ -425,6 +466,126 @@ function OnboardContent() {
                   </button>
                 </div>
               </form>
+            </>
+          )}
+
+          {/* ---- Step 3: Shopify Connection ---- */}
+          {step === "shopify" && (
+            <>
+              {/* Step indicator */}
+              <div style={{ display: "flex", gap: 6, marginBottom: 20 }}>
+                {["Store", "Author", "Shopify"].map((label, i) => (
+                  <div key={i} style={{ flex: 1, display: "flex", flexDirection: "column", alignItems: "center", gap: 4 }}>
+                    <div style={{
+                      width: 28, height: 28, borderRadius: "50%",
+                      background: "#16a34a",
+                      color: "#fff",
+                      display: "flex", alignItems: "center", justifyContent: "center",
+                      fontSize: 13, fontWeight: 700,
+                    }}>{i < 2 ? "✓" : "3"}</div>
+                    <span style={{ fontSize: 11, color: "#16a34a", fontWeight: 500 }}>{label}</span>
+                  </div>
+                ))}
+              </div>
+
+              <div style={{ marginBottom: 20 }}>
+                <h2 style={{ fontSize: 20, fontWeight: 600, color: "#111827", marginBottom: 6 }}>
+                  Connect your Shopify store
+                </h2>
+                <p style={{ color: "#6b7280", fontSize: 14, lineHeight: 1.55 }}>
+                  Automatically publish articles to your Shopify blog — no copy-pasting needed.
+                </p>
+              </div>
+
+              {/* Shopify explainer */}
+              <div style={{
+                background: "#faf5ff",
+                border: "1px solid #e9d5ff",
+                borderRadius: 8,
+                padding: "10px 14px",
+                marginBottom: 20,
+                fontSize: 12,
+                color: "#6b21a8",
+                lineHeight: 1.5,
+              }}>
+                🛍️ <strong>Admin API Access Token</strong> — Go to Shopify Admin → Settings → Apps → Develop apps → Create a custom app → Install app → Copy the <em>Admin API access token</em>.
+              </div>
+
+              <form onSubmit={handleShopifySubmit}>
+                <div style={{ marginBottom: 16 }}>
+                  <label style={{ display: "block", fontSize: 13, fontWeight: 500, color: "#374151", marginBottom: 6 }}>
+                    Shopify store domain
+                  </label>
+                  <input
+                    type="text"
+                    value={shopifyForm.shopifyDomain}
+                    onChange={(e) => setShopifyForm({ ...shopifyForm, shopifyDomain: e.target.value })}
+                    placeholder="your-store.myshopify.com"
+                    style={inputStyle}
+                  />
+                  <div style={{ fontSize: 11, color: "#9ca3af", marginTop: 4 }}>
+                    Your myshopify.com domain (e.g. my-store.myshopify.com)
+                  </div>
+                </div>
+
+                <div style={{ marginBottom: 20 }}>
+                  <label style={{ display: "block", fontSize: 13, fontWeight: 500, color: "#374151", marginBottom: 6 }}>
+                    Admin API Access Token
+                  </label>
+                  <input
+                    type="password"
+                    value={shopifyForm.shopifyAccessToken}
+                    onChange={(e) => setShopifyForm({ ...shopifyForm, shopifyAccessToken: e.target.value })}
+                    placeholder="shpat_xxx..."
+                    style={inputStyle}
+                  />
+                  <div style={{ fontSize: 11, color: "#9ca3af", marginTop: 4 }}>
+                    Admin API Access Token from Shopify Partners &gt; Apps &gt; Custom apps
+                  </div>
+                </div>
+
+                {error && <p style={{ color: "#dc2626", fontSize: 13, marginBottom: 12 }}>{error}</p>}
+
+                <div style={{ display: "flex", gap: 10 }}>
+                  <button
+                    type="submit"
+                    disabled={loading}
+                    style={{
+                      flex: 1,
+                      padding: "12px 0",
+                      borderRadius: 8,
+                      background: loading ? "#9ca3af" : "#7c3aed",
+                      color: "#fff",
+                      border: "none",
+                      fontSize: 14,
+                      fontWeight: 600,
+                      cursor: loading ? "not-allowed" : "pointer",
+                    }}
+                  >
+                    {loading ? "Connecting..." : "Connect Shopify"}
+                  </button>
+                  <button
+                    type="button"
+                    onClick={handleSkipShopify}
+                    disabled={loading}
+                    style={{
+                      padding: "12px 18px",
+                      borderRadius: 8,
+                      background: "transparent",
+                      color: "#6b7280",
+                      border: "1px solid #e5e7eb",
+                      fontSize: 14,
+                      cursor: loading ? "not-allowed" : "pointer",
+                    }}
+                  >
+                    Skip for now
+                  </button>
+                </div>
+              </form>
+
+              <p style={{ marginTop: 16, fontSize: 11, color: "#9ca3af", textAlign: "center" }}>
+                You can connect later in Settings → Stores
+              </p>
             </>
           )}
         </div>
