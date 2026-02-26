@@ -230,6 +230,15 @@ BloomContent`
 }
 
 /**
+ * Follow-up templates - exported for use in email scheduler
+ */
+export const followUpTemplates = {
+  followUp1: "Quick follow-up - did you see my last email about {{storeName}}?",
+  followUp2: "Last chance - {{storeName}} content strategy",
+  followUp3: "Closing the loop - {{storeName}}",
+};
+
+/**
  * Follow-up - No response after 3 days
  */
 export function followUp(ctx: StoreContext, attempt: 1 | 2 | 3): EmailTemplate {
@@ -275,7 +284,7 @@ All the best with ${ctx.storeName}!
 Rafael`
     }
   };
-  
+
   return templates[attempt];
 }
 

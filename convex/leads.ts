@@ -154,7 +154,7 @@ export const stats = query({
   args: {},
   handler: async (ctx) => {
     const leads = await ctx.db.query("leads").collect();
-    
+
     return {
       total: leads.length,
       new: leads.filter(l => l.status === "new").length,
@@ -164,5 +164,86 @@ export const stats = query({
       converted: leads.filter(l => l.status === "converted").length,
       rejected: leads.filter(l => l.status === "rejected").length,
     };
+  },
+});
+
+// Update lead email status after sending (follow-ups)
+export const updateLeadEmailStatus = mutation({
+  args: {
+    id: v.id("leads"),
+    status: v.union(
+      v.literal("new"),
+      v.literal("contacted"),
+      v.literal("demo_sent"),
+      v.literal("follow_up_1"),
+      v.literal("follow_up_2"),
+      v.literal("follow_up_3"),
+      v.literal("replied"),
+      v.literal("converted"),
+      v.literal("rejected")
+    ),
+    lastEmailDate: v.string(),  // ISO date string
+    followUpCount: v.number(),  // 0-3
+  },
+  handler: async (ctx, args) => {
+    const { id, ...updates } = args;
+    await ctx.db.patch(id, updates);
+  },
+});
+
+// Get leads needing follow-up today
+// Follow-up schedule: Day 3, Day 6, Day 10 after initial contact
+export const getLeadsForFollowUp = query({
+  args: {
+    targetDate: v.string(),  // ISO date string (YYYY-MM-DD)
+  },
+  handler: async (ctx, args) => {
+    const targetDate = new Date(args.targetDate);
+    const targetDateStr = args.targetDate.split('T')[0]; // Get just the date part
+
+    // Get all contacted leads (including follow-up statuses)
+    const leads = await ctx.db
+      .query("leads")
+      .withIndex("by_status", (q) => q.eq("status", "contacted" as any))
+      .collect();
+
+    const followUp1Leads = await ctx.db
+      .query("leads")
+      .withIndex("by_status", (q) => q.eq("status", "follow_up_1" as any))
+      .collect();
+
+    const followUp2Leads = await ctx.db
+      .query("leads")
+      .withIndex("by_status", (q) => q.eq("status", "follow_up_2" as any))
+      .collect();
+
+    const allLeads = [...leads, ...followUp1Leads, ...followUp2Leads];
+
+    return allLeads.filter(lead => {
+      if (!lead.lastEmailDate) return false;
+
+      const lastEmail = new Date(lead.lastEmailDate);
+      const daysSinceEmail = Math.floor((targetDate.getTime() - lastEmail.getTime()) / (1000 * 60 * 60 * 24));
+      const currentFollowUpCount = lead.followUpCount || 0;
+
+      // Follow-up schedule:
+      // Follow-up #1: Day 3 after initial email
+      // Follow-up #2: Day 6 after initial email
+      // Follow-up #3: Day 10 after initial email
+      if (currentFollowUpCount === 0 && daysSinceEmail >= 3) {
+        // Needs follow-up #1
+        return true;
+      }
+      if (currentFollowUpCount === 1 && daysSinceEmail >= 3) {
+        // Needs follow-up #2 (3 days after follow-up #1)
+        return true;
+      }
+      if (currentFollowUpCount === 2 && daysSinceEmail >= 4) {
+        // Needs follow-up #3 (4 days after follow-up #2 = Day 10 total)
+        return true;
+      }
+
+      return false;
+    });
   },
 });

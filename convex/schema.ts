@@ -26,6 +26,8 @@ export default defineSchema({
     blogPostCount: v.optional(v.number()),
     firstContact: v.optional(v.string()),
     lastContact: v.optional(v.string()),
+    lastEmailDate: v.optional(v.string()),  // ISO date of last email sent
+    followUpCount: v.optional(v.number()),  // 0 = initial, 1-3 = follow-ups sent
     nextAction: v.optional(v.string()),
     notes: v.array(v.string()),
   })
@@ -95,6 +97,17 @@ export default defineSchema({
     // Shopify publish fields
     shopifyArticleId: v.optional(v.string()),
     shopifyPublishedAt: v.optional(v.string()),
+    // Revision system fields
+    revisionRequested: v.optional(v.boolean()),
+    revisionCount: v.optional(v.number()),
+    revisionFeedback: v.optional(v.string()),
+    revisionStatus: v.optional(v.union(
+      v.literal("none"),
+      v.literal("requested"),
+      v.literal("in_progress"),
+      v.literal("completed")
+    )),
+    originalArticleId: v.optional(v.id("articles")),
   })
     .index("by_client", ["clientId"])
     .index("by_status", ["status"])
