@@ -13,6 +13,20 @@
       "name": "Rafa",
       "start_date": "2026-02-21",
       "active": true
+    },
+    {
+      "email": "matt@trybloomcontent.site",
+      "password": "wtv4wyz_rjw0AJA6nky",
+      "name": "Matt",
+      "start_date": "2026-02-26",
+      "active": true
+    },
+    {
+      "email": "rafa@trybloomcontent.site",
+      "password": "wtv4wyz_rjw0AJA6nky",
+      "name": "Rafa Martinez",
+      "start_date": "2026-02-26",
+      "active": true
     }
   ]
 }
