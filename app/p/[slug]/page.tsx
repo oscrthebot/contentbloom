@@ -243,7 +243,7 @@ export default function ArticlePreviewPage() {
               <Link href="/#pricing" className="btn btn-dark" style={{ fontSize: 15, padding: "13px 28px" }}>
                 See Plans — from €49/mo <ChevronRight size={15} />
               </Link>
-              <p style={{ fontSize: 12, color: "var(--t3)", marginTop: 12 }}>Start with 2 free articles. No credit card.</p>
+              <p style={{ fontSize: 12, color: "var(--t3)", marginTop: 12 }}>Start with 1 free article. No credit card.</p>
             </div>
           </div>
         )}

@@ -249,7 +249,7 @@ function Pricing() {
           <h2 style={{ fontSize: "clamp(30px,4vw,48px)", fontWeight: 700, letterSpacing: "-0.025em", lineHeight: 1.1, color: "var(--t1)", marginBottom: 16 }}>
             Simple plans<br />for serious growth
           </h2>
-          <p style={{ fontSize: 17, color: "var(--t2)" }}>Cancel anytime. Start with 2 free articles.</p>
+          <p style={{ fontSize: 17, color: "var(--t2)" }}>Cancel anytime. Start with 1 free article.</p>
         </div>
 
         <div className="grid-3">
@@ -284,7 +284,7 @@ function Pricing() {
         </div>
 
         <p style={{ textAlign: "center", fontSize: 12, color: "var(--t3)", marginTop: 28 }}>
-          All plans start with 2 free articles. No credit card required.
+          All plans start with 1 free article. No credit card required.
         </p>
       </div>
     </section>
@@ -305,7 +305,7 @@ function CTA() {
               Ready to grow your store&apos;s<br />organic traffic?
             </h2>
             <p style={{ fontSize: 17, color: "var(--t2)", maxWidth: 420, margin: "0 auto 40px" }}>
-              Daily SEO content for your Shopify store, fully automated. Start with 2 free articles.
+              Daily SEO content for your Shopify store, fully automated. Start with 1 free article.
             </p>
             <Link href="/signup" className="btn btn-dark" style={{ fontSize: 15, padding: "14px 30px", display: "inline-flex" }}>
               Get 2 Free Articles <ArrowRight size={16} />

@@ -19,7 +19,7 @@ export default function Terms() {
         {[
           ["1. Service Description", "BloomContent provides AI-generated SEO blog content for Shopify stores. By subscribing, you agree to these terms."],
           ["2. Subscriptions & Billing", "Plans are billed monthly. You may cancel at any time from your account dashboard. Cancellation takes effect at the end of the current billing period. We do not offer refunds for partial months."],
-          ["3. Free Trial", "New customers receive 2 free articles before any payment is required. No credit card is needed for the free trial."],
+          ["3. Free Trial", "New customers receive 1 free article before any payment is required. No credit card is needed for the free trial."],
           ["4. Content Ownership", "All articles generated for your store become your property upon delivery. You may publish, modify, or repurpose them freely."],
           ["5. Content Quality", "We aim to produce high-quality, accurate SEO content. We offer revisions on any article that doesn't meet your expectations. We are not liable for any SEO results, as rankings depend on many factors outside our control."],
           ["6. Acceptable Use", "You may not use BloomContent to generate content that is illegal, defamatory, or violates third-party intellectual property rights."],
