@@ -6,6 +6,7 @@ Usage: python3 email-scheduler.py [--dry-run]
 """
 
 import json
+import os
 import smtplib
 import time
 import random
