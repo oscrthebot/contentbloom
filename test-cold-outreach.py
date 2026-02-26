@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 Test cold outreach email to rafa@happyoperators.com
-V2: Shorter, with preview URL, 1 article only
+V3: Using existing demo article URL
 """
 
 import smtplib
@@ -17,7 +17,9 @@ TO_EMAIL = "rafa@happyoperators.com"
 store_name = "SpeakHapi"
 niche = "language learning"
 owner_name = "Rafa"
-preview_url = "https://bloomcontent.site/p/speakhapi-demo"
+
+# Use existing demo article URL
+preview_url = "https://bloomcontent.site/p/hapi-mac-transcription"
 
 # Email content - SHORTER version
 subject = f"Quick thing for {store_name}"
@@ -26,7 +28,7 @@ body = f"""Hi {owner_name},
 
 I came across {store_name} — great concept for language learning.
 
-Quick question: are you doing any content marketing? Searches like "practice speaking Spanish" get 10K+ monthly volume, and I see an opportunity there.
+Quick question: are you doing any content marketing? Searches like "practice speaking Spanish" get 10K+ monthly volume.
 
 I wrote a sample article to show you what I mean:
 {preview_url}
@@ -50,7 +52,7 @@ try:
         server.starttls()
         server.login(FROM_EMAIL, FROM_PASSWORD)
         server.sendmail(FROM_EMAIL, TO_EMAIL, msg.as_string())
-    print(f"✅ Test email v2 sent: {FROM_EMAIL} → {TO_EMAIL}")
+    print(f"✅ Test email v3 sent: {FROM_EMAIL} → {TO_EMAIL}")
     print(f"Subject: {subject}")
     print(f"\n--- EMAIL BODY ---\n{body}")
 except Exception as e:
