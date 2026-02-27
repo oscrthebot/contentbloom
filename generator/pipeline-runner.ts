@@ -15,12 +15,17 @@ import {
   KeywordData,
   researchKeywords,
   generateArticle,
+  generateArticleSectioned,
   generateFAQ,
   humanizeContent,
   reviewArticle,
   detectStoreLanguage,
   fetchShopifyProducts,
   fixQAIssues,
+  analyzeSearchIntent,
+  analyzeSERP,
+  SearchIntent,
+  SERPData,
 } from './article-generator';
 import { scrapeLinkedInProfile, buildLinkedInEnrichment, LinkedInProfile } from '../app/lib/linkedin-scraper';
 import { generateArticleSchema } from '../lib/schema-generator';
@@ -208,7 +213,31 @@ export async function runArticlePipeline(request: PipelineRequest): Promise<Pipe
     }
     steps.push({ step: '2b-language', status: 'ok', durationMs: t(), note: `Language: ${language}` });
 
-    // Step 3: Generate article
+    // Step 2c: Search Intent Analysis
+    t = stepTimer();
+    let intent: SearchIntent;
+    try {
+      intent = await analyzeSearchIntent(keywords.targetKeyword);
+      console.log(`  🎯 Intent: ${intent.intent} (${intent.expectedFormat}), angle: ${intent.contentAngle}`);
+      steps.push({ step: '2c-intent', status: 'ok', durationMs: t(), note: `${intent.intent}/${intent.expectedFormat}` });
+    } catch (e) {
+      intent = { intent: 'informational', expectedFormat: 'guide', contentAngle: 'comprehensive guide', recommendedWordCount: 1500 };
+      steps.push({ step: '2c-intent', status: 'error', durationMs: t(), note: String(e).slice(0, 100) });
+    }
+
+    // Step 2d: SERP Analysis
+    t = stepTimer();
+    let serpData: SERPData;
+    try {
+      serpData = await analyzeSERP(keywords.targetKeyword);
+      console.log(`  🔍 SERP: ${serpData.topTitles.length} competitor titles found`);
+      steps.push({ step: '2d-serp', status: 'ok', durationMs: t(), note: `${serpData.topTitles.length} titles` });
+    } catch (e) {
+      serpData = { topTitles: [], commonH2s: [], avgWordCount: 1500, contentGaps: [] };
+      steps.push({ step: '2d-serp', status: 'error', durationMs: t(), note: String(e).slice(0, 100) });
+    }
+
+    // Step 3: Generate article (section-based)
     t = stepTimer();
     const articleRequest: ArticleRequest = {
       storeName: request.storeName,
@@ -224,8 +253,16 @@ export async function runArticlePipeline(request: PipelineRequest): Promise<Pipe
       language,
       isPaidFeature: request.isPaidFeature,
     };
-    const generated: GeneratedArticle = await generateArticle(articleRequest);
-    steps.push({ step: '3-generate', status: 'ok', durationMs: t() });
+
+    let generated: GeneratedArticle;
+    try {
+      generated = await generateArticleSectioned(articleRequest, intent, serpData);
+      console.log(`  ✅ Section-based generation: ${generated.wordCount} words, ${generated.title}`);
+    } catch (e) {
+      console.log(`  ⚠️ Section-based generation failed, falling back to monolithic: ${String(e).slice(0, 100)}`);
+      generated = await generateArticle(articleRequest);
+    }
+    steps.push({ step: '3-generate', status: 'ok', durationMs: t(), note: `${generated.wordCount} words` });
 
     // Step 4: Internal linking (already injected via prompt if existingArticles provided)
     t = stepTimer();
