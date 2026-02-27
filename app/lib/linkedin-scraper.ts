@@ -46,7 +46,9 @@ export async function scrapeLinkedInProfile(profileUrl: string): Promise<LinkedI
 
   try {
     // Dynamic import — playwright may not be installed in all environments
-    const { chromium } = await import('playwright').catch(() => ({ chromium: null }));
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const playwrightModule = await (import as any)('playwright').catch(() => null);
+    const chromium = playwrightModule?.chromium ?? null;
     if (!chromium) {
       console.log('  ℹ️ Playwright not available — skipping LinkedIn scraping');
       return EMPTY_PROFILE(profileUrl);
