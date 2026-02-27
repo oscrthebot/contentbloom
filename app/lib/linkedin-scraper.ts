@@ -145,3 +145,33 @@ function parseLinkedInMarkdown(text: string, profileUrl: string): LinkedInProfil
     skills,
   };
 }
+
+/**
+ * Build a text enrichment string from a LinkedIn profile for use in article generation.
+ * Returns null if the profile has no useful data.
+ */
+export function buildLinkedInEnrichment(profile: LinkedInProfile): string | null {
+  const parts: string[] = [];
+
+  if (profile.fullName) parts.push(`Name: ${profile.fullName}`);
+  if (profile.headline) parts.push(`Headline: ${profile.headline}`);
+  if (profile.about) parts.push(`About: ${profile.about}`);
+  if (profile.location) parts.push(`Location: ${profile.location}`);
+
+  if (profile.experiences.length > 0) {
+    parts.push('Experience:');
+    profile.experiences.forEach(e => {
+      parts.push(`  - ${e.title}${e.company ? ` at ${e.company}` : ''}${e.duration ? ` (${e.duration})` : ''}`);
+    });
+  }
+
+  if (profile.education.length > 0) {
+    parts.push(`Education: ${profile.education.join(', ')}`);
+  }
+
+  if (profile.skills.length > 0) {
+    parts.push(`Skills: ${profile.skills.join(', ')}`);
+  }
+
+  return parts.length > 1 ? parts.join('\n') : null;
+}
