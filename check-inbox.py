@@ -61,8 +61,8 @@ def notify_telegram(account, from_, subject, body):
     import urllib.request
     import urllib.parse
 
-    token = '8593076538:AAFui0vdyFJuUCO-psZYT3ljDscDENnajkE'
-    chat_id = '1796388904'
+    token = os.environ.get('TELEGRAM_BOT_TOKEN', '')
+    chat_id = os.environ.get('TELEGRAM_CHAT_ID', '1796388904')
     text = (
         f"📬 *Nueva respuesta en BloomContent*\n\n"
         f"*Cuenta:* `{account}`\n"
