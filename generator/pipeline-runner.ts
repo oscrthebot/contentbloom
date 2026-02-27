@@ -22,6 +22,7 @@ import {
   fetchShopifyProducts,
   fixQAIssues,
 } from './article-generator';
+import { scrapeLinkedInProfile, buildLinkedInEnrichment, LinkedInProfile } from '../app/lib/linkedin-scraper';
 import { generateArticleSchema } from '../lib/schema-generator';
 import { generateSlug } from '../lib/slug-generator';
 import { ConvexHttpClient } from 'convex/browser';
@@ -162,7 +163,29 @@ export async function runArticlePipeline(request: PipelineRequest): Promise<Pipe
         }
       }
     }
-    steps.push({ step: '2-context', status: 'ok', durationMs: t(), note: authorProfile ? `Author: ${authorProfile.fullName}` : 'No author profile' });
+    // LinkedIn enrichment: if author has a LinkedIn URL, scrape real profile data
+    let linkedInProfile: LinkedInProfile | null = null;
+    if (authorProfile?.linkedinUrl) {
+      try {
+        console.log(`  🔗 Scraping LinkedIn: ${authorProfile.linkedinUrl}`);
+        linkedInProfile = await scrapeLinkedInProfile(authorProfile.linkedinUrl);
+        const enrichment = buildLinkedInEnrichment(linkedInProfile);
+        if (enrichment) {
+          // Enrich the author profile bio with real LinkedIn data
+          authorProfile = {
+            ...authorProfile,
+            bio: authorProfile.bio + '\n\nLinkedIn data:\n' + enrichment,
+            // Use real photo URL if scraped
+            ...(linkedInProfile.photoUrl ? { photoUrl: linkedInProfile.photoUrl } as any : {}),
+          };
+          console.log(`  ✅ LinkedIn enrichment applied for ${authorProfile!.fullName}`);
+        }
+      } catch {
+        // LinkedIn scraping failed gracefully — continue without enrichment
+      }
+    }
+
+    steps.push({ step: '2-context', status: 'ok', durationMs: t(), note: authorProfile ? `Author: ${authorProfile.fullName}${linkedInProfile?.headline ? ` (${linkedInProfile.headline})` : ''}` : 'No author profile' });
 
     // Step 2b: Language detection
     t = stepTimer();
@@ -227,7 +250,14 @@ export async function runArticlePipeline(request: PipelineRequest): Promise<Pipe
       description: generated.metaDescription,
       url: articleUrl,
       datePublished: new Date().toISOString(),
-      author: authorProfile ? { name: authorProfile.fullName, url: authorProfile.linkedinUrl } : undefined,
+      author: authorProfile
+        ? {
+            name: authorProfile.fullName,
+            url: authorProfile.linkedinUrl,
+            linkedinUrl: authorProfile.linkedinUrl,
+            photoUrl: linkedInProfile?.photoUrl,
+          }
+        : undefined,
       publisher: { name: request.storeName, url: request.storeUrl },
       faqItems,
     });
@@ -245,15 +275,17 @@ export async function runArticlePipeline(request: PipelineRequest): Promise<Pipe
     let qa: QAResult = await reviewArticle(humanizedContent, keywords.targetKeyword, request.storeName);
     steps.push({ step: '8-qa', status: 'ok', durationMs: t(), note: `Score: ${qa.score}` });
 
-    // QA retry loop: always retry if critical issues exist, or score < 90, or style issues > 2 (max 3 retries)
-    const QA_THRESHOLD = 90;
-    const MAX_QA_RETRIES = 3;
+    // QA retry loop: always retry if critical issues exist, or score < 85, or style issues > 2 (max 2 retries)
+    const QA_THRESHOLD = 85;
+    const MAX_QA_RETRIES = 2;
+    let regenerationCount = 0;
     for (
       let retry = 1;
       retry <= MAX_QA_RETRIES &&
         (qa.criticalIssues.length > 0 || qa.score < QA_THRESHOLD || qa.issues.length > 2);
       retry++
     ) {
+      regenerationCount = retry;
       t = stepTimer();
       const issuesSummary = [...qa.criticalIssues.map(i => `[CRITICAL] ${i}`), ...qa.issues].join('; ');
       console.log(
@@ -268,10 +300,12 @@ export async function runArticlePipeline(request: PipelineRequest): Promise<Pipe
       steps.push({ step: `8-qa-retry-${retry}`, status: 'ok', durationMs: t(), note: `Score: ${qa.score}, issues: ${qa.issues.length}, critical: ${qa.criticalIssues.length}` });
     }
 
-    // If critical issues remain after all retries → queue for manual review, do NOT deliver
+    // If critical issues remain OR score still < 85 after retries → flag for manual review
     const hasCriticalRemaining = qa.criticalIssues.length > 0;
-    if (hasCriticalRemaining) {
-      console.warn(`  🚫 Critical QA issues remain after ${MAX_QA_RETRIES} retries — holding article in 'queued' status`);
+    const scoreBelowThreshold = qa.score < QA_THRESHOLD;
+    const needsManualReview = hasCriticalRemaining || scoreBelowThreshold;
+    if (needsManualReview) {
+      console.warn(`  🚫 Article needs manual review after ${MAX_QA_RETRIES} retries — score=${qa.score}, critical=${qa.criticalIssues.length}`);
     }
 
     // Step 9: Export markdown + frontmatter
@@ -294,12 +328,10 @@ qaScore: ${qa.score}
     t = stepTimer();
     let convexArticleId: string | undefined;
     try {
-      // Determine final status: block delivery if critical issues remain
-      const finalStatus = hasCriticalRemaining
-        ? 'queued'          // hold for manual review
-        : qa.score >= 80
-          ? 'review'
-          : 'generating';
+      // Determine final status: needs_review if below threshold or critical issues remain
+      const finalStatus = needsManualReview
+        ? 'needs_review'    // flag for manual review — do NOT auto-publish
+        : 'review';         // passed quality gate, ready for user review
 
       convexArticleId = await convex.mutation(api.articles.createArticle, {
         clientId: request.clientId as any,
@@ -322,6 +354,14 @@ qaScore: ${qa.score}
         monthlyVolume: keywords.monthlyVolume,
         status: finalStatus,
         isPaidFeature: request.isPaidFeature ?? false,
+        regenerationCount,
+        productBanners: products.slice(0, 6).map(p => ({
+          name: p.name,
+          imageUrl: p.imageUrl,
+          price: p.price,
+          description: p.description?.slice(0, 120),
+          url: p.url,
+        })),
       });
       steps.push({ step: '10-save', status: 'ok', durationMs: t() });
     } catch (e) {

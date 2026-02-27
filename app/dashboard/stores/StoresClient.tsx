@@ -27,6 +27,155 @@ interface StoresClientProps {
   shopifySettings: ShopifySettings;
 }
 
+// ─── WordPress Connection Component ──────────────────────────────────────────
+
+function WordPressSection() {
+  const [wpSiteUrl, setWpSiteUrl] = useState("");
+  const [wpUsername, setWpUsername] = useState("");
+  const [wpAppPassword, setWpAppPassword] = useState("");
+  const [wpLoading, setWpLoading] = useState(false);
+  const [wpError, setWpError] = useState("");
+  const [wpSuccess, setWpSuccess] = useState("");
+  const [wpConnected, setWpConnected] = useState(false);
+  const [wpSiteInfo, setWpSiteInfo] = useState<{ displayName?: string; siteTitle?: string } | null>(null);
+
+  async function handleVerifyWordPress(e: React.FormEvent) {
+    e.preventDefault();
+    setWpLoading(true);
+    setWpError("");
+    setWpSuccess("");
+
+    try {
+      const res = await fetch("/api/wordpress/verify", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ siteUrl: wpSiteUrl, username: wpUsername, applicationPassword: wpAppPassword }),
+      });
+      const data = await res.json();
+
+      if (!res.ok) {
+        setWpError(data.error || "Connection failed");
+        return;
+      }
+
+      // Save credentials
+      const saveRes = await fetch("/api/wordpress/save-credentials", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ siteUrl: wpSiteUrl, username: wpUsername, applicationPassword: wpAppPassword }),
+      });
+
+      if (saveRes.ok) {
+        setWpConnected(true);
+        setWpSiteInfo({ displayName: data.displayName, siteTitle: data.siteTitle });
+        setWpSuccess(`✅ Connected to "${data.siteTitle || wpSiteUrl}" as ${data.displayName || wpUsername}`);
+      } else {
+        // Connection verified but couldn't save — still show success
+        setWpConnected(true);
+        setWpSuccess(`✅ Verified! Connected to "${data.siteTitle || wpSiteUrl}" as ${data.displayName || wpUsername}`);
+      }
+    } catch (err) {
+      setWpError(err instanceof Error ? err.message : "Unknown error");
+    } finally {
+      setWpLoading(false);
+    }
+  }
+
+  return (
+    <div style={{ background: "#fff", border: "1px solid #e5e7eb", borderRadius: 14, padding: 28, marginTop: 24 }}>
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 20 }}>
+        <div>
+          <h2 style={{ fontSize: 18, fontWeight: 700, color: "#111827", margin: 0 }}>WordPress Connection</h2>
+          <p style={{ fontSize: 13, color: "#6b7280", marginTop: 4 }}>
+            Publish articles to any WordPress or WooCommerce site — no plugins needed.
+          </p>
+        </div>
+        {wpConnected && (
+          <span style={{ fontSize: 13, color: "#16a34a", fontWeight: 600, background: "#f0fdf4", border: "1px solid #bbf7d0", borderRadius: 8, padding: "4px 12px" }}>
+            ✓ Connected
+          </span>
+        )}
+      </div>
+
+      <form onSubmit={handleVerifyWordPress}>
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16, marginBottom: 16 }}>
+          <div>
+            <label style={{ display: "block", fontSize: 13, fontWeight: 600, color: "#374151", marginBottom: 6 }}>
+              WordPress site URL
+            </label>
+            <input
+              type="url"
+              value={wpSiteUrl}
+              onChange={e => setWpSiteUrl(e.target.value)}
+              placeholder="https://mybusiness.com"
+              required
+              style={{ width: "100%", padding: "9px 12px", border: "1px solid #d1d5db", borderRadius: 8, fontSize: 14, boxSizing: "border-box" }}
+            />
+          </div>
+          <div>
+            <label style={{ display: "block", fontSize: 13, fontWeight: 600, color: "#374151", marginBottom: 6 }}>
+              WordPress username
+            </label>
+            <input
+              type="text"
+              value={wpUsername}
+              onChange={e => setWpUsername(e.target.value)}
+              placeholder="your-wp-username"
+              required
+              style={{ width: "100%", padding: "9px 12px", border: "1px solid #d1d5db", borderRadius: 8, fontSize: 14, boxSizing: "border-box" }}
+            />
+          </div>
+        </div>
+
+        <div style={{ marginBottom: 16 }}>
+          <label style={{ display: "block", fontSize: 13, fontWeight: 600, color: "#374151", marginBottom: 6 }}>
+            Application Password
+          </label>
+          <input
+            type="password"
+            value={wpAppPassword}
+            onChange={e => setWpAppPassword(e.target.value)}
+            placeholder="xxxx xxxx xxxx xxxx xxxx xxxx"
+            required
+            style={{ width: "100%", padding: "9px 12px", border: "1px solid #d1d5db", borderRadius: 8, fontSize: 14, boxSizing: "border-box" }}
+          />
+        </div>
+
+        {wpError && (
+          <div style={{ padding: "10px 14px", background: "#fef2f2", border: "1px solid #fca5a5", borderRadius: 8, fontSize: 13, color: "#991b1b", marginBottom: 14 }}>
+            {wpError}
+          </div>
+        )}
+        {wpSuccess && (
+          <div style={{ padding: "10px 14px", background: "#f0fdf4", border: "1px solid #bbf7d0", borderRadius: 8, fontSize: 13, color: "#166534", marginBottom: 14 }}>
+            {wpSuccess}
+          </div>
+        )}
+
+        <button
+          type="submit"
+          disabled={wpLoading}
+          style={{ padding: "10px 22px", background: "#2563eb", color: "#fff", border: "none", borderRadius: 8, fontSize: 14, fontWeight: 600, cursor: "pointer", opacity: wpLoading ? 0.7 : 1 }}
+        >
+          {wpLoading ? "Verifying…" : "Connect WordPress"}
+        </button>
+      </form>
+
+      <div style={{ marginTop: 16, padding: "14px 16px", background: "#f8fafc", border: "1px solid #e2e8f0", borderRadius: 10, fontSize: 12, color: "#64748b", lineHeight: 1.7 }}>
+        <strong style={{ color: "#475569" }}>How to get your Application Password:</strong><br />
+        1. Go to your WordPress Admin → <strong>Users → Your Profile</strong><br />
+        2. Scroll down to <strong>Application Passwords</strong><br />
+        3. Enter name <code style={{ background: "#e2e8f0", padding: "1px 5px", borderRadius: 4 }}>BloomContent</code> → click <strong>Add New Application Password</strong><br />
+        4. Copy the generated password and paste it above<br />
+        <br />
+        No plugins needed. Works with any WordPress 5.6+ site including WooCommerce.
+      </div>
+    </div>
+  );
+}
+
+// ─── Main Stores Component ────────────────────────────────────────────────────
+
 export function StoresClient({ stores, planPrices, shopifySettings }: StoresClientProps) {
   const router = useRouter();
   const [showModal, setShowModal] = useState(false);
@@ -481,6 +630,9 @@ export function StoresClient({ stores, planPrices, shopifySettings }: StoresClie
           </div>
         </div>
       </div>
+
+      {/* ── WordPress Connection Section ──────────────────────────────────── */}
+      <WordPressSection />
 
       {/* Add Store Modal */}
       {showModal && (

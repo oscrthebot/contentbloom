@@ -250,3 +250,128 @@
 2026-02-26 10:43:16,379 INFO SENT: rafa@bloomcontent.site → info@prepara.com | quick thing for Prepara
 2026-02-26 10:43:16,810 INFO === Done ===
 2026-02-26 10:43:16,810 INFO === Done ===
+2026-02-26 19:10:52,864 INFO === Email Scheduler [DRY-RUN] | 2026-02-26 ===
+2026-02-26 19:10:52,864 INFO --- Processing cold emails ---
+2026-02-26 19:10:53,010 INFO Account: matt.roberts@bloomcontent.site | day limit: 5
+2026-02-26 19:10:53,010 INFO [DRY-RUN] WOULD SEND: matt.roberts@bloomcontent.site → ecom-swiper@11.css | quick thing for Aniise Natural Skin Care and Cosmetics
+2026-02-26 19:10:53,011 INFO [DRY-RUN] mutation leads:updateLeadEmailStatus args={'id': 'jd734gqh3zh488z77gx7zjs0zh81xqyx', 'status': 'contacted', 'lastEmailDate': '2026-02-26T19:10:53Z', 'followUpCount': 0}
+2026-02-26 19:10:53,011 INFO [DRY-RUN] mutation leads:updateStatus args={'id': 'jd734gqh3zh488z77gx7zjs0zh81xqyx', 'status': 'contacted', 'lastContact': '2026-02-26T19:10:53Z'}
+2026-02-26 19:10:53,011 INFO [DRY-RUN] mutation outreachLog:add args={'leadId': 'jd734gqh3zh488z77gx7zjs0zh81xqyx', 'type': 'cold', 'email': 'ecom-swiper@11.css', 'subject': 'quick thing for Aniise Natural Skin Care and Cosmetics', 'status': 'sent', 'sentAt': '2026-02-26T19:10:53Z'}
+2026-02-26 19:10:53,011 INFO [DRY-RUN] WOULD SEND: matt.roberts@bloomcontent.site → nudebrownsugar@gmail.com | quick thing for Nude Brown Sugar
+2026-02-26 19:10:53,011 INFO [DRY-RUN] mutation leads:updateLeadEmailStatus args={'id': 'jd70ad63z9jr86cv55pqra95k581xps6', 'status': 'contacted', 'lastEmailDate': '2026-02-26T19:10:53Z', 'followUpCount': 0}
+2026-02-26 19:10:53,011 INFO [DRY-RUN] mutation leads:updateStatus args={'id': 'jd70ad63z9jr86cv55pqra95k581xps6', 'status': 'contacted', 'lastContact': '2026-02-26T19:10:53Z'}
+2026-02-26 19:10:53,011 INFO [DRY-RUN] mutation outreachLog:add args={'leadId': 'jd70ad63z9jr86cv55pqra95k581xps6', 'type': 'cold', 'email': 'nudebrownsugar@gmail.com', 'subject': 'quick thing for Nude Brown Sugar', 'status': 'sent', 'sentAt': '2026-02-26T19:10:53Z'}
+2026-02-26 19:10:53,011 INFO [DRY-RUN] WOULD SEND: matt.roberts@bloomcontent.site → hello@franzskincareusa.com | quick thing for Franz Skincare USA
+2026-02-26 19:10:53,011 INFO [DRY-RUN] mutation leads:updateLeadEmailStatus args={'id': 'jd71zhjtqm4a9pfwcnpjffn4n981xmb4', 'status': 'contacted', 'lastEmailDate': '2026-02-26T19:10:53Z', 'followUpCount': 0}
+2026-02-26 19:10:53,011 INFO [DRY-RUN] mutation leads:updateStatus args={'id': 'jd71zhjtqm4a9pfwcnpjffn4n981xmb4', 'status': 'contacted', 'lastContact': '2026-02-26T19:10:53Z'}
+2026-02-26 19:10:53,011 INFO [DRY-RUN] mutation outreachLog:add args={'leadId': 'jd71zhjtqm4a9pfwcnpjffn4n981xmb4', 'type': 'cold', 'email': 'hello@franzskincareusa.com', 'subject': 'quick thing for Franz Skincare USA', 'status': 'sent', 'sentAt': '2026-02-26T19:10:53Z'}
+2026-02-26 19:10:53,011 INFO [DRY-RUN] WOULD SEND: matt.roberts@bloomcontent.site → smkoreabeauty@gmail.com | quick thing for SM Korea Beauty
+2026-02-26 19:10:53,011 INFO [DRY-RUN] mutation leads:updateLeadEmailStatus args={'id': 'jd70aqja8zkadsxvecy7jsb14s81x19z', 'status': 'contacted', 'lastEmailDate': '2026-02-26T19:10:53Z', 'followUpCount': 0}
+2026-02-26 19:10:53,011 INFO [DRY-RUN] mutation leads:updateStatus args={'id': 'jd70aqja8zkadsxvecy7jsb14s81x19z', 'status': 'contacted', 'lastContact': '2026-02-26T19:10:53Z'}
+2026-02-26 19:10:53,011 INFO [DRY-RUN] mutation outreachLog:add args={'leadId': 'jd70aqja8zkadsxvecy7jsb14s81x19z', 'type': 'cold', 'email': 'smkoreabeauty@gmail.com', 'subject': 'quick thing for SM Korea Beauty', 'status': 'sent', 'sentAt': '2026-02-26T19:10:53Z'}
+2026-02-26 19:10:53,011 INFO [DRY-RUN] WOULD SEND: matt.roberts@bloomcontent.site → aapecs_us@bape.com | quick thing for AAPE STORE LOS ANGELES
+2026-02-26 19:10:53,011 INFO [DRY-RUN] mutation leads:updateLeadEmailStatus args={'id': 'jd73h58k4q4hdaefch7nbtf1y581wvpj', 'status': 'contacted', 'lastEmailDate': '2026-02-26T19:10:53Z', 'followUpCount': 0}
+2026-02-26 19:10:53,011 INFO [DRY-RUN] mutation leads:updateStatus args={'id': 'jd73h58k4q4hdaefch7nbtf1y581wvpj', 'status': 'contacted', 'lastContact': '2026-02-26T19:10:53Z'}
+2026-02-26 19:10:53,012 INFO [DRY-RUN] mutation outreachLog:add args={'leadId': 'jd73h58k4q4hdaefch7nbtf1y581wvpj', 'type': 'cold', 'email': 'aapecs_us@bape.com', 'subject': 'quick thing for AAPE STORE LOS ANGELES', 'status': 'sent', 'sentAt': '2026-02-26T19:10:53Z'}
+2026-02-26 19:10:53,012 INFO Account: rafa@bloomcontent.site | day limit: 5
+2026-02-26 19:10:53,012 INFO [DRY-RUN] WOULD SEND: rafa@bloomcontent.site → palacebeautymetro@gmail.com | quick thing for PalaceBeautyMetro
+2026-02-26 19:10:53,012 INFO [DRY-RUN] mutation leads:updateLeadEmailStatus args={'id': 'jd7fh88f538ntgpvgx8h1f37y581wsg7', 'status': 'contacted', 'lastEmailDate': '2026-02-26T19:10:53Z', 'followUpCount': 0}
+2026-02-26 19:10:53,012 INFO [DRY-RUN] mutation leads:updateStatus args={'id': 'jd7fh88f538ntgpvgx8h1f37y581wsg7', 'status': 'contacted', 'lastContact': '2026-02-26T19:10:53Z'}
+2026-02-26 19:10:53,012 INFO [DRY-RUN] mutation outreachLog:add args={'leadId': 'jd7fh88f538ntgpvgx8h1f37y581wsg7', 'type': 'cold', 'email': 'palacebeautymetro@gmail.com', 'subject': 'quick thing for PalaceBeautyMetro', 'status': 'sent', 'sentAt': '2026-02-26T19:10:53Z'}
+2026-02-26 19:10:53,012 INFO [DRY-RUN] WOULD SEND: rafa@bloomcontent.site → info@thethingswedo.co | quick thing for The Things We Do
+2026-02-26 19:10:53,012 INFO [DRY-RUN] mutation leads:updateLeadEmailStatus args={'id': 'jd79s4rhv4wyadr03tzhrmhm9d81x1tq', 'status': 'contacted', 'lastEmailDate': '2026-02-26T19:10:53Z', 'followUpCount': 0}
+2026-02-26 19:10:53,012 INFO [DRY-RUN] mutation leads:updateStatus args={'id': 'jd79s4rhv4wyadr03tzhrmhm9d81x1tq', 'status': 'contacted', 'lastContact': '2026-02-26T19:10:53Z'}
+2026-02-26 19:10:53,012 INFO [DRY-RUN] mutation outreachLog:add args={'leadId': 'jd79s4rhv4wyadr03tzhrmhm9d81x1tq', 'type': 'cold', 'email': 'info@thethingswedo.co', 'subject': 'quick thing for The Things We Do', 'status': 'sent', 'sentAt': '2026-02-26T19:10:53Z'}
+2026-02-26 19:10:53,012 INFO [DRY-RUN] WOULD SEND: rafa@bloomcontent.site → hello@heydayskincare.com | quick thing for Heyday Skincare Silver Lake
+2026-02-26 19:10:53,012 INFO [DRY-RUN] mutation leads:updateLeadEmailStatus args={'id': 'jd7b92qdmh9v50bs1ryk8hgqvx81xp31', 'status': 'contacted', 'lastEmailDate': '2026-02-26T19:10:53Z', 'followUpCount': 0}
+2026-02-26 19:10:53,012 INFO [DRY-RUN] mutation leads:updateStatus args={'id': 'jd7b92qdmh9v50bs1ryk8hgqvx81xp31', 'status': 'contacted', 'lastContact': '2026-02-26T19:10:53Z'}
+2026-02-26 19:10:53,012 INFO [DRY-RUN] mutation outreachLog:add args={'leadId': 'jd7b92qdmh9v50bs1ryk8hgqvx81xp31', 'type': 'cold', 'email': 'hello@heydayskincare.com', 'subject': 'quick thing for Heyday Skincare Silver Lake', 'status': 'sent', 'sentAt': '2026-02-26T19:10:53Z'}
+2026-02-26 19:10:53,012 INFO [DRY-RUN] WOULD SEND: rafa@bloomcontent.site → madpenguinskincare@gmail.com | quick thing for MadPenguin Skincare
+2026-02-26 19:10:53,012 INFO [DRY-RUN] mutation leads:updateLeadEmailStatus args={'id': 'jd7ebbgd1x07nh1d691eryk98x81wcvs', 'status': 'contacted', 'lastEmailDate': '2026-02-26T19:10:53Z', 'followUpCount': 0}
+2026-02-26 19:10:53,012 INFO [DRY-RUN] mutation leads:updateStatus args={'id': 'jd7ebbgd1x07nh1d691eryk98x81wcvs', 'status': 'contacted', 'lastContact': '2026-02-26T19:10:53Z'}
+2026-02-26 19:10:53,012 INFO [DRY-RUN] mutation outreachLog:add args={'leadId': 'jd7ebbgd1x07nh1d691eryk98x81wcvs', 'type': 'cold', 'email': 'madpenguinskincare@gmail.com', 'subject': 'quick thing for MadPenguin Skincare', 'status': 'sent', 'sentAt': '2026-02-26T19:10:53Z'}
+2026-02-26 19:10:53,012 INFO [DRY-RUN] WOULD SEND: rafa@bloomcontent.site → support@foresthomesstore.com | quick thing for Forest Homes
+2026-02-26 19:10:53,012 INFO [DRY-RUN] mutation leads:updateLeadEmailStatus args={'id': 'jd734w8av7f31zjcxv0158m6dd81pz9y', 'status': 'contacted', 'lastEmailDate': '2026-02-26T19:10:53Z', 'followUpCount': 0}
+2026-02-26 19:10:53,012 INFO [DRY-RUN] mutation leads:updateStatus args={'id': 'jd734w8av7f31zjcxv0158m6dd81pz9y', 'status': 'contacted', 'lastContact': '2026-02-26T19:10:53Z'}
+2026-02-26 19:10:53,012 INFO [DRY-RUN] mutation outreachLog:add args={'leadId': 'jd734w8av7f31zjcxv0158m6dd81pz9y', 'type': 'cold', 'email': 'support@foresthomesstore.com', 'subject': 'quick thing for Forest Homes', 'status': 'sent', 'sentAt': '2026-02-26T19:10:53Z'}
+2026-02-26 19:10:53,012 INFO Account: matt@trybloomcontent.site | day limit: 5
+2026-02-26 19:10:53,012 INFO [DRY-RUN] WOULD SEND: matt@trybloomcontent.site → info@lisilerch.com | quick thing for Lisilerch
+2026-02-26 19:10:53,012 INFO [DRY-RUN] mutation leads:updateLeadEmailStatus args={'id': 'jd7ceptzbcgsryzypbxt3ynsw181pfva', 'status': 'contacted', 'lastEmailDate': '2026-02-26T19:10:53Z', 'followUpCount': 0}
+2026-02-26 19:10:53,012 INFO [DRY-RUN] mutation leads:updateStatus args={'id': 'jd7ceptzbcgsryzypbxt3ynsw181pfva', 'status': 'contacted', 'lastContact': '2026-02-26T19:10:53Z'}
+2026-02-26 19:10:53,012 INFO [DRY-RUN] mutation outreachLog:add args={'leadId': 'jd7ceptzbcgsryzypbxt3ynsw181pfva', 'type': 'cold', 'email': 'info@lisilerch.com', 'subject': 'quick thing for Lisilerch', 'status': 'sent', 'sentAt': '2026-02-26T19:10:53Z'}
+2026-02-26 19:10:53,013 INFO [DRY-RUN] WOULD SEND: matt@trybloomcontent.site → ivonne@ivonnesfashions.com | quick thing for Ivonnesfashion
+2026-02-26 19:10:53,013 INFO [DRY-RUN] mutation leads:updateLeadEmailStatus args={'id': 'jd75k7236wrhp75mzkmgyh4z2d81qgfb', 'status': 'contacted', 'lastEmailDate': '2026-02-26T19:10:53Z', 'followUpCount': 0}
+2026-02-26 19:10:53,013 INFO [DRY-RUN] mutation leads:updateStatus args={'id': 'jd75k7236wrhp75mzkmgyh4z2d81qgfb', 'status': 'contacted', 'lastContact': '2026-02-26T19:10:53Z'}
+2026-02-26 19:10:53,013 INFO [DRY-RUN] mutation outreachLog:add args={'leadId': 'jd75k7236wrhp75mzkmgyh4z2d81qgfb', 'type': 'cold', 'email': 'ivonne@ivonnesfashions.com', 'subject': 'quick thing for Ivonnesfashion', 'status': 'sent', 'sentAt': '2026-02-26T19:10:53Z'}
+2026-02-26 19:10:53,013 INFO [DRY-RUN] WOULD SEND: matt@trybloomcontent.site → customerservice@jbprince.com | quick thing for Fd9180 5
+2026-02-26 19:10:53,013 INFO [DRY-RUN] mutation leads:updateLeadEmailStatus args={'id': 'jd72y9w1w9r0mgm8xx2smawv7h81p6fr', 'status': 'contacted', 'lastEmailDate': '2026-02-26T19:10:53Z', 'followUpCount': 0}
+2026-02-26 19:10:53,013 INFO [DRY-RUN] mutation leads:updateStatus args={'id': 'jd72y9w1w9r0mgm8xx2smawv7h81p6fr', 'status': 'contacted', 'lastContact': '2026-02-26T19:10:53Z'}
+2026-02-26 19:10:53,013 INFO [DRY-RUN] mutation outreachLog:add args={'leadId': 'jd72y9w1w9r0mgm8xx2smawv7h81p6fr', 'type': 'cold', 'email': 'customerservice@jbprince.com', 'subject': 'quick thing for Fd9180 5', 'status': 'sent', 'sentAt': '2026-02-26T19:10:53Z'}
+2026-02-26 19:10:53,013 INFO [DRY-RUN] WOULD SEND: matt@trybloomcontent.site → info@whimsyandrow.com | quick thing for Whimsy And Row
+2026-02-26 19:10:53,013 INFO [DRY-RUN] mutation leads:updateLeadEmailStatus args={'id': 'jd75vhrnvpfjxav9a2w9m75wg981mfg9', 'status': 'contacted', 'lastEmailDate': '2026-02-26T19:10:53Z', 'followUpCount': 0}
+2026-02-26 19:10:53,013 INFO [DRY-RUN] mutation leads:updateStatus args={'id': 'jd75vhrnvpfjxav9a2w9m75wg981mfg9', 'status': 'contacted', 'lastContact': '2026-02-26T19:10:53Z'}
+2026-02-26 19:10:53,013 INFO [DRY-RUN] mutation outreachLog:add args={'leadId': 'jd75vhrnvpfjxav9a2w9m75wg981mfg9', 'type': 'cold', 'email': 'info@whimsyandrow.com', 'subject': 'quick thing for Whimsy And Row', 'status': 'sent', 'sentAt': '2026-02-26T19:10:53Z'}
+2026-02-26 19:10:53,013 INFO [DRY-RUN] WOULD SEND: matt@trybloomcontent.site → info@mudjeans.eu | quick thing for Mud Jeans B2C En
+2026-02-26 19:10:53,013 INFO [DRY-RUN] mutation leads:updateLeadEmailStatus args={'id': 'jd714f8y4w03dsr4529nep69b981n3a5', 'status': 'contacted', 'lastEmailDate': '2026-02-26T19:10:53Z', 'followUpCount': 0}
+2026-02-26 19:10:53,013 INFO [DRY-RUN] mutation leads:updateStatus args={'id': 'jd714f8y4w03dsr4529nep69b981n3a5', 'status': 'contacted', 'lastContact': '2026-02-26T19:10:53Z'}
+2026-02-26 19:10:53,013 INFO [DRY-RUN] mutation outreachLog:add args={'leadId': 'jd714f8y4w03dsr4529nep69b981n3a5', 'type': 'cold', 'email': 'info@mudjeans.eu', 'subject': 'quick thing for Mud Jeans B2C En', 'status': 'sent', 'sentAt': '2026-02-26T19:10:53Z'}
+2026-02-26 19:10:53,013 INFO Account: rafa@trybloomcontent.site | day limit: 5
+2026-02-26 19:10:53,013 INFO [DRY-RUN] WOULD SEND: rafa@trybloomcontent.site → info@yourstore.com | quick thing for Cafenated
+2026-02-26 19:10:53,013 INFO [DRY-RUN] mutation leads:updateLeadEmailStatus args={'id': 'jd7bww9fhqj4a8hwbyvz9y2fxh81nygr', 'status': 'contacted', 'lastEmailDate': '2026-02-26T19:10:53Z', 'followUpCount': 0}
+2026-02-26 19:10:53,013 INFO [DRY-RUN] mutation leads:updateStatus args={'id': 'jd7bww9fhqj4a8hwbyvz9y2fxh81nygr', 'status': 'contacted', 'lastContact': '2026-02-26T19:10:53Z'}
+2026-02-26 19:10:53,013 INFO [DRY-RUN] mutation outreachLog:add args={'leadId': 'jd7bww9fhqj4a8hwbyvz9y2fxh81nygr', 'type': 'cold', 'email': 'info@yourstore.com', 'subject': 'quick thing for Cafenated', 'status': 'sent', 'sentAt': '2026-02-26T19:10:53Z'}
+2026-02-26 19:10:53,013 INFO [DRY-RUN] WOULD SEND: rafa@trybloomcontent.site → CustomerRelations@coffeeam.com | quick thing for Coffeeam Com
+2026-02-26 19:10:53,013 INFO [DRY-RUN] mutation leads:updateLeadEmailStatus args={'id': 'jd75qcr4rbh7c17gf663tpajms81nzp0', 'status': 'contacted', 'lastEmailDate': '2026-02-26T19:10:53Z', 'followUpCount': 0}
+2026-02-26 19:10:53,013 INFO [DRY-RUN] mutation leads:updateStatus args={'id': 'jd75qcr4rbh7c17gf663tpajms81nzp0', 'status': 'contacted', 'lastContact': '2026-02-26T19:10:53Z'}
+2026-02-26 19:10:53,013 INFO [DRY-RUN] mutation outreachLog:add args={'leadId': 'jd75qcr4rbh7c17gf663tpajms81nzp0', 'type': 'cold', 'email': 'CustomerRelations@coffeeam.com', 'subject': 'quick thing for Coffeeam Com', 'status': 'sent', 'sentAt': '2026-02-26T19:10:53Z'}
+2026-02-26 19:10:53,014 INFO [DRY-RUN] WOULD SEND: rafa@trybloomcontent.site → onlineorder@cafvina.com | quick thing for Cafvina Coffee Tea
+2026-02-26 19:10:53,014 INFO [DRY-RUN] mutation leads:updateLeadEmailStatus args={'id': 'jd7agtbdwhnrb8sn0fvyp3g61h81myj2', 'status': 'contacted', 'lastEmailDate': '2026-02-26T19:10:53Z', 'followUpCount': 0}
+2026-02-26 19:10:53,014 INFO [DRY-RUN] mutation leads:updateStatus args={'id': 'jd7agtbdwhnrb8sn0fvyp3g61h81myj2', 'status': 'contacted', 'lastContact': '2026-02-26T19:10:53Z'}
+2026-02-26 19:10:53,014 INFO [DRY-RUN] mutation outreachLog:add args={'leadId': 'jd7agtbdwhnrb8sn0fvyp3g61h81myj2', 'type': 'cold', 'email': 'onlineorder@cafvina.com', 'subject': 'quick thing for Cafvina Coffee Tea', 'status': 'sent', 'sentAt': '2026-02-26T19:10:53Z'}
+2026-02-26 19:10:53,014 INFO [DRY-RUN] WOULD SEND: rafa@trybloomcontent.site → hello@babycubby.com | quick thing for Babycubby
+2026-02-26 19:10:53,014 INFO [DRY-RUN] mutation leads:updateLeadEmailStatus args={'id': 'jd79ybgyymm6e20csa01btsvp581m172', 'status': 'contacted', 'lastEmailDate': '2026-02-26T19:10:53Z', 'followUpCount': 0}
+2026-02-26 19:10:53,014 INFO [DRY-RUN] mutation leads:updateStatus args={'id': 'jd79ybgyymm6e20csa01btsvp581m172', 'status': 'contacted', 'lastContact': '2026-02-26T19:10:53Z'}
+2026-02-26 19:10:53,014 INFO [DRY-RUN] mutation outreachLog:add args={'leadId': 'jd79ybgyymm6e20csa01btsvp581m172', 'type': 'cold', 'email': 'hello@babycubby.com', 'subject': 'quick thing for Babycubby', 'status': 'sent', 'sentAt': '2026-02-26T19:10:53Z'}
+2026-02-26 19:10:53,014 INFO [DRY-RUN] WOULD SEND: rafa@trybloomcontent.site → customerservice@babycottons.com | quick thing for Babycottons Us
+2026-02-26 19:10:53,014 INFO [DRY-RUN] mutation leads:updateLeadEmailStatus args={'id': 'jd7ewa67xe0052x8hjrzzc1fgn81mt4z', 'status': 'contacted', 'lastEmailDate': '2026-02-26T19:10:53Z', 'followUpCount': 0}
+2026-02-26 19:10:53,014 INFO [DRY-RUN] mutation leads:updateStatus args={'id': 'jd7ewa67xe0052x8hjrzzc1fgn81mt4z', 'status': 'contacted', 'lastContact': '2026-02-26T19:10:53Z'}
+2026-02-26 19:10:53,014 INFO [DRY-RUN] mutation outreachLog:add args={'leadId': 'jd7ewa67xe0052x8hjrzzc1fgn81mt4z', 'type': 'cold', 'email': 'customerservice@babycottons.com', 'subject': 'quick thing for Babycottons Us', 'status': 'sent', 'sentAt': '2026-02-26T19:10:53Z'}
+2026-02-26 19:10:53,014 INFO --- Processing follow-ups ---
+2026-02-26 19:10:53,014 INFO Checking for follow-ups on 2026-02-26
+2026-02-26 20:21:21,802 INFO === Email Scheduler | 2026-02-26 ===
+2026-02-26 20:21:21,802 INFO --- Processing cold emails ---
+2026-02-26 20:21:22,038 INFO Account: matt.roberts@bloomcontent.site | day limit: 5
+2026-02-26 20:21:23,884 INFO SENT: matt.roberts@bloomcontent.site → ecom-swiper@11.css | quick thing for Aniise Natural Skin Care and Cosmetics
+2026-02-26 20:21:24,375 INFO Sleeping 21 minutes before next email...
+2026-02-27 08:00:01,492 INFO === Email Scheduler | 2026-02-27 ===
+2026-02-27 08:00:01,492 INFO === Email Scheduler | 2026-02-27 ===
+2026-02-27 08:00:01,493 INFO --- Processing cold emails ---
+2026-02-27 08:00:01,493 INFO --- Processing cold emails ---
+2026-02-27 08:00:01,811 INFO Account: matt.roberts@bloomcontent.site | day limit: 5
+2026-02-27 08:00:01,811 INFO Account: matt.roberts@bloomcontent.site | day limit: 5
+2026-02-27 08:00:03,626 INFO SENT: matt.roberts@bloomcontent.site → support@precor.com | quick thing for Precor At Home
+2026-02-27 08:00:03,626 INFO SENT: matt.roberts@bloomcontent.site → support@precor.com | quick thing for Precor At Home
+/root/.openclaw/workspace/contentbloom/email-scheduler.py:621: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  now_iso = datetime.utcnow().strftime("%Y-%m-%dT%H:%M:%SZ")
+2026-02-27 08:00:04,201 INFO Sleeping 17 minutes before next email...
+2026-02-27 08:00:04,201 INFO Sleeping 17 minutes before next email...
+2026-02-27 08:17:05,279 INFO SENT: matt.roberts@bloomcontent.site → contact@gaala.com | quick thing for Gaalaparisminsk
+2026-02-27 08:17:05,279 INFO SENT: matt.roberts@bloomcontent.site → contact@gaala.com | quick thing for Gaalaparisminsk
+2026-02-27 08:17:05,910 INFO Sleeping 15 minutes before next email...
+2026-02-27 08:17:05,910 INFO Sleeping 15 minutes before next email...
+2026-02-27 08:32:06,709 INFO SENT: matt.roberts@bloomcontent.site → mailtoinfo@herbivorebotanicals.com | quick thing for Herbivore Botanicals
+2026-02-27 08:32:06,709 INFO SENT: matt.roberts@bloomcontent.site → mailtoinfo@herbivorebotanicals.com | quick thing for Herbivore Botanicals
+2026-02-27 08:32:07,311 INFO Sleeping 22 minutes before next email...
+2026-02-27 08:32:07,311 INFO Sleeping 22 minutes before next email...
+2026-02-27 08:54:08,388 INFO SENT: matt.roberts@bloomcontent.site → info@angelpetsupplies.com | quick thing for Angelpet Supplies
+2026-02-27 08:54:08,388 INFO SENT: matt.roberts@bloomcontent.site → info@angelpetsupplies.com | quick thing for Angelpet Supplies
+2026-02-27 08:54:08,996 INFO Sleeping 21 minutes before next email...
+2026-02-27 08:54:08,996 INFO Sleeping 21 minutes before next email...
+2026-02-27 09:15:10,083 INFO SENT: matt.roberts@bloomcontent.site → ootbconsigninc@gmail.com | quick thing for Outoftheboxconsignment
+2026-02-27 09:15:10,083 INFO SENT: matt.roberts@bloomcontent.site → ootbconsigninc@gmail.com | quick thing for Outoftheboxconsignment
+2026-02-27 09:15:10,654 INFO Account: rafa@bloomcontent.site | day limit: 5
+2026-02-27 09:15:10,654 INFO Account: rafa@bloomcontent.site | day limit: 5
+2026-02-27 09:15:11,299 INFO SENT: rafa@bloomcontent.site → example@yourdomain.com | quick thing for Latter Day Home
+2026-02-27 09:15:11,299 INFO SENT: rafa@bloomcontent.site → example@yourdomain.com | quick thing for Latter Day Home
+2026-02-27 09:15:11,702 INFO Sleeping 20 minutes before next email...
+2026-02-27 09:15:11,702 INFO Sleeping 20 minutes before next email...

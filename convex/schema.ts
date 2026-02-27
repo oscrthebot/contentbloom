@@ -90,8 +90,10 @@ export default defineSchema({
       v.literal("approved"),
       v.literal("published"),
       v.literal("delivered"),
-      v.literal("revision")
+      v.literal("revision"),
+      v.literal("needs_review")
     ),
+    regenerationCount: v.optional(v.number()),
     deliveredAt: v.optional(v.string()),
     revisionNotes: v.optional(v.string()),
     // Shopify publish fields
@@ -236,8 +238,13 @@ export default defineSchema({
     storeName: v.string(),
     storeUrl: v.string(),
     niche: v.optional(v.string()),
+    platform: v.optional(v.union(v.literal("shopify"), v.literal("wordpress"), v.literal("generic"))),
     shopifyDomain: v.optional(v.string()),
     shopifyToken: v.optional(v.string()),
+    // WordPress credentials (Application Passwords)
+    wordpressSiteUrl: v.optional(v.string()),
+    wordpressUsername: v.optional(v.string()),
+    wordpressAppPassword: v.optional(v.string()),
     plan: v.union(v.literal("trial"), v.literal("starter"), v.literal("growth"), v.literal("scale")),
     status: v.union(v.literal("active"), v.literal("paused"), v.literal("cancelled")),
     storeIndex: v.number(),           // 0 = first store, 1 = second, etc.

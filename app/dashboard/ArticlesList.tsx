@@ -12,12 +12,17 @@ interface Article {
   feedback: { rating: string } | null;
 }
 
+const statusLabels: Record<string, string> = {
+  needs_review: "⚠️ Needs Review",
+};
+
 const statusColors: Record<string, { bg: string; color: string }> = {
   queued: { bg: "#fef3c7", color: "#92400e" },
   generating: { bg: "#dbeafe", color: "#1e40af" },
   review: { bg: "#e0e7ff", color: "#3730a3" },
   delivered: { bg: "#dcfce7", color: "#166534" },
   revision: { bg: "#fee2e2", color: "#991b1b" },
+  needs_review: { bg: "#fff7ed", color: "#c2410c" },
 };
 
 export function ArticlesList({ articles }: { articles: Article[] }) {
@@ -70,7 +75,7 @@ export function ArticlesList({ articles }: { articles: Article[] }) {
                     color: sc.color,
                     textTransform: "capitalize",
                   }}>
-                    {article.status}
+                    {statusLabels[article.status] ?? article.status}
                   </span>
                 </td>
                 <td style={{ padding: "14px 16px", fontSize: 13, color: "#6b7280" }}>

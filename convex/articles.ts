@@ -41,9 +41,18 @@ export const createArticle = mutation({
       v.literal("published"),
       v.literal("queued"),
       v.literal("delivered"),
-      v.literal("revision")
+      v.literal("revision"),
+      v.literal("needs_review")
     ),
     isPaidFeature: v.boolean(),
+    regenerationCount: v.optional(v.number()),
+    productBanners: v.optional(v.array(v.object({
+      name: v.string(),
+      imageUrl: v.optional(v.string()),
+      price: v.optional(v.string()),
+      description: v.optional(v.string()),
+      url: v.string(),
+    }))),
   },
   handler: async (ctx, args) => {
     return await ctx.db.insert("articles", {
@@ -64,7 +73,8 @@ export const updateArticleStatus = mutation({
       v.literal("published"),
       v.literal("queued"),
       v.literal("delivered"),
-      v.literal("revision")
+      v.literal("revision"),
+      v.literal("needs_review")
     ),
   },
   handler: async (ctx, args) => {

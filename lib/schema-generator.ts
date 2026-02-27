@@ -3,7 +3,7 @@ export interface SchemaParams {
   description: string;
   url: string;
   datePublished: string;
-  author?: { name: string; url?: string };
+  author?: { name: string; url?: string; linkedinUrl?: string; photoUrl?: string };
   publisher: { name: string; url: string };
   faqItems?: Array<{ question: string; answer: string }>;
 }
@@ -26,10 +26,14 @@ export function generateArticleSchema(params: SchemaParams): object {
   };
 
   if (params.author) {
+    const sameAs: string[] = [];
+    if (params.author.linkedinUrl) sameAs.push(params.author.linkedinUrl);
+
     article.author = {
       '@type': 'Person',
       name: params.author.name,
       ...(params.author.url ? { url: params.author.url } : {}),
+      ...(sameAs.length > 0 ? { sameAs } : {}),
     };
 
     // Person schema
@@ -37,6 +41,8 @@ export function generateArticleSchema(params: SchemaParams): object {
       '@type': 'Person',
       name: params.author.name,
       ...(params.author.url ? { url: params.author.url } : {}),
+      ...(params.author.photoUrl ? { image: params.author.photoUrl } : {}),
+      ...(sameAs.length > 0 ? { sameAs } : {}),
     });
   }
 

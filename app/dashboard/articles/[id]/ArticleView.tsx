@@ -113,11 +113,22 @@ function buildRenderer(productMap: Map<string, ProductBanner>) {
   return renderer;
 }
 
+// Strip internal generation artifacts (Style Notes, Q&A sections) from user-facing content
+function stripInternalSections(md: string): string {
+  // Remove entire sections that start with headings matching internal artifact names
+  // Matches ## Style Notes, ## Q&A, ## Style Notes:, etc. and everything until the next ## heading or end
+  return md
+    .replace(/^##\s+(Style Notes?|Q&A|Questions?\s*&\s*Answers?|Internal Notes?)[^\n]*\n[\s\S]*?(?=^##\s|\Z)/gim, '')
+    .replace(/^##\s+(Style Notes?|Q&A|Questions?\s*&\s*Answers?|Internal Notes?)[^\n]*\n[\s\S]*/gim, '')
+    .trim();
+}
+
 function renderMarkdown(md: string, productBanners?: ProductBanner[]): string {
+  const cleaned    = stripInternalSections(md);
   const productMap = buildProductMap(productBanners);
   const renderer   = buildRenderer(productMap);
   marked.use({ renderer, breaks: false, gfm: true });
-  return marked.parse(md) as string;
+  return marked.parse(cleaned) as string;
 }
 
 // ─── Helpers ─────────────────────────────────────────────────────────────────
@@ -432,22 +443,8 @@ export function ArticleView({
         </div>
       )}
 
-      {/* ─── Style QA (collapsible) ──────────────────────────────────────── */}
-      {article.qaIssues && article.qaIssues.length > 0 && (
-        <div style={{ background:"#fffbeb", border:"1px solid #fde68a", borderRadius:12, marginBottom:16, overflow:"hidden" }}>
-          <button onClick={() => setQaOpen(!qaOpen)} style={{ width:"100%", display:"flex", justifyContent:"space-between", alignItems:"center", padding:"12px 16px", background:"transparent", border:"none", cursor:"pointer", fontSize:13, fontWeight:600, color:"#92400e" }}>
-            <span>⚠️ Style notes ({article.qaIssues.length})</span>
-            <span style={{ fontSize:11, color:"#b45309" }}>{qaOpen ? "▲ Hide" : "▼ Show"}</span>
-          </button>
-          {qaOpen && (
-            <ul style={{ margin:0, padding:"0 16px 12px 32px" }}>
-              {article.qaIssues.map((issue, i) => (
-                <li key={i} style={{ fontSize:13, color:"#78350f", marginBottom:4, lineHeight:1.5 }}>{issue}</li>
-              ))}
-            </ul>
-          )}
-        </div>
-      )}
+      {/* ─── Style QA — hidden from user-facing view (internal artifact) ── */}
+      {/* Style notes are internal QA feedback; only shown in admin/editor context */}
 
       {/* ─── Shopify status ─────────────────────────────────────────────── */}
       {shopifyResult?.error && (
@@ -459,6 +456,18 @@ export function ArticleView({
         <div style={{ background:"#faf5ff", border:"1px solid #e9d5ff", borderRadius:10, padding:"12px 16px", marginBottom:16, fontSize:13, color:"#6b21a8" }}>
           🛍️ <strong>Connect Shopify</strong> to publish articles directly to your store.{" "}
           <a href="/dashboard/stores" style={{ color:"#7c3aed", fontWeight:600 }}>Set up in Settings →</a>
+        </div>
+      )}
+
+      {/* ─── Hero product image ──────────────────────────────────────────── */}
+      {article.productBanners && article.productBanners.length > 0 && article.productBanners[0].imageUrl && (
+        <div style={{ marginBottom:20, borderRadius:14, overflow:"hidden", border:"1px solid var(--border)", background:"#f9f9f9", maxHeight:280, display:"flex", alignItems:"center", justifyContent:"center" }}>
+          <img
+            src={article.productBanners[0].imageUrl}
+            alt={article.productBanners[0].name}
+            style={{ width:"100%", maxHeight:280, objectFit:"cover", display:"block" }}
+            onError={(e) => { (e.currentTarget.parentElement as HTMLElement).style.display = "none"; }}
+          />
         </div>
       )}
 

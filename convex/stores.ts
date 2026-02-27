@@ -116,3 +116,63 @@ export const updateStore = mutation({
     return { success: true };
   },
 });
+
+export const getByUser = query({
+  args: { userId: v.id("users") },
+  handler: async (ctx, args) => {
+    return await ctx.db
+      .query("stores")
+      .withIndex("by_user", q => q.eq("userId", args.userId))
+      .collect();
+  },
+});
+
+export const saveWordPressCredentials = mutation({
+  args: {
+    userId: v.id("users"),
+    wordpressSiteUrl: v.string(),
+    wordpressUsername: v.string(),
+    wordpressAppPassword: v.string(),
+    storeName: v.optional(v.string()),
+  },
+  handler: async (ctx, args) => {
+    // Check if a WordPress store already exists for this user
+    const existingStores = await ctx.db
+      .query("stores")
+      .withIndex("by_user", q => q.eq("userId", args.userId))
+      .collect();
+
+    const wpStore = existingStores.find(s => (s as any).platform === "wordpress");
+
+    if (wpStore) {
+      // Update existing WordPress store
+      await ctx.db.patch(wpStore._id, {
+        wordpressSiteUrl: args.wordpressSiteUrl,
+        wordpressUsername: args.wordpressUsername,
+        wordpressAppPassword: args.wordpressAppPassword,
+        storeUrl: args.wordpressSiteUrl,
+        ...(args.storeName ? { storeName: args.storeName } : {}),
+      } as any);
+      return { success: true, storeId: wpStore._id };
+    }
+
+    // Create new WordPress store
+    const storeCount = existingStores.length;
+    const newStoreId = await ctx.db.insert("stores", {
+      userId: args.userId,
+      storeName: args.storeName || "WordPress Site",
+      storeUrl: args.wordpressSiteUrl,
+      platform: "wordpress",
+      wordpressSiteUrl: args.wordpressSiteUrl,
+      wordpressUsername: args.wordpressUsername,
+      wordpressAppPassword: args.wordpressAppPassword,
+      plan: "trial",
+      status: "active",
+      storeIndex: storeCount,
+      discountMultiplier: 1.0,
+      createdAt: Date.now(),
+    } as any);
+
+    return { success: true, storeId: newStoreId };
+  },
+});
