@@ -38,6 +38,7 @@ export const listForUser = query({
         wordCount: a.wordCount,
         status: a.status,
         deliveredAt: a.deliveredAt,
+        _creationTime: a._creationTime,
         feedback: feedbackMap.get(a._id) || null,
       })),
     };

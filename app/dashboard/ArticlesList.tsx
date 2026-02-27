@@ -9,7 +9,21 @@ interface Article {
   wordCount: number;
   status: string;
   deliveredAt?: string;
+  _creationTime?: number;
   feedback: { rating: string } | null;
+}
+
+function formatArticleDate(timestamp: number): string {
+  const date = new Date(timestamp);
+  const now = new Date();
+  const isToday = date.toDateString() === now.toDateString();
+  const yesterday = new Date(now);
+  yesterday.setDate(yesterday.getDate() - 1);
+  const isYesterday = date.toDateString() === yesterday.toDateString();
+
+  if (isToday) return `Today at ${date.toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit" })}`;
+  if (isYesterday) return `Yesterday at ${date.toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit" })}`;
+  return date.toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" });
 }
 
 const statusLabels: Record<string, string> = {
@@ -36,7 +50,7 @@ export function ArticlesList({ articles }: { articles: Article[] }) {
       <table style={{ width: "100%", borderCollapse: "collapse" }}>
         <thead>
           <tr style={{ borderBottom: "1px solid #e5e7eb" }}>
-            {["Title", "Keyword", "Words", "Status", "Feedback"].map((h) => (
+            {["Title", "Keyword", "Words", "Created", "Status", "Feedback"].map((h) => (
               <th key={h} style={{
                 padding: "12px 16px",
                 textAlign: "left",
@@ -64,6 +78,9 @@ export function ArticlesList({ articles }: { articles: Article[] }) {
                 </td>
                 <td style={{ padding: "14px 16px", color: "#6b7280", fontSize: 13 }}>{article.targetKeyword}</td>
                 <td style={{ padding: "14px 16px", color: "#6b7280", fontSize: 13 }}>{article.wordCount}</td>
+                <td style={{ padding: "14px 16px", color: "#6b7280", fontSize: 12, whiteSpace: "nowrap" }}>
+                  {article._creationTime ? formatArticleDate(article._creationTime) : "—"}
+                </td>
                 <td style={{ padding: "14px 16px" }}>
                   <span style={{
                     display: "inline-block",

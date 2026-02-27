@@ -34,6 +34,20 @@ interface Article {
   productBanners?: ProductBanner[];
   shopifyArticleId?: string;
   shopifyPublishedAt?: string;
+  _creationTime?: number;
+}
+
+function formatArticleDate(timestamp: number): string {
+  const date = new Date(timestamp);
+  const now = new Date();
+  const isToday = date.toDateString() === now.toDateString();
+  const yesterday = new Date(now);
+  yesterday.setDate(yesterday.getDate() - 1);
+  const isYesterday = date.toDateString() === yesterday.toDateString();
+
+  if (isToday) return `Today at ${date.toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit" })}`;
+  if (isYesterday) return `Yesterday at ${date.toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit" })}`;
+  return date.toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" });
 }
 
 interface ShopifyConfig {
@@ -476,6 +490,9 @@ export function ArticleView({
         <span className="chip">🔍 {article.targetKeyword}</span>
         <span className="chip">📝 {article.wordCount.toLocaleString()} words</span>
         <span className="chip">⏱ {readingTime} min read</span>
+        {article._creationTime != null && (
+          <span className="chip">📅 {formatArticleDate(article._creationTime)}</span>
+        )}
         {article.qaScore != null && (
           <span className="chip" style={{ color: article.qaScore >= 85 ? "var(--accent)" : "#b45309" }}>
             ⭐ QA {article.qaScore}/100
