@@ -4,7 +4,7 @@
  */
 import { NextRequest, NextResponse } from "next/server";
 import { cookies } from "next/headers";
-import { getConvexClient } from "../../../lib/convex";
+import { getConvexClient } from "../../../../lib/convex";
 import { api } from "../../../../convex/_generated/api";
 
 export async function POST(req: NextRequest) {

@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getConvexClient } from "../../../lib/convex";
-import { api } from "../../../convex/_generated/api";
-import { runArticlePipeline } from "../../../generator/pipeline-runner";
+import { getConvexClient } from "../../../../lib/convex";
+import { api } from "../../../../convex/_generated/api";
+import { runArticlePipeline } from "../../../../generator/pipeline-runner";
 import { after } from "next/server";
 
 /**

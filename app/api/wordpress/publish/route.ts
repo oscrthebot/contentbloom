@@ -4,9 +4,9 @@
  */
 import { NextRequest, NextResponse } from "next/server";
 import { cookies } from "next/headers";
-import { getConvexClient } from "../../../lib/convex";
+import { getConvexClient } from "../../../../lib/convex";
 import { api } from "../../../../convex/_generated/api";
-import { publishToWordPress } from "../../../lib/wordpress-publisher";
+import { publishToWordPress } from "../../../../lib/wordpress-publisher";
 import { marked } from "marked";
 import { Id } from "../../../../convex/_generated/dataModel";
 
