@@ -46,6 +46,7 @@
     "templates",
     "schemas",
     "docs",
-    "venv"
+    "venv",
+    "pipeline-server"
   ]
 }
