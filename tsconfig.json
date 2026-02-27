@@ -47,6 +47,7 @@
     "schemas",
     "docs",
     "venv",
-    "pipeline-server"
+    "pipeline-server",
+    "run-article.mts"
   ]
 }
