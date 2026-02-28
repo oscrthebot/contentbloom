@@ -7,7 +7,7 @@ import { useParams } from "next/navigation";
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, Lock, Unlock, Check, ChevronRight } from "lucide-react";
+import { ArrowRight, Lock, Unlock, Check, ChevronRight, Star, FileText, ShoppingBag, Globe, Zap } from "lucide-react";
 import { TrafficChart } from "./TrafficChart";
 import { BannerCard, Banner } from "./BannerCard";
 
@@ -123,29 +123,37 @@ export default function ArticlePreviewPage() {
           <Image src="/rocket.svg" alt="BloomContent" width={24} height={24} style={{ imageRendering: "pixelated" }} />
           <span style={{ fontWeight: 700, fontSize: 14, color: "var(--t1)" }}>BloomContent</span>
         </Link>
-        <Link href="/signup" className="btn btn-dark" style={{ fontSize: 13, padding: "8px 16px" }}>
-          Get 2 Free Articles <ArrowRight size={13} />
-        </Link>
+        <a href="mailto:rafa@happyoperators.com?subject=I%20want%20to%20start%20automating%20my%20blog!" className="btn btn-dark" style={{ fontSize: 13, padding: "8px 16px", textDecoration: "none", display: "flex", alignItems: "center", gap: 6 }}>
+          Start now <ArrowRight size={13} />
+        </a>
       </nav>
 
       <main style={{ maxWidth: 720, margin: "0 auto", padding: "88px 24px 80px" }}>
 
         {/* Business logo card — personalises the page */}
-        <div className="fade-in" style={{ display: "flex", alignItems: "center", gap: 14, marginBottom: 32, padding: "14px 20px", background: "#fff", border: "1px solid var(--border)", borderRadius: 14, width: "fit-content", boxShadow: "var(--shadow-sm)" }}>
-          {article.logoUrl && (
+        <div className="fade-in" style={{ display: "flex", alignItems: "center", gap: 16, marginBottom: 32, padding: "16px 20px", background: "#fff", border: "1px solid var(--border)", borderRadius: 16, width: "fit-content", boxShadow: "var(--shadow-sm)" }}>
+          {/* BloomContent rocket */}
+          <Image src="/rocket.svg" alt="BloomContent" width={28} height={28} style={{ imageRendering: "pixelated", opacity: 0.7 }} />
+          <span style={{ fontSize: 18, color: "var(--border-md)", fontWeight: 300 }}>×</span>
+          {/* Business logo */}
+          {article.logoUrl ? (
             // eslint-disable-next-line @next/next/no-img-element
             <img
               src={article.logoUrl}
               alt={article.businessName}
-              width={36}
-              height={36}
-              style={{ borderRadius: 8, objectFit: "contain" }}
+              width={40}
+              height={40}
+              style={{ borderRadius: 10, objectFit: "contain", background: "var(--bg-section)", padding: 2 }}
               onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = "none"; }}
             />
+          ) : (
+            <div style={{ width: 40, height: 40, borderRadius: 10, background: "var(--bg-section)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+              <Globe size={20} style={{ color: "var(--t3)" }} />
+            </div>
           )}
           <div>
-            <p style={{ fontSize: 11, color: "var(--t3)", fontWeight: 500, marginBottom: 1 }}>A free SEO article written for</p>
-            <p style={{ fontSize: 14, fontWeight: 700, color: "var(--t1)" }}>{article.businessName} <span style={{ color: "var(--t3)", fontWeight: 400 }}>· {article.targetSite}</span></p>
+            <p style={{ fontSize: 11, color: "var(--t3)", fontWeight: 500, marginBottom: 2 }}>Free SEO article written for</p>
+            <p style={{ fontSize: 14, fontWeight: 700, color: "var(--t1)" }}>{article.businessName} <span style={{ color: "var(--t3)", fontWeight: 400, fontSize: 12 }}>· {article.targetSite}</span></p>
           </div>
         </div>
 
@@ -231,19 +239,98 @@ export default function ArticlePreviewPage() {
             {/* Full article content with inline banners */}
             {renderContent(fullContent, article.banners as Banner[] | undefined)}
 
-            {/* CTA after reading */}
-            <div className="card" style={{ padding: "40px 36px", textAlign: "center", marginTop: 56, background: "var(--bg-section)" }}>
-              <p className="label" style={{ marginBottom: 12 }}>Like what you read?</p>
-              <h3 style={{ fontSize: 24, fontWeight: 800, color: "var(--t1)", letterSpacing: "-0.02em", marginBottom: 12 }}>
-                Get one article like this<br />every day, automatically
+            {/* What's included section */}
+            <div style={{ marginTop: 56, padding: "32px", background: "var(--bg-section)", borderRadius: 16, border: "1px solid var(--border)" }}>
+              <p style={{ fontSize: 12, fontWeight: 700, color: "var(--t3)", letterSpacing: ".08em", textTransform: "uppercase", marginBottom: 16 }}>What BloomContent does for you</p>
+              <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: 12 }}>
+                {[
+                  { icon: <FileText size={15} />, text: "Daily SEO articles, keyword-researched" },
+                  { icon: <ShoppingBag size={15} />, text: "Auto-publish to Shopify (WordPress coming soon)" },
+                  { icon: <Globe size={15} />, text: "Internal links automatically added" },
+                  { icon: <Star size={15} />, text: "5 product reviews per month" },
+                  { icon: <Zap size={15} />, text: "Competitor alternative pages" },
+                  { icon: <Check size={15} />, text: "E-E-A-T author bios & schema markup" },
+                ].map((item, i) => (
+                  <div key={i} style={{ display: "flex", alignItems: "flex-start", gap: 10 }}>
+                    <span style={{ color: "var(--accent)", marginTop: 2, flexShrink: 0 }}>{item.icon}</span>
+                    <span style={{ fontSize: 13, color: "var(--t2)", lineHeight: 1.5 }}>{item.text}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Pricing table */}
+            <div style={{ marginTop: 32 }}>
+              <h3 style={{ fontSize: 22, fontWeight: 800, color: "var(--t1)", letterSpacing: "-0.02em", marginBottom: 8, textAlign: "center" }}>
+                Simple, transparent pricing
               </h3>
-              <p style={{ fontSize: 15, color: "var(--t2)", maxWidth: 380, margin: "0 auto 28px" }}>
-                BloomContent writes and publishes daily SEO articles for {article.businessName}. Automated, keyword-researched, done for you.
+              <p style={{ fontSize: 14, color: "var(--t2)", textAlign: "center", marginBottom: 28 }}>
+                Start free. No credit card. Cancel anytime.
               </p>
-              <Link href="/#pricing" className="btn btn-dark" style={{ fontSize: 15, padding: "13px 28px" }}>
-                See Plans — from €49/mo <ChevronRight size={15} />
-              </Link>
-              <p style={{ fontSize: 12, color: "var(--t3)", marginTop: 12 }}>Start with 1 free article. No credit card.</p>
+              <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: 16 }}>
+                {[
+                  { name: "Starter", price: "€49/mo", articles: "15 articles/mo", reviews: "2 reviews/mo", color: "var(--border)" },
+                  { name: "Growth", price: "€99/mo", articles: "30 articles/mo", reviews: "5 reviews/mo", color: "var(--accent)", highlight: true },
+                  { name: "Scale", price: "€199/mo", articles: "Daily articles", reviews: "10 reviews/mo", color: "var(--accent)" },
+                ].map((plan, i) => (
+                  <a
+                    key={i}
+                    href={`mailto:rafa@happyoperators.com?subject=I%20want%20to%20start%20automating%20my%20blog!&body=Hi%2C%20I%27m%20interested%20in%20the%20${encodeURIComponent(plan.name)}%20plan%20for%20${encodeURIComponent(article.businessName)}.`}
+                    style={{
+                      display: "block",
+                      padding: "24px 20px",
+                      borderRadius: 14,
+                      border: `1.5px solid ${plan.highlight ? "var(--accent)" : "var(--border)"}`,
+                      background: plan.highlight ? "var(--accent-lt)" : "#fff",
+                      textDecoration: "none",
+                      transition: "transform .15s, box-shadow .15s",
+                      position: "relative",
+                    }}
+                    onMouseEnter={e => { (e.currentTarget as HTMLElement).style.transform = "translateY(-2px)"; (e.currentTarget as HTMLElement).style.boxShadow = "0 6px 24px rgba(0,0,0,.08)"; }}
+                    onMouseLeave={e => { (e.currentTarget as HTMLElement).style.transform = "none"; (e.currentTarget as HTMLElement).style.boxShadow = "none"; }}
+                  >
+                    {plan.highlight && (
+                      <span style={{ position: "absolute", top: -10, left: "50%", transform: "translateX(-50%)", background: "var(--accent)", color: "#fff", fontSize: 10, fontWeight: 700, padding: "3px 10px", borderRadius: 100, whiteSpace: "nowrap" }}>
+                        MOST POPULAR
+                      </span>
+                    )}
+                    <p style={{ fontSize: 13, fontWeight: 600, color: "var(--t3)", marginBottom: 6 }}>{plan.name}</p>
+                    <p style={{ fontSize: 26, fontWeight: 800, color: "var(--t1)", letterSpacing: "-0.03em", marginBottom: 12 }}>{plan.price}</p>
+                    <p style={{ fontSize: 13, color: "var(--t2)", marginBottom: 4 }}>✓ {plan.articles}</p>
+                    <p style={{ fontSize: 13, color: "var(--t2)", marginBottom: 4 }}>✓ {plan.reviews}</p>
+                    <p style={{ fontSize: 13, color: "var(--t2)", marginBottom: 4 }}>✓ Auto-publish to Shopify</p>
+                    <p style={{ fontSize: 13, color: "var(--t2)", marginBottom: 16 }}>✓ Internal links included</p>
+                    <div style={{ padding: "10px 16px", borderRadius: 100, background: "var(--t1)", color: "#fff", fontSize: 13, fontWeight: 600, textAlign: "center" }}>
+                      Start now →
+                    </div>
+                  </a>
+                ))}
+              </div>
+              <p style={{ fontSize: 12, color: "var(--t3)", textAlign: "center", marginTop: 16 }}>
+                Not sure which plan? <a href="mailto:rafa@happyoperators.com?subject=I%20want%20to%20start%20automating%20my%20blog!" style={{ color: "var(--accent)", textDecoration: "none" }}>Reply to this email</a> — we&apos;ll figure it out together.
+              </p>
+            </div>
+
+            {/* E-E-A-T author section */}
+            <div style={{ marginTop: 40, padding: "28px 32px", background: "#fff", border: "1px solid var(--border)", borderRadius: 16 }}>
+              <div style={{ display: "flex", alignItems: "flex-start", gap: 16 }}>
+                <div style={{ width: 52, height: 52, borderRadius: "50%", background: "var(--bg-section)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, fontSize: 22 }}>
+                  👤
+                </div>
+                <div>
+                  <p style={{ fontSize: 11, color: "var(--t3)", fontWeight: 600, letterSpacing: ".06em", textTransform: "uppercase", marginBottom: 6 }}>Written by</p>
+                  <p style={{ fontSize: 15, fontWeight: 700, color: "var(--t1)", marginBottom: 4 }}>
+                    {article.businessName} Team
+                    <span style={{ marginLeft: 8, fontSize: 11, background: "rgba(234,179,8,.12)", color: "#92400e", padding: "2px 8px", borderRadius: 100, fontWeight: 600 }}>Auto-generated placeholder</span>
+                  </p>
+                  <p style={{ fontSize: 13, color: "var(--t2)", lineHeight: 1.6, marginBottom: 10 }}>
+                    This article was written on behalf of {article.businessName}. When you sign up, BloomContent builds a real E-E-A-T author profile for your store — including your name, experience, credentials, and social profiles — so every article ranks stronger in Google&apos;s Helpful Content system.
+                  </p>
+                  <p style={{ fontSize: 12, color: "var(--t3)" }}>
+                    ✦ Real author bio · ✦ Person schema markup · ✦ Social profile links · ✦ First-person voice trained on your experience
+                  </p>
+                </div>
+              </div>
             </div>
           </div>
         )}
