@@ -30,50 +30,122 @@ function NotFound() {
   );
 }
 
+// Render inline markdown (bold, etc.)
+function renderInline(text: string) {
+  const parts = text.split(/(\*\*[^*]+\*\*)/g);
+  return parts.map((p, j) =>
+    p.startsWith("**") && p.endsWith("**")
+      ? <strong key={j} style={{ color: "var(--t1)", fontWeight: 700 }}>{p.slice(2, -2)}</strong>
+      : <React.Fragment key={j}>{p}</React.Fragment>
+  );
+}
+
 // Render a single line of markdown-lite
 function renderLine(line: string, key: number) {
   if (line.startsWith("## "))
     return <h2 key={key} style={{ fontSize: 20, fontWeight: 800, color: "var(--t1)", margin: "32px 0 12px", letterSpacing: "-0.02em" }}>{line.slice(3)}</h2>;
   if (line.startsWith("### "))
     return <h3 key={key} style={{ fontSize: 16, fontWeight: 700, color: "var(--t1)", margin: "24px 0 8px" }}>{line.slice(4)}</h3>;
+  if (line.startsWith("# "))
+    return <h1 key={key} style={{ fontSize: 26, fontWeight: 800, color: "var(--t1)", margin: "0 0 20px", letterSpacing: "-0.02em", display: "none" }}>{line.slice(2)}</h1>;
   if (line.startsWith("• ") || line.startsWith("- "))
     return (
       <div key={key} style={{ display: "flex", gap: 10, marginBottom: 8 }}>
         <Check size={14} style={{ color: "var(--accent)", marginTop: 3, flexShrink: 0 }} />
-        <span style={{ fontSize: 15, color: "var(--t2)", lineHeight: 1.7 }}>{line.slice(2)}</span>
+        <span style={{ fontSize: 15, color: "var(--t2)", lineHeight: 1.7 }}>{renderInline(line.slice(2))}</span>
       </div>
     );
   if (line.trim() === "") return <div key={key} style={{ height: 12 }} />;
-  const parts = line.split(/(\*\*[^*]+\*\*)/g);
+  // Skip table separator rows (|---|---|)
+  if (/^\|[\s\-:|]+\|/.test(line)) return null;
   return (
     <p key={key} style={{ fontSize: 15, color: "var(--t2)", lineHeight: 1.8, marginBottom: 4 }}>
-      {parts.map((p, j) =>
-        p.startsWith("**") && p.endsWith("**")
-          ? <strong key={j} style={{ color: "var(--t1)", fontWeight: 700 }}>{p.slice(2, -2)}</strong>
-          : p
-      )}
+      {renderInline(line)}
     </p>
+  );
+}
+
+// Render a markdown table as a proper HTML table
+function renderTable(rows: string[], key: number) {
+  const parseRow = (row: string) =>
+    row.split("|").map(c => c.trim()).filter((_, i, arr) => i > 0 && i < arr.length - 1);
+
+  const headerCells = parseRow(rows[0]);
+  // rows[1] is the separator — skip
+  const bodyRows = rows.slice(2);
+
+  return (
+    <div key={key} style={{ overflowX: "auto", margin: "20px 0" }}>
+      <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 14 }}>
+        <thead>
+          <tr>
+            {headerCells.map((cell, i) => (
+              <th key={i} style={{ padding: "10px 14px", background: "var(--bg-section)", color: "var(--t1)", fontWeight: 700, textAlign: "left", borderBottom: "2px solid var(--border)", whiteSpace: "nowrap" }}>
+                {renderInline(cell)}
+              </th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          {bodyRows.map((row, ri) => (
+            <tr key={ri} style={{ borderBottom: "1px solid var(--border)", background: ri % 2 === 0 ? "#fff" : "var(--bg-section)" }}>
+              {parseRow(row).map((cell, ci) => (
+                <td key={ci} style={{ padding: "10px 14px", color: "var(--t2)", verticalAlign: "top" }}>
+                  {renderInline(cell)}
+                </td>
+              ))}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
   );
 }
 
 function renderContent(text: string, banners?: Banner[]) {
   const lines = text.split("\n");
   const result: React.ReactNode[] = [];
+  let tableBuffer: string[] = [];
+  let tableStartIdx = 0;
+
+  const flushTable = (endIdx: number) => {
+    if (tableBuffer.length >= 3) {
+      result.push(renderTable(tableBuffer, tableStartIdx));
+    } else {
+      // Not a real table — render as plain lines
+      tableBuffer.forEach((l, i) => result.push(renderLine(l, tableStartIdx + i)));
+    }
+    tableBuffer = [];
+  };
+
   lines.forEach((line, i) => {
-    result.push(renderLine(line, i));
-    // Inject banner after matching heading
-    if (banners && (line.startsWith("## ") || line.startsWith("### "))) {
+    const isTableLine = line.trim().startsWith("|") && line.trim().endsWith("|");
+
+    if (isTableLine) {
+      if (tableBuffer.length === 0) tableStartIdx = i;
+      tableBuffer.push(line);
+    } else {
+      if (tableBuffer.length > 0) flushTable(i);
+      const node = renderLine(line, i);
+      if (node !== null) result.push(node);
+    }
+
+    // Inject banner after heading (not inside table)
+    if (!isTableLine && banners && (line.startsWith("## ") || line.startsWith("### "))) {
       const headingText = line.replace(/^#+\s+/, "").trim();
       const match = banners.find(b => b.insertAfterHeading.toLowerCase() === headingText.toLowerCase());
       if (match) result.push(<BannerCard key={`banner-${i}`} banner={match} />);
     }
-    // Inject END banners at the last line
+
+    // END banners at last line
     if (banners && i === lines.length - 1) {
+      if (tableBuffer.length > 0) flushTable(i + 1);
       banners.filter(b => b.insertAfterHeading === "END").forEach((b, j) =>
         result.push(<BannerCard key={`banner-end-${j}`} banner={b} />)
       );
     }
   });
+
   return result;
 }
 
