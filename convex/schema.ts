@@ -142,6 +142,7 @@ export default defineSchema({
     wordCount: v.number(),
     keywordMonthlyVolume: v.optional(v.number()),
     keywordRelatedVolume: v.optional(v.number()),
+    language: v.optional(v.string()),  // "es", "en", "fr", etc.
     banners: v.optional(v.array(v.object({
       type: v.union(v.literal("product"), v.literal("newsletter"), v.literal("cta"), v.literal("pricing")),
       insertAfterHeading: v.string(),  // exact H2/H3 text to insert after, or "END"

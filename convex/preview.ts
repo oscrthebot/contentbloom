@@ -25,6 +25,7 @@ export const getBySlug = query({
       keywordMonthlyVolume: article.keywordMonthlyVolume,
       keywordRelatedVolume: article.keywordRelatedVolume,
       banners: article.banners,
+      language: article.language ?? "en",
     };
   },
 });
@@ -73,6 +74,7 @@ export const seed = mutation({
     wordCount: v.number(),
     keywordMonthlyVolume: v.optional(v.number()),
     keywordRelatedVolume: v.optional(v.number()),
+    language: v.optional(v.string()),
     banners: v.optional(v.array(v.object({
       type: v.union(v.literal("product"), v.literal("newsletter"), v.literal("cta"), v.literal("pricing")),
       insertAfterHeading: v.string(),
