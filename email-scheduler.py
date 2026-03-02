@@ -209,12 +209,20 @@ def convex_mutation(url, key, path, args):
 
 # ── Email templates ───────────────────────────────────────────────────────────
 
-PREVIEW_URL = "https://bloomcontent.site/p/hapi-mac-transcription"
+PREVIEW_URL_FALLBACK = "https://bloomcontent.site/p/hapi-mac-transcription"
+
+def _get_preview_url(lead: dict) -> str:
+    """Return personalised preview URL if lead has a previewSlug, else fallback."""
+    slug = lead.get("previewSlug")
+    if slug:
+        return f"https://bloomcontent.site/p/{slug}"
+    return PREVIEW_URL_FALLBACK
 
 def build_email(lead: dict, sender_name: str) -> tuple[str, str]:
     store = lead.get("storeName", lead.get("domain", "your store"))
     niche = lead.get("niche", "your niche")
     lang = lead.get("language", "en")
+    PREVIEW_URL = _get_preview_url(lead)
 
     if lang == "es":
         subject = f"una cosa rápida para {store}"

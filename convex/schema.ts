@@ -29,6 +29,7 @@ export default defineSchema({
     lastEmailDate: v.optional(v.string()),  // ISO date of last email sent
     followUpCount: v.optional(v.number()),  // 0 = initial, 1-3 = follow-ups sent
     nextAction: v.optional(v.string()),
+    previewSlug: v.optional(v.string()),
     notes: v.array(v.string()),
   })
     .index("by_status", ["status"])

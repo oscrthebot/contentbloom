@@ -248,6 +248,17 @@ export const getLeadsForFollowUp = query({
   },
 });
 
+// Update lead with preview article slug
+export const updatePreviewSlug = mutation({
+  args: {
+    id: v.id("leads"),
+    previewSlug: v.string(),
+  },
+  handler: async (ctx, args) => {
+    await ctx.db.patch(args.id, { previewSlug: args.previewSlug });
+  },
+});
+
 // Reset all contacted leads back to new (fresh start)
 export const resetAllToNew = mutation({
   args: {},

@@ -56,6 +56,9 @@ export interface PipelineRequest {
   products?: Product[];
   authorProfile?: AuthorProfile;
   isPaidFeature?: boolean;
+
+  // Preview mode: lower QA threshold (65), skip saving to articles table
+  previewMode?: boolean;
 }
 
 export interface PipelineResult {
@@ -338,9 +341,10 @@ export async function runArticlePipeline(request: PipelineRequest): Promise<Pipe
     let qa: QAResult = await reviewArticle(humanizedContent, keywords.targetKeyword, request.storeName);
     steps.push({ step: '8-qa', status: 'ok', durationMs: t(), note: `Score: ${qa.score}` });
 
-    // QA retry loop: always retry if critical issues exist, or score < 85, or style issues > 2 (max 2 retries)
-    const QA_THRESHOLD = 85;
-    const MAX_QA_RETRIES = 2;
+    // QA retry loop: always retry if critical issues exist, or score < threshold, or style issues > 2 (max 2 retries)
+    // In preview mode: lower threshold and no retries (save API costs — previews are demos)
+    const QA_THRESHOLD = request.previewMode ? 40 : 85;
+    const MAX_QA_RETRIES = request.previewMode ? 0 : 2;
     let regenerationCount = 0;
     for (
       let retry = 1;
@@ -366,7 +370,10 @@ export async function runArticlePipeline(request: PipelineRequest): Promise<Pipe
     // If critical issues remain OR score still < 85 after retries → DO NOT save, return failure
     const hasCriticalRemaining = qa.criticalIssues.length > 0;
     const scoreBelowThreshold = qa.score < QA_THRESHOLD;
-    const needsManualReview = hasCriticalRemaining || scoreBelowThreshold;
+    // In preview mode, only check score threshold — ignore critical issues (previews are demos, not published content)
+    const needsManualReview = request.previewMode
+      ? scoreBelowThreshold
+      : (hasCriticalRemaining || scoreBelowThreshold);
     if (needsManualReview) {
       console.warn(`  🚫 Article below QA threshold after ${MAX_QA_RETRIES} retries — score=${qa.score}, critical=${qa.criticalIssues.length}. NOT saving.`);
       return {
@@ -395,10 +402,13 @@ qaScore: ${qa.score}
 ---`;
     steps.push({ step: '9-export', status: 'ok', durationMs: t() });
 
-    // Step 10: Save to Convex — only reaches here if score >= 85 and no critical issues
+    // Step 10: Save to Convex — only reaches here if score >= threshold and no critical issues
+    // In preview mode, skip saving to articles table (caller saves to previewArticles instead)
     t = stepTimer();
     let convexArticleId: string | undefined;
-    try {
+    if (request.previewMode) {
+      steps.push({ step: '10-save', status: 'skipped', durationMs: t(), note: 'Preview mode — caller handles save' });
+    } else try {
       const finalStatus = 'review'; // passed quality gate, ready for user review
 
       convexArticleId = await convex.mutation(api.articles.createArticle, {
