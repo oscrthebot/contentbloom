@@ -596,56 +596,66 @@ def main():
     # ── PART 1: Send cold emails to new leads ─────────────────────────────────
     log.info("--- Processing cold emails ---")
 
-    # Fetch all new leads once, split across accounts
+    # Fetch all new leads once, distribute round-robin across accounts
     all_new_leads = convex_query(convex_url, convex_key, "leads:list", {"status": "new"})
     all_new_leads.sort(key=lambda x: x.get("score", 0), reverse=True)
 
-    used_lead_ids = set()
+    # Build per-account limits and buckets using round-robin assignment
+    account_limits = {a["email"]: daily_limit(a["start_date"]) for a in accounts}
+    account_buckets: dict[str, list] = {a["email"]: [] for a in accounts}
 
-    for account in accounts:
-        limit = daily_limit(account["start_date"])
-        log.info(f"Account: {account['email']} | day limit: {limit}")
+    for i, lead in enumerate(all_new_leads):
+        # Assign lead to next account that still has capacity (round-robin)
+        for offset in range(len(accounts)):
+            acc = accounts[(i + offset) % len(accounts)]
+            email = acc["email"]
+            if len(account_buckets[email]) < account_limits[email]:
+                account_buckets[email].append(lead)
+                break
 
-        # Get leads not already assigned to another account this run
-        leads = [l for l in all_new_leads if l["_id"] not in used_lead_ids][:limit]
+    # Send emails interleaved: one per account at a time, round-robin
+    # Build a flat interleaved queue: [(account, lead), ...]
+    interleaved: list[tuple[dict, dict]] = []
+    max_bucket = max(len(b) for b in account_buckets.values()) if account_buckets else 0
+    for slot in range(max_bucket):
+        for acc in accounts:
+            bucket = account_buckets[acc["email"]]
+            if slot < len(bucket):
+                interleaved.append((acc, bucket[slot]))
 
-        if not leads:
-            log.warning(f"No new leads available for {account['email']}")
-            continue
+    log.info(f"Round-robin queue: {len(interleaved)} emails across {len(accounts)} accounts")
+    for acc in accounts:
+        log.info(f"  {acc['email']}: {len(account_buckets[acc['email']])} emails (limit {account_limits[acc['email']]})")
 
-        for i, lead in enumerate(leads):
-            subject, _ = build_email(lead, account["name"])
-            ok = send_email(account, lead)
-            if ok:
-                used_lead_ids.add(lead["_id"])
-                now_iso = datetime.utcnow().strftime("%Y-%m-%dT%H:%M:%SZ")
-                # Update lead status + lastContact + lastEmailDate + followUpCount
-                convex_mutation(convex_url, convex_key, "leads:updateLeadEmailStatus", {
-                    "id": lead["_id"],
-                    "status": "contacted",
-                    "lastEmailDate": now_iso,
-                    "followUpCount": 0,  # Initial contact
-                })
-                # Also update lastContact for backwards compatibility
-                convex_mutation(convex_url, convex_key, "leads:updateStatus", {
-                    "id": lead["_id"],
-                    "status": "contacted",
-                    "lastContact": now_iso,
-                })
-                # Log to outreachLog so the dashboard shows real data
-                convex_mutation(convex_url, convex_key, "outreachLog:add", {
-                    "leadId": lead["_id"],
-                    "type": "cold",
-                    "email": lead["email"],
-                    "subject": subject,
-                    "status": "sent",
-                    "sentAt": now_iso,
-                })
-            # Sleep between emails (skip on last one and in dry-run)
-            if not DRY_RUN and i < len(leads) - 1:
-                sleep_min = random.randint(15, 25)
-                log.info(f"Sleeping {sleep_min} minutes before next email...")
-                time.sleep(sleep_min * 60)
+    for i, (account, lead) in enumerate(interleaved):
+        subject, _ = build_email(lead, account["name"])
+        ok = send_email(account, lead)
+        if ok:
+            now_iso = datetime.utcnow().strftime("%Y-%m-%dT%H:%M:%SZ")
+            convex_mutation(convex_url, convex_key, "leads:updateLeadEmailStatus", {
+                "id": lead["_id"],
+                "status": "contacted",
+                "lastEmailDate": now_iso,
+                "followUpCount": 0,
+            })
+            convex_mutation(convex_url, convex_key, "leads:updateStatus", {
+                "id": lead["_id"],
+                "status": "contacted",
+                "lastContact": now_iso,
+            })
+            convex_mutation(convex_url, convex_key, "outreachLog:add", {
+                "leadId": lead["_id"],
+                "type": "cold",
+                "email": lead["email"],
+                "subject": subject,
+                "status": "sent",
+                "sentAt": now_iso,
+            })
+        # Sleep between emails (skip on last)
+        if not DRY_RUN and i < len(interleaved) - 1:
+            sleep_min = random.randint(15, 25)
+            log.info(f"Sleeping {sleep_min} minutes before next email...")
+            time.sleep(sleep_min * 60)
 
     # ── PART 2: Send follow-up emails ─────────────────────────────────────────
     log.info("--- Processing follow-ups ---")
