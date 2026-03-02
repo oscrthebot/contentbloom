@@ -88,6 +88,9 @@ export interface PipelineResult {
   };
   convexArticleId?: string;
   error?: string;
+  qaScore?: number;
+  qaIssues?: string[];
+  qaCriticalIssues?: string[];
   steps: Array<{ step: string; status: 'ok' | 'skipped' | 'error'; durationMs: number; note?: string }>;
 }
 
@@ -192,17 +195,40 @@ export async function runArticlePipeline(request: PipelineRequest): Promise<Pipe
 
     steps.push({ step: '2-context', status: 'ok', durationMs: t(), note: authorProfile ? `Author: ${authorProfile.fullName}${linkedInProfile?.headline ? ` (${linkedInProfile.headline})` : ''}` : 'No author profile' });
 
-    // Step 2b: Language detection
+    // Step 2b: Language detection — user's saved language is authoritative
     t = stepTimer();
     let language = request.language;
-    if (!language || language === 'en') {
+
+    // Try to load user's saved language preference first (most reliable)
+    if (request.userId) {
+      try {
+        const user = await convex.query(api.users.getById, { userId: request.userId as any });
+        if (user?.language && user.language !== 'en') {
+          language = user.language;
+          console.log(`  🌐 Using user's saved language: ${language}`);
+        } else if (!language || language === 'en') {
+          // Fall back to content-based detection only if no user preference
+          // Detect from page text content, not HTML lang attribute (unreliable)
+          const detected = await detectStoreLanguage(request.storeUrl);
+          if (detected !== 'en') {
+            language = detected;
+            console.log(`  🌐 Detected store language: ${detected}`);
+          }
+        }
+      } catch {
+        // Could not load user language, fall back to request.language
+      }
+    } else if (!language || language === 'en') {
       const detected = await detectStoreLanguage(request.storeUrl);
       if (detected !== 'en') {
         language = detected;
         console.log(`  🌐 Detected store language: ${detected}`);
       }
     }
-    // Save detected language back to user record
+
+    if (!language) language = 'en';
+
+    // Save detected language back to user record only if not already set
     if (request.userId && language !== request.language) {
       try {
         await convex.mutation(api.users.updateProfile, {
@@ -337,12 +363,20 @@ export async function runArticlePipeline(request: PipelineRequest): Promise<Pipe
       steps.push({ step: `8-qa-retry-${retry}`, status: 'ok', durationMs: t(), note: `Score: ${qa.score}, issues: ${qa.issues.length}, critical: ${qa.criticalIssues.length}` });
     }
 
-    // If critical issues remain OR score still < 85 after retries → flag for manual review
+    // If critical issues remain OR score still < 85 after retries → DO NOT save, return failure
     const hasCriticalRemaining = qa.criticalIssues.length > 0;
     const scoreBelowThreshold = qa.score < QA_THRESHOLD;
     const needsManualReview = hasCriticalRemaining || scoreBelowThreshold;
     if (needsManualReview) {
-      console.warn(`  🚫 Article needs manual review after ${MAX_QA_RETRIES} retries — score=${qa.score}, critical=${qa.criticalIssues.length}`);
+      console.warn(`  🚫 Article below QA threshold after ${MAX_QA_RETRIES} retries — score=${qa.score}, critical=${qa.criticalIssues.length}. NOT saving.`);
+      return {
+        success: false,
+        error: `QA score ${qa.score}/100 below threshold (${QA_THRESHOLD}) after ${MAX_QA_RETRIES} retries. Critical issues: ${qa.criticalIssues.length}. Article not saved.`,
+        qaScore: qa.score,
+        qaIssues: qa.issues,
+        qaCriticalIssues: qa.criticalIssues,
+        steps,
+      };
     }
 
     // Step 9: Export markdown + frontmatter
@@ -361,14 +395,11 @@ qaScore: ${qa.score}
 ---`;
     steps.push({ step: '9-export', status: 'ok', durationMs: t() });
 
-    // Step 10: Save to Convex
+    // Step 10: Save to Convex — only reaches here if score >= 85 and no critical issues
     t = stepTimer();
     let convexArticleId: string | undefined;
     try {
-      // Determine final status: needs_review if below threshold or critical issues remain
-      const finalStatus = needsManualReview
-        ? 'needs_review'    // flag for manual review — do NOT auto-publish
-        : 'review';         // passed quality gate, ready for user review
+      const finalStatus = 'review'; // passed quality gate, ready for user review
 
       convexArticleId = await convex.mutation(api.articles.createArticle, {
         clientId: request.clientId as any,

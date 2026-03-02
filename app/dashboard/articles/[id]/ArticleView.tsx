@@ -55,6 +55,16 @@ interface ShopifyConfig {
   shopifyDomain?: string;
 }
 
+interface AuthorProfile {
+  fullName: string;
+  bio: string;
+  yearsExperience: number;
+  niche: string;
+  linkedinUrl?: string;
+  twitterUrl?: string;
+  credentials?: string;
+}
+
 interface Feedback {
   rating: string;
   comment?: string;
@@ -162,11 +172,13 @@ export function ArticleView({
   feedback,
   sessionToken,
   shopifyConfig,
+  authorProfile,
 }: {
   article: Article;
   feedback: Feedback | null;
   sessionToken: string;
   shopifyConfig?: ShopifyConfig;
+  authorProfile?: AuthorProfile | null;
 }) {
   const router = useRouter();
   const [showRevisionForm, setShowRevisionForm] = useState(false);
@@ -443,19 +455,7 @@ export function ArticleView({
         </div>
       </div>
 
-      {/* ─── Critical QA (blocking) ──────────────────────────────────────── */}
-      {article.qaCriticalIssues && article.qaCriticalIssues.length > 0 && (
-        <div style={{ background:"#fef2f2", border:"1px solid #fca5a5", borderLeft:"4px solid #dc2626", borderRadius:12, marginBottom:16, overflow:"hidden" }}>
-          <div style={{ padding:"12px 16px", fontSize:13, fontWeight:700, color:"#991b1b" }}>
-            🚫 Critical QA Issues — Article held for review ({article.qaCriticalIssues.length})
-          </div>
-          <ul style={{ margin:0, padding:"0 16px 12px 32px" }}>
-            {article.qaCriticalIssues.map((issue, i) => (
-              <li key={i} style={{ fontSize:13, color:"#7f1d1d", marginBottom:4, lineHeight:1.5 }}>{issue}</li>
-            ))}
-          </ul>
-        </div>
-      )}
+      {/* ─── Critical QA — internal only, hidden from client view ──────── */}
 
       {/* ─── Style QA — hidden from user-facing view (internal artifact) ── */}
       {/* Style notes are internal QA feedback; only shown in admin/editor context */}
@@ -473,17 +473,7 @@ export function ArticleView({
         </div>
       )}
 
-      {/* ─── Hero product image ──────────────────────────────────────────── */}
-      {article.productBanners && article.productBanners.length > 0 && article.productBanners[0].imageUrl && (
-        <div style={{ marginBottom:20, borderRadius:14, overflow:"hidden", border:"1px solid var(--border)", background:"#f9f9f9", maxHeight:280, display:"flex", alignItems:"center", justifyContent:"center" }}>
-          <img
-            src={article.productBanners[0].imageUrl}
-            alt={article.productBanners[0].name}
-            style={{ width:"100%", maxHeight:280, objectFit:"cover", display:"block" }}
-            onError={(e) => { (e.currentTarget.parentElement as HTMLElement).style.display = "none"; }}
-          />
-        </div>
-      )}
+      {/* ─── Hero product image removed — products appear inline as banners ── */}
 
       {/* ─── Stats chips ─────────────────────────────────────────────────── */}
       <div style={{ display:"flex", flexWrap:"wrap", gap:8, marginBottom:20 }}>
@@ -556,6 +546,35 @@ export function ArticleView({
               {openFaq === i && <div className="faq-a">{item.answer}</div>}
             </div>
           ))}
+        </div>
+      )}
+
+      {/* ─── E-E-A-T Author Card ─────────────────────────────────────────── */}
+      {authorProfile && (
+        <div className="section" style={{ display:"flex", gap:16, alignItems:"flex-start" }}>
+          <div style={{ width:44, height:44, borderRadius:"50%", background:"var(--accent-lt)", display:"flex", alignItems:"center", justifyContent:"center", fontSize:18, flexShrink:0 }}>
+            👤
+          </div>
+          <div style={{ flex:1 }}>
+            <div style={{ display:"flex", alignItems:"center", gap:10, flexWrap:"wrap", marginBottom:4 }}>
+              <span style={{ fontSize:15, fontWeight:700, color:"var(--t1)" }}>{authorProfile.fullName}</span>
+              {authorProfile.credentials && (
+                <span style={{ fontSize:11, background:"var(--accent-lt)", color:"#166534", border:"1px solid rgba(22,163,74,.25)", borderRadius:100, padding:"2px 9px", fontWeight:600 }}>{authorProfile.credentials}</span>
+              )}
+              {authorProfile.yearsExperience > 0 && (
+                <span style={{ fontSize:11, color:"var(--t3)" }}>{authorProfile.yearsExperience} years experience</span>
+              )}
+            </div>
+            <p style={{ fontSize:13, color:"var(--t2)", lineHeight:1.65, margin:"0 0 8px" }}>{authorProfile.bio}</p>
+            <div style={{ display:"flex", gap:12 }}>
+              {authorProfile.linkedinUrl && (
+                <a href={authorProfile.linkedinUrl} target="_blank" rel="noopener noreferrer" style={{ fontSize:12, color:"var(--accent)", textDecoration:"none", fontWeight:500 }}>LinkedIn →</a>
+              )}
+              {authorProfile.twitterUrl && (
+                <a href={authorProfile.twitterUrl} target="_blank" rel="noopener noreferrer" style={{ fontSize:12, color:"var(--accent)", textDecoration:"none", fontWeight:500 }}>Twitter →</a>
+              )}
+            </div>
+          </div>
         </div>
       )}
 

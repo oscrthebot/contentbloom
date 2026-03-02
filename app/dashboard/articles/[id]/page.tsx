@@ -42,6 +42,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ id: st
       feedback={feedback}
       sessionToken={sessionToken}
       shopifyConfig={shopifyConfig}
+      authorProfile={user?.authorProfile ?? null}
     />
   );
 }

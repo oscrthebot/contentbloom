@@ -481,8 +481,14 @@ Author voice (use naturally): ${context.authorVoice}
 Previous article content (for context/flow):
 ${context.previousContent.slice(-1000)}
 
-${context.products.length > 0 ? `Relevant products to mention naturally (max 1 CTA):
-${context.products.slice(0, 2).map(p => `- ${p.name || p.title}: ${p.description?.slice(0, 100)}`).join('\n')}` : ''}
+${context.products.length > 0 ? `If this section is a good fit, include ONE product recommendation using EXACTLY this markdown blockquote format:
+> **[Product Name]** — [one-sentence pitch relevant to this section].
+> [Ver producto →](product_url)
+
+Available products:
+${context.products.slice(0, 2).map(p => `- Name: "${p.name || p.title}" | URL: ${p.url}${p.description ? ` | Info: ${p.description.slice(0, 80)}` : ''}${p.price ? ` | Price: ${p.price}` : ''}`).join('\n')}
+
+Only include a product banner if it fits naturally. Do NOT force it in every section.` : ''}
 
 Requirements:
 - 200-400 words for this section
@@ -603,8 +609,9 @@ Write a ${params.wordCount}+ word ${params.articleType} article for ${params.sto
 ${authorSection}
 **IMPORTANT RULES:**
 - Include 2-3 first-person observations naturally
-- Include 2-3 in-content product callouts referencing THESE specific products. Format as:
-  > **[Product name]** — [one-line pitch]. [${ctaText}](url)
+- Include 2-3 in-content product callouts referencing THESE specific products. Use EXACTLY this blockquote format (two lines):
+  > **[Product Name]** — [one-line pitch relevant to the surrounding content].
+  > [${ctaText}](url)
 
 **Products to feature:**
 ${productList}

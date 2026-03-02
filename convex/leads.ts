@@ -247,3 +247,17 @@ export const getLeadsForFollowUp = query({
     });
   },
 });
+
+// Reset all contacted leads back to new (fresh start)
+export const resetAllToNew = mutation({
+  args: {},
+  handler: async (ctx) => {
+    const contacted = await ctx.db.query("leads")
+      .filter(q => q.eq(q.field("status"), "contacted"))
+      .collect();
+    await Promise.all(contacted.map(l => ctx.db.patch(l._id, {
+      status: "new",
+    })));
+    return { reset: contacted.length };
+  },
+});

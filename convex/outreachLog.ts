@@ -45,3 +45,23 @@ export const list = query({
     return entries;
   },
 });
+
+// Clear all outreach log entries (reset for fresh start)
+export const clearAll = mutation({
+  args: {},
+  handler: async (ctx) => {
+    const all = await ctx.db.query("outreachLog").collect();
+    await Promise.all(all.map(e => ctx.db.delete(e._id)));
+    return { deleted: all.length };
+  },
+});
+
+// Clear all article unlocks (reset test data)
+export const clearAllUnlocks = mutation({
+  args: {},
+  handler: async (ctx) => {
+    const all = await ctx.db.query("articleUnlocks").collect();
+    await Promise.all(all.map(e => ctx.db.delete(e._id)));
+    return { deleted: all.length };
+  },
+});
