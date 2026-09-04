@@ -1,7 +1,7 @@
 import { ImageResponse } from "next/og";
 
 export const runtime = "edge";
-export const alt = "BloomContent — AI Blog Content for Shopify Stores";
+export const alt = "Bloom — Webs para negocios locales";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -21,7 +21,6 @@ export default async function Image() {
           padding: "60px",
         }}
       >
-        {/* Logo / Icon */}
         <div
           style={{
             fontSize: "96px",
@@ -32,7 +31,6 @@ export default async function Image() {
           🌸
         </div>
 
-        {/* Title */}
         <div
           style={{
             fontSize: "72px",
@@ -43,10 +41,9 @@ export default async function Image() {
             display: "flex",
           }}
         >
-          BloomContent
+          Bloom
         </div>
 
-        {/* Subtitle */}
         <div
           style={{
             fontSize: "32px",
@@ -56,10 +53,9 @@ export default async function Image() {
             display: "flex",
           }}
         >
-          AI blog content for Shopify stores
+          Webs para negocios locales
         </div>
 
-        {/* Tag line */}
         <div
           style={{
             marginTop: "32px",
@@ -71,7 +67,7 @@ export default async function Image() {
             display: "flex",
           }}
         >
-          Starting at €49/month
+          €650 pago único · Segovia y España
         </div>
       </div>
     ),

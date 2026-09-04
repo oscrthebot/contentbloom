@@ -2,7 +2,9 @@
 import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowRight, CheckCircle } from "lucide-react";
+import { Mail, CheckCircle } from "lucide-react";
+
+const MAILTO = "mailto:rafa@bloomcontent.site";
 
 export default function Contact() {
   const [form, setForm] = useState({ name: "", email: "", message: "" });
@@ -20,9 +22,9 @@ export default function Contact() {
         body: JSON.stringify(form),
       });
       if (r.ok) { setSent(true); }
-      else { setError("Something went wrong. Please try again."); }
+      else { setError("Algo ha fallado. Inténtalo de nuevo o escríbeme a rafa@bloomcontent.site."); }
     } catch {
-      setError("Connection error. Please try again.");
+      setError("Error de conexión. Escríbeme directamente a rafa@bloomcontent.site.");
     } finally {
       setLoading(false);
     }
@@ -34,45 +36,47 @@ export default function Contact() {
     <>
       <nav style={{ position: "fixed", top: 0, left: 0, right: 0, height: 60, background: "rgba(249,248,248,.95)", backdropFilter: "blur(12px)", borderBottom: "1px solid var(--border)", zIndex: 100, display: "flex", alignItems: "center", padding: "0 24px", justifyContent: "space-between" }}>
         <Link href="/" style={{ display: "flex", alignItems: "center", gap: 8, textDecoration: "none" }}>
-          <Image src="/rocket.svg" alt="BloomContent" width={24} height={24} style={{ imageRendering: "pixelated" }} />
-          <span style={{ fontWeight: 700, fontSize: 14, color: "var(--t1)" }}>BloomContent</span>
+          <Image src="/rocket.svg" alt="Bloom" width={24} height={24} style={{ imageRendering: "pixelated" }} />
+          <span style={{ fontWeight: 900, fontSize: 14, color: "var(--t1)", fontFamily: "'Outfit', sans-serif" }}>Bloom</span>
         </Link>
-        <Link href="/#pricing" className="btn btn-dark" style={{ fontSize: 13, padding: "8px 16px" }}>
-          Get 2 Free Articles <ArrowRight size={13} />
-        </Link>
+        <a href={MAILTO} className="btn btn-dark" style={{ fontSize: 13, padding: "8px 16px" }}>
+          Escríbeme <Mail size={13} />
+        </a>
       </nav>
 
       <main style={{ maxWidth: 560, margin: "0 auto", padding: "100px 24px 80px" }}>
-        <h1 style={{ fontSize: 36, fontWeight: 800, color: "var(--t1)", letterSpacing: "-0.03em", marginBottom: 8 }}>Contact us</h1>
+        <h1 style={{ fontSize: 36, fontWeight: 800, color: "var(--t1)", letterSpacing: "-0.03em", marginBottom: 8 }}>Contacto</h1>
         <p style={{ fontSize: 15, color: "var(--t2)", marginBottom: 40, lineHeight: 1.7 }}>
-          Questions about plans, the service, or just want to say hi? We&apos;ll get back to you within 24 hours.
+          ¿Quieres una web para tu negocio? Cuéntame qué haces y te respondo en menos de 24 horas.
+          También puedes escribirme a{" "}
+          <a href={MAILTO} style={{ color: "var(--accent)", textDecoration: "none", fontWeight: 600 }}>rafa@bloomcontent.site</a>.
         </p>
 
         {sent ? (
           <div className="card" style={{ padding: "40px", textAlign: "center" }}>
             <CheckCircle size={40} style={{ color: "var(--accent)", margin: "0 auto 16px", display: "block" }} />
-            <h3 style={{ fontSize: 20, fontWeight: 700, color: "var(--t1)", marginBottom: 8 }}>Message sent!</h3>
-            <p style={{ fontSize: 14, color: "var(--t2)" }}>We&apos;ll get back to you within 24 hours.</p>
+            <h3 style={{ fontSize: 20, fontWeight: 700, color: "var(--t1)", marginBottom: 8 }}>¡Mensaje enviado!</h3>
+            <p style={{ fontSize: 14, color: "var(--t2)" }}>Te respondo en menos de 24 horas.</p>
           </div>
         ) : (
           <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: 16 }}>
             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
               <div>
-                <label style={{ fontSize: 13, fontWeight: 600, color: "var(--t1)", display: "block", marginBottom: 6 }}>Name</label>
-                <input style={input} placeholder="Your name" value={form.name} onChange={e => setForm(f => ({ ...f, name: e.target.value }))} required />
+                <label style={{ fontSize: 13, fontWeight: 600, color: "var(--t1)", display: "block", marginBottom: 6 }}>Nombre</label>
+                <input style={input} placeholder="Tu nombre" value={form.name} onChange={e => setForm(f => ({ ...f, name: e.target.value }))} required />
               </div>
               <div>
                 <label style={{ fontSize: 13, fontWeight: 600, color: "var(--t1)", display: "block", marginBottom: 6 }}>Email</label>
-                <input type="email" style={input} placeholder="you@store.com" value={form.email} onChange={e => setForm(f => ({ ...f, email: e.target.value }))} required />
+                <input type="email" style={input} placeholder="tu@email.com" value={form.email} onChange={e => setForm(f => ({ ...f, email: e.target.value }))} required />
               </div>
             </div>
             <div>
-              <label style={{ fontSize: 13, fontWeight: 600, color: "var(--t1)", display: "block", marginBottom: 6 }}>Message</label>
-              <textarea style={{ ...input, minHeight: 140, resize: "vertical" as const }} placeholder="Tell us about your store and what you need..." value={form.message} onChange={e => setForm(f => ({ ...f, message: e.target.value }))} required />
+              <label style={{ fontSize: 13, fontWeight: 600, color: "var(--t1)", display: "block", marginBottom: 6 }}>Mensaje</label>
+              <textarea style={{ ...input, minHeight: 140, resize: "vertical" as const }} placeholder="Cuéntame sobre tu negocio y qué necesitas..." value={form.message} onChange={e => setForm(f => ({ ...f, message: e.target.value }))} required />
             </div>
             {error && <p style={{ fontSize: 13, color: "#dc2626" }}>{error}</p>}
             <button type="submit" disabled={loading} className="btn btn-dark" style={{ fontSize: 15, padding: "13px 28px", alignSelf: "flex-start" }}>
-              {loading ? "Sending…" : "Send message →"}
+              {loading ? "Enviando…" : "Enviar mensaje →"}
             </button>
           </form>
         )}
