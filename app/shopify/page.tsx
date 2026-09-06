@@ -10,6 +10,7 @@ import {
   ShoppingBag,
   Sparkles,
 } from "lucide-react";
+import { TrafficChart } from "../p/[slug]/TrafficChart";
 
 export const metadata: Metadata = {
   title: "Bloom Content for Shopify — 1 post/semana · €99/mes",
@@ -321,6 +322,55 @@ function How() {
   );
 }
 
+
+function TrafficOpportunity() {
+  return (
+    <section className="section-default section-divider" id="trafico">
+      <div className="container">
+        <div style={{ textAlign: "center", marginBottom: 28 }}>
+          <p className="label" style={{ marginBottom: 12 }}>
+            Por qué el blog
+          </p>
+          <h2
+            style={{
+              fontSize: "clamp(26px,4vw,38px)",
+              fontWeight: 700,
+              letterSpacing: "-0.025em",
+              color: "var(--t1)",
+              marginBottom: 12,
+            }}
+          >
+            Tráfico que se acumula, no se alquila
+          </h2>
+          <p
+            style={{
+              fontSize: 16,
+              color: "var(--t2)",
+              maxWidth: 520,
+              margin: "0 auto",
+              lineHeight: 1.65,
+            }}
+          >
+            Ejemplo orientativo con un cluster típico de moda/skincare en ES.
+            En cada preview personalizado verás la proyección para tu keyword.
+          </p>
+        </div>
+        <div style={{ maxWidth: 720, margin: "0 auto" }}>
+          <TrafficChart
+            metrics={{
+              monthlyVolume: 2200,
+              relatedVolume: 5400,
+              keyword: "rutina skincare natural",
+              businessName: "tu tienda Shopify",
+              language: "es",
+            }}
+          />
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function Pricing() {
   const includes = [
     "Keyword research mensual",
@@ -533,6 +583,7 @@ export default function ShopifyLandingPage() {
       <Hero />
       <Problem />
       <How />
+      <TrafficOpportunity />
       <Pricing />
       <CTA />
       <Footer />

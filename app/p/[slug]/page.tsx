@@ -337,14 +337,13 @@ export default function ArticlePreviewPage() {
             </div>
 
             {/* Traffic opportunity chart — visible before unlocking */}
-            {article.keywordMonthlyVolume && (
-              <TrafficChart metrics={{
-                monthlyVolume: article.keywordMonthlyVolume,
-                relatedVolume: article.keywordRelatedVolume ?? 0,
-                keyword: article.keyword,
-                businessName: article.businessName,
-              }} />
-            )}
+            <TrafficChart metrics={{
+              monthlyVolume: article.keywordMonthlyVolume ?? 800,
+              relatedVolume: article.keywordRelatedVolume ?? 1200,
+              keyword: article.keyword,
+              businessName: article.businessName,
+              language: article.language,
+            }} />
 
             {/* Email gate card */}
             <div className="fade-in card" style={{ padding: "36px 32px", textAlign: "center", marginTop: 20, marginBottom: 48 }}>
