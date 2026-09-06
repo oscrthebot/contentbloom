@@ -483,6 +483,7 @@ function Footer() {
           <a href={MAILTO} style={{ fontSize: 13, color: "var(--t3)", textDecoration: "none" }}>rafa@bloomcontent.site</a>
           <Link href="/privacy" style={{ fontSize: 13, color: "var(--t3)", textDecoration: "none" }}>Privacidad</Link>
           <Link href="/terms" style={{ fontSize: 13, color: "var(--t3)", textDecoration: "none" }}>Términos</Link>
+          <Link href="/shopify" style={{ fontSize: 13, color: "var(--t3)", textDecoration: "none" }}>Shopify Content</Link>
           <Link href="/contact" style={{ fontSize: 13, color: "var(--t3)", textDecoration: "none" }}>Contacto</Link>
         </div>
         <p style={{ fontSize: 12, color: "var(--t3)" }}>Bloom · bloomcontent.site · © 2026</p>
