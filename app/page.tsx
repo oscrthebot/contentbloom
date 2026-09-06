@@ -13,6 +13,8 @@ import {
   Rocket,
   AlertCircle,
   Star,
+  Server,
+  MapPinned,
 } from "lucide-react";
 
 const MAILTO = "mailto:rafa@bloomcontent.site";
@@ -32,6 +34,7 @@ function Nav() {
           <Link href="#como-funciona" style={{ color: "var(--t2)", textDecoration: "none" }}>Cómo funciona</Link>
           <Link href="#que-incluye" style={{ color: "var(--t2)", textDecoration: "none" }}>Qué incluye</Link>
           <Link href="#precio" style={{ color: "var(--t2)", textDecoration: "none" }}>Precio</Link>
+          <Link href="#bloom-care" style={{ color: "var(--t2)", textDecoration: "none" }}>Bloom Care</Link>
           <Link href="#opiniones" style={{ color: "var(--t2)", textDecoration: "none" }}>Opiniones</Link>
         </div>
 
@@ -95,7 +98,7 @@ function Hero() {
         </div>
 
         <p style={{ fontSize: 13, color: "var(--t3)" }}>
-          Precio fijo · €650 pago único · rafa@bloomcontent.site
+          Precio fijo · €650 pago único · Bloom Care opcional desde €49/mes
         </p>
       </div>
     </section>
@@ -253,18 +256,30 @@ function Included() {
 // ─── PRICING ───────────────────────────────────────────────────────────────────
 
 function Pricing() {
+  const careEssential = [
+    "Hosting + SSL",
+    "Copias de seguridad",
+    "Cambios menores (hasta 1 h/mes)",
+  ];
+  const carePlus = [
+    "Todo lo de Essential",
+    "4 posts en Google Business Profile / mes",
+    "Revisión de reseñas",
+  ];
+
   return (
     <section className="section-default section-divider" id="precio">
       <div className="container" style={{ textAlign: "center" }}>
         <p className="label" style={{ marginBottom: 12 }}>Precio</p>
         <h2 style={{ fontSize: "clamp(28px,4vw,42px)", fontWeight: 700, letterSpacing: "-0.025em", lineHeight: 1.15, color: "var(--t1)", marginBottom: 12 }}>
-          Un precio claro. Sin suscripciones.
+          Un precio claro. Cuidado opcional.
         </h2>
-        <p style={{ fontSize: 17, color: "var(--t2)", maxWidth: 440, margin: "0 auto 40px" }}>
-          Pagas una vez. Te entrego la web. Sin cuotas mensuales ni letra pequeña.
+        <p style={{ fontSize: 17, color: "var(--t2)", maxWidth: 520, margin: "0 auto 40px" }}>
+          La web es pago único. Si quieres, después puedes añadir Bloom Care
+          (sin permanencia: cancelas cuando quieras).
         </p>
 
-        <div className="card plan-featured" style={{ padding: "48px 40px", maxWidth: 420, margin: "0 auto", textAlign: "left" }}>
+        <div className="card plan-featured" style={{ padding: "48px 40px", maxWidth: 420, margin: "0 auto 28px", textAlign: "left" }}>
           <p style={{ fontSize: 13, fontWeight: 500, color: "var(--t2)", marginBottom: 8 }}>Web para negocio local</p>
           <div style={{ display: "flex", alignItems: "baseline", gap: 6, marginBottom: 8 }}>
             <span style={{ fontSize: 52, fontWeight: 700, color: "var(--t1)", letterSpacing: "-0.02em" }}>€650</span>
@@ -291,6 +306,64 @@ function Pricing() {
           <a href={MAILTO} className="btn btn-dark" style={{ width: "100%", fontSize: 15, padding: "14px 24px" }}>
             Escríbeme para empezar <Mail size={16} />
           </a>
+        </div>
+
+        <div id="bloom-care" style={{ maxWidth: 880, margin: "0 auto", textAlign: "left" }}>
+          <div style={{ textAlign: "center", marginBottom: 24 }}>
+            <p className="label" style={{ marginBottom: 8 }}>Después de la web</p>
+            <h3 style={{ fontSize: "clamp(22px,3vw,28px)", fontWeight: 700, letterSpacing: "-0.02em", color: "var(--t1)", marginBottom: 8 }}>
+              Bloom Care (opcional)
+            </h3>
+            <p style={{ fontSize: 15, color: "var(--t2)", maxWidth: 480, margin: "0 auto" }}>
+              Mantenimiento mensual para que tu web y tu ficha no se queden paradas. Sin permanencia.
+            </p>
+          </div>
+
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: 20 }}>
+            <div className="card" style={{ padding: 28 }}>
+              <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 12 }}>
+                <Server size={18} style={{ color: "var(--accent)" }} />
+                <p style={{ fontSize: 14, fontWeight: 700, color: "var(--t1)" }}>Essential</p>
+              </div>
+              <div style={{ display: "flex", alignItems: "baseline", gap: 6, marginBottom: 12 }}>
+                <span style={{ fontSize: 36, fontWeight: 700, color: "var(--t1)", letterSpacing: "-0.02em" }}>€49</span>
+                <span style={{ fontSize: 14, color: "var(--t3)" }}>/mes</span>
+              </div>
+              <ul style={{ listStyle: "none", display: "flex", flexDirection: "column", gap: 10, marginBottom: 24 }}>
+                {careEssential.map((f, i) => (
+                  <li key={i} style={{ display: "flex", alignItems: "flex-start", gap: 10, fontSize: 14, color: "var(--t1)" }}>
+                    <Check size={14} style={{ color: "var(--accent)", marginTop: 3, flexShrink: 0 }} />
+                    {f}
+                  </li>
+                ))}
+              </ul>
+              <a href={MAILTO + "?subject=Bloom%20Care%20Essential"} className="btn btn-light" style={{ width: "100%", fontSize: 14, padding: "12px 18px" }}>
+                Preguntar por Essential
+              </a>
+            </div>
+
+            <div className="card" style={{ padding: 28, borderColor: "var(--accent)" }}>
+              <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 12 }}>
+                <MapPinned size={18} style={{ color: "var(--accent)" }} />
+                <p style={{ fontSize: 14, fontWeight: 700, color: "var(--t1)" }}>Plus</p>
+              </div>
+              <div style={{ display: "flex", alignItems: "baseline", gap: 6, marginBottom: 12 }}>
+                <span style={{ fontSize: 36, fontWeight: 700, color: "var(--t1)", letterSpacing: "-0.02em" }}>€79</span>
+                <span style={{ fontSize: 14, color: "var(--t3)" }}>/mes</span>
+              </div>
+              <ul style={{ listStyle: "none", display: "flex", flexDirection: "column", gap: 10, marginBottom: 24 }}>
+                {carePlus.map((f, i) => (
+                  <li key={i} style={{ display: "flex", alignItems: "flex-start", gap: 10, fontSize: 14, color: "var(--t1)" }}>
+                    <Check size={14} style={{ color: "var(--accent)", marginTop: 3, flexShrink: 0 }} />
+                    {f}
+                  </li>
+                ))}
+              </ul>
+              <a href={MAILTO + "?subject=Bloom%20Care%20Plus"} className="btn btn-dark" style={{ width: "100%", fontSize: 14, padding: "12px 18px" }}>
+                Preguntar por Plus
+              </a>
+            </div>
+          </div>
         </div>
       </div>
     </section>
